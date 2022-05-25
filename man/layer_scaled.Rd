@@ -49,7 +49,7 @@ without modification.}
 \item{clip}{If \code{TRUE}, create scaled layer even if the data is cut off; defaults to \code{FALSE}.}
 }
 \description{
-Uses \link{layer_neatline}, \link{standard_scales}, and \link{convert_dist_scale}.
+Uses \link[overedge:layer_neatline]{overedge::layer_neatline}, \link[overedge:standard_scales]{overedge::standard_scales}, and \link[overedge:convert_dist_scale]{overedge::convert_dist_scale}.
 }
 \seealso{
 Other layer: 

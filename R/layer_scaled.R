@@ -1,6 +1,6 @@
 #' Create a ggplot2 layer scaled to a paper and orientation for a location
 #'
-#' Uses [layer_neatline], [standard_scales], and [convert_dist_scale].
+#' Uses [overedge::layer_neatline], [overedge::standard_scales], and [overedge::convert_dist_scale].
 #'
 #' @inheritParams overedge::convert_dist_scale
 #' @inheritParams overedge::st_bbox_ext

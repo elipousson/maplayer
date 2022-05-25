@@ -1,3 +1,11 @@
+#' Create basemap by adding the object (layer or layer list) to [ggplot2::ggplot()]
+#' @noRd
+#' @importFrom ggplot2 ggplot
+as_basemap <- function(x) {
+  ggplot2::ggplot() +
+    x
+}
+
 
 #' Group data by column if present
 #'

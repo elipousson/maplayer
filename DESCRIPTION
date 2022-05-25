@@ -12,7 +12,8 @@ Authors@R:
 Maintainer: Eli Pousson <eli.pousson@gmail.com>
 Description: Make map-making with ggplot2 and sf more convenient with
     a consistent set of wrapper functions. Relies on the overedge package.
-URL: https://github.com/elipousson/maplayer, https://elipousson.github.io/maplayer/
+URL: https://github.com/elipousson/maplayer,
+    https://elipousson.github.io/maplayer/
 BugReports: https://github.com/elipousson/maplayer/issues
 License: MIT + file LICENSE
 Encoding: UTF-8

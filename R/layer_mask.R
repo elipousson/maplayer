@@ -2,15 +2,18 @@
 #'
 #' Returns a mask for an area or areas as a simple feature object.
 #'
-#' @param data `sf`, `sfc`, or `bbox` object. If dist, diag_ratio, and/or asp are provided, data is adjusted to set the boundaries of the mask. If data is not provided, `mask` is required.
+#' @param data `sf`, `sfc`, or `bbox` object. If dist, diag_ratio, and/or asp
+#'   are provided, data is adjusted to set the boundaries of the mask. If data
+#'   is not provided, `mask` is required.
 #' @inheritParams overedge::st_bbox_ext
 #' @param fill mask fill color; defaults to "white"
 #' @param color mask edge color; defaults to `NA`
 #' @param alpha mask alpha/transparency; defaults to 0.5
 #' @param mask A `sf` or `bbox` object to define the edge of the mask.
-#'   `diag_ratio`, `dist`, and `asp` parameters are ignored if a
-#'   `mask` is provided. defaults to `NULL`
-#' @param neatline If `TRUE`, add `layer_neatline` with `expand = TRUE`; defaults to FALSE.
+#'   `diag_ratio`, `dist`, and `asp` parameters are ignored if a `mask` is
+#'   provided. defaults to `NULL`
+#' @param neatline If `TRUE`, add `layer_neatline` with `expand = TRUE`;
+#'   defaults to FALSE.
 #' @param ... Additional parameters to pass to [ggplot2::geom_sf()]
 #' @return  [ggplot2::geom_sf()] function.
 #' @export

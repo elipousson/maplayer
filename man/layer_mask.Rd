@@ -20,7 +20,9 @@ layer_mask(
 )
 }
 \arguments{
-\item{data}{\code{sf}, \code{sfc}, or \code{bbox} object. If dist, diag_ratio, and/or asp are provided, data is adjusted to set the boundaries of the mask. If data is not provided, \code{mask} is required.}
+\item{data}{\code{sf}, \code{sfc}, or \code{bbox} object. If dist, diag_ratio, and/or asp
+are provided, data is adjusted to set the boundaries of the mask. If data
+is not provided, \code{mask} is required.}
 
 \item{dist}{buffer distance in units. Optional.}
 
@@ -47,10 +49,11 @@ without modification.}
 \item{alpha}{mask alpha/transparency; defaults to 0.5}
 
 \item{mask}{A \code{sf} or \code{bbox} object to define the edge of the mask.
-\code{diag_ratio}, \code{dist}, and \code{asp} parameters are ignored if a
-\code{mask} is provided. defaults to \code{NULL}}
+\code{diag_ratio}, \code{dist}, and \code{asp} parameters are ignored if a \code{mask} is
+provided. defaults to \code{NULL}}
 
-\item{neatline}{If \code{TRUE}, add \code{layer_neatline} with \code{expand = TRUE}; defaults to FALSE.}
+\item{neatline}{If \code{TRUE}, add \code{layer_neatline} with \code{expand = TRUE};
+defaults to FALSE.}
 
 \item{...}{Additional parameters to pass to \code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}}
 }

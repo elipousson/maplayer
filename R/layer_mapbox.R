@@ -17,7 +17,6 @@
 #' @md
 #' @export
 #' @importFrom stringr str_extract
-#' @importFrom ggplot2 ggplot
 layer_mapbox <- function(data = NULL,
                          dist = NULL,
                          diag_ratio = NULL,
@@ -92,8 +91,7 @@ layer_mapbox <- function(data = NULL,
 
   if (basemap) {
     mapbox_layer <-
-      ggplot2::ggplot() +
-      mapbox_layer
+      as_basemap(mapbox_layer)
   }
 
   return(mapbox_layer)
