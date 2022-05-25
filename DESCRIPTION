@@ -1,0 +1,41 @@
+Package: maplayer
+Type: Package
+Title: Make ggplot2 Map Layers
+Version: 0.1.0
+Authors@R: 
+    person(
+    given = "Eli", family = "Pousson",
+    email = "eli.pousson@gmail.com",
+    role = c("aut", "cre", "cph"),
+    comment = c(ORCID = "0000-0001-8280-1706")
+    )
+Maintainer: Eli Pousson <eli.pousson@gmail.com>
+Description: Make map-making with ggplot2 and sf more convenient with
+    a consistent set of wrapper functions. Relies on the overedge package.
+URL: https://github.com/elipousson/maplayer, https://elipousson.github.io/maplayer/
+BugReports: https://github.com/elipousson/maplayer/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    cli,
+    dplyr,
+    ggplot2,
+    glue,
+    overedge (>= 0.0.0.9000),
+    purrr,
+    rlang,
+    sf,
+    stringr
+Suggests: 
+    ggforce,
+    ggfx,
+    ggrepel,
+    ggsvg (>= 0.1.11),
+    mapboxapi,
+    smoothr
+RoxygenNote: 7.2.0
+Remotes: 
+    elipousson/overedge,
+    coolbutuseless/ggsvg
+Roxygen: list(markdown = TRUE)
