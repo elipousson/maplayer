@@ -19,6 +19,9 @@
     <loc>https://elipousson.github.io/maplayer/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://elipousson.github.io/maplayer/reference/labs_ext.html</loc>
+  </url>
+  <url>
     <loc>https://elipousson.github.io/maplayer/reference/layer_frame.html</loc>
   </url>
   <url>
@@ -65,5 +68,8 @@
   </url>
   <url>
     <loc>https://elipousson.github.io/maplayer/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://elipousson.github.io/maplayer/reference/scale_group_data.html</loc>
   </url>
 </urlset>
