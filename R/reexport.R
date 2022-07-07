@@ -1,3 +1,7 @@
+#' @importFrom ggplot2 aes
+#' @export
+ggplot2::aes
+
 #' @importFrom sfext st_buffer_ext
 #' @export
 sfext::st_buffer_ext
