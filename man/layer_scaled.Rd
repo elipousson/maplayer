@@ -34,25 +34,22 @@ instead of "kilometer") are also supported. Distance in units is converted
 to units matching GDAL units for x; defaults to "meter"}
 
 \item{asp}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
-character (e.g. "1:3"). If numeric, \code{\link[overedge:get_asp]{get_asp()}} returns the same value
+character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
 
 \item{crs}{Coordinate reference system of bounding box to return}
 
 \item{scale}{Scale name}
 
-\item{paper}{Paper, Default: 'letter'.}
-
-\item{orientation}{Orientation "portrait", "landscape", or "square", Default:
-'portrait'.}
-
 \item{clip}{If \code{TRUE}, create scaled layer even if the data is cut off; defaults to \code{FALSE}.}
 }
 \description{
-Uses \link[overedge:layer_neatline]{overedge::layer_neatline}, \link[overedge:standard_scales]{overedge::standard_scales}, and \link[overedge:convert_dist_scale]{overedge::convert_dist_scale}.
+Uses \link{layer_neatline}, \link[sfext:standard_scales]{sfext::standard_scales}, and \link[sfext:convert_dist_scale]{sfext::convert_dist_scale}.
 }
 \seealso{
 Other layer: 
-\code{\link{layer_frame}()}
+\code{\link{layer_frame}()},
+\code{\link{layer_location_data}()},
+\code{\link{layer_neatline}()}
 }
 \concept{layer}

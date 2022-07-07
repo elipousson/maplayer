@@ -72,7 +72,7 @@ provided parameters.}
 \item{union}{If \code{TRUE}, union data before buffering and creating frame;
 defaults to \code{TRUE}.}
 
-\item{...}{Additional parameters passed to \link[overedge:layer_location_data]{overedge::layer_location_data}. May include
+\item{...}{Additional parameters passed to \link{layer_location_data}. May include
 additional fixed aesthetics (e.g. alpha) or "fn" to apply to the frame
 object.}
 
@@ -85,13 +85,13 @@ specified with long-lat coordinates and \code{sf_use_s2()} returns
 meters.}
 }
 \description{
-Wraps \link[overedge:st_misc]{overedge::st_circle}, \link[overedge:st_misc]{overedge::st_square}, and \link{layer_neatline}.
+Wraps \link[sfext:st_misc]{sfext::st_circle}, \link[sfext:st_misc]{sfext::st_square}, and \link{layer_neatline}.
 }
 \examples{
-nc <- overedge::read_sf_path(system.file("shape/nc.shp", package = "sf"))
+nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
 
 raleigh_msa <-
-  overedge::get_location(
+  getdata::get_location(
     type = nc,
     name_col = "NAME",
     name =  c("Franklin", "Johnston", "Wake"),
@@ -116,6 +116,8 @@ ggplot2::ggplot() +
 }
 \seealso{
 Other layer: 
+\code{\link{layer_location_data}()},
+\code{\link{layer_neatline}()},
 \code{\link{layer_scaled}()}
 }
 \concept{layer}

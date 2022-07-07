@@ -4,7 +4,7 @@
 \name{maplayer-package}
 \alias{maplayer}
 \alias{maplayer-package}
-\title{maplayer: Make ggplot2 Map Layers}
+\title{maplayer: Make Map Layers With ggplot2}
 \description{
 Make map-making with ggplot2 and sf more convenient with a consistent set of wrapper functions. Relies on the overedge package.
 }

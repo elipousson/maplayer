@@ -57,7 +57,7 @@ to units matching GDAL units for x; defaults to "meter"}
 
 \item{x_offset, y_offset, sigma}{Parameters passed to ggfx::with_shadow if \code{drop_shadow = TRUE}.}
 
-\item{...}{Additional parameters passed to \link[overedge:layer_location_data]{overedge::layer_location_data}}
+\item{...}{Additional parameters passed to \link{layer_location_data}}
 }
 \description{
 Label markers, streets, areas, or other simple feature objects using any of
@@ -69,7 +69,7 @@ Note:
 \itemize{
 \item Unlike in some overedge package functions, fn is applied to the whole data; not a
 subset of the data based on location.
-\item For this function, dist and unit are both used by \code{\link[overedge:st_clip]{overedge::st_clip()}} (not by
+\item For this function, dist and unit are both used by \code{\link[sfext:st_clip]{sfext::st_clip()}} (not by
 \link{layer_location_data})
 }
 
@@ -77,5 +77,5 @@ The function also overrides the label aesthetics to hide the colored letters
 that would otherwise appear when using a theme legend.
 }
 \seealso{
-\code{\link[overedge:st_clip]{overedge::st_clip()}},\code{\link[overedge:layer_location_data]{overedge::layer_location_data()}}
+\code{\link[sfext:st_clip]{sfext::st_clip()}},\code{\link[=layer_location_data]{layer_location_data()}}
 }

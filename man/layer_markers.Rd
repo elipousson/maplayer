@@ -91,7 +91,7 @@ number column.}
 \item{fn}{Function to apply to data before results; gives warning if data is
 grouped; Default: \code{NULL}}
 
-\item{...}{Additional parameters passed to \code{\link[overedge:layer_location_data]{overedge::layer_location_data()}}}
+\item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}}}
 
 \item{style}{Style of number markers to map; defaults to "roundrect".}
 
@@ -113,8 +113,8 @@ If get is \code{TRUE}, groupname_col, group_meta, crs, and fn is all passed on t
 \link[overedge:make_markers]{overedge::make_markers}.
 }
 \examples{
-nc <- overedge::read_sf_path(system.file("shape/nc.shp", package = "sf"))
-nc <- overedge::st_transform_ext(nc, 3857)
+nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
+nc <- sfext::st_transform_ext(nc, 3857)
 
 basemap <-
   ggplot2::ggplot() +
@@ -132,16 +132,19 @@ basemap +
   )
 
 large_nc <-
-  overedge::get_location_data(
+  getdata::get_location_data(
     data = nc,
     fn = ~ dplyr::filter(.x, AREA > 0.2)
   )
+
+large_nc$number <- 1
+large_nc$dist <- 2
 
 basemap +
   layer_numbers(
     data = large_nc,
     mapping = ggplot2::aes(fill = NAME),
-    sort = "dist_xmid_ymid",
+    sort = "dist_xmax_ymin",
     num_style = "Roman",
     geom = "label",
     size = 3

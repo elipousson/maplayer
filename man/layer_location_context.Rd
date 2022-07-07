@@ -33,11 +33,11 @@ include fill and color; defaults to list(fill = "white", color = "black",
 \item{layer_between}{An optional ggplot2 layer to insert between the context
 layer and the location layer.}
 
-\item{crs}{Coordinate reference system to return}
+\item{crs}{Coordinate reference system to return.}
 
 \item{neatline}{If \code{TRUE}, add a neatline layer to the returned layer}
 
-\item{...}{Additional parameters passed to overedge::layer_location_data for
+\item{...}{Additional parameters passed to layer_location_data for
 location}
 }
 \description{

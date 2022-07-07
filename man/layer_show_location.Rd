@@ -43,7 +43,7 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{type}{Type of location to return. Type can be an sf object, e.g. a data
 frame with multiple neighborhoods or a character string that can be passed
-to \link[overedge]{get_location_data}. If index is provided, character can also be a
+to \link[getdata]{get_location_data}. If index is provided, character can also be a
 character string to match the name of a list.}
 
 \item{name}{Location name to return.}
@@ -55,7 +55,7 @@ match the class of the id_col for type.}
 object passed to \link[sf:st_join]{sf::st_filter}. Any valid address or
 addresses are geocoded with \link[tidygeocoder:geo]{tidygeocoder::geo}, converted to
 a simple feature object, and then used as a spatial filter. \code{bbox} objects
-are converted using \code{\link[overedge:sf_bbox_to_sf]{sf_bbox_to_sf()}}. Multiple addresses are supported.}
+are converted using \code{\link[sfext:sf_bbox_misc]{sfext::sf_bbox_to_sf()}}. Multiple addresses are supported.}
 
 \item{name_col}{Column name in type with name values, Default: 'name'
 Required if name provided.}
@@ -95,14 +95,15 @@ provided.}
 "meter"}
 
 \item{asp}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
-character (e.g. "1:3"). If numeric, \code{\link[overedge:get_asp]{get_asp()}} returns the same value
+character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
 
 \item{mask}{A \code{sf} or \code{bbox} object to define the edge of the mask.
-\code{diag_ratio}, \code{dist}, and \code{asp} parameters are ignored if a
-\code{mask} is provided. defaults to \code{NULL}}
+\code{diag_ratio}, \code{dist}, and \code{asp} parameters are ignored if a \code{mask} is
+provided. defaults to \code{NULL}}
 
-\item{neatline}{If TRUE, add \code{layer_neatline} with \code{expand = TRUE}; defaults to FALSE.}
+\item{neatline}{If \code{TRUE}, add \code{layer_neatline} with \code{expand = TRUE};
+defaults to FALSE.}
 
 \item{...}{Additional parameters passed to get_location if data is \code{NULL}.}
 }

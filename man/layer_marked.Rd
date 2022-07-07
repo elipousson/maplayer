@@ -27,7 +27,7 @@ layer_marked(
 }
 \arguments{
 \item{data}{A \code{sf}, \code{sfc}, or \code{bbox} object that can be converted with
-\link[overedge:as_sf]{overedge::as_sf}}
+\link[sfext:as_sf]{sfext::as_sf}}
 
 \item{fn}{Function to apply to data before passing to geom, typically a
 predicate or filter to define area for annotation. A filter can also be
@@ -41,8 +41,8 @@ Default: NULL}
 \item{geom}{geom to use for layer ("rect", "circle", "ellipse", or "hull"),
 Default: \code{NULL}}
 
-\item{center}{If \code{FALSE}, use \link[overedge:st_cast_ext]{overedge::st_cast_ext} MULTIPOLYGON and
-POLYGON data to POINT; If \code{TRUE}, use \link[overedge:st_misc]{overedge::st_center} use centroid as
+\item{center}{If \code{FALSE}, use \link[sfext:st_cast_ext]{sfext::st_cast_ext} MULTIPOLYGON and
+POLYGON data to POINT; If \code{TRUE}, use \link[sfext:st_misc]{sfext::st_center} use centroid as
 the feature geometry. Defaults to FALSE.}
 
 \item{font_family, font_face, font_color}{Parameters passed to label.family,
