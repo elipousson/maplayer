@@ -46,8 +46,6 @@ layer_icon <- function(data = NULL,
                        ...) {
   is_pkg_installed(pkg = "ggsvg", repo = "coolbutuseless/ggsvg")
 
-  map_icons <- overedge::map_icons
-
   if (is_sf(data)) {
     data <-
       suppressWarnings(
@@ -55,7 +53,7 @@ layer_icon <- function(data = NULL,
       )
 
     data <-
-      overedge::st_transform_ext(data, crs = crs)
+      sfext::st_transform_ext(data, crs = crs)
   }
 
   (iconname_col %in% names(data)) & is.null(icon)

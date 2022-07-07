@@ -1,5 +1,5 @@
-#' @inheritParams overedge::layer_location_data
-#' @inheritParams overedge::count_features
+#' @inheritParams layer_location_data
+#' @inheritParams sfext::count_features
 #' @noRd
 layer_count <- function(data = NULL,
                         location = NULL,
@@ -19,7 +19,7 @@ layer_count <- function(data = NULL,
   }
 
   map_layer <-
-    overedge::layer_location_data(
+    layer_location_data(
       data = data,
       geom = "sf",
       location = location,

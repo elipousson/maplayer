@@ -32,14 +32,14 @@
 #' match that length and order of the data (after the fn is applied).
 #'
 #' @param data A `sf`, `sfc`, or `bbox` object that can be converted with
-#'   [overedge::as_sf]
+#'   [sfext::as_sf]
 #' @param fn Function to apply to data before passing to geom, typically a
 #'   predicate or filter to define area for annotation. A filter can also be
 #'   passed to any of the {ggforce} functions using the filter aesthetic.
 #'   Default: NULL
 #' @param mapping Aesthetic mapping to pass to geom, Default: NULL
-#' @param center If `FALSE`, use [overedge::st_cast_ext] MULTIPOLYGON and
-#'   POLYGON data to POINT; If `TRUE`, use [overedge::st_center] use centroid as
+#' @param center If `FALSE`, use [sfext::st_cast_ext] MULTIPOLYGON and
+#'   POLYGON data to POINT; If `TRUE`, use [sfext::st_center] use centroid as
 #'   the feature geometry. Defaults to FALSE.
 #' @inheritParams ggforce::geom_mark_circle
 #' @param geom geom to use for layer ("rect", "circle", "ellipse", or "hull"),
@@ -105,7 +105,7 @@ layer_marked <- function(data,
                          ...) {
   is_pkg_installed("ggforce")
 
-  data <- overedge::as_sf(data)
+  data <- sfext::as_sf(data)
 
   if (!is.null(fn)) {
     fn <- rlang::as_function(fn)
@@ -152,10 +152,10 @@ layer_marked <- function(data,
 
   if (center) {
     sf::st_geometry(data) <-
-      overedge::st_center(x = data)$sfc
+      sfext::st_center(x = data)$sfc
   } else {
     data <-
-      overedge::st_cast_ext(x = data)
+      sfext::st_cast_ext(x = data)
   }
 
   geom <- match.arg(geom, c("rect", "circle", "ellipse", "hull"))

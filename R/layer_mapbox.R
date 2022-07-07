@@ -1,7 +1,7 @@
 #' Use mapboxapi to make a Mapbox static map layer
 #'
 #' @param data `sf`, `sfc`, or `bbox` object; any objects convertible with [as_bbox]
-#' @inheritParams overedge::layer_neatline
+#' @inheritParams layer_neatline
 #' @inheritParams mapboxapi::layer_static_mapbox
 #' @param style_url Map style url used to fill style_id and username parameters,
 #'   Default: "mapbox://styles/mapbox/satellite-streets-v11"
@@ -9,7 +9,7 @@
 #'   precededed by [ggplot2::ggplot()] to allow use as a basemap, Default: `TRUE`
 #' @param neatline If `TRUE`, add a neatline matching the provided data, Default:
 #'   `TRUE`
-#' @inheritParams overedge::layer_neatline
+#' @inheritParams layer_neatline
 #' @param ... Additional parameter passed to [mapboxapi::layer_static_mapbox]
 #' @seealso
 #' [mapboxapi::layer_static_mapbox()]

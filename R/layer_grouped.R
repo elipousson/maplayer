@@ -5,11 +5,11 @@
 #'
 #' Scales are applied a palette and aesthetic are provided and basemap is set to `TRUE`.
 #'
-#' @inheritParams overedge::layer_location_data
+#' @inheritParams layer_location_data
 #' @param groupname_col Group column name
 #' @param layers If `TRUE`; return a list of layers; if `FALSE`; return a list
 #'   of ggplot2 maps; defaults to `TRUE`
-#' @param ... Additional parameters passed to [overedge::layer_location_data]
+#' @param ... Additional parameters passed to [layer_location_data]
 #' @rdname layer_grouped
 #' @aliases layer_group_data
 #' @export
@@ -25,7 +25,7 @@ layer_grouped <- function(data,
                           palette = NULL,
                           aesthetics = "fill",
                           ...) {
-  geom_type <- overedge::is_geom_type(x = data)
+  geom_type <- sfext::is_geom_type(x = data)
 
   data <- group_by_col(data = data, col = groupname_col)
   nested <- dplyr::group_nest(data, keep = TRUE)
@@ -49,7 +49,7 @@ layer_grouped <- function(data,
   group_layers <-
     purrr::map(
       nested$data,
-      ~ overedge::layer_location_data(
+      ~ layer_location_data(
         data = .x,
         mapping = mapping,
         geom = geom,

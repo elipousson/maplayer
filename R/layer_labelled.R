@@ -8,7 +8,7 @@
 #'
 #' - Unlike in some overedge package functions, fn is applied to the whole data; not a
 #' subset of the data based on location.
-#' - For this function, dist and unit are both used by [overedge::st_clip()] (not by
+#' - For this function, dist and unit are both used by [sfext::st_clip()] (not by
 #' [layer_location_data])
 #'
 #' The function also overrides the label aesthetics to hide the colored letters
@@ -23,10 +23,10 @@
 #' @param union If TRUE, group by label_col and union geometry, Default: `FALSE`
 #' @param drop_shadow If `TRUE`, use [ggfx::with_shadow] to add a drop shadow to the label layer. Defaults to `FALSE`.
 #' @param x_offset,y_offset,sigma Parameters passed to ggfx::with_shadow if `drop_shadow = TRUE`.
-#' @inheritParams overedge::st_clip
-#' @param ... Additional parameters passed to [overedge::layer_location_data]
+#' @inheritParams sfext::st_clip
+#' @param ... Additional parameters passed to [layer_location_data]
 #' @seealso
-#'  [overedge::st_clip()],[overedge::layer_location_data()]
+#'  [sfext::st_clip()],[layer_location_data()]
 #' @rdname layer_labelled
 #' @aliases layer_label layer_show_label
 #' @export
@@ -61,9 +61,9 @@ layer_labelled <- function(data,
 
   if (is.character(clip)) {
     # FIXME: st_clip likely should be passed to fn for layer_location_data to apply clip to any subset of the data specified by location rather than the whole area
-    clip_fn <- rlang::as_function(~ overedge::st_clip(x = .x, clip = clip, dist = dist))
+    clip_fn <- rlang::as_function(~ sfext::st_clip(x = .x, clip = clip, dist = dist))
   } else if (!is.null(clip)) {
-    clip_fn <- rlang::as_function(~ overedge::st_clip(x = data, clip = clip, dist = dist))
+    clip_fn <- rlang::as_function(~ sfext::st_clip(x = data, clip = clip, dist = dist))
   } else {
     clip_fn <- NULL
   }
@@ -71,7 +71,7 @@ layer_labelled <- function(data,
   # TODO: Double-check this works
   if (geom %in% c("text", "label", "textsf", "labelsf", "text_repel", "label_repel")) {
     label_layer <-
-      overedge::layer_location_data(
+      layer_location_data(
         location = location,
         fn = clip_fn,
         data = data,

@@ -5,7 +5,7 @@
 #' @param data `sf`, `sfc`, or `bbox` object. If dist, diag_ratio, and/or asp
 #'   are provided, data is adjusted to set the boundaries of the mask. If data
 #'   is not provided, `mask` is required.
-#' @inheritParams overedge::st_bbox_ext
+#' @inheritParams sfext::st_bbox_ext
 #' @param fill mask fill color; defaults to "white"
 #' @param color mask edge color; defaults to `NA`
 #' @param alpha mask alpha/transparency; defaults to 0.5
@@ -50,8 +50,8 @@ layer_mask <- function(data = NULL,
 
   if (!is.null(data)) {
     # Erase data from mask
-    data <- overedge::st_transform_ext(data, crs, class = "sf")
-    mask <- overedge::st_erase(x = mask, y = data)
+    data <- sfext::st_transform_ext(data, crs, class = "sf")
+    mask <- sfext::st_erase(x = mask, y = data)
   }
 
   # Create mask layer

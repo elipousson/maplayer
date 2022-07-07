@@ -1,16 +1,15 @@
 #' Create a ggplot2 layer scaled to a paper and orientation for a location
 #'
-#' Uses [overedge::layer_neatline], [overedge::standard_scales], and [overedge::convert_dist_scale].
+#' Uses [layer_neatline], [sfext::standard_scales], and [sfext::convert_dist_scale].
 #'
-#' @inheritParams overedge::convert_dist_scale
-#' @inheritParams overedge::st_bbox_ext
-#' @inheritParams overedge::layer_neatline
+#' @inheritParams sfext::convert_dist_scale
+#' @inheritParams sfext::st_bbox_ext
+#' @inheritParams layer_neatline
 #' @param clip If `TRUE`, create scaled layer even if the data is cut off; defaults to `FALSE`.
 #' @family layer
 #' @name layer_scaled
 #' @export
-#' @importFrom overedge convert_dist_scale sf_bbox_ydist sf_bbox_xdist
-#' @importFrom cli cli_abort
+#' @importFrom sfext convert_dist_scale sf_bbox_ydist sf_bbox_xdist
 layer_scaled <-
   function(data = NULL,
            dist = NULL,
@@ -25,7 +24,7 @@ layer_scaled <-
 
     # Get paper with actual width, height, and units
     scaled_paper <-
-      overedge::convert_dist_scale(
+      sfext::convert_dist_scale(
         paper = paper,
         orientation = orientation,
         scale = scale
@@ -43,7 +42,8 @@ layer_scaled <-
       cli::cli_abort("data must be a bounding box or simple feature object.")
     } else {
       # Get adjusted bounding box for data
-      bbox <- st_bbox_ext(
+      bbox <-
+        sfext::st_bbox_ext(
         x = data,
         dist = dist,
         diag_ratio = diag_ratio,
@@ -54,8 +54,8 @@ layer_scaled <-
     }
 
     # Compare bbox xdist and ydist to actual dimensions
-    ydist <- overedge::sf_bbox_ydist(bbox, units = TRUE)
-    xdist <- overedge::sf_bbox_xdist(bbox, units = TRUE)
+    ydist <- sfext::sf_bbox_ydist(bbox, units = TRUE)
+    xdist <- sfext::sf_bbox_xdist(bbox, units = TRUE)
 
     check_xdist <- (xdist <= scaled_paper$width_actual)
     check_ydist <- (ydist <= scaled_paper$height_actual)
@@ -65,11 +65,11 @@ layer_scaled <-
     if (!clip && !fit_check) {
       cli::cli_abort("This data covers a larger area than can be displayed at this scale ({scale}) on this paper ({paper})")
     } else {
-      center <- st_center(data, ext = TRUE)
+      center <- sfext::st_center(data, ext = TRUE)
       scaled_dist <- max(c(scaled_paper$width_actual, scaled_paper$height_actual)) / 2
 
       scaled_bbox <-
-        st_bbox_ext(
+        sfext::st_bbox_ext(
           x = center$sf,
           dist = scaled_dist,
           asp = scaled_paper$asp,

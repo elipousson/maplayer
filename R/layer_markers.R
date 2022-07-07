@@ -8,7 +8,7 @@
 #' @param make If `TRUE`, pass data to [make_markers].
 #' @param number If `TRUE`, number markers using [layer_markers()] (not
 #'   currently supported)
-#' @inheritParams overedge::number_features
+#' @inheritParams sfext::number_features
 #' @param style Style; defaults to `NULL` for [layer_markers()] (supports
 #'   "facet"); defaults to "roundrect" for [layer_markers()] when numbered =
 #'   TRUE,
@@ -52,8 +52,8 @@ layer_markers <- function(data,
     }
 
     data <-
-      overedge::number_features(
-        data = data,
+      sfext::number_features(
+        x = data,
         col = col,
         sort = sort,
         desc = desc,
@@ -99,10 +99,10 @@ layer_markers <- function(data,
 #' @param size Marker size, Default: 5
 #' @param num_by_group If `TRUE`, numbers are added by group based on
 #'   groupname_col.
-#' @inheritParams overedge::number_features
+#' @inheritParams sfext::number_features
 #' @inheritParams ggplot2::geom_sf_label
 #' @param hjust,vjust Horizontal and vertical justification.
-#' @param ... Additional parameters passed to [overedge::layer_location_data()]
+#' @param ... Additional parameters passed to [layer_location_data()]
 #' @export
 #' @importFrom ggplot2 aes unit
 #' @importFrom rlang list2
