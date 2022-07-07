@@ -33,7 +33,7 @@ group_by_col <- function(data, col = NULL) {
     return(data)
   }
 
-  if ((rlang::has_length(col, 1)) && rlang::has_name(data, col)) {
+  if ((has_length(col, 1)) && has_name(data, col)) {
     return(dplyr::group_by(data, .data[[col]]))
   }
 }
@@ -66,7 +66,7 @@ modify_mapping <- function(mapping = NULL, data = NULL, ...) {
       ggplot2::aes()
   }
 
-  params <- rlang::list2(...)
+  params <- list2(...)
 
   if (!is.null(params)) {
     if (("label" %in% names(params)) && !is.null(params$label)) {
@@ -117,37 +117,34 @@ modify_mapping <- function(mapping = NULL, data = NULL, ...) {
 #'
 #' @param data Data to apply function to
 #' @param fn defaults to NULL
-#' @importFrom rlang as_function
 #' @noRd
 use_fn <- function(data, fn = NULL) {
   if (is.null(fn)) {
     return(data)
   }
 
-  fn <- rlang::as_function(fn)
+  fn <- as_function(fn)
   fn(data)
 }
 
 #' Does the data frame has a column with the same name?
 #'
 #' @noRd
-#' @importFrom rlang has_name
-#' @importFrom cli cli_abort cli_alert_success
 #' @importFrom dplyr rename
 has_same_name_col <- function(x, col = NULL, prefix = "orig", ask = FALSE, quiet = FALSE) {
-  if (rlang::has_name(x, col)) {
+  if (has_name(x, col)) {
     new_col <- paste0(prefix, "_", col)
 
     if (ask && !quiet) {
       if (!cli_yeah("The provided data includes an existing column named '{col}'.
                    Do you want to proceed and rename this column to {new_col}?")) {
-        cli::cli_abort("Please rename your column to use this function.")
+        cli_abort("Please rename your column to use this function.")
       }
     }
 
     if (!quiet) {
-      cli::cli_alert_success(
-        "The existing column '{col}' to '{new_col}' to avoid overwriting any existing values."
+      cli_inform(
+        c("v" = "The existing column '{col}' to '{new_col}' to avoid overwriting any existing values.")
       )
     }
 
@@ -165,15 +162,14 @@ has_same_name_col <- function(x, col = NULL, prefix = "orig", ask = FALSE, quiet
 #'
 #' @param package Name of a package.
 #' @param repo GitHub repository to use for the package.
-#' @importFrom rlang is_installed check_installed
 #' @noRd
 is_pkg_installed <- function(pkg, repo = NULL) {
-  if (!rlang::is_installed(pkg = pkg)) {
+  if (!is_installed(pkg = pkg)) {
     if (!is.null(repo)) {
       pkg <- repo
     }
 
-    rlang::check_installed(pkg = pkg)
+    check_installed(pkg = pkg)
   }
 }
 
@@ -188,9 +184,9 @@ is_geom_pkg_installed <- function(geom) {
   }
 
   # Check if packages are available for text/label geoms
-  if (geom %in% c("mark", "mapbox", "location", "context", "markers", "numbered")) {
-    return(is_pkg_installed(pkg = "birdseyeview", repo = "elipousson/birdseyeview"))
-  }
+  # if (geom %in% c("mark", "mapbox", "location", "context", "markers", "numbered")) {
+  #  return(is_pkg_installed(pkg = "birdseyeview", repo = "elipousson/birdseyeview"))
+  # }
 
 
   if (geom %in% c("text_repel", "label_repel")) {
@@ -231,9 +227,6 @@ is_geom_pkg_installed <- function(geom) {
 #' Modified version of [usethis::ui_yeah]
 #'
 #' @noRd
-#' @importFrom glue glue_collapse glue
-#' @importFrom rlang is_interactive
-#' @importFrom cli cli_abort cli_alert
 #' @importFrom utils menu
 cli_yeah <- function(x,
                      yes = c("Yes", "Definitely", "For sure", "Yup", "Yeah", "I agree", "Absolutely"),
@@ -242,15 +235,13 @@ cli_yeah <- function(x,
                      n_no = 2,
                      shuffle = TRUE,
                      .envir = parent.frame()) {
-  x <- glue::glue_collapse(x, "\n")
-  x <- glue::glue(x, .envir = .envir)
+  x <- glue_collapse(x, "\n")
+  x <- glue(x, .envir = .envir)
 
-  if (!rlang::is_interactive()) {
-    cli::cli_abort(
-      c(
-        "User input required, but session is not interactive.",
-        "Query: {x}"
-      )
+  if (!is_interactive()) {
+    cli_abort(
+      c("User input required, but session is not interactive.",
+        "Query: {x}")
     )
   }
 
@@ -262,7 +253,7 @@ cli_yeah <- function(x,
     qs <- sample(qs)
   }
 
-  cli::cli_alert(x)
+  cli_inform(x)
   out <- utils::menu(qs)
   out != 0L && qs[[out]] %in% yes
 }
