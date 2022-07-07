@@ -18,7 +18,8 @@
 #' @rdname layer_show_location
 #' @export
 #' @importFrom ggplot2 aes
-#' @importFrom overedge layer_location_data is_sf get_location
+#' @importFrom sfext is_sf
+#' @importFrom getdata get_location
 layer_location <-
   function(mapping = ggplot2::aes(),
            data = NULL,

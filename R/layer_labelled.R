@@ -32,7 +32,7 @@
 #' @export
 #' @importFrom dplyr summarise
 #' @importFrom sf st_union
-#' @importFrom overedge st_clip layer_location_data
+#' @importFrom sfext st_clip
 #' @importFrom ggplot2 guides guide_legend aes
 layer_labelled <- function(data,
                            location = NULL,

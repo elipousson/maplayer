@@ -18,7 +18,7 @@
 #' @name layer_location_context
 #' @aliases layer_show_context
 #' @export
-#' @importFrom overedge is_sf layer_location_data layer_neatline
+#' @importFrom sfext is_sf
 #' @importFrom sf st_crs
 #' @importFrom ggplot2 theme_void
 layer_location_context <- function(data = NULL,

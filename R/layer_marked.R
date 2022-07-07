@@ -83,7 +83,7 @@
 #' @aliases layer_show_mark
 #' @export
 #' @importFrom ggplot2 unit
-#' @importFrom overedge as_sf st_center st_cast_ext
+#' @importFrom sfext as_sf st_center st_cast_ext
 #' @importFrom rlang as_function
 #' @importFrom sf st_geometry
 layer_marked <- function(data,
