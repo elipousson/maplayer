@@ -12,6 +12,8 @@ License: MIT + file LICENSE
 URL: https://github.com/elipousson/maplayer,
     https://elipousson.github.io/maplayer/
 BugReports: https://github.com/elipousson/maplayer/issues
+Depends: 
+    R (>= 2.10)
 Imports: 
     cli,
     dplyr,
@@ -32,18 +34,19 @@ Suggests:
     ggsvg (>= 0.1.11),
     mapboxapi,
     overedge (>= 0.0.0.9000),
+    paletteer,
+    scales,
     smoothr,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tibble
 Remotes: 
     coolbutuseless/ggsvg,
-    elipousson/overedge,
-    walkerke/mapboxapi,
     elipousson/getdata,
-    elipousson/sfext
+    elipousson/overedge,
+    elipousson/sfext,
+    walkerke/mapboxapi
+Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0.9000
-Config/testthat/edition: 3
-Depends: 
-    R (>= 2.10)
