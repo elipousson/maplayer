@@ -1,5 +1,5 @@
-nc <- overedge::read_sf_path(system.file("shape/nc.shp", package = "sf"))
-nc <- overedge::st_transform_ext(nc, 3857)
+nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
+nc <- sfext::st_transform_ext(nc, 3857)
 
 basemap <-
   ggplot2::ggplot() +
@@ -17,16 +17,19 @@ basemap +
   )
 
 large_nc <-
-  overedge::get_location_data(
+  getdata::get_location_data(
     data = nc,
     fn = ~ dplyr::filter(.x, AREA > 0.2)
   )
+
+large_nc$number <- 1
+large_nc$dist <- 2
 
 basemap +
   layer_numbers(
     data = large_nc,
     mapping = ggplot2::aes(fill = NAME),
-    sort = "dist_xmid_ymid",
+    sort = "dist_xmax_ymin",
     num_style = "Roman",
     geom = "label",
     size = 3

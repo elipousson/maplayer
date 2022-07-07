@@ -1,4 +1,4 @@
-nc <- overedge::read_sf_path(system.file("shape/nc.shp", package = "sf"))
+nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
 
 basemap <-
   ggplot2::ggplot() +
