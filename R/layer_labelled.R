@@ -50,7 +50,7 @@ layer_labelled <- function(data,
                            sigma = 0.5,
                            ...) {
   if (!is.null(fn)) {
-    fn <- rlang::as_function(fn)
+    fn <- as_function(fn)
     data <- fn(data)
   }
 
@@ -61,9 +61,9 @@ layer_labelled <- function(data,
 
   if (is.character(clip)) {
     # FIXME: st_clip likely should be passed to fn for layer_location_data to apply clip to any subset of the data specified by location rather than the whole area
-    clip_fn <- rlang::as_function(~ sfext::st_clip(x = .x, clip = clip, dist = dist))
+    clip_fn <- as_function(~ sfext::st_clip(x = .x, clip = clip, dist = dist))
   } else if (!is.null(clip)) {
-    clip_fn <- rlang::as_function(~ sfext::st_clip(x = data, clip = clip, dist = dist))
+    clip_fn <- as_function(~ sfext::st_clip(x = data, clip = clip, dist = dist))
   } else {
     clip_fn <- NULL
   }

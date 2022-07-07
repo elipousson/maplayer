@@ -34,7 +34,6 @@
 #' @importFrom dplyr left_join rename bind_cols filter
 #' @importFrom ggplot2 aes
 #' @importFrom stringr str_detect
-#' @importFrom rlang .data
 layer_icon <- function(data = NULL,
                        iconname_col = "icon",
                        icon = NULL,
@@ -115,7 +114,7 @@ layer_icon <- function(data = NULL,
           )
         )
     } else {
-      cli::cli_abort("The provided parameters match more than one icon.
+      cli_abort("The provided parameters match more than one icon.
                         Provide the `px` and/or `source` to select a single icon.")
     }
   } else if (!is.null(svg)) {

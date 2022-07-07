@@ -31,9 +31,9 @@ layer_grouped <- function(data,
   nested <- dplyr::group_nest(data, keep = TRUE)
 
   if ((geom_type$POINTS || geom_type$LINESTRINGS) && !("color" %in% aesthetics)) {
-    cli::cli_alert_warning("This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'color' aesthetic mapping.")
+    cli_warn("This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'color' aesthetic mapping.")
   } else if (geom_type$POLYGONS && !("fill" %in% aesthetics)) {
-    cli::cli_alert_warning("This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'fill' aesthetic mapping.")
+    cli_warn("This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'fill' aesthetic mapping.")
   }
 
   if (("color" %in% aesthetics) && !("color" %in% names(mapping))) {
@@ -44,7 +44,7 @@ layer_grouped <- function(data,
     mapping <- modify_mapping(mapping = mapping, fill = groupname_col)
   }
 
-  layer_params <- rlang::list2(...)
+  layer_params <- list2(...)
 
   group_layers <-
     purrr::map(
@@ -69,7 +69,7 @@ layer_grouped <- function(data,
   # Create scale based on detail_df and groupname_col
   if (!is.null(groupname_col) && !is.null(palette)) {
     group_scale <-
-      overedge::scale_group_data(
+      scale_group_data(
         data = dplyr::bind_rows(nested$data),
         groupname_col = groupname_col,
         palette = palette,

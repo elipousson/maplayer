@@ -105,7 +105,6 @@ layer_markers <- function(data,
 #' @param ... Additional parameters passed to [layer_location_data()]
 #' @export
 #' @importFrom ggplot2 aes unit
-#' @importFrom rlang list2
 #' @importFrom purrr list_modify zap
 #' @importFrom utils modifyList
 #' @importFrom dplyr arrange mutate row_number

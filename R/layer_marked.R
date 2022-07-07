@@ -84,7 +84,6 @@
 #' @export
 #' @importFrom ggplot2 unit
 #' @importFrom sfext as_sf st_center st_cast_ext
-#' @importFrom rlang as_function
 #' @importFrom sf st_geometry
 layer_marked <- function(data,
                          fn = NULL,
@@ -108,7 +107,7 @@ layer_marked <- function(data,
   data <- sfext::as_sf(data)
 
   if (!is.null(fn)) {
-    fn <- rlang::as_function(fn)
+    fn <- as_function(fn)
     data <- fn(data)
   }
 

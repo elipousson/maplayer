@@ -45,7 +45,6 @@
 #' @rdname layer_location_data
 #' @family layer
 #' @export
-#' @importFrom rlang list2 fn_fmls is_missing exec
 #' @importFrom ggplot2 geom_sf geom_sf_text geom_sf_label
 #' @importFrom purrr discard
 #' @importFrom utils modifyList
@@ -89,7 +88,7 @@ layer_location_data <-
         ...
       )
 
-    params <- rlang::list2(...)
+    params <- list2(...)
 
     data <- sfext::as_sf(data)
 
@@ -105,7 +104,7 @@ layer_location_data <-
 
     # Match geoms
     geom <-
-      rlang::arg_match(
+      arg_match(
         geom,
         c("sf", overedge_geoms, text_geoms, birdseyeview_geoms, ggpattern_geoms)
       )
@@ -156,7 +155,7 @@ layer_location_data <-
       )
 
     # FIXME: This does not seem like the best way of dealing with the default params issue
-    if (any(rlang::has_name(init_params, c("nudge_x", "nudge_y")))) {
+    if (any(has_name(init_params, c("nudge_x", "nudge_y")))) {
       params$position <- NULL
     } else {
       params$nudge_x <- NULL
@@ -167,11 +166,11 @@ layer_location_data <-
       params$geom <- geom_chr
     }
 
-    if (!rlang::has_name(init_params, c("direction")) && (geom_chr %in% ggrepel_geoms)) {
+    if (!has_name(init_params, c("direction")) && (geom_chr %in% ggrepel_geoms)) {
       params$direction <- "both"
     }
 
-    rlang::exec(geom, !!!params)
+    exec(geom, !!!params)
   }
 
 #' Modify function parameters
@@ -179,15 +178,14 @@ layer_location_data <-
 #' @noRd
 #' @importFrom purrr discard
 #' @importFrom utils modifyList
-#' @importFrom rlang fn_fmls list2
 modify_fn_fmls <- function(params, fn, keep_missing = FALSE, keep.null = FALSE, ...) {
-  fmls <- rlang::fn_fmls(fn)
+  fmls <- fn_fmls(fn)
 
   if (!keep_missing) {
     fmls <- purrr::discard(fmls, is_missing)
   }
 
-  params <- c(rlang::list2(...), params)
+  params <- c(list2(...), params)
 
   utils::modifyList(
     fmls,
