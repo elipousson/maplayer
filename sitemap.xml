@@ -34,6 +34,9 @@
     <loc>https://elipousson.github.io/maplayer/reference/layer_location_context.html</loc>
   </url>
   <url>
+    <loc>https://elipousson.github.io/maplayer/reference/layer_location_data.html</loc>
+  </url>
+  <url>
     <loc>https://elipousson.github.io/maplayer/reference/layer_mapbox.html</loc>
   </url>
   <url>
@@ -46,10 +49,16 @@
     <loc>https://elipousson.github.io/maplayer/reference/layer_mask.html</loc>
   </url>
   <url>
+    <loc>https://elipousson.github.io/maplayer/reference/layer_neatline.html</loc>
+  </url>
+  <url>
     <loc>https://elipousson.github.io/maplayer/reference/layer_scaled.html</loc>
   </url>
   <url>
     <loc>https://elipousson.github.io/maplayer/reference/layer_show_location.html</loc>
+  </url>
+  <url>
+    <loc>https://elipousson.github.io/maplayer/reference/map_icons.html</loc>
   </url>
   <url>
     <loc>https://elipousson.github.io/maplayer/reference/maplayer-package.html</loc>

@@ -54,74 +54,99 @@ the following geoms: "text", "label", "textsf", "labelsf", "text_repel", or
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layer_labelled</span><span class="op">(</span>
-  <span class="va">data</span>,
-  location <span class="op">=</span> <span class="cn">NULL</span>,
-  geom <span class="op">=</span> <span class="st">"text"</span>,
-  fn <span class="op">=</span> <span class="cn">NULL</span>,
-  label_col <span class="op">=</span> <span class="cn">NULL</span>,
-  mapping <span class="op">=</span> <span class="cn">NULL</span>,
-  union <span class="op">=</span> <span class="cn">FALSE</span>,
-  clip <span class="op">=</span> <span class="cn">NULL</span>,
-  dist <span class="op">=</span> <span class="cn">NULL</span>,
-  unit <span class="op">=</span> <span class="cn">NULL</span>,
-  drop_shadow <span class="op">=</span> <span class="cn">FALSE</span>,
-  x_offset <span class="op">=</span> <span class="fl">5</span>,
-  y_offset <span class="op">=</span> <span class="fl">5</span>,
-  sigma <span class="op">=</span> <span class="fl">0.5</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layer_labelled</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  location <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  geom <span class="op">=</span> <span class="st">"text"</span>,</span>
+<span>  fn <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  union <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  clip <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  drop_shadow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  x_offset <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  y_offset <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  sigma <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>Data to use for label creation</p></dd>
+
+
 <dt>location</dt>
 <dd><p>Location to label (if not specified the data is assumed to conver the whole location);</p></dd>
+
+
 <dt>geom</dt>
 <dd><p>A geom to use "text", "label", "textsf", "labelsf", "text_repel", or "label_repel"</p></dd>
+
+
 <dt>fn</dt>
 <dd><p>Function to apply to data before creating labels; can be used in the creation of the label_col</p></dd>
+
+
 <dt>label_col</dt>
 <dd><p>Label column name</p></dd>
+
+
 <dt>mapping</dt>
 <dd><p>Aesthetic mapping, Default: NULL</p></dd>
+
+
 <dt>union</dt>
 <dd><p>If TRUE, group by label_col and union geometry, Default: <code>FALSE</code></p></dd>
+
+
 <dt>clip</dt>
 <dd><p>Character string describing the part of the area to clip or
 remove. Options include c("top", "right", "bottom", "left", "topright",
 "bottomright", "bottomleft", "topleft"). If NULL, the area is not clipped
 and a full edge can be returned.</p></dd>
+
+
 <dt>dist</dt>
 <dd><p>Numeric. Distance to use for the edge. Default NULL
 meters. Use negative values for an inside edge or positive numbers for an
 outside edge.</p></dd>
+
+
 <dt>unit</dt>
 <dd><p>Units for buffer. Supported options include "meter", "foot",
 "kilometer", and "mile", "nautical mile" Common abbreviations (e.g. "km"
 instead of "kilometer") are also supported. Distance in units is converted
 to units matching GDAL units for x; defaults to "meter"</p></dd>
+
+
 <dt>drop_shadow</dt>
 <dd><p>If <code>TRUE</code>, use <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> to add a drop shadow to the label layer. Defaults to <code>FALSE</code>.</p></dd>
+
+
 <dt>x_offset, y_offset, sigma</dt>
 <dd><p>Parameters passed to ggfx::with_shadow if <code>drop_shadow = TRUE</code>.</p></dd>
+
+
 <dt>...</dt>
-<dd><p>Additional parameters passed to <a href="https://elipousson.github.io/overedge/reference/layer_location_data.html" class="external-link">overedge::layer_location_data</a></p></dd>
+<dd><p>Additional parameters passed to <a href="layer_location_data.html">layer_location_data</a></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Note:</p><ul><li><p>Unlike in some overedge package functions, fn is applied to the whole data; not a
 subset of the data based on location.</p></li>
-<li><p>For this function, dist and unit are both used by <code><a href="https://elipousson.github.io/overedge/reference/st_clip.html" class="external-link">overedge::st_clip()</a></code> (not by
-<a href="https://elipousson.github.io/overedge/reference/layer_location_data.html" class="external-link">layer_location_data</a>)</p></li>
+<li><p>For this function, dist and unit are both used by <code><a href="https://elipousson.github.io/sfext/reference/st_clip.html" class="external-link">sfext::st_clip()</a></code> (not by
+<a href="layer_location_data.html">layer_location_data</a>)</p></li>
 </ul><p>The function also overrides the label aesthetics to hide the colored letters
 that would otherwise appear when using a theme legend.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://elipousson.github.io/overedge/reference/st_clip.html" class="external-link">overedge::st_clip()</a></code>,<code><a href="https://elipousson.github.io/overedge/reference/layer_location_data.html" class="external-link">overedge::layer_location_data()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="https://elipousson.github.io/sfext/reference/st_clip.html" class="external-link">sfext::st_clip()</a></code>,<code><a href="layer_location_data.html">layer_location_data()</a></code></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -133,7 +158,7 @@ that would otherwise appear when using a theme legend.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -51,34 +51,34 @@ get_location"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layer_location</span><span class="op">(</span>
-  mapping <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="op">)</span>,
-  data <span class="op">=</span> <span class="cn">NULL</span>,
-  type <span class="op">=</span> <span class="cn">NULL</span>,
-  name <span class="op">=</span> <span class="cn">NULL</span>,
-  id <span class="op">=</span> <span class="cn">NULL</span>,
-  location <span class="op">=</span> <span class="cn">NULL</span>,
-  name_col <span class="op">=</span> <span class="st">"name"</span>,
-  id_col <span class="op">=</span> <span class="st">"id"</span>,
-  index <span class="op">=</span> <span class="cn">NULL</span>,
-  label <span class="op">=</span> <span class="cn">NULL</span>,
-  label_geom <span class="op">=</span> <span class="cn">NULL</span>,
-  label_col <span class="op">=</span> <span class="va">name_col</span>,
-  union <span class="op">=</span> <span class="cn">FALSE</span>,
-  smooth <span class="op">=</span> <span class="cn">TRUE</span>,
-  crs <span class="op">=</span> <span class="cn">NULL</span>,
-  color <span class="op">=</span> <span class="st">"gray40"</span>,
-  linetype <span class="op">=</span> <span class="st">"dashed"</span>,
-  size <span class="op">=</span> <span class="fl">1</span>,
-  fill <span class="op">=</span> <span class="cn">NA</span>,
-  dist <span class="op">=</span> <span class="cn">NULL</span>,
-  diag_ratio <span class="op">=</span> <span class="cn">NULL</span>,
-  unit <span class="op">=</span> <span class="cn">NULL</span>,
-  asp <span class="op">=</span> <span class="cn">NULL</span>,
-  mask <span class="op">=</span> <span class="cn">FALSE</span>,
-  neatline <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layer_location</span><span class="op">(</span></span>
+<span>  mapping <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  type <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  location <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  name_col <span class="op">=</span> <span class="st">"name"</span>,</span>
+<span>  id_col <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>  index <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_geom <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  label_col <span class="op">=</span> <span class="va">name_col</span>,</span>
+<span>  union <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  smooth <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  crs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  color <span class="op">=</span> <span class="st">"gray40"</span>,</span>
+<span>  linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
+<span>  size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  fill <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  diag_ratio <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  asp <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mask <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  neatline <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -88,77 +88,125 @@ get_location"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
 <code><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>Data for location to show.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>Type of location to return. Type can be an sf object, e.g. a data
 frame with multiple neighborhoods or a character string that can be passed
-to <a href="https://elipousson.github.io/overedge/reference/get_location_data.html" class="external-link">get_location_data</a>. If index is provided, character can also be a
+to <a href="https://elipousson.github.io/getdata/reference/get_location_data.html" class="external-link">get_location_data</a>. If index is provided, character can also be a
 character string to match the name of a list.</p></dd>
+
+
 <dt>name</dt>
 <dd><p>Location name to return.</p></dd>
+
+
 <dt>id</dt>
 <dd><p>Location id to return. id is coerced to character or numeric to
 match the class of the id_col for type.</p></dd>
+
+
 <dt>location</dt>
 <dd><p>An address, bounding box (<code>bbox</code>), or simple feature (<code>sf</code>)
 object passed to <a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">sf::st_filter</a>. Any valid address or
 addresses are geocoded with tidygeocoder::geo, converted to
 a simple feature object, and then used as a spatial filter. <code>bbox</code> objects
-are converted using <code><a href="https://elipousson.github.io/overedge/reference/sf_bbox_misc.html" class="external-link">sf_bbox_to_sf()</a></code>. Multiple addresses are supported.</p></dd>
+are converted using <code><a href="https://elipousson.github.io/sfext/reference/sf_bbox_misc.html" class="external-link">sfext::sf_bbox_to_sf()</a></code>. Multiple addresses are supported.</p></dd>
+
+
 <dt>name_col</dt>
 <dd><p>Column name in type with name values, Default: 'name'
 Required if name provided.</p></dd>
+
+
 <dt>id_col</dt>
 <dd><p>Column name in type with id values, Default: 'id'. Required if
 id is provided.</p></dd>
+
+
 <dt>index</dt>
 <dd><p>Optional list used to match type to data, Default: <code>NULL</code></p></dd>
+
+
 <dt>label</dt>
 <dd><p>label type (e.g. "text", "label")</p></dd>
+
+
 <dt>label_col</dt>
 <dd><p>Column name or id for a column with the text or labels to
 pass to any text geom.</p></dd>
+
+
 <dt>union</dt>
 <dd><p>If <code>TRUE</code>, the location geometry is unioned with
 <a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">sf::st_union</a> and the names are combined into a single value.
 Default: <code>FALSE</code>.</p></dd>
+
+
 <dt>crs</dt>
 <dd><p>Coordinate reference system to return; defaults to NULL which
 returns data using the same coordinate reference system as the provided
 type of location.</p></dd>
+
+
 <dt>color</dt>
 <dd><p>Color for location; defaults to "black".</p></dd>
+
+
 <dt>linetype</dt>
 <dd><p>Line type for location; defaults to "dashed".</p></dd>
+
+
 <dt>fill</dt>
 <dd><p>Fill for location; defaults to "NA".</p></dd>
+
+
 <dt>dist</dt>
 <dd><p>buffer distance in units. Optional.</p></dd>
+
+
 <dt>diag_ratio</dt>
 <dd><p>ratio of diagonal distance of area's bounding box used as
 buffer distance. e.g. if the diagonal distance is 3000 meters and the
 "diag_ratio = 0.1"  a 300 meter will be used. Ignored when <code>dist</code> is
 provided.</p></dd>
+
+
 <dt>unit</dt>
 <dd><p>unit to adjust location by dist or diag_ratio; defaults to
 "meter"</p></dd>
+
+
 <dt>asp</dt>
 <dd><p>Aspect ratio of width to height as a numeric value (e.g. 0.33) or
-character (e.g. "1:3"). If numeric, <code><a href="https://elipousson.github.io/overedge/reference/get_asp.html" class="external-link">get_asp()</a></code> returns the same value
+character (e.g. "1:3"). If numeric, <code><a href="https://elipousson.github.io/sfext/reference/get_asp.html" class="external-link">get_asp()</a></code> returns the same value
 without modification.</p></dd>
+
+
 <dt>mask</dt>
 <dd><p>A <code>sf</code> or <code>bbox</code> object to define the edge of the mask.
-<code>diag_ratio</code>, <code>dist</code>, and <code>asp</code> parameters are ignored if a
-<code>mask</code> is provided. defaults to <code>NULL</code></p></dd>
+<code>diag_ratio</code>, <code>dist</code>, and <code>asp</code> parameters are ignored if a <code>mask</code> is
+provided. defaults to <code>NULL</code></p></dd>
+
+
 <dt>neatline</dt>
-<dd><p>If TRUE, add <code>layer_neatline</code> with <code>expand = TRUE</code>; defaults to FALSE.</p></dd>
+<dd><p>If <code>TRUE</code>, add <code>layer_neatline</code> with <code>expand = TRUE</code>;
+defaults to FALSE.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional parameters passed to get_location if data is <code>NULL</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>list of ggplot2 geoms</p>
+    
+
+<p>list of ggplot2 geoms</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -174,7 +222,7 @@ without modification.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>

@@ -48,104 +48,149 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">layer_mapbox</span><span class="op">(</span>
-  data <span class="op">=</span> <span class="cn">NULL</span>,
-  dist <span class="op">=</span> <span class="cn">NULL</span>,
-  diag_ratio <span class="op">=</span> <span class="cn">NULL</span>,
-  unit <span class="op">=</span> <span class="st">"meter"</span>,
-  asp <span class="op">=</span> <span class="cn">NULL</span>,
-  style_url <span class="op">=</span> <span class="st">"mapbox://styles/mapbox/satellite-streets-v11"</span>,
-  style_id <span class="op">=</span> <span class="cn">NULL</span>,
-  username <span class="op">=</span> <span class="cn">NULL</span>,
-  basemap <span class="op">=</span> <span class="cn">FALSE</span>,
-  scale <span class="op">=</span> <span class="fl">0.75</span>,
-  scaling_factor <span class="op">=</span> <span class="st">"1x"</span>,
-  attribution <span class="op">=</span> <span class="cn">TRUE</span>,
-  logo <span class="op">=</span> <span class="cn">TRUE</span>,
-  access_token <span class="op">=</span> <span class="cn">NULL</span>,
-  neatline <span class="op">=</span> <span class="cn">TRUE</span>,
-  color <span class="op">=</span> <span class="st">"black"</span>,
-  bgcolor <span class="op">=</span> <span class="st">"white"</span>,
-  size <span class="op">=</span> <span class="fl">1</span>,
-  linetype <span class="op">=</span> <span class="st">"solid"</span>,
-  expand <span class="op">=</span> <span class="cn">FALSE</span>,
-  hide_grid <span class="op">=</span> <span class="cn">TRUE</span>,
-  label_axes <span class="op">=</span> <span class="st">"----"</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">layer_mapbox</span><span class="op">(</span></span>
+<span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  diag_ratio <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  unit <span class="op">=</span> <span class="st">"meter"</span>,</span>
+<span>  asp <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  style_url <span class="op">=</span> <span class="st">"mapbox://styles/mapbox/satellite-streets-v11"</span>,</span>
+<span>  style_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  username <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  basemap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scale <span class="op">=</span> <span class="fl">0.75</span>,</span>
+<span>  scaling_factor <span class="op">=</span> <span class="st">"1x"</span>,</span>
+<span>  attribution <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  logo <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  access_token <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  neatline <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  bgcolor <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  linetype <span class="op">=</span> <span class="st">"solid"</span>,</span>
+<span>  expand <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  hide_grid <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  label_axes <span class="op">=</span> <span class="st">"----"</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p><code>sf</code>, <code>sfc</code>, or <code>bbox</code> object; any objects convertible with as_bbox</p></dd>
+
+
 <dt>dist</dt>
 <dd><p>buffer distance in units. Optional.</p></dd>
+
+
 <dt>diag_ratio</dt>
 <dd><p>ratio of diagonal distance of area's bounding box used as
 buffer distance. e.g. if the diagonal distance is 3000 meters and the
 "diag_ratio = 0.1"  a 300 meter will be used. Ignored when <code>dist</code> is
 provided.</p></dd>
+
+
 <dt>unit</dt>
 <dd><p>Buffer units; defaults to meter.</p></dd>
+
+
 <dt>asp</dt>
 <dd><p>Aspect ratio of width to height as a numeric value (e.g. 0.33) or
-character (e.g. "1:3"). If numeric, <code><a href="https://elipousson.github.io/overedge/reference/get_asp.html" class="external-link">get_asp()</a></code> returns the same value
+character (e.g. "1:3"). If numeric, <code><a href="https://elipousson.github.io/sfext/reference/get_asp.html" class="external-link">get_asp()</a></code> returns the same value
 without modification.</p></dd>
+
+
 <dt>style_url</dt>
 <dd><p>Map style url used to fill style_id and username parameters,
 Default: "mapbox://styles/mapbox/satellite-streets-v11"</p></dd>
+
+
 <dt>style_id</dt>
-<dd><p>A style ID (required if style_url is NULL).</p></dd>
+<dd><p>A style ID (required if style_url is <code>NULL</code>).</p></dd>
+
+
 <dt>username</dt>
-<dd><p>A Mapbox username (required if style_url is NULL).</p></dd>
+<dd><p>A Mapbox username (required if <code>style_url = NULL</code>).</p></dd>
+
+
 <dt>basemap</dt>
 <dd><p>If FALSE, create a standalone layer; if <code>TRUE</code>, the layer is
 precededed by <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code> to allow use as a basemap, Default: <code>TRUE</code></p></dd>
+
+
 <dt>scale</dt>
-<dd><p>ratio to scale the output image; `scale = 1` will return the
+<dd><p>ratio to scale the output image; <code>scale = 1</code> will return the
 largest possible image. defaults to 0.5</p></dd>
+
+
 <dt>scaling_factor</dt>
 <dd><p>The scaling factor of the tiles; either <code>"1x"</code>
 (the default) or <code>"2x"</code></p></dd>
+
+
 <dt>attribution</dt>
 <dd><p>Controls whether there is attribution on the image.
-Defaults to `TRUE`. Note: If attribution=false, the watermarked attribution
-is removed from the image. You still have a legal responsibility to
-attribute maps that use OpenStreetMap data, which includes most maps from
-Mapbox. If you specify attribution=false, you are legally required to
-include proper attribution elsewhere on the webpage or document.</p></dd>
+Defaults to <code>TRUE</code>. If <code>FALSE</code>, the watermarked attribution is removed from
+the image. You still have a legal responsibility to attribute maps that use
+OpenStreetMap data, which includes most maps from Mapbox. If you specify
+<code>attribution = FALSE</code>, you are legally required to include proper
+attribution elsewhere on the webpage or document.</p></dd>
+
+
 <dt>logo</dt>
 <dd><p>Controls whether there is a Mapbox logo on the image. Defaults to
-`TRUE`.</p></dd>
+<code>TRUE</code>.</p></dd>
+
+
 <dt>access_token</dt>
-<dd><p>A Mapbox access token; can be set with
-<code>mb_access_token()</code>.</p></dd>
+<dd><p>A Mapbox access token; which can be set with
+<a href="https://rdrr.io/pkg/mapboxapi/man/mb_access_token.html" class="external-link">mb_access_token</a>.</p></dd>
+
+
 <dt>neatline</dt>
 <dd><p>If <code>TRUE</code>, add a neatline matching the provided data, Default:
 <code>TRUE</code></p></dd>
+
+
 <dt>color</dt>
 <dd><p>Color of panel border, Default: 'black'</p></dd>
+
+
 <dt>bgcolor</dt>
 <dd><p>Fill color of panel background; defaults to "white". If
 "none", panel background is set to ggplot2::element_blank()</p></dd>
+
+
 <dt>size</dt>
 <dd><p>Size of panel border, Default: 1</p></dd>
+
+
 <dt>linetype</dt>
 <dd><p>Line type of panel border, Default: 'solid'</p></dd>
+
+
 <dt>expand</dt>
 <dd><p>Default <code>FALSE.</code> If <code>TRUE</code>, the function adds
 <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">ggplot2::scale_y_continuous()</a></code> and
 <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">ggplot2::scale_x_continuous()</a></code> to expand the map extent to
 provided parameters.</p></dd>
+
+
 <dt>hide_grid</dt>
 <dd><p>If <code>TRUE</code>, hide major grid lines. Default: <code>TRUE</code></p></dd>
+
+
 <dt>label_axes</dt>
 <dd><p>A description of which axes to label passed to
 <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::coord_sf()</a></code>; defaults to '----' which hides axes
 labels.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional parameter passed to <a href="https://rdrr.io/pkg/mapboxapi/man/layer_static_mapbox.html" class="external-link">mapboxapi::layer_static_mapbox</a></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -161,7 +206,7 @@ labels.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
     </footer></div>
