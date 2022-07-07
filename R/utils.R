@@ -1,3 +1,19 @@
+.onLoad <- function(lib, pkg) {
+  utils::data(
+    list = c("map_icons"),
+    package = pkg,
+    envir = parent.env(environment())
+  )
+}
+
+utils::globalVariables(
+  c(
+    ":=", "df", "geometry", "angle",
+    "lon", "lat", "name", "repo",
+    "svg_url", "x1", "x2", "y1", "y2"
+  )
+)
+
 #' Create basemap by adding the object (layer or layer list) to [ggplot2::ggplot()]
 #' @noRd
 #' @importFrom ggplot2 ggplot
@@ -161,6 +177,32 @@ is_pkg_installed <- function(pkg, repo = NULL) {
   }
 }
 
+#' Is the package needed for this geom installed?
+#'
+#' @noRd
+is_geom_pkg_installed <- function(geom) {
+
+  # Check if packages are available for text/label geoms
+  if (geom %in% c("textsf", "labelsf")) {
+    return(is_pkg_installed("geomtextpath"))
+  }
+
+  # Check if packages are available for text/label geoms
+  if (geom %in% c("mark", "mapbox", "location", "context", "markers", "numbered")) {
+    return(is_pkg_installed(pkg = "birdseyeview", repo = "elipousson/birdseyeview"))
+  }
+
+
+  if (geom %in% c("text_repel", "label_repel")) {
+    return(is_pkg_installed("ggrepel"))
+  }
+
+  if (geom %in% c("pattern")) {
+    return(is_pkg_installed("ggpattern", repo = "coolbutuseless/ggpattern"))
+  }
+}
+
+
 # This file contains code from the usethis R package <https://github.com/r-lib/usethis>
 # The license and copyright for this package follows:
 #
@@ -224,11 +266,3 @@ cli_yeah <- function(x,
   out <- utils::menu(qs)
   out != 0L && qs[[out]] %in% yes
 }
-
-utils::globalVariables(
-  c(
-    ":=", "df", "geometry", "angle",
-    "lon", "lat", "name", "repo",
-    "svg_url", "x1", "x2", "y1", "y2"
-  )
-)
