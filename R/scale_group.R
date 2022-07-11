@@ -67,7 +67,8 @@ group_data_pal <- function(data,
                            palette = NULL,
                            col = NULL,
                            n = NULL,
-                           direction = 1) {
+                           direction = 1,
+                           pkg = NULL) {
   is_pkg_installed("scales")
   is_pkg_installed("paletteer")
   is_pkg_installed("tibble")
@@ -91,10 +92,16 @@ group_data_pal <- function(data,
         length >= n
       )
 
+    if (!is.null(pkg)) {
+      pkg_pal <- paste0(pkg, "::", palette)
+    } else {
+      pkg_pal <- palette
+    }
+
     pal_opts <-
       dplyr::mutate(
         pal_opts,
-        pkg_pal = paste0(package, "::", palette)
+        pkg_pal = pkg_pal
       )
 
     palette <- match.arg(palette, pal_opts$pkg_pal)
