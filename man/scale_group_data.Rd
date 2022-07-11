@@ -19,7 +19,14 @@ scale_group_data(
   aesthetics = "fill"
 )
 
-group_data_pal(data, palette = NULL, col = NULL, n = NULL, direction = 1)
+group_data_pal(
+  data,
+  palette = NULL,
+  col = NULL,
+  n = NULL,
+  direction = 1,
+  pkg = NULL
+)
 
 get_group_data_pal_scale(data, col = NULL, palette = NULL, ...)
 }

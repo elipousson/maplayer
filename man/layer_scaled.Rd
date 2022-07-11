@@ -41,6 +41,11 @@ without modification.}
 
 \item{scale}{Scale name}
 
+\item{paper}{Paper, Default: 'letter'.}
+
+\item{orientation}{Orientation "portrait", "landscape", or "square", Default:
+'portrait'.}
+
 \item{clip}{If \code{TRUE}, create scaled layer even if the data is cut off; defaults to \code{FALSE}.}
 }
 \description{

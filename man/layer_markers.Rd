@@ -50,7 +50,7 @@ layer_numbers(
 }
 \arguments{
 \item{data}{Data with markers, passed to data parameter of
-\code{\link[overedge:get_location_data]{get_location_data()}}}
+\code{\link[=get_location_data]{get_location_data()}}}
 
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
 \code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
@@ -110,7 +110,7 @@ ggplot2 layers
 }
 \description{
 If get is \code{TRUE}, groupname_col, group_meta, crs, and fn is all passed on to
-\link[overedge:make_markers]{overedge::make_markers}.
+\link[sfext:make_markers]{sfext::make_markers}.
 }
 \examples{
 nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))

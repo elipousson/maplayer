@@ -7,6 +7,7 @@
 \usage{
 layer_location_context(
   data = NULL,
+  location = NULL,
   fill = "gray70",
   color = "black",
   context = NULL,
@@ -18,13 +19,16 @@ layer_location_context(
 )
 }
 \arguments{
-\item{data}{sf object with location data}
+\item{data, location}{data can be a sf object for the location or a ggplot
+layer representing the location. location can only be an sf object (not a
+ggplot2 layer) and it is used instead of data if both are provided.}
 
 \item{fill}{Fill color for location data}
 
 \item{color}{Edge color for location data}
 
-\item{context}{sf or bbox object for context area or a \code{geom} layer}
+\item{context}{sf or bbox object for context area or ggplot layer
+representing the context.}
 
 \item{context_aes}{list with aesthetic attributes for context area; must
 include fill and color; defaults to list(fill = "white", color = "black",
@@ -37,8 +41,7 @@ layer and the location layer.}
 
 \item{neatline}{If \code{TRUE}, add a neatline layer to the returned layer}
 
-\item{...}{Additional parameters passed to layer_location_data for
-location}
+\item{...}{Additional parameters passed to layer_location_data for location}
 }
 \description{
 Intended for use with inset_map function.

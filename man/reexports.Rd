@@ -4,17 +4,7 @@
 \name{reexports}
 \alias{reexports}
 \alias{aes}
-\alias{st_buffer_ext}
-\alias{st_bbox_ext}
-\alias{st_transform_ext}
-\alias{as_sf}
-\alias{as_sf_list}
-\alias{is_sf}
-\alias{is_sf_list}
-\alias{is_point}
-\alias{is_multipoint}
-\alias{is_polygon}
-\alias{is_multipolygon}
+\alias{last_plot}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -22,8 +12,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ggplot2}{\code{\link[ggplot2]{aes}}}
-
-  \item{sfext}{\code{\link[sfext]{as_sf}}, \code{\link[sfext:as_sf]{as_sf_list}}, \code{\link[sfext:is_geom_type]{is_multipoint}}, \code{\link[sfext:is_geom_type]{is_multipolygon}}, \code{\link[sfext:is_geom_type]{is_point}}, \code{\link[sfext:is_geom_type]{is_polygon}}, \code{\link[sfext]{is_sf}}, \code{\link[sfext:is_sf]{is_sf_list}}, \code{\link[sfext]{st_bbox_ext}}, \code{\link[sfext]{st_buffer_ext}}, \code{\link[sfext]{st_transform_ext}}}
+  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{last_plot}}}
 }}
 
