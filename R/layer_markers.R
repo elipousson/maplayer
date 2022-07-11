@@ -2,9 +2,9 @@
 #' Create a ggplot2 layer with map markers or numbered markers
 #'
 #' If get is `TRUE`, groupname_col, group_meta, crs, and fn is all passed on to
-#' [overedge::make_markers].
+#' [sfext::make_markers].
 #'
-#' @inheritParams overedge::make_markers
+#' @inheritParams sfext::make_markers
 #' @param make If `TRUE`, pass data to [make_markers].
 #' @param number If `TRUE`, number markers using [layer_markers()] (not
 #'   currently supported)
@@ -36,7 +36,7 @@ layer_markers <- function(data,
                           ...) {
   if (make) {
     data <-
-      overedge::make_markers(
+      sfext::make_markers(
         data = data,
         groupname_col = groupname_col,
         group_meta = group_meta,
