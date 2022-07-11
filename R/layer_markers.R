@@ -70,7 +70,7 @@ layer_markers <- function(data,
   }
 
   if (!is.null(groupname_col)) {
-    if (is_point(data) || is_multipoint(data)) {
+    if (sfext::is_point(data) || sfext::is_multipoint(data)) {
       mapping <-
         modify_mapping(
           mapping = mapping,
