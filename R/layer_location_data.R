@@ -75,8 +75,6 @@ layer_location_data <-
         unit = unit,
         asp = asp,
         data = data,
-        url = NULL,
-        path = NULL,
         package = package,
         filetype = filetype,
         fn = fn,
@@ -88,25 +86,28 @@ layer_location_data <-
         ...
       )
 
-    params <- list2(...)
-
-    data <- sfext::as_sf(data)
-
     if (!is.null(geom_fn)) {
-      return(use_fn(data, geom_fn))
+      if(!is_function(geom_fn)) {
+        return(use_fn(data, geom_fn, ...))
+      }
+
+      return(geom_fn(data, mapping = mapping, ...))
     }
 
-    overedge_geoms <- c("icon", "mapbox", "markers", "numbers")
+    params <- list2(...)
+
+    maplayer_geoms <- c("icon", "mapbox", "markers", "numbers", "mark", "location", "context")
+    ggpattern_geoms <- c("pattern", "sf_pattern")
+
     ggrepel_geoms <- c("text_repel", "label_repel")
-    text_geoms <- c("text", "label", "textsf", "labelsf", ggrepel_geoms)
-    birdseyeview_geoms <- c("mark", "location", "context")
-    ggpattern_geoms <- "pattern"
+    geomtextpath_geoms <- c("textsf", "labelsf")
+    text_geoms <- c("text", "label", geomtextpath_geoms, ggrepel_geoms)
 
     # Match geoms
     geom <-
       arg_match(
         geom,
-        c("sf", overedge_geoms, text_geoms, birdseyeview_geoms, ggpattern_geoms)
+        c("sf", maplayer_geoms, text_geoms, ggpattern_geoms)
       )
 
     is_geom_pkg_installed(geom)
@@ -127,20 +128,23 @@ layer_location_data <-
     geom <-
       switch(geom_chr,
         "sf" = ggplot2::geom_sf,
+        "sf_text" = ggplot2::geom_sf_text,
+        "sf_label" = ggplot2::geom_sf_label,
+        "text" = ggplot2::geom_sf_text,
+        "label" = ggplot2::geom_sf_label,
         "icon" = layer_icon,
         "mapbox" = layer_mapbox,
         "markers" = layer_markers,
         "numbers" = layer_numbers,
-        "text" = ggplot2::geom_sf_text,
-        "label" = ggplot2::geom_sf_label,
+        "mark" = layer_marked,
+        "location" = layer_location,
+        "context" = layer_location_context,
         "text_repel" = ggrepel::geom_text_repel,
         "label_repel" = ggrepel::geom_label_repel,
         "textsf" = geomtextpath::geom_textsf,
         "labelsf" = geomtextpath::geom_labelsf,
-        "mark" = layer_marked,
-        "location" = layer_location,
-        "context" = layer_location_context,
-        "pattern" = ggpattern::geom_sf_pattern
+        "pattern" = ggpattern::geom_sf_pattern,
+        "sf_pattern" = ggpattern::geom_sf_pattern
       )
 
     init_params <- params
