@@ -45,17 +45,13 @@ layer_icon <- function(data = NULL,
                        ...) {
   is_pkg_installed(pkg = "ggsvg", repo = "coolbutuseless/ggsvg")
 
-  if (is_sf(data)) {
-    data <-
-      suppressWarnings(
-        sf::st_centroid(data)
-      )
-
-    data <-
-      sfext::st_transform_ext(data, crs = crs)
+  if (is_sf(data) && !sfext::is_point(data)) {
+    data <- suppressWarnings(sf::st_centroid(data))
   }
 
-  (iconname_col %in% names(data)) & is.null(icon)
+  sfext::check_sf(data)
+
+  data <- sfext::st_transform_ext(data, crs = crs)
 
   if ((iconname_col %in% names(data)) & is.null(icon)) {
     icon_options <- dplyr::rename(map_icons, svg_url = url, {{ iconname_col }} := name)
@@ -68,12 +64,6 @@ layer_icon <- function(data = NULL,
       icon_options <- dplyr::filter(icon_options, .data$repo == source)
     }
 
-    icon_options <-
-      dplyr::mutate(
-        dplyr::rowwise(icon_options),
-        svg_url = paste(readLines(svg_url), collapse = "\n")
-      )
-
     data <-
       dplyr::left_join(
         data,
@@ -81,11 +71,17 @@ layer_icon <- function(data = NULL,
         by = {{ iconname_col }}
       )
 
+    data <-
+      dplyr::mutate(
+      dplyr::rowwise(data),
+      svg_url = paste(readLines(svg_url), collapse = "\n")
+    )
+
     icon_layer <-
       ggsvg::geom_point_svg(
         data = data,
-        ggplot2::aes(geometry = .data[[attributes(data)$sf_column]]),
-        # svg = paste(readLines(data$svg_url), collapse = "\n"),
+        ggplot2::aes(geometry = .data[[attributes(data)$sf_column]],
+                     svg = .data[["svg_url"]]),
         stat = "sf_coordinates",
         ...
       )
