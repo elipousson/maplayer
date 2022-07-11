@@ -1,0 +1,142 @@
+#' Save a ggplot2 plot to file and update file EXIF metadata
+#'
+#' Save a plot or map then update the EXIF metadata for the title, author, and
+#' create data. [ggsave_ext()] also supports creating a file name based on a
+#' sentence case name with spaces (e.g. "Baltimore city map") and appending a
+#' label (e.g. "baltcity") as a prefix to the output file name.
+#'
+#' @inheritParams ggplot2::ggsave
+#' @param name Plot name, used to create filename (if filename is `NULL`) using
+#'   [sfext::make_filename()]
+#' @inheritParams sfext::make_filename
+#' @param paper Paper matching name from `paper_sizes` (e.g. "letter"). Not case
+#'   sensitive.
+#' @param orientation Page orientation ("portrait", "landscape", or "square").
+#' @param bgcolor Background color to optionally override `plot.background`
+#'   theme element.
+#' @param exif If `TRUE`, the EXIF metadata for the exported file is updated
+#'   with the exifr package; defaults to `FALSE`.
+#' @inheritParams sfext::write_exif
+#' @param ... Additional parameters passed to [ggplot2::ggsave()]
+#' @example examples/ggsave_ext.R
+#' @seealso
+#'  [ggplot2::ggsave()]
+#' @rdname ggsave_ext
+#' @export
+#' @importFrom ggplot2 ggsave last_plot
+ggsave_ext <- function(plot = ggplot2::last_plot(),
+                       name = NULL,
+                       label = NULL,
+                       prefix = NULL,
+                       postfix = NULL,
+                       filename = NULL,
+                       device = NULL,
+                       filetype = NULL,
+                       path = NULL,
+                       paper = NULL,
+                       orientation = "portrait",
+                       width = NULL,
+                       height = NULL,
+                       units = "in",
+                       scale = 1,
+                       dpi = 300,
+                       bgcolor = NULL,
+                       exif = FALSE,
+                       title = NULL,
+                       author = NULL,
+                       keywords = NULL,
+                       args = NULL,
+                       ...) {
+  if (!is.null(paper)) {
+    paper <- sfext::get_paper(paper = paper, orientation = orientation)
+    width <- paper$width
+    height <- paper$height
+    units <- paper$units
+  }
+
+  stopifnot(
+    is.numeric(width) && is.numeric(height)
+  )
+
+  if (is.null(device) && (!is.null(filetype) | !is.null(filename))) {
+
+    filetype <- filetype %||% sfext::str_extract_filetype(filename)
+
+    filename <- sfext::str_remove_filetype(filename, filetype)
+
+    device <- filetype
+  }
+
+  filename <-
+    sfext::make_filename(
+      name = name,
+      label = label,
+      filename = filename,
+      filetype = filetype,
+      path = path,
+      prefix = prefix,
+      postfix = postfix
+    )
+
+  ggplot2::ggsave(
+    filename = filename,
+    plot = plot,
+    device = device,
+    scale = scale,
+    width = width,
+    height = height,
+    units = units,
+    dpi = dpi,
+    bg = bgcolor,
+    ...
+  )
+
+  if (exif) {
+    sfext::write_exif(path = filename, filetype = filetype, title = title, author = author, keywords = keywords, date = NULL, args = args)
+  }
+}
+
+#' @rdname ggsave_ext
+#' @name ggsave_social
+#' @inheritParams sfext::get_social_image
+#' @export
+#' @importFrom ggplot2 last_plot
+ggsave_social <- function(plot = ggplot2::last_plot(),
+                          image = "Instagram post",
+                          platform = NULL,
+                          format = NULL,
+                          orientation = NULL,
+                          name = NULL,
+                          filename = NULL,
+                          filetype = "jpeg",
+                          dpi = 72,
+                          width = 1080,
+                          height = 1080,
+                          units = "px",
+                          ...) {
+  image_size <-
+    sfext::get_social_image(
+      image = image,
+      platform = platform,
+      format = format,
+      orientation = orientation
+    )
+
+  params <-
+    modify_fn_fmls(
+      params = list2(...),
+      fn = ggsave_ext,
+      plot = plot,
+      width = image_size$width,
+      height = image_size$height,
+      name = name,
+      filename = filename,
+      filetype = filetype,
+      units = units
+    )
+
+  exec(
+    ggsave_ext,
+    !!!params
+  )
+}
