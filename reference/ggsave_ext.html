@@ -58,7 +58,7 @@ label (e.g. "baltcity") as a prefix to the output file name.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggsave_ext</span><span class="op">(</span></span>
-<span>  plot <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/last_plot.html" class="external-link">last_plot</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  plot <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/last_plot.html" class="external-link">last_plot</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -84,7 +84,7 @@ label (e.g. "baltcity") as a prefix to the output file name.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ggsave_social</span><span class="op">(</span></span>
-<span>  plot <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/last_plot.html" class="external-link">last_plot</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  plot <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/last_plot.html" class="external-link">last_plot</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  image <span class="op">=</span> <span class="st">"Instagram post"</span>,</span>
 <span>  platform <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  format <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -97,7 +97,9 @@ label (e.g. "baltcity") as a prefix to the output file name.</p>
 <span>  height <span class="op">=</span> <span class="fl">1080</span>,</span>
 <span>  units <span class="op">=</span> <span class="st">"px"</span>,</span>
 <span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">map_ggsave_ext</span><span class="op">(</span><span class="va">plot</span>, single_file <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span>, postfix <span class="op">=</span> <span class="st">"pg_"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -111,6 +113,21 @@ label (e.g. "baltcity") as a prefix to the output file name.</p>
 <code><a href="https://elipousson.github.io/sfext/reference/make_filename.html" class="external-link">sfext::make_filename()</a></code></p></dd>
 
 
+<dt>label</dt>
+<dd><p>Label to combine with name converted to snake case with
+<code><a href="https://rdrr.io/pkg/janitor/man/make_clean_names.html" class="external-link">janitor::make_clean_names()</a></code>. The label is designed to identify the area
+or other shared characteristics across multiple data files, maps, or plots.</p></dd>
+
+
+<dt>prefix</dt>
+<dd><p>File name prefix. "date" adds a date prefix, "time" adds a
+date/time prefix; defaults to <code>NULL</code>.</p></dd>
+
+
+<dt>postfix</dt>
+<dd><p>File name postfix; defaults to <code>NULL</code>.</p></dd>
+
+
 <dt>filename</dt>
 <dd><p>File name to create on disk.</p></dd>
 
@@ -122,7 +139,7 @@ label (e.g. "baltcity") as a prefix to the output file name.</p>
 
 
 <dt>filetype</dt>
-<dd><p>The file extension or file type; defaults to <code>NULL</code>.</p></dd>
+<dd><p>File type or extension.</p></dd>
 
 
 <dt>path</dt>
@@ -186,7 +203,33 @@ is not <code>NULL</code>, title, author, date, and keywords are ignored; default
 <dt>...</dt>
 <dd><p>Additional parameters passed to <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggplot2::ggsave()</a></code></p></dd>
 
+
+<dt>image</dt>
+<dd><p>Image size name, Default: <code>NULL</code></p></dd>
+
+
+<dt>platform</dt>
+<dd><p>Social media platform, "Instagram", "Facebook", or "Twitter",
+Default: <code>NULL</code></p></dd>
+
+
+<dt>format</dt>
+<dd><p>Image format, "post", "story", or "cover", Default: <code>NULL</code></p></dd>
+
+
+<dt>single_file</dt>
+<dd><p>If <code>TRUE</code>, use <a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">gridExtra::arrangeGrob</a> to create an
+arrangelist class object that ggplot2::ggsave can save as a single
+multi-page file.</p></dd>
+
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>map_ggsave_ext can take a list of ggplot2 plots (e.g. a list of plot
+generated by <a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">purrr::map</a>) and create multiple files using the same
+parameters or use the gridExtras package to create a single combined PDF
+file.</p>
+    </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggplot2::ggsave()</a></code></p></div>
