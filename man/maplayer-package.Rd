@@ -6,6 +6,8 @@
 \alias{maplayer-package}
 \title{maplayer: Make Map Layers With ggplot2}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Make map-making with ggplot2 and sf more convenient with a consistent set of wrapper functions. Relies on the overedge package.
 }
 \seealso{
