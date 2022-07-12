@@ -9,3 +9,4 @@ man-roxygen$
 ^pkgdown$
 ^\.github$
 ^data-raw$
+^codecov\.yml$

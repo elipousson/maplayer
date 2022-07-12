@@ -26,6 +26,7 @@ Imports:
     sfext (>= 0.1.0),
     stringr
 Suggests: 
+    covr,
     geomtextpath,
     ggforce,
     ggfx,
