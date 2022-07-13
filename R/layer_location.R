@@ -15,7 +15,8 @@
 #' @return list of ggplot2 geoms
 #' @seealso
 #'  [ggplot2::CoordSf()]
-#' @rdname layer_show_location
+#' @rdname layer_location
+#' @aliases layer_show_location
 #' @export
 #' @importFrom ggplot2 aes
 #' @importFrom sfext is_sf
@@ -35,7 +36,7 @@ layer_location <-
            label_col = name_col,
            union = FALSE,
            smooth = TRUE,
-           crs = NULL,
+           crs = getOption("maplayer.crs", default = 3857),
            color = "gray40",
            linetype = "dashed",
            size = 1,
@@ -132,12 +133,9 @@ layer_location <-
         )
     }
 
-    location_layer <-
-      list(
-        location_layer,
-        mask_layer,
-        neatline_layer
-      )
-
-    return(location_layer)
+    list(
+      location_layer,
+      mask_layer,
+      neatline_layer
+    )
   }

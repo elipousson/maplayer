@@ -2,6 +2,7 @@
 % Please edit documentation in R/layer_location.R
 \name{layer_location}
 \alias{layer_location}
+\alias{layer_show_location}
 \title{Layer a location border into a ggplot2 map}
 \usage{
 layer_location(
@@ -19,7 +20,7 @@ layer_location(
   label_col = name_col,
   union = FALSE,
   smooth = TRUE,
-  crs = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
   color = "gray40",
   linetype = "dashed",
   size = 1,
