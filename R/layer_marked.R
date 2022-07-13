@@ -10,7 +10,7 @@
 #'
 #' If cast is `FALSE` and the data geometry type is MULTIPOLYGON or POLYGON, the
 #' annotation uses a centroid for the annotation geometry. If cast is `TRUE`,
-#' the data is converted to POINT geometry using [sf::st_cast()] and the
+#' the data is converted to POINT geometry using [sfext::st_cast_ext()] and the
 #' modified geometry passed on to selected geom.
 #'
 #' @section Setting label and description:
@@ -48,22 +48,21 @@
 #'   label.fontface, and label.colour. If `NULL`, values are set to match
 #'   [ggplot2::geom_label] defaults. Defaults to `NULL`.
 #' @inheritParams layer_labelled
+#' @param stat stat to pass to ggforce function; defaults to "sf_coordinates"
 #' @param ... Additional parameters passed to [ggforce::geom_mark_rect()],
 #'   [ggforce::geom_mark_circle()], [ggforce::geom_mark_ellipse()], or
-#'   [ggforce::geom_mark_hull()] on to [ggplot2::layer()]
+#'   [ggforce::geom_mark_hull()] or on to [ggplot2::layer()]
 #' @examples
 #' \dontrun{
 #' if (interactive()) {
-#'   library(ggplot)
-#'   library(overedge)
-#'
-#'   ggplot() +
+#' # Mark the 12th Council District on a Baltimore neighborhood basemap
+#'   ggplot::ggplot() +
 #'     layer_location_data(
 #'       data = "neighborhoods",
 #'       package = "mapbaltimore"
 #'     ) +
 #'     layer_marked(
-#'       data = get_location(
+#'       data = getdata::get_location(
 #'         type = "council district",
 #'         name = "District 12",
 #'         package = "mapbaltimore"
@@ -97,6 +96,7 @@ layer_marked <- function(data,
                          font_color = NULL,
                          expand = ggplot2::unit(5, "mm"),
                          radius = expand,
+                         stat = "sf_coordinates",
                          drop_shadow = FALSE,
                          x_offset = 5,
                          y_offset = 5,
@@ -104,6 +104,7 @@ layer_marked <- function(data,
                          ...) {
   is_pkg_installed("ggforce")
 
+  # FIXME: This should be consistent across the different layer functions
   data <- sfext::as_sf(data)
 
   if (!is.null(fn)) {
@@ -111,6 +112,7 @@ layer_marked <- function(data,
     data <- fn(data)
   }
 
+  # Get default values for geom
   label_default_aes <-
     get(
       "GeomLabel",
@@ -118,6 +120,7 @@ layer_marked <- function(data,
       mode = "any"
     )[["default_aes"]]
 
+  # Set font_family, font_face, and font_color to default values if NULL
   if (is.null(font_family)) {
     font_family <-
       label_default_aes[["family"]]
@@ -139,15 +142,13 @@ layer_marked <- function(data,
   # Add desc_col to data if not present
   data <- add_col(data = data, col = desc_col)
 
-  # Add label to mapping
+  # Add label and description to mapping
   mapping <-
     modify_mapping(mapping = mapping, label = label_col, description = desc_col)
 
   # Add geometry to mapping
   mapping <-
     modify_mapping(mapping = mapping, data = data)
-
-  stat <- "sf_coordinates"
 
   if (center) {
     sf::st_geometry(data) <-

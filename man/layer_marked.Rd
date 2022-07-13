@@ -18,6 +18,7 @@ layer_marked(
   font_color = NULL,
   expand = ggplot2::unit(5, "mm"),
   radius = expand,
+  stat = "sf_coordinates",
   drop_shadow = FALSE,
   x_offset = 5,
   y_offset = 5,
@@ -56,13 +57,17 @@ plot area width.}
 
 \item{radius}{As \code{expand} but specifying the corner radius.}
 
-\item{drop_shadow}{If \code{TRUE}, use \link[ggfx:with_shadow]{ggfx::with_shadow} to add a drop shadow to the label layer. Defaults to \code{FALSE}.}
+\item{stat}{stat to pass to ggforce function; defaults to "sf_coordinates"}
 
-\item{x_offset, y_offset, sigma}{Parameters passed to ggfx::with_shadow if \code{drop_shadow = TRUE}.}
+\item{drop_shadow}{If \code{TRUE}, use \link[ggfx:with_shadow]{ggfx::with_shadow} to add a drop shadow to
+the label layer. Defaults to \code{FALSE}.}
+
+\item{x_offset, y_offset, sigma}{Parameters passed to \link[ggfx:with_shadow]{ggfx::with_shadow} if
+\code{drop_shadow = TRUE}.}
 
 \item{...}{Additional parameters passed to \code{\link[ggforce:geom_mark_rect]{ggforce::geom_mark_rect()}},
 \code{\link[ggforce:geom_mark_circle]{ggforce::geom_mark_circle()}}, \code{\link[ggforce:geom_mark_ellipse]{ggforce::geom_mark_ellipse()}}, or
-\code{\link[ggforce:geom_mark_hull]{ggforce::geom_mark_hull()}} on to \code{\link[ggplot2:layer]{ggplot2::layer()}}}
+\code{\link[ggforce:geom_mark_hull]{ggforce::geom_mark_hull()}} or on to \code{\link[ggplot2:layer]{ggplot2::layer()}}}
 }
 \description{
 Use \code{\link[ggforce:geom_mark_rect]{ggforce::geom_mark_rect()}}, \code{\link[ggforce:geom_mark_circle]{ggforce::geom_mark_circle()}},
@@ -76,7 +81,7 @@ feature objects.
 
 If cast is \code{FALSE} and the data geometry type is MULTIPOLYGON or POLYGON, the
 annotation uses a centroid for the annotation geometry. If cast is \code{TRUE},
-the data is converted to POINT geometry using \code{\link[sf:st_cast]{sf::st_cast()}} and the
+the data is converted to POINT geometry using \code{\link[sfext:st_cast_ext]{sfext::st_cast_ext()}} and the
 modified geometry passed on to selected geom.
 }
 
@@ -104,16 +109,14 @@ match that length and order of the data (after the fn is applied).
 \examples{
 \dontrun{
 if (interactive()) {
-  library(ggplot)
-  library(overedge)
-
-  ggplot() +
+# Mark the 12th Council District on a Baltimore neighborhood basemap
+  ggplot::ggplot() +
     layer_location_data(
       data = "neighborhoods",
       package = "mapbaltimore"
     ) +
     layer_marked(
-      data = get_location(
+      data = getdata::get_location(
         type = "council district",
         name = "District 12",
         package = "mapbaltimore"
