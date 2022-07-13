@@ -19,6 +19,9 @@ reference:
   - '`layer_mask`'
   - '`layer_neatline`'
   - '`layer_scaled`'
+- title: Additional layers for combining ggplot2 maps
+  contents:
+  - '`layer_inset`'
 - title: Add scales and labels to ggplot2 maps
   contents:
   - '`labs_ext`'
