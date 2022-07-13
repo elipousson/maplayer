@@ -22,7 +22,7 @@
 #' @param exif If `TRUE`, the EXIF metadata for the exported file is updated
 #'   with the exifr package; defaults to `FALSE`.
 #' @inheritParams sfext::write_exif
-#' @param ... Additional parameters passed to [ggplot2::ggsave()]
+#' @inheritDotParams ggplot2::ggsave -width -height -units -bg
 #' @example examples/ggsave_ext.R
 #' @seealso
 #'  [ggplot2::ggsave()]
@@ -65,7 +65,6 @@ ggsave_ext <- function(plot = last_plot(),
   )
 
   if (is.null(device) && (!is.null(filetype) | !is.null(filename))) {
-
     filetype <- filetype %||% sfext::str_extract_filetype(filename)
 
     filename <- sfext::str_remove_filetype(filename, filetype)
@@ -106,7 +105,7 @@ ggsave_ext <- function(plot = last_plot(),
       keywords = keywords,
       date = NULL,
       args = args
-      )
+    )
   }
 }
 
@@ -158,12 +157,13 @@ ggsave_social <- function(plot = last_plot(),
 #' @name map_ggsave_ext
 #' @rdname ggsave_ext
 #' @param single_file If `TRUE`, use [gridExtra::arrangeGrob] to create an
-#'   arrangelist class object that ggplot2::ggsave can save as a single
-#'   multi-page file.
+#'   arrangelist class object that [ggplot2::ggsave] can save as a single
+#'   multi-page file. Note: this does not work with plots modified with
+#'   [patchwork] including inset maps created with the
+#'   [birdseyeview::make_inset_map] function.
 #' @export
 #' @importFrom purrr map
 map_ggsave_ext <- function(plot, single_file = TRUE, ..., postfix = "pg_") {
-
   stopifnot(
     is.list(plot)
   )
@@ -182,7 +182,7 @@ map_ggsave_ext <- function(plot, single_file = TRUE, ..., postfix = "pg_") {
     ggsave_ext(
       plot = plot,
       ...
-      )
+    )
   } else {
     for (pg in seq(plot)) {
       ggsave_ext(

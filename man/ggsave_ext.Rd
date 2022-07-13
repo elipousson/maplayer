@@ -107,7 +107,13 @@ Default: \code{NULL}.}
 is not \code{NULL}, title, author, date, and keywords are ignored; defaults to
 \code{NULL}.}
 
-\item{...}{Additional parameters passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}}
+\item{...}{
+  Arguments passed on to \code{\link[ggplot2:ggsave]{ggplot2::ggsave}}
+  \describe{
+    \item{\code{limitsize}}{When \code{TRUE} (the default), \code{ggsave()} will not
+save images larger than 50x50 inches, to prevent the common error of
+specifying dimensions in pixels.}
+  }}
 
 \item{image}{Image size name, Default: \code{NULL}}
 
@@ -117,8 +123,10 @@ Default: \code{NULL}}
 \item{format}{Image format, "post", "story", or "cover", Default: \code{NULL}}
 
 \item{single_file}{If \code{TRUE}, use \link[gridExtra:arrangeGrob]{gridExtra::arrangeGrob} to create an
-arrangelist class object that ggplot2::ggsave can save as a single
-multi-page file.}
+arrangelist class object that \link[ggplot2:ggsave]{ggplot2::ggsave} can save as a single
+multi-page file. Note: this does not work with plots modified with
+\link{patchwork} including inset maps created with the
+\link[birdseyeview:make_inset_map]{birdseyeview::make_inset_map} function.}
 }
 \description{
 Save a plot or map then update the EXIF metadata for the title, author, and
