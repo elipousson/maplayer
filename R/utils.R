@@ -118,13 +118,13 @@ modify_mapping <- function(mapping = NULL, data = NULL, ...) {
 #' @param data Data to apply function to
 #' @param fn defaults to NULL
 #' @noRd
-use_fn <- function(data, fn = NULL, ...) {
+use_fn <- function(data, fn = NULL) {
   if (is.null(fn)) {
     return(data)
   }
 
   fn <- as_function(fn)
-  fn(data, ...)
+  fn(data)
 }
 
 #' Does the data frame has a column with the same name?
@@ -177,7 +177,6 @@ is_pkg_installed <- function(pkg, repo = NULL) {
 #'
 #' @noRd
 is_geom_pkg_installed <- function(geom) {
-
   ggpattern_geoms <- c("pattern", "sf_pattern")
   ggrepel_geoms <- c("text_repel", "label_repel")
   geomtextpath_geoms <- c("textsf", "labelsf")
@@ -238,8 +237,10 @@ cli_yeah <- function(x,
 
   if (!is_interactive()) {
     cli_abort(
-      c("User input required, but session is not interactive.",
-        "Query: {x}")
+      c(
+        "User input required, but session is not interactive.",
+        "Query: {x}"
+      )
     )
   }
 

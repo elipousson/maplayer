@@ -20,7 +20,7 @@ layer_location_data(
   crop = TRUE,
   trim = FALSE,
   from_crs = getOption("maplayer.from_crs"),
-  crs = getOption("maplayer.crs"),
+  crs = getOption("maplayer.crs", default = 3857),
   label_col = "name",
   ...
 )
@@ -36,7 +36,7 @@ package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
 'sf'. Options include "sf" (\link[ggplot2:ggsf]{ggplot2::geom_sf}), "icon" (\link{layer_icon}),
-"markers" (\link{layer_markers}), "text" (\link[ggplot2:ggsf]{ggplot2::geom_sf_text}), and "label"
+"markers" (\link{layer_markers}), "sf_text" (\link[ggplot2:ggsf]{ggplot2::geom_sf_text}), and "sf_label"
 (\link[ggplot2:ggsf]{ggplot2::geom_sf_label}). See details for a full list.}
 
 \item{location}{sf object. If multiple areas are provided, they are unioned
@@ -82,40 +82,56 @@ pass to any text geom.}
 
 \item{...}{Parameters passed to selected geom}
 }
-\value{
-ggplot2 geom
-}
 \description{
 Helper function to make a ggplot2 layer from data returned by
 \code{\link[=get_location_data]{get_location_data()}}. For text geoms, the required aesthetic mapping is
 set based on the name_col but values passed to mapping take precedence.
 }
-\details{
-Supported geom function options:
+\section{Using the geom parameter}{
 
-Options for the geom parameter from the overedge package include:
+
+This function provides a convenient option for filtering data by location
+while calling a different layer function from ggplot2, maplayer, or a
+different package.
+
+Options for the geom parameter from \link{ggplot2}:
 \itemize{
-\item "icon" (\link{layer_icon}),
-\item "mapbox" (\link{layer_mapbox}),
-\item "markers" (\link{layer_markers}),
-\item "numbers" (\link{layer_numbers})
+\item "sf" (\link[ggplot2:ggsf]{ggplot2::geom_sf} - default)
+\item "sf_text" or "text (\link[ggplot2:ggsf]{ggplot2::geom_sf_text})
+\item "sf_label" or "label (\link[ggplot2:ggsf]{ggplot2::geom_sf_label})
 }
 
-Options for the geom parameter from other packages include:
+Options for the geom parameter included in this package include:
+\itemize{
+\item "location" (\link{layer_location})
+\item "context" or "location_context" (\link{layer_location_context})
+\item "icon" (\link{layer_icon}),
+\item "mapbox" (\link{layer_mapbox})
+\item "markers" (\link{layer_markers})
+\item "numbers" or "numbered" (\link{layer_numbers})
+\item "mark" or "marked" (\link{layer_mark})
+}
+
+Options for the geom parameter from other suggested packages include:
 \itemize{
 \item "textsf" (\link[geomtextpath:geom_textsf]{geomtextpath::geom_textsf})
 \item "labelsf" (\link[geomtextpath:geom_textsf]{geomtextpath::geom_labelsf})
 \item "text_repel" (\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel})
 \item "label_repel" (\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel})
-\item "mark" (\link[birdseyeview:layer_show_mark]{birdseyeview::layer_show_mark})
-\item "location" (\link[birdseyeview:layer_show_location]{birdseyeview::layer_show_location})
-\item "context" (\link[birdseyeview:layer_show_context]{birdseyeview::layer_show_context})
-\item "pattern" (\link[ggpattern:geom-docs]{ggpattern::geom_sf_pattern})
+\item "sf_pattern" or "pattern" (\link[ggpattern:geom-docs]{ggpattern::geom_sf_pattern})
 }
 
-Alternatively, use the "geom_fn" parameter to pass a function that returns a
-ggplot2 layer to use instead of one of the preset geom functions.
+Both stat = "sf_coordinates" is automatically added to the parameters for
+both \link{ggrepel} functions.
 }
+
+\section{Using the geom_fn parameter}{
+
+
+geom_fn can be a purrr style lamba function (converted with \link[rlang:as_function]{rlang::as_function}) or a function.
+If geom_fn is a function, the mapping parameter is used. If geom_fn is a lambda function
+}
+
 \seealso{
 Other layer: 
 \code{\link{layer_frame}()},

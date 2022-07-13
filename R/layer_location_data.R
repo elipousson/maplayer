@@ -4,32 +4,48 @@
 #' [get_location_data()]. For text geoms, the required aesthetic mapping is
 #' set based on the name_col but values passed to mapping take precedence.
 #'
-#' @details Supported geom function options:
+#' @section Using the geom parameter:
 #'
-#' Options for the geom parameter from the overedge package include:
+#' This function provides a convenient option for filtering data by location
+#' while calling a different layer function from ggplot2, maplayer, or a
+#' different package.
 #'
+#' Options for the geom parameter from [ggplot2]:
+#'
+#' - "sf" ([ggplot2::geom_sf] - default)
+#' - "sf_text" or "text ([ggplot2::geom_sf_text])
+#' - "sf_label" or "label ([ggplot2::geom_sf_label])
+#'
+#' Options for the geom parameter included in this package include:
+#'
+#' - "location" ([layer_location])
+#' - "context" or "location_context" ([layer_location_context])
 #' - "icon" ([layer_icon]),
-#' - "mapbox" ([layer_mapbox]),
-#' - "markers" ([layer_markers]),
-#' - "numbers" ([layer_numbers])
+#' - "mapbox" ([layer_mapbox])
+#' - "markers" ([layer_markers])
+#' - "numbers" or "numbered" ([layer_numbers])
+#' - "mark" or "marked" ([layer_mark])
 #'
-#' Options for the geom parameter from other packages include:
+#' Options for the geom parameter from other suggested packages include:
 #'
 #'   - "textsf" ([geomtextpath::geom_textsf])
 #'   - "labelsf" ([geomtextpath::geom_labelsf])
 #'   - "text_repel" ([ggrepel::geom_text_repel])
 #'   - "label_repel" ([ggrepel::geom_label_repel])
-#'   - "mark" ([birdseyeview::layer_show_mark])
-#'   - "location" ([birdseyeview::layer_show_location])
-#'   - "context" ([birdseyeview::layer_show_context])
-#'   - "pattern" ([ggpattern::geom_sf_pattern])
+#'   - "sf_pattern" or "pattern" ([ggpattern::geom_sf_pattern])
 #'
-#' Alternatively, use the "geom_fn" parameter to pass a function that returns a
-#' ggplot2 layer to use instead of one of the preset geom functions.
+#' Both stat = "sf_coordinates" is automatically added to the parameters for
+#' both [ggrepel] functions.
+#'
+#' @section Using the geom_fn parameter:
+#'
+#' geom_fn can be a purrr style lamba function (converted with [rlang::as_function]) or a function.
+#' If geom_fn is a function, the mapping parameter is used. If geom_fn is a lambda function
+#'
 #'
 #' @param geom A character string indicating which ggplot2 geom to use, Default:
 #'   'sf'. Options include "sf" ([ggplot2::geom_sf]), "icon" ([layer_icon]),
-#'   "markers" ([layer_markers]), "text" ([ggplot2::geom_sf_text]), and "label"
+#'   "markers" ([layer_markers]), "sf_text" ([ggplot2::geom_sf_text]), and "sf_label"
 #'   ([ggplot2::geom_sf_label]). See details for a full list.
 #' @param geom_fn ggplot2 geom or custom function using lambda syntax. Use for
 #'   passing custom mapping functions to layer_location_data beyond the
@@ -41,7 +57,6 @@
 #' @param ... Parameters passed to selected geom
 #' @inheritParams getdata::get_location_data
 #' @inheritParams ggplot2::geom_sf
-#' @return ggplot2 geom
 #' @rdname layer_location_data
 #' @family layer
 #' @export
@@ -64,7 +79,7 @@ layer_location_data <-
            crop = TRUE,
            trim = FALSE,
            from_crs = getOption("maplayer.from_crs"),
-           crs = getOption("maplayer.crs"),
+           crs = getOption("maplayer.crs", default = 3857),
            label_col = "name",
            ...) {
     data <-
@@ -87,8 +102,8 @@ layer_location_data <-
       )
 
     if (!is.null(geom_fn)) {
-      if(!is_function(geom_fn)) {
-        return(use_fn(data, geom_fn, ...))
+      if (!is_function(geom_fn)) {
+        return(use_fn(data, geom_fn))
       }
 
       return(geom_fn(data, mapping = mapping, ...))
@@ -96,12 +111,19 @@ layer_location_data <-
 
     params <- list2(...)
 
-    maplayer_geoms <- c("icon", "mapbox", "markers", "numbers", "mark", "location", "context")
-    ggpattern_geoms <- c("pattern", "sf_pattern")
+    # These geom functions also take a geom parameter
+    # The geom parameter is set to the default value
+    maplayer_geoms_take_geom <- c("markers", "numbers", "numbered")
+    maplayer_geoms <- c("icon", "mapbox", "mark", "marked", "location", "context", "location_context", maplayer_geoms_take_geom)
 
+    # These text geom functions require a name aesthetic parameter and/or a stat parameter
+    ggplot_text_geoms <- c("text", "sf_text", "label", "sf_label")
     ggrepel_geoms <- c("text_repel", "label_repel")
     geomtextpath_geoms <- c("textsf", "labelsf")
-    text_geoms <- c("text", "label", geomtextpath_geoms, ggrepel_geoms)
+
+    text_geoms <- c(ggplot_text_geoms, geomtextpath_geoms, ggrepel_geoms)
+
+    ggpattern_geoms <- c("pattern", "sf_pattern")
 
     # Match geoms
     geom <-
@@ -128,17 +150,20 @@ layer_location_data <-
     geom <-
       switch(geom_chr,
         "sf" = ggplot2::geom_sf,
-        "sf_text" = ggplot2::geom_sf_text,
-        "sf_label" = ggplot2::geom_sf_label,
         "text" = ggplot2::geom_sf_text,
+        "sf_text" = ggplot2::geom_sf_text,
         "label" = ggplot2::geom_sf_label,
+        "sf_label" = ggplot2::geom_sf_label,
         "icon" = layer_icon,
         "mapbox" = layer_mapbox,
         "markers" = layer_markers,
         "numbers" = layer_numbers,
+        "numbered" = layer_numbers,
         "mark" = layer_marked,
+        "marked" = layer_marked,
         "location" = layer_location,
         "context" = layer_location_context,
+        "location_context" = layer_location_context,
         "text_repel" = ggrepel::geom_text_repel,
         "label_repel" = ggrepel::geom_label_repel,
         "textsf" = geomtextpath::geom_textsf,
@@ -158,7 +183,17 @@ layer_location_data <-
         keep.null = TRUE
       )
 
-    # FIXME: This does not seem like the best way of dealing with the default params issue
+    # Reset geom to default for layer_markers or layer_numbers
+    if (geom_chr %in% maplayer_geoms_pass_geom) {
+      params$geom <-
+        switch(geom_chr,
+          "markers" = "sf",
+          "numbers" = "label",
+          "numbered" = "label"
+        )
+    }
+
+    # Reset defaults for geom_sf_text and geom_sf_label (and functions based on those)
     if (any(has_name(init_params, c("nudge_x", "nudge_y")))) {
       params$position <- NULL
     } else {
@@ -166,10 +201,7 @@ layer_location_data <-
       params$nudge_y <- NULL
     }
 
-    if (geom_chr %in% c("markers", "numbers")) {
-      params$geom <- geom_chr
-    }
-
+    # Reset default for ggrepel functions
     if (!has_name(init_params, c("direction")) && (geom_chr %in% ggrepel_geoms)) {
       params$direction <- "both"
     }
