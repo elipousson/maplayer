@@ -13,7 +13,7 @@ layer_icon(
   source = NULL,
   svg = NULL,
   color = "black",
-  crs = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
   ...
 )
 
@@ -25,7 +25,7 @@ geom_sf_icon(
   source = NULL,
   svg = NULL,
   color = "black",
-  crs = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
   ...
 )
 }

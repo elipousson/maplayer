@@ -10,7 +10,7 @@ layer_mask(
   diag_ratio = NULL,
   unit = NULL,
   asp = NULL,
-  crs = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
   fill = "white",
   color = NA,
   alpha = 0.5,

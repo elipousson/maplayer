@@ -13,7 +13,7 @@ layer_location_context(
   context = NULL,
   context_aes = list(fill = "white", color = "black", alpha = 1, ...),
   layer_between = NULL,
-  crs = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
   neatline = TRUE,
   ...
 )

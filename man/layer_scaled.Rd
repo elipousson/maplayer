@@ -10,7 +10,7 @@ layer_scaled(
   diag_ratio = NULL,
   unit = NULL,
   asp = NULL,
-  crs = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
   scale = NULL,
   paper = NULL,
   orientation = NULL,
@@ -49,7 +49,8 @@ without modification.}
 \item{clip}{If \code{TRUE}, create scaled layer even if the data is cut off; defaults to \code{FALSE}.}
 }
 \description{
-Uses \link{layer_neatline}, \link[sfext:standard_scales]{sfext::standard_scales}, and \link[sfext:convert_dist_scale]{sfext::convert_dist_scale}.
+Uses \link{layer_neatline}, \link[sfext:standard_scales]{sfext::standard_scales}, and
+\link[sfext:convert_dist_scale]{sfext::convert_dist_scale}.
 }
 \seealso{
 Other layer: 

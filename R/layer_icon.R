@@ -41,7 +41,7 @@ layer_icon <- function(data = NULL,
                        source = NULL,
                        svg = NULL,
                        color = "black",
-                       crs = NULL,
+                       crs = getOption("maplayer.crs", default = 3857),
                        ...) {
   is_pkg_installed(pkg = "ggsvg", repo = "coolbutuseless/ggsvg")
 
@@ -73,15 +73,17 @@ layer_icon <- function(data = NULL,
 
     data <-
       dplyr::mutate(
-      dplyr::rowwise(data),
-      svg_url = paste(readLines(svg_url), collapse = "\n")
-    )
+        dplyr::rowwise(data),
+        svg_url = paste(readLines(svg_url), collapse = "\n")
+      )
 
     icon_layer <-
       ggsvg::geom_point_svg(
         data = data,
-        ggplot2::aes(geometry = .data[[attributes(data)$sf_column]],
-                     svg = .data[["svg_url"]]),
+        ggplot2::aes(
+          geometry = .data[[attributes(data)$sf_column]],
+          svg = .data[["svg_url"]]
+        ),
         stat = "sf_coordinates",
         ...
       )

@@ -30,10 +30,9 @@ layer_location_context <- function(data = NULL,
                                    context = NULL,
                                    context_aes = list(fill = "white", color = "black", alpha = 1, ...),
                                    layer_between = NULL,
-                                   crs = NULL,
+                                   crs = getOption("maplayer.crs", default = 3857),
                                    neatline = TRUE,
                                    ...) {
-
   if ("gg" %in% class(data)) {
     location_layer <- data
   } else if (sfext::is_sf(data) | sfext::is_sf(location)) {
@@ -56,12 +55,12 @@ layer_location_context <- function(data = NULL,
 
   if (neatline && is_context) {
     neatline_layer <-
-        layer_neatline(
-          data = context,
-          color = NA,
-          bgcolor = "none",
-          crs = crs
-        )
+      layer_neatline(
+        data = context,
+        color = NA,
+        bgcolor = "none",
+        crs = crs
+      )
   }
 
   list(
