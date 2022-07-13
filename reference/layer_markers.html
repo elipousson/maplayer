@@ -58,7 +58,7 @@ sfext::make_markers."><meta property="og:image" content="https://elipousson.gith
 <span>  make <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  groupname_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  group_meta <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  crs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"maplayer.crs"</span>, default <span class="op">=</span> <span class="fl">3857</span><span class="op">)</span>,</span>
 <span>  number <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  num_by_group <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  num_style <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -85,7 +85,7 @@ sfext::make_markers."><meta property="og:image" content="https://elipousson.gith
 <span>  suffix <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fn <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  crs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"maplayer.crs"</span>, default <span class="op">=</span> <span class="fl">3857</span><span class="op">)</span>,</span>
 <span>  label.size <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  label.padding <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="va">size</span><span class="op">/</span><span class="fl">10</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
 <span>  label.r <span class="op">=</span> <span class="va">label.padding</span> <span class="op">*</span> <span class="fl">1.5</span>,</span>
@@ -99,7 +99,7 @@ sfext::make_markers."><meta property="og:image" content="https://elipousson.gith
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>Data with markers, passed to data parameter of
-<code><a href="https://elipousson.github.io/overedge/reference/get_location_data.html" class="external-link">get_location_data()</a></code></p></dd>
+<code>get_location_data()</code></p></dd>
 
 
 <dt>mapping</dt>
@@ -114,7 +114,7 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
 
 
 <dt>make</dt>
-<dd><p>If <code>TRUE</code>, pass data to <a href="https://elipousson.github.io/overedge/reference/make_markers.html" class="external-link">make_markers</a>.</p></dd>
+<dd><p>If <code>TRUE</code>, pass data to make_markers.</p></dd>
 
 
 <dt>groupname_col</dt>

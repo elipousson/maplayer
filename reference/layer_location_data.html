@@ -70,7 +70,7 @@ set based on the name_col but values passed to mapping take precedence.</p>
 <span>  crop <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  trim <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  from_crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"maplayer.from_crs"</span><span class="op">)</span>,</span>
-<span>  crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"maplayer.crs"</span><span class="op">)</span>,</span>
+<span>  crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"maplayer.crs"</span>, default <span class="op">=</span> <span class="fl">3857</span><span class="op">)</span>,</span>
 <span>  label_col <span class="op">=</span> <span class="st">"name"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -93,7 +93,7 @@ package), a <code>sf</code>, <code>sfc</code>, or <code>bbox</code>  object incl
 <dt>geom</dt>
 <dd><p>A character string indicating which ggplot2 geom to use, Default:
 'sf'. Options include "sf" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf</a>), "icon" (<a href="layer_icon.html">layer_icon</a>),
-"markers" (<a href="layer_markers.html">layer_markers</a>), "text" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text</a>), and "label"
+"markers" (<a href="layer_markers.html">layer_markers</a>), "sf_text" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text</a>), and "sf_label"
 (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label</a>). See details for a full list.</p></dd>
 
 
@@ -171,28 +171,38 @@ pass to any text geom.</p></dd>
 
 </dl></div>
     <div class="section level2">
-    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <h2 id="using-the-geom-parameter">Using the geom parameter<a class="anchor" aria-label="anchor" href="#using-the-geom-parameter"></a></h2>
     
 
-<p>ggplot2 geom</p>
-    </div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Supported geom function options:</p>
-<p>Options for the geom parameter from the overedge package include:</p><ul><li><p>"icon" (<a href="layer_icon.html">layer_icon</a>),</p></li>
-<li><p>"mapbox" (<a href="layer_mapbox.html">layer_mapbox</a>),</p></li>
-<li><p>"markers" (<a href="layer_markers.html">layer_markers</a>),</p></li>
-<li><p>"numbers" (<a href="layer_markers.html">layer_numbers</a>)</p></li>
-</ul><p>Options for the geom parameter from other packages include:</p><ul><li><p>"textsf" (<a href="https://allancameron.github.io/geomtextpath/reference/geom_textsf.html" class="external-link">geomtextpath::geom_textsf</a>)</p></li>
+
+<p>This function provides a convenient option for filtering data by location
+while calling a different layer function from ggplot2, maplayer, or a
+different package.</p>
+<p>Options for the geom parameter from <a href="https://ggplot2.tidyverse.org/reference/ggplot2-package.html" class="external-link">ggplot2</a>:</p><ul><li><p>"sf" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf</a> - default)</p></li>
+<li><p>"sf_text" or "text (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text</a>)</p></li>
+<li><p>"sf_label" or "label (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label</a>)</p></li>
+</ul><p>Options for the geom parameter included in this package include:</p><ul><li><p>"location" (<a href="layer_location.html">layer_location</a>)</p></li>
+<li><p>"context" or "location_context" (<a href="layer_location_context.html">layer_location_context</a>)</p></li>
+<li><p>"icon" (<a href="layer_icon.html">layer_icon</a>),</p></li>
+<li><p>"mapbox" (<a href="layer_mapbox.html">layer_mapbox</a>)</p></li>
+<li><p>"markers" (<a href="layer_markers.html">layer_markers</a>)</p></li>
+<li><p>"numbers" or "numbered" (<a href="layer_markers.html">layer_numbers</a>)</p></li>
+<li><p>"mark" or "marked" (layer_mark)</p></li>
+</ul><p>Options for the geom parameter from other suggested packages include:</p><ul><li><p>"textsf" (<a href="https://allancameron.github.io/geomtextpath/reference/geom_textsf.html" class="external-link">geomtextpath::geom_textsf</a>)</p></li>
 <li><p>"labelsf" (<a href="https://allancameron.github.io/geomtextpath/reference/geom_textsf.html" class="external-link">geomtextpath::geom_labelsf</a>)</p></li>
 <li><p>"text_repel" (<a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">ggrepel::geom_text_repel</a>)</p></li>
 <li><p>"label_repel" (<a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">ggrepel::geom_label_repel</a>)</p></li>
-<li><p>"mark" (birdseyeview::layer_show_mark)</p></li>
-<li><p>"location" (birdseyeview::layer_show_location)</p></li>
-<li><p>"context" (birdseyeview::layer_show_context)</p></li>
-<li><p>"pattern" (ggpattern::geom_sf_pattern)</p></li>
-</ul><p>Alternatively, use the "geom_fn" parameter to pass a function that returns a
-ggplot2 layer to use instead of one of the preset geom functions.</p>
+<li><p>"sf_pattern" or "pattern" (ggpattern::geom_sf_pattern)</p></li>
+</ul><p>Both stat = "sf_coordinates" is automatically added to the parameters for
+both ggrepel functions.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="using-the-geom-fn-parameter">Using the geom_fn parameter<a class="anchor" aria-label="anchor" href="#using-the-geom-fn-parameter"></a></h2>
+    
+
+
+<p>geom_fn can be a purrr style lamba function (converted with <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function</a>) or a function.
+If geom_fn is a function, the mapping parameter is used. If geom_fn is a lambda function</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

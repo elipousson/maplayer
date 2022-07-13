@@ -73,6 +73,7 @@ feature objects.</p>
 <span>  font_color <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  expand <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">5</span>, <span class="st">"mm"</span><span class="op">)</span>,</span>
 <span>  radius <span class="op">=</span> <span class="va">expand</span>,</span>
+<span>  stat <span class="op">=</span> <span class="st">"sf_coordinates"</span>,</span>
 <span>  drop_shadow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  x_offset <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  y_offset <span class="op">=</span> <span class="fl">5</span>,</span>
@@ -131,18 +132,24 @@ plot area width.</p></dd>
 <dd><p>As <code>expand</code> but specifying the corner radius.</p></dd>
 
 
+<dt>stat</dt>
+<dd><p>stat to pass to ggforce function; defaults to "sf_coordinates"</p></dd>
+
+
 <dt>drop_shadow</dt>
-<dd><p>If <code>TRUE</code>, use <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> to add a drop shadow to the label layer. Defaults to <code>FALSE</code>.</p></dd>
+<dd><p>If <code>TRUE</code>, use <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> to add a drop shadow to
+the label layer. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>x_offset, y_offset, sigma</dt>
-<dd><p>Parameters passed to ggfx::with_shadow if <code>drop_shadow = TRUE</code>.</p></dd>
+<dd><p>Parameters passed to <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> if
+<code>drop_shadow = TRUE</code>.</p></dd>
 
 
 <dt>...</dt>
 <dd><p>Additional parameters passed to <code><a href="https://ggforce.data-imaginist.com/reference/geom_mark_rect.html" class="external-link">ggforce::geom_mark_rect()</a></code>,
 <code><a href="https://ggforce.data-imaginist.com/reference/geom_mark_circle.html" class="external-link">ggforce::geom_mark_circle()</a></code>, <code><a href="https://ggforce.data-imaginist.com/reference/geom_mark_ellipse.html" class="external-link">ggforce::geom_mark_ellipse()</a></code>, or
-<code><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html" class="external-link">ggforce::geom_mark_hull()</a></code> on to <code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">ggplot2::layer()</a></code></p></dd>
+<code><a href="https://ggforce.data-imaginist.com/reference/geom_mark_hull.html" class="external-link">ggforce::geom_mark_hull()</a></code> or on to <code><a href="https://ggplot2.tidyverse.org/reference/layer.html" class="external-link">ggplot2::layer()</a></code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -152,7 +159,7 @@ plot area width.</p></dd>
 
 <p>If cast is <code>FALSE</code> and the data geometry type is MULTIPOLYGON or POLYGON, the
 annotation uses a centroid for the annotation geometry. If cast is <code>TRUE</code>,
-the data is converted to POINT geometry using <code><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">sf::st_cast()</a></code> and the
+the data is converted to POINT geometry using <code><a href="https://elipousson.github.io/sfext/reference/st_cast_ext.html" class="external-link">sfext::st_cast_ext()</a></code> and the
 modified geometry passed on to selected geom.</p>
     </div>
     <div class="section level2">
@@ -186,16 +193,14 @@ match that length and order of the data (after the fn is applied).</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ggplot</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/elipousson/overedge" class="external-link">overedge</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span><span class="co"># Mark the 12th Council District on a Baltimore neighborhood basemap</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot</span><span class="fu">::</span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="layer_location_data.html">layer_location_data</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>      data <span class="op">=</span> <span class="st">"neighborhoods"</span>,</span></span>
 <span class="r-in"><span>      package <span class="op">=</span> <span class="st">"mapbaltimore"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>    <span class="fu">layer_marked</span><span class="op">(</span></span></span>
-<span class="r-in"><span>      data <span class="op">=</span> <span class="fu"><a href="https://elipousson.github.io/overedge/reference/get_location.html" class="external-link">get_location</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      data <span class="op">=</span> <span class="fu">getdata</span><span class="fu">::</span><span class="fu"><a href="https://elipousson.github.io/getdata/reference/get_location.html" class="external-link">get_location</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>        type <span class="op">=</span> <span class="st">"council district"</span>,</span></span>
 <span class="r-in"><span>        name <span class="op">=</span> <span class="st">"District 12"</span>,</span></span>
 <span class="r-in"><span>        package <span class="op">=</span> <span class="st">"mapbaltimore"</span></span></span>
