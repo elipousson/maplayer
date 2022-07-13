@@ -3,14 +3,15 @@
 \name{layer_frame}
 \alias{layer_frame}
 \alias{make_frame}
-\title{Create map layer with shape framing a simple feature object}
+\title{Create a frame layer around a simple feature object}
 \usage{
 layer_frame(
   data,
   dist = NULL,
   diag_ratio = NULL,
   unit = "meter",
-  frame = "circle",
+  asp = NULL,
+  style = "circle",
   scale = 1,
   rotate = 0,
   inscribed = FALSE,
@@ -26,15 +27,20 @@ layer_frame(
 
 make_frame(
   x,
-  frame = "circle",
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = "meter",
+  asp = NULL,
+  style = "circle",
   scale = 1,
   rotate = 0,
   inscribed = FALSE,
-  dTolerance = 0
+  dTolerance = 0,
+  union = TRUE
 )
 }
 \arguments{
-\item{data}{\code{sf} or \code{bbox} class object}
+\item{data}{A sf object to create the frame around.}
 
 \item{dist}{buffer distance in units. Optional.}
 
@@ -45,7 +51,14 @@ provided.}
 
 \item{unit}{Buffer units; defaults to meter.}
 
-\item{frame}{Type of framing shape to add, "circle" or "square" around data.}
+\item{asp}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
+character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
+without modification.}
+
+\item{style}{Style of framing shape to add, "circle", "square", "rect",
+"buffer", or "none". If style is "buffer", the asp parameter is ignored. If
+style is "none", the dist, diag_ratio, and asp parameters are ignored and
+the input data is used as the frame.}
 
 \item{scale}{numeric; scale factor, Default: 1}
 
@@ -54,27 +67,42 @@ provided.}
 \item{inscribed}{If \code{TRUE}, make circle or square inscribed within x, if
 \code{FALSE}, make it circumscribed.}
 
-\item{color}{Color of panel border, Default: 'black'}
+\item{fill, color, size, linetype}{Fixed aesthetics for frame, passed to
+\link{layer_location_data}.}
 
-\item{size}{Size of panel border, Default: 1}
-
-\item{linetype}{Line type of panel border, Default: 'solid'}
-
-\item{fill}{Fill color for frame.}
-
-\item{neatline}{If TRUE, add a neatline to the returned layer.}
+\item{neatline}{If \code{TRUE}, return a list of layers that includes a
+\link{layer_neatline}}
 
 \item{expand}{Default \code{FALSE.} If \code{TRUE}, the function adds
 \code{\link[ggplot2:scale_continuous]{ggplot2::scale_y_continuous()}} and
 \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}} to expand the map extent to
 provided parameters.}
 
-\item{union}{If \code{TRUE}, union data before buffering and creating frame;
-defaults to \code{TRUE}.}
+\item{union}{If \code{TRUE}, pass data to \link[sf:geos_combine]{sf::st_union} before buffering and
+creating frame; defaults to \code{TRUE}.}
 
-\item{...}{Additional parameters passed to \link{layer_location_data}. May include
-additional fixed aesthetics (e.g. alpha) or "fn" to apply to the frame
-object.}
+\item{...}{
+  Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}
+  \describe{
+    \item{\code{geom_fn}}{ggplot2 geom or custom function using lambda syntax. Use for
+passing custom mapping functions to layer_location_data beyond the
+supported geom options.}
+    \item{\code{label_col}}{Column name or id for a column with the text or labels to
+pass to any text geom.}
+    \item{\code{location}}{sf object. If multiple areas are provided, they are unioned
+into a single sf object using \link[sf:geos_combine]{sf::st_union}}
+    \item{\code{filetype}}{File type to use if passing parameters to \link[sfext:read_sf_ext]{sfext::read_sf_download}
+or \link[sfext:read_sf_ext]{sfext::read_sf_pkg} (required for extdata and cached data).}
+    \item{\code{fn}}{Function to apply to data after filtering by location but before
+returning from function.}
+    \item{\code{crop}}{If \code{TRUE}, x is cropped to y using \code{\link[sf:st_crop]{sf::st_crop()}}.}
+    \item{\code{trim}}{If \code{TRUE}, x is trimmed to y with \code{\link[sfext:st_trim]{st_trim()}}.}
+    \item{\code{crs}}{Coordinate reference system to return.}
+    \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
+\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
+default), it is combined with the default mapping at the top level of the
+plot. You must supply \code{mapping} if there is no plot mapping.}
+  }}
 
 \item{x}{A sf, sfc, or bbox object}
 
@@ -85,7 +113,25 @@ specified with long-lat coordinates and \code{sf_use_s2()} returns
 meters.}
 }
 \description{
-Wraps \link[sfext:st_misc]{sfext::st_circle}, \link[sfext:st_misc]{sfext::st_square}, and \link{layer_neatline}.
+Create a circle or square that can be used as a frame around a simple feature
+object using fixed aesthetics for fill, color, size, and linetype. This
+function is helpful for the background of an inset map intended for use with
+\link{layer_inset}.
+}
+\details{
+The \link{make_frame} helper function calls \link[sfext:st_misc]{sfext::st_circle} (if style =
+"circle"), \link[sfext:st_misc]{sfext::st_square}  (if style = "square"), \link[sfext:st_bbox_ext]{sfext::st_bbox_ext}
+(if style = "rect"), or \link[sfext:st_buffer_ext]{sfext::st_buffer_ext} (if style = "none").
+
+If neatline is \code{TRUE}, \link{layer_frame} returns a list of two geoms, the second
+a \link{layer_neatline} layer created using the frame object as the data and the
+parameters bgcolor = "none" and color = "none". asp is set to 1 if style is
+"circle" or "square" or the provided asp value otherwise.
+
+Additional parameters passed through ... can include additional fixed
+aesthetics (e.g. alpha). If using the fn parameter, the function is applied
+to the frame simple feature object created by \link{make_frame} (not to the
+original input data).
 }
 \examples{
 nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))

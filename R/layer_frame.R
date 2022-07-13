@@ -1,18 +1,37 @@
-#' Create map layer with shape framing a simple feature object
+#' Create a frame layer around a simple feature object
 #'
-#' Wraps [sfext::st_circle], [sfext::st_square], and [layer_neatline].
+#' Create a circle or square that can be used as a frame around a simple feature
+#' object using fixed aesthetics for fill, color, size, and linetype. This
+#' function is helpful for the background of an inset map intended for use with
+#' [layer_inset].
 #'
-#' @param frame Type of framing shape to add, "circle" or "square" around data.
-#' @param union If `TRUE`, union data before buffering and creating frame;
-#'   defaults to `TRUE`.
+#' The [make_frame] helper function calls [sfext::st_circle] (if style =
+#' "circle"), [sfext::st_square]  (if style = "square"), [sfext::st_bbox_ext]
+#' (if style = "rect"), or [sfext::st_buffer_ext] (if style = "none").
+#'
+#' If neatline is `TRUE`, [layer_frame] returns a list of two geoms, the second
+#' a [layer_neatline] layer created using the frame object as the data and the
+#' parameters bgcolor = "none" and color = "none". asp is set to 1 if style is
+#' "circle" or "square" or the provided asp value otherwise.
+#'
+#' Additional parameters passed through ... can include additional fixed
+#' aesthetics (e.g. alpha). If using the fn parameter, the function is applied
+#' to the frame simple feature object created by [make_frame] (not to the
+#' original input data).
+#'
+#' @param data A sf object to create the frame around.
+#' @param style Style of framing shape to add, "circle", "square", "rect",
+#'   "buffer", or "none". If style is "buffer", the asp parameter is ignored. If
+#'   style is "none", the dist, diag_ratio, and asp parameters are ignored and
+#'   the input data is used as the frame.
+#' @param union If `TRUE`, pass data to [sf::st_union] before buffering and
+#'   creating frame; defaults to `TRUE`.
 #' @inheritParams layer_neatline
-#' @inheritParams sfext::st_misc
-#' @inheritParams sfext::st_buffer_ext
-#' @param fill Fill color for frame.
-#' @param neatline If TRUE, add a neatline to the returned layer.
-#' @param ... Additional parameters passed to [layer_location_data]. May include
-#'   additional fixed aesthetics (e.g. alpha) or "fn" to apply to the frame
-#'   object.
+#' @param fill,color,size,linetype Fixed aesthetics for frame, passed to
+#'   [layer_location_data].
+#' @param neatline If `TRUE`, return a list of layers that includes a
+#'   [layer_neatline]
+#' @inheritDotParams layer_location_data -geom -data -package -from_crs
 #' @example examples/layer_frame.R
 #' @name layer_frame
 #' @family layer
@@ -21,7 +40,8 @@ layer_frame <- function(data,
                         dist = NULL,
                         diag_ratio = NULL,
                         unit = "meter",
-                        frame = "circle",
+                        asp = NULL,
+                        style = "circle",
                         scale = 1,
                         rotate = 0,
                         inscribed = FALSE,
@@ -33,20 +53,19 @@ layer_frame <- function(data,
                         expand = FALSE,
                         union = TRUE,
                         ...) {
-  if (union) {
-    data <- sf::st_union(data)
-  }
-
-  data <-
-    st_buffer_ext(
+  frame <-
+    make_frame(
       x = data,
       dist = dist,
       diag_ratio = diag_ratio,
-      unit = unit
+      unit = unit,
+      style = style,
+      asp = asp,
+      scale = scale,
+      rotate = rotate,
+      inscribed = inscribed,
+      union = union
     )
-
-  frame <-
-    make_frame(x = data, frame = frame, scale = scale, rotate = rotate, inscribed = inscribed)
 
   frame_layer <-
     layer_location_data(
@@ -58,47 +77,88 @@ layer_frame <- function(data,
       ...
     )
 
-  if (neatline) {
-    neatline_layer <-
-      layer_neatline(
-        data = frame,
-        asp = 1,
-        bgcolor = "none",
-        color = "none",
-        expand = expand
-      )
-
-    frame_layer <-
-      list(
-        frame_layer,
-        neatline_layer
-      )
+  if (!neatline) {
+    return(frame_layer)
   }
 
-  return(frame_layer)
+  if (style %in% c("circle", "square")) {
+    asp <- 1
+  }
+
+  neatline_layer <-
+    layer_neatline(
+      data = frame,
+      asp = asp,
+      bgcolor = "none",
+      color = "none",
+      expand = expand
+    )
+
+  list(
+    frame_layer,
+    neatline_layer
+  )
 }
 
 #' @inheritParams sfext::st_misc
 #' @name make_frame
 #' @rdname layer_frame
+#' @inheritParams sfext::st_misc
+#' @inheritParams sfext::st_buffer_ext
 #' @export
+#' @importFrom sf st_union
+#' @importFrom sfext check_sf is_sf as_sf st_buffer_ext st_bbox_ext st_circle st_square
 make_frame <- function(x,
-                       frame = "circle",
+                       dist = NULL,
+                       diag_ratio = NULL,
+                       unit = "meter",
+                       asp = NULL,
+                       style = "circle",
                        scale = 1,
                        rotate = 0,
                        inscribed = FALSE,
-                       dTolerance = 0) {
-  stopifnot(
-    sfext::is_sf(x, ext = TRUE)
+                       dTolerance = 0,
+                       union = TRUE) {
+  sfext::check_sf(x, ext = TRUE)
+
+  if (!sfext::is_sf(x)) {
+    x <- sfext::as_sf(x)
+  }
+
+  if (union) {
+    x <- sf::st_union(x)
+  }
+
+  style <- match.arg(style, c("circle", "square", "rect", "buffer", "none"))
+
+  if (style != "none") {
+  if (is.null(asp) | (style == "buffer")) {
+    x <-
+      sfext::st_buffer_ext(
+        x = x,
+        dist = dist,
+        diag_ratio = diag_ratio,
+        unit = unit
+      )
+  } else {
+    x <-
+      sfext::st_bbox_ext(
+        x = x,
+        dist = dist,
+        diag_ratio = diag_ratio,
+        unit = unit,
+        asp = asp,
+        class = "sf"
+      )
+  }
+  } else if (!all(sapply(c(dist, diag_ratio, asp), is.null))) {
+    cli_warn("Provided {.arg dist}, {.arg diag_ratio}, and {.arg asp} are ignored when {.code style = none}.")
+  }
+
+  switch(style,
+    "circle" = sfext::st_circle(x, scale = scale, inscribed = inscribed, dTolerance = dTolerance),
+    "square" = sfext::st_square(x, scale = scale, rotate = rotate, inscribed = inscribed),
+    "rect" = sfext::st_bbox_ext(x, asp = asp, class = "sf"),
+    "none" = x
   )
-
-  frame <- match.arg(frame, c("circle", "square", "other"))
-
-  frame <-
-    switch(frame,
-      "circle" = sfext::st_circle(x = x, scale = scale, inscribed = inscribed, dTolerance = dTolerance),
-      "square" = sfext::st_square(x = x, scale = scale, rotate = rotate, inscribed = inscribed),
-      "other" = x
-    )
-  return(frame)
 }
