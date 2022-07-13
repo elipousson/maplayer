@@ -16,6 +16,7 @@ layer_labelled(
   union = FALSE,
   clip = NULL,
   dist = NULL,
+  diag_ratio = NULL,
   unit = NULL,
   drop_shadow = FALSE,
   x_offset = 5,
@@ -25,13 +26,17 @@ layer_labelled(
 )
 }
 \arguments{
-\item{data}{Data to use for label creation}
+\item{data}{Data to use for labels (must be an sf object or a data frame that
+can be converted to an sf object using \link[sfext:as_sf]{sfext::as_sf})}
 
-\item{location}{Location to label (if not specified the data is assumed to conver the whole location);}
+\item{location}{Location to label (if not specified the data is assumed to
+conver the whole location);}
 
-\item{geom}{A geom to use "text", "label", "textsf", "labelsf", "text_repel", or "label_repel"}
+\item{geom}{A geom to use "text", "label", "textsf", "labelsf", "text_repel",
+or "label_repel"}
 
-\item{fn}{Function to apply to data before creating labels; can be used in the creation of the label_col}
+\item{fn}{Function to apply to data before creating labels; can be used in
+the creation of the label_col}
 
 \item{label_col}{Label column name}
 
@@ -48,30 +53,42 @@ and a full edge can be returned.}
 meters. Use negative values for an inside edge or positive numbers for an
 outside edge.}
 
+\item{diag_ratio}{Alternate way to define edge distance.}
+
 \item{unit}{Units for buffer. Supported options include "meter", "foot",
 "kilometer", and "mile", "nautical mile" Common abbreviations (e.g. "km"
 instead of "kilometer") are also supported. Distance in units is converted
 to units matching GDAL units for x; defaults to "meter"}
 
-\item{drop_shadow}{If \code{TRUE}, use \link[ggfx:with_shadow]{ggfx::with_shadow} to add a drop shadow to the label layer. Defaults to \code{FALSE}.}
+\item{drop_shadow}{If \code{TRUE}, use \link[ggfx:with_shadow]{ggfx::with_shadow} to add a drop shadow to
+the label layer. Defaults to \code{FALSE}.}
 
-\item{x_offset, y_offset, sigma}{Parameters passed to ggfx::with_shadow if \code{drop_shadow = TRUE}.}
+\item{x_offset, y_offset, sigma}{Parameters passed to \link[ggfx:with_shadow]{ggfx::with_shadow} if
+\code{drop_shadow = TRUE}.}
 
-\item{...}{Additional parameters passed to \link{layer_location_data}}
+\item{...}{
+  Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}
+  \describe{
+    \item{\code{asp}}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
+character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
+without modification.}
+    \item{\code{package}}{Name of the package to search for data.}
+    \item{\code{filetype}}{File type to use if passing parameters to \link[sfext:read_sf_ext]{sfext::read_sf_download}
+or \link[sfext:read_sf_ext]{sfext::read_sf_pkg} (required for extdata and cached data).}
+    \item{\code{crop}}{If \code{TRUE}, x is cropped to y using \code{\link[sf:st_crop]{sf::st_crop()}}.}
+    \item{\code{trim}}{If \code{TRUE}, x is trimmed to y with \code{\link[sfext:st_trim]{st_trim()}}.}
+    \item{\code{crs}}{Coordinate reference system to return.}
+  }}
 }
 \description{
 Label markers, streets, areas, or other simple feature objects using any of
-the following geoms: "text", "label", "textsf", "labelsf", "text_repel", or
-"label_repel".
+the following geoms: "text", "sf_text", "label", "sf_label", "textsf",
+"labelsf", "text_repel", or "label_repel".
 }
 \details{
-Note:
-\itemize{
-\item Unlike in some overedge package functions, fn is applied to the whole data; not a
-subset of the data based on location.
-\item For this function, dist and unit are both used by \code{\link[sfext:st_clip]{sfext::st_clip()}} (not by
-\link{layer_location_data})
-}
+Note: Unlike in some \link{getdata} package functions, fn is applied to all of the
+data; not a subset of the data based on location. For this function, dist and
+unit are both used by \code{\link[sfext:st_clip]{sfext::st_clip()}} (not by \link{layer_location_data})
 
 The function also overrides the label aesthetics to hide the colored letters
 that would otherwise appear when using a theme legend.
