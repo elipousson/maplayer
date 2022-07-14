@@ -10,3 +10,4 @@ man-roxygen$
 ^\.github$
 ^data-raw$
 ^codecov\.yml$
+^codemeta\.json$
