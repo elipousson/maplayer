@@ -184,7 +184,7 @@ layer_location_data <-
       )
 
     # Reset geom to default for layer_markers or layer_numbers
-    if (geom_chr %in% maplayer_geoms_pass_geom) {
+    if (geom_chr %in% maplayer_geoms_take_geom) {
       params$geom <-
         switch(geom_chr,
           "markers" = "sf",
