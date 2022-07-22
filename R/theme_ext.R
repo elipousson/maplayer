@@ -178,7 +178,7 @@ theme_legend <- function(position = NULL,
 
     # FIXME: This part needs a test
     # If margin is not a unit object
-    if (!is_class(margin, classes = "unit")) {
+    if (inherits(margin, "unit")) {
       # use a numeric margin as a dist
       if (is.numeric(margin)) {
         dist <- margin
