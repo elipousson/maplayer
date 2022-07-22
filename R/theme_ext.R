@@ -178,7 +178,7 @@ theme_legend <- function(position = NULL,
 
     # FIXME: This part needs a test
     # If margin is not a unit object
-    if (inherits(margin, "unit")) {
+    if (!inherits(margin, "unit")) {
       # use a numeric margin as a dist
       if (is.numeric(margin)) {
         dist <- margin
@@ -189,6 +189,8 @@ theme_legend <- function(position = NULL,
       }
 
       leg_margin <- sfext::get_margin(margin = margin, dist = dist, unit = unit)
+    } else {
+      leg_margin <- margin
     }
 
     legend_theme <-
