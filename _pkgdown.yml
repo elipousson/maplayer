@@ -8,6 +8,9 @@ reference:
   - '`layer_labelled`'
   - '`layer_location`'
   - '`layer_location_context`'
+- title: Map making for locations
+  contents:
+  - '`make_location_map`'
 - title: Additional layers for sf objects
   contents:
   - '`layer_frame`'
@@ -22,14 +25,15 @@ reference:
 - title: Additional layers for combining ggplot2 maps
   contents:
   - '`layer_inset`'
-- title: Add scales and labels to ggplot2 maps
+- title: Add scales, labels, and theme elements to ggplot2 maps
   contents:
   - '`labs_ext`'
   - '`scale_group_data`'
+  - '`theme_ext`'
 - title: Save one or more plot or map to a file
   contents:
   - '`ggsave_ext`'
-- title: Data used by map layer functions
+- title: Reference data for layer functions
   contents:
   - '`map_icons`'
 - title: Reexports from ggplot2
