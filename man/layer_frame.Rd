@@ -84,7 +84,7 @@ creating frame; defaults to \code{TRUE}.}
 \item{...}{
   Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}
   \describe{
-    \item{\code{geom_fn}}{ggplot2 geom or custom function using lambda syntax. Use for
+    \item{\code{layer_fn}}{ggplot2 geom or custom function using lambda syntax. Use for
 passing custom mapping functions to layer_location_data beyond the
 supported geom options.}
     \item{\code{label_col}}{Column name or id for a column with the text or labels to

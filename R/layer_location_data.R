@@ -37,17 +37,17 @@
 #' Both stat = "sf_coordinates" is automatically added to the parameters for
 #' both [ggrepel] functions.
 #'
-#' @section Using the geom_fn parameter:
+#' @section Using the layer_fn parameter:
 #'
-#' geom_fn can be a purrr style lamba function (converted with [rlang::as_function]) or a function.
-#' If geom_fn is a function, the mapping parameter is used. If geom_fn is a lambda function
+#' layer_fn can be a purrr style lamba function (converted with [rlang::as_function]) or a function.
+#' If layer_fn is a function, the mapping parameter is used. If layer_fn is a lambda function
 #'
 #'
 #' @param geom A character string indicating which ggplot2 geom to use, Default:
 #'   'sf'. Options include "sf" ([ggplot2::geom_sf]), "icon" ([layer_icon]),
 #'   "markers" ([layer_markers]), "sf_text" ([ggplot2::geom_sf_text]), and "sf_label"
 #'   ([ggplot2::geom_sf_label]). See details for a full list.
-#' @param geom_fn ggplot2 geom or custom function using lambda syntax. Use for
+#' @param layer_fn ggplot2 geom or custom function using lambda syntax. Use for
 #'   passing custom mapping functions to layer_location_data beyond the
 #'   supported geom options.
 #' @param unit unit to adjust location by dist or diag_ratio; defaults to
@@ -75,11 +75,11 @@ layer_location_data <-
            package = getOption("maplayer.data_package"),
            filetype = getOption("maplayer.data_filetype"),
            fn = NULL,
-           geom_fn = NULL,
+           layer_fn = NULL,
            crop = TRUE,
            trim = FALSE,
-           from_crs = getOption("maplayer.from_crs"),
-           crs = getOption("maplayer.crs", default = 3857),
+           from_crs = getOption("maplayer.from_crs", 4326),
+           crs = getOption("maplayer.crs", 3857),
            label_col = "name",
            ...) {
     data <-
@@ -97,16 +97,15 @@ layer_location_data <-
         trim = trim,
         from_crs = from_crs,
         crs = crs,
-        class = "sf",
-        ...
+        class = "sf"
       )
 
-    if (!is.null(geom_fn)) {
-      if (!is_function(geom_fn)) {
-        return(use_fn(data, geom_fn))
+    if (!is.null(layer_fn)) {
+      if (!is_function(layer_fn)) {
+        return(use_fn(data, layer_fn))
       }
 
-      return(geom_fn(data, mapping = mapping, ...))
+      return(layer_fn(data, mapping = mapping, ...))
     }
 
     params <- list2(...)

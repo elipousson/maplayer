@@ -52,13 +52,13 @@ layer_neatline <- function(data = NULL,
   # Pass variables to bbox adjustment function
   bbox <-
     sfext::st_bbox_ext(
-    x = data,
-    dist = dist,
-    diag_ratio = diag_ratio,
-    unit = unit,
-    asp = asp,
-    crs = crs
-  )
+      x = data,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp,
+      crs = crs
+    )
 
   # Set limits with adjustments using coord_sf
   limits <-

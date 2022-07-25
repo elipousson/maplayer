@@ -16,11 +16,11 @@ layer_location_data(
   package = getOption("maplayer.data_package"),
   filetype = getOption("maplayer.data_filetype"),
   fn = NULL,
-  geom_fn = NULL,
+  layer_fn = NULL,
   crop = TRUE,
   trim = FALSE,
-  from_crs = getOption("maplayer.from_crs"),
-  crs = getOption("maplayer.crs", default = 3857),
+  from_crs = getOption("maplayer.from_crs", 4326),
+  crs = getOption("maplayer.crs", 3857),
   label_col = "name",
   ...
 )
@@ -64,7 +64,7 @@ or \link[sfext:read_sf_ext]{sfext::read_sf_pkg} (required for extdata and cached
 \item{fn}{Function to apply to data after filtering by location but before
 returning from function.}
 
-\item{geom_fn}{ggplot2 geom or custom function using lambda syntax. Use for
+\item{layer_fn}{ggplot2 geom or custom function using lambda syntax. Use for
 passing custom mapping functions to layer_location_data beyond the
 supported geom options.}
 
@@ -125,11 +125,11 @@ Both stat = "sf_coordinates" is automatically added to the parameters for
 both \link{ggrepel} functions.
 }
 
-\section{Using the geom_fn parameter}{
+\section{Using the layer_fn parameter}{
 
 
-geom_fn can be a purrr style lamba function (converted with \link[rlang:as_function]{rlang::as_function}) or a function.
-If geom_fn is a function, the mapping parameter is used. If geom_fn is a lambda function
+layer_fn can be a purrr style lamba function (converted with \link[rlang:as_function]{rlang::as_function}) or a function.
+If layer_fn is a function, the mapping parameter is used. If layer_fn is a lambda function
 }
 
 \seealso{

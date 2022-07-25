@@ -132,25 +132,25 @@ make_frame <- function(x,
   style <- match.arg(style, c("circle", "square", "rect", "buffer", "none"))
 
   if (style != "none") {
-  if (is.null(asp) | (style == "buffer")) {
-    x <-
-      sfext::st_buffer_ext(
-        x = x,
-        dist = dist,
-        diag_ratio = diag_ratio,
-        unit = unit
-      )
-  } else {
-    x <-
-      sfext::st_bbox_ext(
-        x = x,
-        dist = dist,
-        diag_ratio = diag_ratio,
-        unit = unit,
-        asp = asp,
-        class = "sf"
-      )
-  }
+    if (is.null(asp) | (style == "buffer")) {
+      x <-
+        sfext::st_buffer_ext(
+          x = x,
+          dist = dist,
+          diag_ratio = diag_ratio,
+          unit = unit
+        )
+    } else {
+      x <-
+        sfext::st_bbox_ext(
+          x = x,
+          dist = dist,
+          diag_ratio = diag_ratio,
+          unit = unit,
+          asp = asp,
+          class = "sf"
+        )
+    }
   } else if (!all(sapply(c(dist, diag_ratio, asp), is.null))) {
     cli_warn("Provided {.arg dist}, {.arg diag_ratio}, and {.arg asp} are ignored when {.code style = none}.")
   }

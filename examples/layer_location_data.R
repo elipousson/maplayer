@@ -30,21 +30,21 @@ ggplot2::ggplot() +
     color = "red"
   )
 
-# Using the geom_fn to pass a function
+# Using the layer_fn to pass a function
 ggplot2::ggplot() +
   layer_location_data(
     data = data,
     location = location,
-    geom_fn = ggplot2::geom_sf,
+    layer_fn = ggplot2::geom_sf,
     crop = FALSE,
     color = "red"
   )
 
-# Using the geom_fn to pass a lamda-style function
+# Using the layer_fn to pass a lamda-style function
 ggplot2::ggplot() +
   layer_location_data(
     data = data,
     location = location,
-    geom_fn = ~ ggplot2::geom_sf_text(data = .x, aes(label = NAME), size = 8, color = "red"),
+    layer_fn = ~ ggplot2::geom_sf_text(data = .x, aes(label = NAME), size = 8, color = "red"),
     crop = FALSE
   )

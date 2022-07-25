@@ -27,7 +27,7 @@
 #' @param x_offset,y_offset,sigma Parameters passed to [ggfx::with_shadow] if
 #'   `drop_shadow = TRUE`.
 #' @inheritParams sfext::st_clip
-#' @inheritDotParams layer_location_data -geom_fn -from_crs
+#' @inheritDotParams layer_location_data -layer_fn -from_crs
 #' @seealso
 #'  [sfext::st_clip()],[layer_location_data()]
 #' @rdname layer_labelled
