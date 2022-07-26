@@ -19,6 +19,7 @@ reference:
   - '`layer_mapbox`'
   - '`layer_marked`'
   - '`layer_markers`'
+  - '`layer_markers`'
   - '`layer_mask`'
   - '`layer_neatline`'
   - '`layer_scaled`'

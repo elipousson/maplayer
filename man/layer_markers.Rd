@@ -3,6 +3,7 @@
 \name{layer_markers}
 \alias{layer_markers}
 \alias{layer_numbers}
+\alias{make_markers}
 \title{Create a ggplot2 layer with map markers or numbered markers}
 \usage{
 layer_markers(
@@ -45,6 +46,20 @@ layer_numbers(
   label.r = label.padding * 1.5,
   hjust = 0.5,
   vjust = 0.5,
+  ...
+)
+
+make_markers(
+  data,
+  groupname_col = NULL,
+  group_meta = NULL,
+  join = sf::st_intersects,
+  geo = FALSE,
+  coords = c("lon", "lat"),
+  address = "address",
+  point = TRUE,
+  crs = NULL,
+  fn = NULL,
   ...
 )
 }
@@ -91,7 +106,8 @@ number column.}
 \item{fn}{Function to apply to data before results; gives warning if data is
 grouped; Default: \code{NULL}}
 
-\item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}}}
+\item{...}{Additional parameters passed to \code{\link[=get_location_data]{get_location_data()}} when using
+\code{make = TRUE} to pass data to \link{make_markers}}
 
 \item{style}{Style of number markers to map; defaults to "roundrect".}
 
@@ -104,6 +120,18 @@ grouped; Default: \code{NULL}}
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
 \item{hjust, vjust}{Horizontal and vertical justification.}
+
+\item{join}{The join function used by \code{\link[sf:st_join]{sf::st_join()}} if group_meta is
+an sf object, Default: \link[sf:geos_binary_pred]{sf::st_intersects}}
+
+\item{geo}{If \code{TRUE}, geocode data using \link[tidygeocoder:geo]{tidygeocoder::geo} and \link[sfext]{df_to_sf},
+Default: \code{FALSE}}
+
+\item{address}{Address column, used if geo is \code{TRUE} Default:
+'address'}
+
+\item{point}{If \code{TRUE}, convert geometry to "POINT" with \code{\link[sf:geos_unary]{sf::st_centroid()}},
+Default: \code{TRUE}}
 }
 \value{
 ggplot2 layers
