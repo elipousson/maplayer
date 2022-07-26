@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-07-25T14:37Z
+last_built: 2022-07-26T00:59Z
 urls:
   reference: https://elipousson.github.io/maplayer/reference
   article: https://elipousson.github.io/maplayer/articles
