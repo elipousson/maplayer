@@ -4,7 +4,7 @@
 #' If get is `TRUE`, groupname_col, group_meta, crs, and fn is all passed on to
 #' [sfext::make_markers].
 #'
-#' @inheritParams sfext::make_markers
+#' @inheritParams make_markers
 #' @param make If `TRUE`, pass data to [make_markers].
 #' @param number If `TRUE`, number markers using [layer_markers()] (not
 #'   currently supported)
