@@ -1,8 +1,8 @@
 
 #' Create a ggplot2 layer with map markers or numbered markers
 #'
-#' If get is `TRUE`, groupname_col, group_meta, crs, and fn is all passed on to
-#' [sfext::make_markers].
+#' If make is `TRUE`, groupname_col, group_meta, crs, and fn is all passed on to
+#' [make_markers].
 #'
 #' @inheritParams make_markers
 #' @param make If `TRUE`, pass data to [make_markers].

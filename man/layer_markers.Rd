@@ -64,8 +64,20 @@ make_markers(
 )
 }
 \arguments{
-\item{data}{Data with markers, passed to data parameter of
-\code{\link[=get_location_data]{get_location_data()}}}
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
 \code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
@@ -120,25 +132,13 @@ grouped; Default: \code{NULL}}
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
 \item{hjust, vjust}{Horizontal and vertical justification.}
-
-\item{join}{The join function used by \code{\link[sf:st_join]{sf::st_join()}} if group_meta is
-an sf object, Default: \link[sf:geos_binary_pred]{sf::st_intersects}}
-
-\item{geo}{If \code{TRUE}, geocode data using \link[tidygeocoder:geo]{tidygeocoder::geo} and \link[sfext]{df_to_sf},
-Default: \code{FALSE}}
-
-\item{address}{Address column, used if geo is \code{TRUE} Default:
-'address'}
-
-\item{point}{If \code{TRUE}, convert geometry to "POINT" with \code{\link[sf:geos_unary]{sf::st_centroid()}},
-Default: \code{TRUE}}
 }
 \value{
 ggplot2 layers
 }
 \description{
-If get is \code{TRUE}, groupname_col, group_meta, crs, and fn is all passed on to
-\link[sfext:make_markers]{sfext::make_markers}.
+If make is \code{TRUE}, groupname_col, group_meta, crs, and fn is all passed on to
+\link{make_markers}.
 }
 \examples{
 nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
