@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Make map-making with ggplot2 and sf more convenient with a consistent set of wrapper functions. Relies on the overedge package.
+Make map-making with ggplot2 and sf more convenient with layers that subset by location.
 }
 \seealso{
 Useful links:
