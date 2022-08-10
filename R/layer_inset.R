@@ -1,4 +1,5 @@
-#' Use patchwork to create a map with an inset context map
+#' Use patchwork to create a map with an inset context map or figpatch to stamp
+#' an inset image
 #'
 #' [layer_inset_map] is useful when you want to add an inset to a plot.
 #'
@@ -6,26 +7,31 @@
 #' with fewer options for customization. In that case, the ... parameters are
 #' passed to [layer_context] instead of [patchwork::inset_element]
 #'
-#' Not that, currently, plots created with [layer_inset] do not work with [map_ggsave_ext]
-#' using the `single_file = TRUE` parameter.
+#' [stamp_inset_img] is useful for applying a logo to a map. The ... parameters
+#' are passed to [figpatch::fig]
+#'
+#' Note, currently, plots created with [layer_inset] do not work with
+#' [map_ggsave_ext] using the `single_file = TRUE` parameter.
 #'
 #' @param inset plot or map created with [ggplot2] passed to p argument of
 #'   [patchwork::inset_element]. If both location and context are provided to
-#'   [make_inset_map], inset is replaced with a new layer created by
-#'   layer_location_context.
-#' @param map plot or map created with [ggplot2]
+#'   [make_inset_map], inset is optional and any provided value is replaced with
+#'   a new layer created by [layer_location_context].
+#' @param plot,map plot or map created with [ggplot2]
+#' @param path image path passed to [figpatch::fig] for [stamp_inset_img]
+#' @param img_margin margin around image for [stamp_inset_img] created by
+#'   [ggplot2::margin]. Defaults to no margin.
 #' @inheritParams layer_location_context
 #' @param scale scale of inset map, defaults to 1.
 #' @param position inset map position, Default: 'bottomright'. position,
 #'   nudge_x, and nudge_y are used to set the left, bottom, top, and right
 #'   parameters for [patchwork::inset_element].
-#' @param nudge_x,nudge_y nudge X and Y position of inset map, Default: 0.
+#' @param nudge_x,nudge_y nudge x and/or y position of inset map, Default: 0.
 #' @inheritParams patchwork::inset_element
 #' @inheritDotParams patchwork::inset_element
 #' @return ggplot2 map with inset map added using patchwork
 #' @rdname layer_inset
 #' @export
-#' @importFrom patchwork inset_element
 layer_inset <- function(inset,
                         map = NULL,
                         position = "bottomright",
@@ -34,9 +40,101 @@ layer_inset <- function(inset,
                         nudge_y = 0,
                         align_to = "full",
                         ...) {
+  make_inset_element(
+    inset = inset,
+    plot = map,
+    position = position,
+    scale = scale,
+    nudge_x = nudge_x,
+    nudge_y = nudge_y,
+    align_to = align_to,
+    ...
+  )
+}
+
+#' @name make_inset_map
+#' @rdname layer_inset
+#' @inheritParams layer_location_context
+#' @export
+#' @importFrom ggplot2 ggplot
+make_inset_map <-
+  function(inset = NULL,
+           map = NULL,
+           location = NULL,
+           context = NULL,
+           position = "bottomright",
+           scale = 1,
+           nudge_x = 0,
+           nudge_y = 0,
+           align_to = "full",
+           ...) {
+    if (!is.null(location) && !is.null(context)) {
+      if (!is.null(inset)) {
+        cli::cli_warn("Replacing the provided inset layer with a new layer
+                      from {.fn layer_location_context}")
+      }
+
+      inset <-
+        ggplot2::ggplot() +
+        layer_location_context(
+          data = location,
+          context = context,
+          ...
+        )
+    }
+
+    make_inset_element(
+      inset = inset,
+      plot = map,
+      position = position,
+      scale = scale,
+      nudge_x = nudge_x,
+      nudge_y = nudge_y,
+      align_to = align_to
+    )
+  }
+
+#' @name stamp_inset_img
+#' @rdname layer_inset
+#' @export
+#' @importFrom ggplot2 margin
+stamp_inset_img <-
+  function(plot,
+           path,
+           img_margin = ggplot2::margin(0, 0, 0, 0),
+           position = "bottomright",
+           scale = 1,
+           nudge_x = 0,
+           nudge_y = 0,
+           align_to = "full",
+           ...) {
+    is_pkg_installed("figpatch")
+
+    inset <- figpatch::fig(path = path, b_margin = img_margin, ...)
+
+    make_inset_element(
+      inset = inset,
+      plot = plot,
+      position = position,
+      scale = scale,
+      nudge_x = nudge_x,
+      nudge_y = nudge_y,
+      align_to = align_to
+    )
+  }
+
+#' @noRd
+make_inset_element <- function(inset,
+                               plot = NULL,
+                               position = "bottomright",
+                               scale = 1,
+                               nudge_x = 0,
+                               nudge_y = 0,
+                               align_to = "full",
+                               ...) {
   is_pkg_installed("patchwork")
 
-  map_position <-
+  inset_position <-
     get_inset_position(
       scale = scale,
       position = position,
@@ -47,56 +145,21 @@ layer_inset <- function(inset,
   inset <-
     patchwork::inset_element(
       p = inset,
-      left = map_position$left,
-      bottom = map_position$bottom,
-      right = map_position$right,
-      top = map_position$top,
+      left = inset_position$left,
+      bottom = inset_position$bottom,
+      right = inset_position$right,
+      top = inset_position$top,
       align_to = align_to,
       ...
     )
 
-  if (is.null(map)) {
+  if (is.null(plot)) {
     return(inset)
   }
 
-  map +
+  plot +
     inset
 }
-
-#' @name make_inset_map
-#' @rdname layer_inset
-#' @inheritParams layer_location_context
-#' @export
-#' @importFrom ggplot2 ggplot
-make_inset_map <-
-  function(map = NULL,
-           inset = NULL,
-           location = NULL,
-           context = NULL,
-           position = "bottomright",
-           scale = 1,
-           nudge_x = 0,
-           nudge_y = 0,
-           ...) {
-    if (!is.null(location) && !is.null(context)) {
-      inset <-
-        ggplot2::ggplot() +
-        layer_location_context(
-          data = location,
-          context = context,
-          ...
-        )
-    }
-
-    layer_inset(
-      inset = inset,
-      map = map,
-      position = position,
-      scale = scale,
-      nudge_x = nudge_x,
-      nudge_y = nudge_y
-    )
-  }
 
 #' Convert scale, position, nudge_x and nudge_y into the position parameters for
 #' patchwork::inset_element

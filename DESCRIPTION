@@ -6,8 +6,8 @@ Authors@R:
     person("Eli", "Pousson", , "eli.pousson@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-8280-1706"))
 Maintainer: Eli Pousson <eli.pousson@gmail.com>
-Description: Make map-making with ggplot2 and sf more convenient with a
-    consistent set of wrapper functions. Relies on the overedge package.
+Description: Make map-making with ggplot2 and sf more convenient with
+    layers that subset by location.
 License: MIT + file LICENSE
 URL: https://github.com/elipousson/maplayer,
     https://elipousson.github.io/maplayer/
@@ -27,6 +27,7 @@ Imports:
     stringr
 Suggests: 
     covr,
+    figpatch,
     geomtextpath,
     ggforce,
     ggfx,
