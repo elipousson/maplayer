@@ -19,7 +19,6 @@ layer_location(
   label_geom = NULL,
   label_col = name_col,
   union = FALSE,
-  smooth = TRUE,
   crs = getOption("maplayer.crs", default = 3857),
   color = "gray40",
   linetype = "dashed",
@@ -31,6 +30,8 @@ layer_location(
   asp = NULL,
   mask = FALSE,
   neatline = FALSE,
+  smooth_params = TRUE,
+  shadow_params = NULL,
   ...
 )
 }
@@ -105,6 +106,10 @@ provided. defaults to \code{NULL}}
 
 \item{neatline}{If \code{TRUE}, add \code{layer_neatline} with \code{expand = TRUE};
 defaults to FALSE.}
+
+\item{smooth_params}{Optional. Logical or a list of parameters passed to
+\link[ggfx:with_shadow]{ggfx::with_shadow}. If \code{TRUE}, apply \link[ggfx:with_shadow]{ggfx::with_shadow} to the layer
+using default parameters. smooth_params is ignored if layer_fn is provided.}
 
 \item{...}{Additional parameters passed to get_location if data is \code{NULL}.}
 }

@@ -22,6 +22,8 @@ layer_location_data(
   from_crs = getOption("maplayer.from_crs", 4326),
   crs = getOption("maplayer.crs", 3857),
   label_col = "name",
+  smooth_params = NULL,
+  shadow_params = NULL,
   ...
 )
 }
@@ -80,7 +82,11 @@ the source data.}
 \item{label_col}{Column name or id for a column with the text or labels to
 pass to any text geom.}
 
-\item{...}{Parameters passed to selected geom}
+\item{smooth_params}{Optional. Logical or a list of parameters passed to
+\link[ggfx:with_shadow]{ggfx::with_shadow}. If \code{TRUE}, apply \link[ggfx:with_shadow]{ggfx::with_shadow} to the layer
+using default parameters. smooth_params is ignored if layer_fn is provided.}
+
+\item{...}{Additional parameters passed to selected geom or layer_fn}
 }
 \description{
 Helper function to make a ggplot2 layer from data returned by

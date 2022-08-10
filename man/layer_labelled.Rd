@@ -69,6 +69,9 @@ the label layer. Defaults to \code{FALSE}.}
 \item{...}{
   Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}
   \describe{
+    \item{\code{smooth_params}}{Optional. Logical or a list of parameters passed to
+\link[ggfx:with_shadow]{ggfx::with_shadow}. If \code{TRUE}, apply \link[ggfx:with_shadow]{ggfx::with_shadow} to the layer
+using default parameters. smooth_params is ignored if layer_fn is provided.}
     \item{\code{asp}}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
