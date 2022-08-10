@@ -35,7 +35,6 @@ layer_location <-
            label_geom = NULL,
            label_col = name_col,
            union = FALSE,
-           smooth = TRUE,
            crs = getOption("maplayer.crs", default = 3857),
            color = "gray40",
            linetype = "dashed",
@@ -47,6 +46,8 @@ layer_location <-
            asp = NULL,
            mask = FALSE,
            neatline = FALSE,
+           smooth_params = TRUE,
+           shadow_params = NULL,
            ...) {
     if (is.null(data)) {
       data <-
@@ -62,11 +63,6 @@ layer_location <-
           union = union,
           ...
         )
-    }
-
-    if (smooth) {
-      # FIXME: Add a way of capturing the paramers for smooth from the dots instead of passing everything to get_location
-      data <- smoothr::smooth(data)
     }
 
     location_layer <-
