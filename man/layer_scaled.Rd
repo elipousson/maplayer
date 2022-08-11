@@ -18,7 +18,7 @@ layer_scaled(
 )
 }
 \arguments{
-\item{data}{\code{sf} or \code{bbox} class object}
+\item{data}{A \code{sf}, \code{sfc}, or \code{bbox} class object.}
 
 \item{dist}{distance to convert. If paper is provided, paper width and height
 are used as dist.}

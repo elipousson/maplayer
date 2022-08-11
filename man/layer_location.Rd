@@ -108,8 +108,13 @@ provided. defaults to \code{NULL}}
 defaults to FALSE.}
 
 \item{smooth_params}{Optional. Logical or a list of parameters passed to
+\link[smoothr:smooth]{smoothr::smooth}. If \code{TRUE}, apply \link[smoothr:smooth]{smoothr::smooth} to location data
+using default parameters. smooth_params is ignored if data is \code{NULL}
+(inheriting data from \link{ggplot}).}
+
+\item{shadow_params}{Optional. Logical or a list of parameters passed to
 \link[ggfx:with_shadow]{ggfx::with_shadow}. If \code{TRUE}, apply \link[ggfx:with_shadow]{ggfx::with_shadow} to the layer
-using default parameters. smooth_params is ignored if layer_fn is provided.}
+using default parameters. shadow_params is ignored if layer_fn is provided.}
 
 \item{...}{Additional parameters passed to get_location if data is \code{NULL}.}
 }

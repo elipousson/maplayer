@@ -92,8 +92,12 @@ supported geom options.}
     \item{\code{label_col}}{Column name or id for a column with the text or labels to
 pass to any text geom.}
     \item{\code{smooth_params}}{Optional. Logical or a list of parameters passed to
+\link[smoothr:smooth]{smoothr::smooth}. If \code{TRUE}, apply \link[smoothr:smooth]{smoothr::smooth} to location data
+using default parameters. smooth_params is ignored if data is \code{NULL}
+(inheriting data from \link{ggplot}).}
+    \item{\code{shadow_params}}{Optional. Logical or a list of parameters passed to
 \link[ggfx:with_shadow]{ggfx::with_shadow}. If \code{TRUE}, apply \link[ggfx:with_shadow]{ggfx::with_shadow} to the layer
-using default parameters. smooth_params is ignored if layer_fn is provided.}
+using default parameters. shadow_params is ignored if layer_fn is provided.}
     \item{\code{location}}{sf object. If multiple areas are provided, they are unioned
 into a single sf object using \link[sf:geos_combine]{sf::st_union}}
     \item{\code{filetype}}{File type to use if passing parameters to \link[sfext:read_sf_ext]{sfext::read_sf_download}
