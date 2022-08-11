@@ -74,6 +74,7 @@ set based on the name_col but values passed to mapping take precedence.</p>
 <span>  label_col <span class="op">=</span> <span class="st">"name"</span>,</span>
 <span>  smooth_params <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  shadow_params <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  basemap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -170,8 +171,15 @@ pass to any text geom.</p></dd>
 
 <dt>smooth_params</dt>
 <dd><p>Optional. Logical or a list of parameters passed to
+<a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth</a>. If <code>TRUE</code>, apply <a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth</a> to location data
+using default parameters. smooth_params is ignored if data is <code>NULL</code>
+(inheriting data from <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a>).</p></dd>
+
+
+<dt>shadow_params</dt>
+<dd><p>Optional. Logical or a list of parameters passed to
 <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a>. If <code>TRUE</code>, apply <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> to the layer
-using default parameters. smooth_params is ignored if layer_fn is provided.</p></dd>
+using default parameters. shadow_params is ignored if layer_fn is provided.</p></dd>
 
 
 <dt>...</dt>

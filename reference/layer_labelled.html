@@ -145,8 +145,14 @@ the label layer. Defaults to <code>FALSE</code>.</p></dd>
 <dt>...</dt>
 <dd><p>Arguments passed on to <code><a href="layer_location_data.html">layer_location_data</a></code></p><dl><dt><code>smooth_params</code></dt>
 <dd><p>Optional. Logical or a list of parameters passed to
+<a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth</a>. If <code>TRUE</code>, apply <a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth</a> to location data
+using default parameters. smooth_params is ignored if data is <code>NULL</code>
+(inheriting data from <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a>).</p></dd>
+
+    <dt><code>shadow_params</code></dt>
+<dd><p>Optional. Logical or a list of parameters passed to
 <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a>. If <code>TRUE</code>, apply <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> to the layer
-using default parameters. smooth_params is ignored if layer_fn is provided.</p></dd>
+using default parameters. shadow_params is ignored if layer_fn is provided.</p></dd>
 
     <dt><code>asp</code></dt>
 <dd><p>Aspect ratio of width to height as a numeric value (e.g. 0.33) or
