@@ -56,10 +56,11 @@
 #'   pass to any text geom.
 #' @param smooth_params Optional. Logical or a list of parameters passed to
 #'   [smoothr::smooth]. If `TRUE`, apply [smoothr::smooth] to location data
-#'   using default parameters.
-#' @param smooth_params Optional. Logical or a list of parameters passed to
+#'   using default parameters. smooth_params is ignored if data is `NULL`
+#'   (inheriting data from [ggplot]).
+#' @param shadow_params Optional. Logical or a list of parameters passed to
 #'   [ggfx::with_shadow]. If `TRUE`, apply [ggfx::with_shadow] to the layer
-#'   using default parameters. smooth_params is ignored if layer_fn is provided.
+#'   using default parameters. shadow_params is ignored if layer_fn is provided.
 #' @param ... Additional parameters passed to selected geom or layer_fn
 #' @inheritParams getdata::get_location_data
 #' @inheritParams ggplot2::geom_sf
@@ -88,32 +89,50 @@ layer_location_data <- function(mapping = NULL,
                                 label_col = "name",
                                 smooth_params = NULL,
                                 shadow_params = NULL,
+                                basemap = FALSE,
                                 ...) {
-  data <-
-    getdata::get_location_data(
-      location = location,
-      dist = dist,
-      diag_ratio = diag_ratio,
-      unit = unit,
-      asp = asp,
-      data = data,
-      package = package,
-      filetype = filetype,
-      fn = fn,
-      crop = crop,
-      trim = trim,
-      from_crs = from_crs,
-      crs = crs,
-      class = "sf"
-    )
 
-  if (!is.null(smooth_params)) {
-    is_pkg_installed("smoothr")
+  if (!is_function(data) && !is_formula(data)) {
+    if (!is.null(data)) {
+      data <-
+        getdata::get_location_data(
+          location = location,
+          dist = dist,
+          diag_ratio = diag_ratio,
+          unit = unit,
+          asp = asp,
+          data = data,
+          package = package,
+          filetype = filetype,
+          fn = fn,
+          crop = crop,
+          trim = trim,
+          from_crs = from_crs,
+          crs = crs,
+          class = "sf"
+        )
 
-    if (is.list(smooth_params)) {
-      data <- eval_tidy(quo(smoothr::smooth(data, !!!smooth_params)))
-    } else if (smooth_params) {
-      data <- smoothr::smooth(data)
+      data <- with_smooth(data, smooth_params)
+    } else {
+      data <-
+        function(x) {
+          getdata::get_location_data(
+            location = location,
+            dist = dist,
+            diag_ratio = diag_ratio,
+            unit = unit,
+            asp = asp,
+            data = x,
+            package = package,
+            filetype = filetype,
+            fn = fn,
+            crop = crop,
+            trim = trim,
+            from_crs = from_crs,
+            crs = crs,
+            class = "sf"
+          )
+        }
     }
   }
 
@@ -228,17 +247,34 @@ layer_location_data <- function(mapping = NULL,
 
   layer <- exec(geom, !!!params)
 
-  if (!is.null(shadow_params)) {
-    is_pkg_installed("smoothr")
+  layer <- with_shadow(layer, shadow_params)
 
-    if (is.list(shadow_params)) {
-      layer <- eval_tidy(quo(ggfx::with_shadow(layer, !!!shadow_params)))
-    } else if (shadow_params) {
-      layer <- ggfx::with_shadow(layer)
-    }
+  make_basemap(layer, basemap)
+}
+
+#' @noRd
+with_fn <- function(x, pkg = NULL, fn, params = NULL) {
+  if (is.null(params)) {
+    return(x)
   }
 
-  layer
+  is_pkg_installed(pkg)
+
+  if (is.list(params)) {
+    eval_tidy(quo(fn(x, !!!params)))
+  } else if (params) {
+    fn(x)
+  }
+}
+
+#' @noRd
+with_smooth <- function(x, params) {
+  with_fn(x, "smoothr", smoothr::smooth, params)
+}
+
+#' @noRd
+with_shadow <- function(x, params) {
+  with_fn(x, "ggfx", ggfx::with_shadow, params)
 }
 
 #' Modify function parameters
