@@ -32,6 +32,7 @@ layer_location_context <- function(data = NULL,
                                    layer_between = NULL,
                                    crs = getOption("maplayer.crs", default = 3857),
                                    neatline = TRUE,
+                                   basemap = FALSE,
                                    ...) {
   if ("gg" %in% class(data)) {
     location_layer <- data
@@ -53,7 +54,7 @@ layer_location_context <- function(data = NULL,
 
   neatline_layer <- NULL
 
-  if (neatline && is_context) {
+  if (neatline && is_sf(context)) {
     neatline_layer <-
       layer_neatline(
         data = context,
@@ -63,10 +64,14 @@ layer_location_context <- function(data = NULL,
       )
   }
 
-  list(
-    context_layer,
-    layer_between,
-    location_layer,
-    neatline_layer
-  )
+  layer_stack <-
+    list(
+      context_layer,
+      layer_between,
+      location_layer,
+      neatline_layer
+    )
+
+  make_basemap(layer_stack, basemap)
+
 }

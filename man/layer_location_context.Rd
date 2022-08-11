@@ -15,6 +15,7 @@ layer_location_context(
   layer_between = NULL,
   crs = getOption("maplayer.crs", default = 3857),
   neatline = TRUE,
+  basemap = FALSE,
   ...
 )
 }

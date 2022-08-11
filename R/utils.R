@@ -17,7 +17,11 @@ utils::globalVariables(
 #' Create basemap by adding the object (layer or layer list) to [ggplot2::ggplot()]
 #' @noRd
 #' @importFrom ggplot2 ggplot
-as_basemap <- function(x) {
+make_basemap <- function(x, basemap = FALSE) {
+  if (!basemap) {
+    return(x)
+  }
+
   ggplot2::ggplot() +
     x
 }
