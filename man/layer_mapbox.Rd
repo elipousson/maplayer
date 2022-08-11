@@ -24,7 +24,7 @@ layer_mapbox(
   bgcolor = "white",
   size = 1,
   linetype = "solid",
-  expand = FALSE,
+  expand = TRUE,
   hide_grid = TRUE,
   label_axes = "----",
   ...
@@ -40,7 +40,10 @@ buffer distance. e.g. if the diagonal distance is 3000 meters and the
 "diag_ratio = 0.1"  a 300 meter will be used. Ignored when \code{dist} is
 provided.}
 
-\item{unit}{Buffer units; defaults to meter.}
+\item{unit}{Units for buffer. Supported options include "meter", "foot",
+"kilometer", and "mile", "nautical mile" Common abbreviations (e.g. "km"
+instead of "kilometer") are also supported. Distance in units is converted
+to units matching GDAL units for x; defaults to "meter"}
 
 \item{asp}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
@@ -81,21 +84,20 @@ attribution elsewhere on the webpage or document.}
 \item{color}{Color of panel border, Default: 'black'}
 
 \item{bgcolor}{Fill color of panel background; defaults to "white". If
-"none", panel background is set to ggplot2::element_blank()}
+"none", panel background is set to \code{\link[ggplot2:element]{ggplot2::element_blank()}}}
 
 \item{size}{Size of panel border, Default: 1}
 
 \item{linetype}{Line type of panel border, Default: 'solid'}
 
-\item{expand}{Default \code{FALSE.} If \code{TRUE}, the function adds
-\code{\link[ggplot2:scale_continuous]{ggplot2::scale_y_continuous()}} and
-\code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}} to expand the map extent to
-provided parameters.}
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If \code{FALSE},
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
-\item{hide_grid}{If \code{TRUE}, hide major grid lines. Default: \code{TRUE}}
+\item{hide_grid}{If \code{TRUE}, hide grid lines. Default: \code{TRUE}}
 
 \item{label_axes}{A description of which axes to label passed to
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides axes
+\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes
 labels.}
 
 \item{...}{Additional parameter passed to \link[mapboxapi:layer_static_mapbox]{mapboxapi::layer_static_mapbox}}

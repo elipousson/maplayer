@@ -20,7 +20,7 @@ layer_frame(
   linetype = "solid",
   fill = "white",
   neatline = TRUE,
-  expand = FALSE,
+  expand = TRUE,
   union = TRUE,
   ...
 )
@@ -49,7 +49,10 @@ buffer distance. e.g. if the diagonal distance is 3000 meters and the
 "diag_ratio = 0.1"  a 300 meter will be used. Ignored when \code{dist} is
 provided.}
 
-\item{unit}{Buffer units; defaults to meter.}
+\item{unit}{Units for buffer. Supported options include "meter", "foot",
+"kilometer", and "mile", "nautical mile" Common abbreviations (e.g. "km"
+instead of "kilometer") are also supported. Distance in units is converted
+to units matching GDAL units for x; defaults to "meter"}
 
 \item{asp}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
@@ -73,10 +76,9 @@ the input data is used as the frame.}
 \item{neatline}{If \code{TRUE}, return a list of layers that includes a
 \link{layer_neatline}}
 
-\item{expand}{Default \code{FALSE.} If \code{TRUE}, the function adds
-\code{\link[ggplot2:scale_continuous]{ggplot2::scale_y_continuous()}} and
-\code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}} to expand the map extent to
-provided parameters.}
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If \code{FALSE},
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
 \item{union}{If \code{TRUE}, pass data to \link[sf:geos_combine]{sf::st_union} before buffering and
 creating frame; defaults to \code{TRUE}.}

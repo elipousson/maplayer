@@ -50,7 +50,7 @@ layer_frame <- function(data,
                         linetype = "solid",
                         fill = "white",
                         neatline = TRUE,
-                        expand = FALSE,
+                        expand = TRUE,
                         union = TRUE,
                         ...) {
   frame <-

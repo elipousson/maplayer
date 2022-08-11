@@ -36,7 +36,7 @@ layer_mapbox <- function(data = NULL,
                          bgcolor = "white",
                          size = 1,
                          linetype = "solid",
-                         expand = FALSE,
+                         expand = TRUE,
                          hide_grid = TRUE,
                          label_axes = "----",
                          ...) {
