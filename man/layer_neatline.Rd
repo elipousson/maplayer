@@ -3,8 +3,8 @@
 \name{layer_neatline}
 \alias{layer_neatline}
 \alias{set_map_limits}
-\title{Set map limits to a simple feature or bounding box with a specified distance
-buffer, aspect ratio, and panel border}
+\title{Set map limits to a feature or bounding box with a buffer, set aspect ratio,
+and panel border}
 \usage{
 layer_neatline(
   data = NULL,
@@ -17,14 +17,14 @@ layer_neatline(
   bgcolor = "white",
   size = 1,
   linetype = "solid",
-  expand = FALSE,
+  expand = TRUE,
   hide_grid = TRUE,
   label_axes = "----",
   ...
 )
 }
 \arguments{
-\item{data}{\code{sf} or \code{bbox} class object}
+\item{data}{A \code{sf}, \code{sfc}, or \code{bbox} class object.}
 
 \item{dist}{buffer distance in units. Optional.}
 
@@ -33,46 +33,47 @@ buffer distance. e.g. if the diagonal distance is 3000 meters and the
 "diag_ratio = 0.1"  a 300 meter will be used. Ignored when \code{dist} is
 provided.}
 
-\item{unit}{Buffer units; defaults to meter.}
+\item{unit}{Units for buffer. Supported options include "meter", "foot",
+"kilometer", and "mile", "nautical mile" Common abbreviations (e.g. "km"
+instead of "kilometer") are also supported. Distance in units is converted
+to units matching GDAL units for x; defaults to "meter"}
 
 \item{asp}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
 
-\item{crs}{Coordinate reference system to use for
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.}
+\item{crs}{The coordinate reference system (CRS) into which all data should
+be projected before plotting. If not specified, will use the CRS defined
+in the first sf layer of the plot.}
 
 \item{color}{Color of panel border, Default: 'black'}
 
 \item{bgcolor}{Fill color of panel background; defaults to "white". If
-"none", panel background is set to ggplot2::element_blank()}
+"none", panel background is set to \code{\link[ggplot2:element]{ggplot2::element_blank()}}}
 
 \item{size}{Size of panel border, Default: 1}
 
 \item{linetype}{Line type of panel border, Default: 'solid'}
 
-\item{expand}{Default \code{FALSE.} If \code{TRUE}, the function adds
-\code{\link[ggplot2:scale_continuous]{ggplot2::scale_y_continuous()}} and
-\code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}} to expand the map extent to
-provided parameters.}
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If \code{FALSE},
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
-\item{hide_grid}{If \code{TRUE}, hide major grid lines. Default: \code{TRUE}}
+\item{hide_grid}{If \code{TRUE}, hide grid lines. Default: \code{TRUE}}
 
 \item{label_axes}{A description of which axes to label passed to
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides axes
+\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes
 labels.}
 
 \item{...}{Additional parameters to pass to \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.}
 }
 \value{
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}} function with xlim and ylim
-parameters
+List of \link[ggplot2:ggsf]{ggplot2::coord_sf} and \link[ggplot2:theme]{ggplot2::theme} calls.
 }
 \description{
-Set limits for a map to the bounding box of an x using
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}. Optionally, adjust the x size by applying a
-buffer and/or adjust the aspect ratio of the limiting bounding box to match a
-set aspect ratio.
+Set limits for a map to the bounding box of a feature using \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.
+Optionally, adjust the x size by applying a buffer and/or adjust the aspect
+ratio of the limiting bounding box to match a set aspect ratio.
 }
 \examples{
 nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
