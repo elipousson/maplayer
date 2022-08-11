@@ -3,7 +3,7 @@
 \name{layer_location_context}
 \alias{layer_location_context}
 \alias{layer_show_context}
-\title{Create a map layer showing a location in context of another area or location}
+\title{Create a layer showing a location and related context}
 \usage{
 layer_location_context(
   data = NULL,
@@ -11,7 +11,7 @@ layer_location_context(
   fill = "gray70",
   color = "black",
   context = NULL,
-  context_aes = list(fill = "white", color = "black", alpha = 1, ...),
+  context_params = list(fill = "white", color = "black", alpha = 1, ...),
   layer_between = NULL,
   crs = getOption("maplayer.crs", default = 3857),
   neatline = TRUE,
@@ -20,30 +20,30 @@ layer_location_context(
 )
 }
 \arguments{
-\item{data, location}{data can be a sf object for the location or a ggplot
-layer representing the location. location can only be an sf object (not a
-ggplot2 layer) and it is used instead of data if both are provided.}
+\item{data, location}{data and location can be a either sf object for the
+location or a ggplot layer representing the location. location can also be
+a formula or a function used to subset context (requires context to be an
+sf object). If data and context are both provided and both are sf objects,
+data is ignored.}
 
-\item{fill}{Fill color for location data}
+\item{fill, color}{Fill and color aesthetics for location data}
 
-\item{color}{Edge color for location data}
+\item{context}{A sf object for context area or a ggplot layer representing
+the context.}
 
-\item{context}{sf or bbox object for context area or ggplot layer
-representing the context.}
-
-\item{context_aes}{list with aesthetic attributes for context area; must
-include fill and color; defaults to list(fill = "white", color = "black",
-...)}
+\item{context_params}{list with parameters for context layer; defaults to
+list(fill = "white", color = "black", alpha = 1, ...).}
 
 \item{layer_between}{An optional ggplot2 layer to insert between the context
 layer and the location layer.}
 
 \item{crs}{Coordinate reference system to return.}
 
-\item{neatline}{If \code{TRUE}, add a neatline layer to the returned layer}
+\item{neatline}{If \code{TRUE}, add a neatline layer to the returned layer.
+Requires that data be an sf object and not inherited.}
 
-\item{...}{Additional parameters passed to layer_location_data for location}
+\item{...}{Additional parameters passed to \link{layer_location_data} for location}
 }
 \description{
-Intended for use with inset_map function.
+Intended for use with \link{make_inset_map} function.
 }

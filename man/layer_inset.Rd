@@ -73,8 +73,8 @@ below (but above the background)?}
     \item{\code{ignore_tag}}{Logical. Should autotagging ignore the inset?}
   }}
 
-\item{context}{sf or bbox object for context area or ggplot layer
-representing the context.}
+\item{context}{A sf object for context area or a ggplot layer representing
+the context.}
 
 \item{plot, map}{plot or map created with \link{ggplot2}}
 
