@@ -89,10 +89,5 @@ layer_mapbox <- function(data = NULL,
       )
   }
 
-  if (basemap) {
-    mapbox_layer <-
-      as_basemap(mapbox_layer)
-  }
-
-  return(mapbox_layer)
+  make_basemap(mapbox_layer, basemap)
 }

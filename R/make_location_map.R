@@ -87,11 +87,7 @@ make_location_map <- function(location,
       fg_layer
     )
 
-  if (basemap) {
-    map_layer <-
-      ggplot2::ggplot() +
-      map_layer
-  }
+  map_layer <- make_basemap(map_layer, basemap)
 
   if (save) {
     # FIXME: basemap condition should be substituted for some condition checking if map_layer is a valid plot
@@ -171,11 +167,7 @@ make_social_map <- function(location,
       ...
     )
 
-  if (basemap) {
-    map_layer <-
-      ggplot2::ggplot() +
-      map_layer
-  }
+  map_layer <- make_basemap(map_layer, basemap)
 
   if (save) {
     ggsave_social(
