@@ -53,8 +53,24 @@ layer_frame <- function(data,
                         expand = TRUE,
                         union = TRUE,
                         ...) {
-  frame <-
-    make_frame(
+
+  if (is.null(data)) {
+    frame <- function(x) {
+      make_frame(
+        x = x,
+        dist = dist,
+        diag_ratio = diag_ratio,
+        unit = unit,
+        style = style,
+        asp = asp,
+        scale = scale,
+        rotate = rotate,
+        inscribed = inscribed,
+        union = union
+      )
+    }
+  } else {
+   frame <- make_frame(
       x = data,
       dist = dist,
       diag_ratio = diag_ratio,
@@ -66,6 +82,7 @@ layer_frame <- function(data,
       inscribed = inscribed,
       union = union
     )
+  }
 
   frame_layer <-
     layer_location_data(
@@ -77,7 +94,7 @@ layer_frame <- function(data,
       ...
     )
 
-  if (!neatline) {
+  if (!neatline | is.null(data)) {
     return(frame_layer)
   }
 
