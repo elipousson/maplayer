@@ -46,5 +46,6 @@ Can be used to make multiple layers or multiple maps based on a grouping
 variable.
 }
 \details{
-Scales are applied a palette and aesthetic are provided and basemap is set to \code{TRUE}.
+Scales are applied a palette and aesthetic are provided and basemap is set to
+\code{TRUE}.
 }

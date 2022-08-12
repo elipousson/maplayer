@@ -133,8 +133,9 @@ Options for the geom parameter from other suggested packages include:
 \item "sf_pattern" or "pattern" (\link[ggpattern:geom-docs]{ggpattern::geom_sf_pattern})
 }
 
-Both stat = "sf_coordinates" is automatically added to the parameters for
-both \link{ggrepel} functions.
+\code{stat = "sf_coordinates"} is automatically added to the parameters for both
+ggrepel functions. \code{label = .data[[name_col]]}  is automatically added to all
+provided geoms where label is a required parameter.
 }
 
 \section{Using the layer_fn parameter}{

@@ -19,7 +19,6 @@
 #' @aliases layer_show_location
 #' @export
 #' @importFrom ggplot2 aes
-#' @importFrom sfext is_sf
 #' @importFrom getdata get_location
 layer_location <-
   function(mapping = ggplot2::aes(),
@@ -94,7 +93,7 @@ layer_location <-
 
     mask_layer <- NULL
 
-    if (sfext::is_sf(mask, ext = TRUE)) {
+    if (is_sf(mask, ext = TRUE)) {
       mask_layer <-
         layer_mask(
           data = data,

@@ -65,7 +65,7 @@ Use the  \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}} function to
 from the input simple feature object to set the icon location.
 }
 \examples{
-nc <- getdata::get_location(system.file("shape/nc.shp", package = "sf"), crs = 3857)
+nc <- getdata::get_location(type = system.file("shape/nc.shp", package = "sf"), crs = 3857)
 
 basemap <-
   ggplot2::ggplot() +

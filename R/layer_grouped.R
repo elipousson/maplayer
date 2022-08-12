@@ -3,7 +3,8 @@
 #' Can be used to make multiple layers or multiple maps based on a grouping
 #' variable.
 #'
-#' Scales are applied a palette and aesthetic are provided and basemap is set to `TRUE`.
+#' Scales are applied a palette and aesthetic are provided and basemap is set to
+#' `TRUE`.
 #'
 #' @inheritParams layer_location_data
 #' @param groupname_col Group column name
@@ -89,5 +90,5 @@ layer_grouped <- function(data,
     }
   }
 
-  return(group_layers)
+  group_layers
 }

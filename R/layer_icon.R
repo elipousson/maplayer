@@ -32,6 +32,7 @@
 #' @export
 #' @importFrom sf st_geometry_type st_centroid st_coordinates
 #' @importFrom dplyr left_join rename bind_cols filter
+#' @importFrom sfext check_sf st_transform_ext
 #' @importFrom ggplot2 aes
 #' @importFrom stringr str_detect
 layer_icon <- function(data = NULL,
@@ -54,14 +55,27 @@ layer_icon <- function(data = NULL,
   data <- sfext::st_transform_ext(data, crs = crs)
 
   if ((iconname_col %in% names(data)) & is.null(icon)) {
-    icon_options <- dplyr::rename(map_icons, svg_url = url, {{ iconname_col }} := name)
+    icon_options <-
+      dplyr::rename(
+        map_icons,
+        svg_url = url,
+        {{ iconname_col }} := name
+      )
 
     if (!is.null(px)) {
-      icon_options <- dplyr::filter(icon_options, .data$px == px)
+      icon_options <-
+        dplyr::filter(
+          icon_options,
+          .data$px == px
+        )
     }
 
     if (!is.null(source)) {
-      icon_options <- dplyr::filter(icon_options, .data$repo == source)
+      icon_options <-
+        dplyr::filter(
+          icon_options,
+          .data$repo == source
+        )
     }
 
     data <-
@@ -98,23 +112,26 @@ layer_icon <- function(data = NULL,
       icon <- dplyr::filter(icon, stringr::str_detect(repo, source))
     }
 
-    if (nrow(icon) == 1) {
-      icon_layer <-
-        suppressWarnings(
-          ggsvg::geom_point_svg(
-            data = data,
-            ggplot2::aes(geometry = .data[[attributes(data)$sf_column]]),
-            svg = paste(readLines(icon$url), collapse = "\n"),
-            stat = "sf_coordinates",
-            color = color,
-            defaults = list(color = "black"),
-            ...
-          )
+    if (nrow(icon) > 1) {
+      cli_abort(
+        c("The provided parameters match more than one icon.",
+          "i" = "Provide the `px` and/or `source` to select a single icon."
         )
-    } else {
-      cli_abort("The provided parameters match more than one icon.
-                        Provide the `px` and/or `source` to select a single icon.")
+      )
     }
+
+    icon_layer <-
+      suppressWarnings(
+        ggsvg::geom_point_svg(
+          data = data,
+          ggplot2::aes(geometry = .data[[attributes(data)$sf_column]]),
+          svg = paste(readLines(icon$url), collapse = "\n"),
+          stat = "sf_coordinates",
+          color = color,
+          defaults = list(color = "black"),
+          ...
+        )
+      )
   } else if (!is.null(svg)) {
     icon_layer <-
       suppressWarnings(
@@ -128,7 +145,7 @@ layer_icon <- function(data = NULL,
       )
   }
 
-  return(icon_layer)
+  icon_layer
 }
 
 #' @rdname layer_icon

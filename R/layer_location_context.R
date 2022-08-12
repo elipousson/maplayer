@@ -21,7 +21,7 @@
 #' @name layer_location_context
 #' @aliases layer_show_context
 #' @export
-#' @importFrom sfext is_sf
+#' @importFrom rlang eval_tidy quo
 layer_location_context <- function(data = NULL,
                                    location = NULL,
                                    fill = "gray70",
@@ -33,7 +33,7 @@ layer_location_context <- function(data = NULL,
                                    neatline = TRUE,
                                    basemap = FALSE,
                                    ...) {
-  sf_context <- sfext::is_sf(context)
+  sf_context <- is_sf(context)
 
   if (is_function(location) && sf_context) {
     data <- location(context)
@@ -41,7 +41,7 @@ layer_location_context <- function(data = NULL,
     data <- use_fn(context, location)
   }
 
-  if (sfext::is_sf(data) | sfext::is_sf(location)) {
+  if (is_sf(data) | is_sf(location)) {
     if (!is.null(location)) {
       data <- location
     }

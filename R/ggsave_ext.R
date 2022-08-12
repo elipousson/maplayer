@@ -114,6 +114,7 @@ ggsave_ext <- function(plot = last_plot(),
 #' @inheritParams sfext::get_social_image
 #' @export
 #' @importFrom ggplot2 last_plot
+#' @importFrom rlang exec
 ggsave_social <- function(plot = last_plot(),
                           image = "Instagram post",
                           platform = NULL,
@@ -148,7 +149,7 @@ ggsave_social <- function(plot = last_plot(),
       units = units
     )
 
-  exec(
+  rlang::exec(
     ggsave_ext,
     !!!params
   )
@@ -159,8 +160,8 @@ ggsave_social <- function(plot = last_plot(),
 #' @param single_file If `TRUE`, use [gridExtra::arrangeGrob] to create an
 #'   arrangelist class object that [ggplot2::ggsave] can save as a single
 #'   multi-page file. Note: this does not work with plots modified with
-#'   [patchwork] including inset maps created with the
-#'   [birdseyeview::make_inset_map] function.
+#'   patchwork including inset maps created with the
+#'   [layer_inset] function.
 #' @export
 #' @importFrom purrr map
 map_ggsave_ext <- function(plot, single_file = TRUE, ..., postfix = "pg_") {

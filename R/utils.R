@@ -31,13 +31,15 @@ make_basemap <- function(x, basemap = FALSE) {
 #'
 #' @param data Data frame or simple feature object
 #' @param col Column name/value
+#' @importFrom rlang has_length has_name
+#' @importFrom dplyr group_by
 #' @noRd
 group_by_col <- function(data, col = NULL) {
   if (is.null(col) || is.null(data)) {
     return(data)
   }
 
-  if ((has_length(col, 1)) && has_name(data, col)) {
+  if ((rlang::has_length(col, 1)) && rlang::has_name(data, col)) {
     return(dplyr::group_by(data, .data[[col]]))
   }
 }
@@ -228,6 +230,7 @@ is_geom_pkg_installed <- function(geom) {
 #' Modified version of [usethis::ui_yeah]
 #'
 #' @noRd
+#' @importFrom rlang is_interactive
 #' @importFrom utils menu
 cli_yeah <- function(x,
                      yes = c("Yes", "Definitely", "For sure", "Yup", "Yeah", "I agree", "Absolutely"),
@@ -239,7 +242,7 @@ cli_yeah <- function(x,
   x <- glue_collapse(x, "\n")
   x <- glue(x, .envir = .envir)
 
-  if (!is_interactive()) {
+  if (!rlang::is_interactive()) {
     cli_abort(
       c(
         "User input required, but session is not interactive.",

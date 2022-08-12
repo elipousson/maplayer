@@ -18,6 +18,7 @@
 #' @return  [ggplot2::geom_sf()] function.
 #' @export
 #' @importFrom sf st_transform st_difference st_union
+#' @importFrom sfext as_sf st_transform_ext st_erase
 layer_mask <- function(data = NULL,
                        dist = NULL,
                        diag_ratio = NULL,
@@ -45,7 +46,7 @@ layer_mask <- function(data = NULL,
       )
   } else {
     # Convert mask to sf if needed
-    mask <- as_sf(mask)
+    mask <- sfext::as_sf(mask)
   }
 
   if (!is.null(data)) {
@@ -70,7 +71,8 @@ layer_mask <- function(data = NULL,
   }
 
   if (all(vapply(c(dist, diag_ratio, asp), is.null, TRUE))) {
-    # FIXME: This option is not documented and may not be expected behavior in all cases
+    # FIXME: This option is not documented and may not be expected behavior in
+    # all cases
     neatline_layer <-
       layer_neatline(
         data = mask,
@@ -89,11 +91,8 @@ layer_mask <- function(data = NULL,
       )
   }
 
-  mask_layer <-
-    list(
-      mask_layer,
-      neatline_layer
-    )
-
-  return(mask_layer)
+  list(
+    mask_layer,
+    neatline_layer
+  )
 }

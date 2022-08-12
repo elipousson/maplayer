@@ -125,8 +125,8 @@ Default: \code{NULL}}
 \item{single_file}{If \code{TRUE}, use \link[gridExtra:arrangeGrob]{gridExtra::arrangeGrob} to create an
 arrangelist class object that \link[ggplot2:ggsave]{ggplot2::ggsave} can save as a single
 multi-page file. Note: this does not work with plots modified with
-\link{patchwork} including inset maps created with the
-\link[birdseyeview:make_inset_map]{birdseyeview::make_inset_map} function.}
+patchwork including inset maps created with the
+\link{layer_inset} function.}
 }
 \description{
 Save a plot or map then update the EXIF metadata for the title, author, and

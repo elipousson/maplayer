@@ -22,7 +22,7 @@ theme_margin(
   orientation = NULL,
   dist = NULL,
   unit = "in",
-  plot_width = NULL,
+  block_width = NULL,
   header = 0,
   footer = 0,
   fill = NA,
@@ -74,6 +74,11 @@ a margin object; defaults to 10.}
 \item{dist}{Margin distance (single value used to all sides), Default: \code{NULL}}
 
 \item{unit}{Legend margin units; defaults to 'pt'.}
+
+\item{block_width}{Plot or map width in units. If \code{paper} and \code{block_width} are
+provided, margins are half the distance between the two evenly distributed.
+This sets the margin distance for height as well as width so does not work
+well with header and footers and should be improved in the future.}
 
 \item{header, footer}{Header and footer height in units; defaults to 0. Please
 note: headers and footers are not currently supported for "px" units.}

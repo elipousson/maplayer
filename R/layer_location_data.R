@@ -34,8 +34,9 @@
 #'   - "label_repel" ([ggrepel::geom_label_repel])
 #'   - "sf_pattern" or "pattern" ([ggpattern::geom_sf_pattern])
 #'
-#' Both stat = "sf_coordinates" is automatically added to the parameters for
-#' both [ggrepel] functions.
+#' `stat = "sf_coordinates"` is automatically added to the parameters for both
+#' ggrepel functions. `label = .data[[name_col]]`  is automatically added to all
+#' provided geoms where label is a required parameter.
 #'
 #' @section Using the layer_fn parameter:
 #'
@@ -70,6 +71,7 @@
 #' @importFrom ggplot2 geom_sf geom_sf_text geom_sf_label
 #' @importFrom purrr discard
 #' @importFrom utils modifyList
+#' @importFrom rlang is_function is_formula arg_match has_name exec
 layer_location_data <- function(mapping = NULL,
                                 data = NULL,
                                 geom = "sf",
@@ -91,8 +93,7 @@ layer_location_data <- function(mapping = NULL,
                                 shadow_params = NULL,
                                 basemap = FALSE,
                                 ...) {
-
-  if (!is_function(data) && !is_formula(data)) {
+  if (!rlang::is_function(data) && !rlang::is_formula(data)) {
     if (!is.null(data)) {
       data <-
         getdata::get_location_data(
@@ -137,7 +138,7 @@ layer_location_data <- function(mapping = NULL,
   }
 
   if (!is.null(layer_fn)) {
-    if (!is_function(layer_fn)) {
+    if (!rlang::is_function(layer_fn)) {
       return(use_fn(data, layer_fn))
     }
 
@@ -166,7 +167,7 @@ layer_location_data <- function(mapping = NULL,
 
   # Match geoms
   geom <-
-    arg_match(
+    rlang::arg_match(
       geom,
       c("sf", maplayer_geoms, text_geoms, ggpattern_geoms)
     )
@@ -179,7 +180,6 @@ layer_location_data <- function(mapping = NULL,
 
     if (geom %in% ggrepel_geoms) {
       mapping <- modify_mapping(mapping = mapping, data = data)
-
       params <- c(params, stat = "sf_coordinates")
     }
   }
@@ -233,7 +233,7 @@ layer_location_data <- function(mapping = NULL,
   }
 
   # Reset defaults for geom_sf_text and geom_sf_label (and functions based on those)
-  if (any(has_name(init_params, c("nudge_x", "nudge_y")))) {
+  if (any(rlang::has_name(init_params, c("nudge_x", "nudge_y")))) {
     params$position <- NULL
   } else {
     params$nudge_x <- NULL
@@ -241,11 +241,12 @@ layer_location_data <- function(mapping = NULL,
   }
 
   # Reset default for ggrepel functions
-  if (!has_name(init_params, c("direction")) && (geom_chr %in% ggrepel_geoms)) {
+  if (!rlang::has_name(init_params, c("direction")) &&
+      (geom_chr %in% ggrepel_geoms)) {
     params$direction <- "both"
   }
 
-  layer <- exec(geom, !!!params)
+  layer <- rlang::exec(geom, !!!params)
 
   layer <- with_shadow(layer, shadow_params)
 
@@ -281,12 +282,17 @@ with_shadow <- function(x, params) {
 #'
 #' @noRd
 #' @importFrom purrr discard
+#' @importFrom rlang fn_fmls is_missing
 #' @importFrom utils modifyList
-modify_fn_fmls <- function(params, fn, keep_missing = FALSE, keep.null = FALSE, ...) {
-  fmls <- fn_fmls(fn)
+modify_fn_fmls <- function(params,
+                           fn,
+                           keep_missing = FALSE,
+                           keep.null = FALSE,
+                           ...) {
+  fmls <- rlang::fn_fmls(fn)
 
   if (!keep_missing) {
-    fmls <- purrr::discard(fmls, is_missing)
+    fmls <- purrr::discard(fmls, rlang::is_missing)
   }
 
   params <- c(list2(...), params)

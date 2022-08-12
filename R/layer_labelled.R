@@ -35,7 +35,8 @@
 #' @export
 #' @importFrom dplyr summarise
 #' @importFrom sf st_union
-#' @importFrom sfext check_sf st_clip
+#' @importFrom rlang arg_match
+#' @importFrom sfext as_sf check_sf st_clip
 #' @importFrom ggplot2 guides guide_legend aes
 layer_labelled <- function(data,
                            location = NULL,
@@ -57,7 +58,7 @@ layer_labelled <- function(data,
     # FIXME: If data is a dataframe, there should be a way of passing from_crs,
     # coords_col or other relevant parameter for conversion. Otherwise this only
     # works with data frames that match the default expectations.
-    data <- as_sf(data)
+    data <- sfext::as_sf(data)
   }
 
   if (!is.null(fn)) {
@@ -88,7 +89,7 @@ layer_labelled <- function(data,
   geomtextpath_geoms <- c("textsf", "labelsf")
   text_geoms <- c(ggplot_text_geoms, geomtextpath_geoms, ggrepel_geoms)
 
-  geom <- arg_match(geom, text_geoms)
+  geom <- rlang::arg_match(geom, text_geoms)
 
   label_layer <-
     layer_location_data(

@@ -172,7 +172,9 @@ layer_numbers <- function(data,
 #'   `make = TRUE` to pass data to [make_markers]
 #' @export
 #' @importFrom sf st_intersects st_join st_centroid
-#' @importFrom dplyr filter left_join group_by
+#' @importFrom getdata get_location_data
+#' @importFrom sfext df_to_sf is_geom_type
+#' @importFrom dplyr left_join filter group_by
 make_markers <- function(data,
                          groupname_col = NULL,
                          group_meta = NULL,
@@ -200,7 +202,7 @@ make_markers <- function(data,
     if (is.data.frame(group_meta) && !is.null(groupname_col)) {
       data <-
         dplyr::left_join(data, group_meta, by = groupname_col)
-    } else if (sfext::is_sf(group_meta) && sfext::is_sf(data)) {
+    } else if (is_sf(group_meta) && is_sf(data)) {
       data <- sf::st_join(x = data, y = group_meta, join = join)
     }
   }
@@ -222,4 +224,3 @@ make_markers <- function(data,
 
   use_fn(data, fn)
 }
-

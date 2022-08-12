@@ -53,7 +53,6 @@ layer_frame <- function(data,
                         expand = TRUE,
                         union = TRUE,
                         ...) {
-
   if (is.null(data)) {
     frame <- function(x) {
       make_frame(
@@ -70,7 +69,7 @@ layer_frame <- function(data,
       )
     }
   } else {
-   frame <- make_frame(
+    frame <- make_frame(
       x = data,
       dist = dist,
       diag_ratio = diag_ratio,
@@ -124,7 +123,7 @@ layer_frame <- function(data,
 #' @inheritParams sfext::st_buffer_ext
 #' @export
 #' @importFrom sf st_union
-#' @importFrom sfext check_sf is_sf as_sf st_buffer_ext st_bbox_ext st_circle st_square
+#' @importFrom sfext check_sf as_sf st_buffer_ext st_circle st_square
 make_frame <- function(x,
                        dist = NULL,
                        diag_ratio = NULL,
@@ -138,7 +137,7 @@ make_frame <- function(x,
                        union = TRUE) {
   sfext::check_sf(x, ext = TRUE)
 
-  if (!sfext::is_sf(x)) {
+  if (!is_sf(x)) {
     x <- sfext::as_sf(x)
   }
 
@@ -159,7 +158,7 @@ make_frame <- function(x,
         )
     } else {
       x <-
-        sfext::st_bbox_ext(
+        st_bbox_ext(
           x = x,
           dist = dist,
           diag_ratio = diag_ratio,
@@ -175,7 +174,7 @@ make_frame <- function(x,
   switch(style,
     "circle" = sfext::st_circle(x, scale = scale, inscribed = inscribed, dTolerance = dTolerance),
     "square" = sfext::st_square(x, scale = scale, rotate = rotate, inscribed = inscribed),
-    "rect" = sfext::st_bbox_ext(x, asp = asp, class = "sf"),
+    "rect" = st_bbox_ext(x, asp = asp, class = "sf"),
     "none" = x
   )
 }

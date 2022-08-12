@@ -109,7 +109,7 @@ match that length and order of the data (after the fn is applied).
 \examples{
 \dontrun{
 if (interactive()) {
-# Mark the 12th Council District on a Baltimore neighborhood basemap
+  # Mark the 12th Council District on a Baltimore neighborhood basemap
   ggplot::ggplot() +
     layer_location_data(
       data = "neighborhoods",

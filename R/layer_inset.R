@@ -1,11 +1,11 @@
 #' Use patchwork to create a map with an inset context map or figpatch to stamp
 #' an inset image
 #'
-#' [layer_inset_map] is useful when you want to add an inset to a plot.
+#' [layer_inset] is useful when you want to add an inset to a plot.
 #'
 #' [make_inset_map] is useful for creating an inset map just using the location
 #' with fewer options for customization. In that case, the ... parameters are
-#' passed to [layer_context] instead of [patchwork::inset_element]
+#' passed to [layer_location_context] instead of [patchwork::inset_element]
 #'
 #' [stamp_inset_img] is useful for applying a logo to a map. The ... parameters
 #' are passed to [figpatch::fig]
@@ -56,7 +56,6 @@ layer_inset <- function(inset,
 #' @rdname layer_inset
 #' @inheritParams layer_location_context
 #' @export
-#' @importFrom ggplot2 ggplot
 make_inset_map <-
   function(inset = NULL,
            map = NULL,
