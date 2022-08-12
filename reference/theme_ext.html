@@ -69,7 +69,7 @@ NULL or method = "set" is recommended.</p>
 <span>  orientation <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  unit <span class="op">=</span> <span class="st">"in"</span>,</span>
-<span>  plot_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  block_width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  header <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  footer <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  fill <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -142,6 +142,13 @@ a margin object; defaults to 10.</p></dd>
 
 <dt>unit</dt>
 <dd><p>Legend margin units; defaults to 'pt'.</p></dd>
+
+
+<dt>block_width</dt>
+<dd><p>Plot or map width in units. If <code>paper</code> and <code>block_width</code> are
+provided, margins are half the distance between the two evenly distributed.
+This sets the margin distance for height as well as width so does not work
+well with header and footers and should be improved in the future.</p></dd>
 
 
 <dt>header, footer</dt>

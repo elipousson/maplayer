@@ -209,8 +209,9 @@ different package.</p>
 <li><p>"text_repel" (<a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">ggrepel::geom_text_repel</a>)</p></li>
 <li><p>"label_repel" (<a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">ggrepel::geom_label_repel</a>)</p></li>
 <li><p>"sf_pattern" or "pattern" (ggpattern::geom_sf_pattern)</p></li>
-</ul><p>Both stat = "sf_coordinates" is automatically added to the parameters for
-both ggrepel functions.</p>
+</ul><p><code>stat = "sf_coordinates"</code> is automatically added to the parameters for both
+ggrepel functions. <code>label = .data[[name_col]]</code>  is automatically added to all
+provided geoms where label is a required parameter.</p>
     </div>
     <div class="section level2">
     <h2 id="using-the-layer-fn-parameter">Using the layer_fn parameter<a class="anchor" aria-label="anchor" href="#using-the-layer-fn-parameter"></a></h2>
