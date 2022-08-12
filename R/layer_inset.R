@@ -75,11 +75,13 @@ make_inset_map <-
       }
 
       inset <-
-        ggplot2::ggplot() +
-        layer_location_context(
-          data = location,
-          context = context,
-          ...
+        make_basemap(
+          layer_location_context(
+            data = location,
+            context = context,
+            ...
+          ),
+          basemap = TRUE
         )
     }
 
@@ -99,8 +101,8 @@ make_inset_map <-
 #' @export
 #' @importFrom ggplot2 margin
 stamp_inset_img <-
-  function(plot,
-           path,
+  function(path,
+           plot = NULL,
            img_margin = ggplot2::margin(0, 0, 0, 0),
            position = "bottomright",
            scale = 1,
