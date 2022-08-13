@@ -98,9 +98,7 @@ layer_marked <- function(data,
                          radius = expand,
                          stat = "sf_coordinates",
                          drop_shadow = FALSE,
-                         x_offset = 5,
-                         y_offset = 5,
-                         sigma = 0.5,
+                         shadow_params = list(x_offset = 5, y_offset = 5, sigma = 0.5, ...),
                          ...) {
   is_pkg_installed("ggforce")
 
@@ -205,15 +203,12 @@ layer_marked <- function(data,
       )
     )
 
-  if (drop_shadow) {
-    mark_layer <-
-      ggfx::with_shadow(
-        mark_layer,
-        x_offset = x_offset,
-        y_offset = y_offset,
-        sigma = sigma
-      )
+  if (!drop_shadow) {
+    return(mark_layer)
   }
 
-  return(mark_layer)
+  with_shadow(
+    mark_layer,
+    params = shadow_params
+  )
 }
