@@ -8,7 +8,7 @@ test_that("layer_markers works", {
         AREA > 0.15 ~ "larger",
         AREA <= 0.15 ~ "smaller"
       )
-  )
+    )
 
   plot <-
     ggplot() +
@@ -18,5 +18,4 @@ test_that("layer_markers works", {
     sapply(plot$layers, function(x) class(x$geom)[1]),
     "GeomSf"
   )
-
 })
