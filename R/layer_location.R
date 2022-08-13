@@ -48,7 +48,7 @@ layer_location <-
            smooth_params = TRUE,
            shadow_params = NULL,
            ...) {
-    if (is.null(data)) {
+    if (is.null(data) && (!is.null(type) | !is.null(index))) {
       data <-
         getdata::get_location(
           type = type,
@@ -85,52 +85,31 @@ layer_location <-
         )
 
       location_layer <-
-        list(
+        apppend(
           location_layer,
           label_layer
         )
     }
 
-    mask_layer <- NULL
+    location_layer <-
+      set_mask(
+        x = location_layer,
+        mask = mask,
+        data = data,
+        dist = dist,
+        diag_ratio = diag_ratio,
+        unit = unit,
+        asp = asp,
+        crs = crs
+      )
 
-    if (is_sf(mask, ext = TRUE)) {
-      mask_layer <-
-        layer_mask(
-          data = data,
-          mask = mask,
-          crs = crs,
-          neatline = neatline
-        )
-    } else if (mask) {
-      mask_layer <-
-        layer_mask(
-          data = data,
-          dist = dist,
-          diag_ratio = diag_ratio,
-          unit = unit,
-          asp = asp,
-          crs = crs,
-          neatline = neatline
-        )
-    }
-
-    neatline_layer <- NULL
-
-    if (neatline) {
-      neatline_layer <-
-        layer_neatline(
-          data = data,
-          dist = dist,
-          diag_ratio = diag_ratio,
-          unit = unit,
-          asp = asp,
-          crs = crs
-        )
-    }
-
-    list(
-      location_layer,
-      mask_layer,
-      neatline_layer
+    set_neatline(
+      x = location_layer,
+      data = data,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp,
+      crs = crs
     )
   }
