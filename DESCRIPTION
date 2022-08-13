@@ -41,7 +41,8 @@ Suggests:
     scales,
     smoothr,
     testthat (>= 3.0.0),
-    tibble
+    tibble,
+    vdiffr
 Remotes: 
     coolbutuseless/ggsvg,
     elipousson/getdata,
