@@ -10,7 +10,7 @@
 #' while calling a different layer function from ggplot2, maplayer, or a
 #' different package.
 #'
-#' Options for the geom parameter from [ggplot2]:
+#' Options for the geom parameter from ggplot2:
 #'
 #' - "sf" ([ggplot2::geom_sf] - default)
 #' - "sf_text" or "text ([ggplot2::geom_sf_text])
@@ -24,7 +24,7 @@
 #' - "mapbox" ([layer_mapbox])
 #' - "markers" ([layer_markers])
 #' - "numbers" or "numbered" ([layer_numbers])
-#' - "mark" or "marked" ([layer_mark])
+#' - "mark" or "marked" ([layer_marked])
 #'
 #' Options for the geom parameter from other suggested packages include:
 #'
@@ -40,14 +40,13 @@
 #'
 #' @section Using the layer_fn parameter:
 #'
-#' layer_fn can be a purrr style lamba function (converted with [rlang::as_function]) or a function.
-#' If layer_fn is a function, the mapping parameter is used. If layer_fn is a lambda function
-#'
+#' layer_fn can be a purrr-style lamba function (converted with
+#' [rlang::as_function()]) or a function.
 #'
 #' @param geom A character string indicating which ggplot2 geom to use, Default:
-#'   'sf'. Options include "sf" ([ggplot2::geom_sf]), "icon" ([layer_icon]),
-#'   "markers" ([layer_markers]), "sf_text" ([ggplot2::geom_sf_text]), and "sf_label"
-#'   ([ggplot2::geom_sf_label]). See details for a full list.
+#'   'sf'. Options include "sf" ([ggplot2::geom_sf()]), "icon" ([layer_icon()]),
+#'   "markers" ([layer_markers()]), "sf_text" ([ggplot2::geom_sf_text()]), and
+#'   "sf_label" ([ggplot2::geom_sf_label()]). See details for a full list.
 #' @param layer_fn ggplot2 geom or custom function using lambda syntax. Use for
 #'   passing custom mapping functions to layer_location_data beyond the
 #'   supported geom options.
@@ -56,11 +55,11 @@
 #' @param label_col Column name or id for a column with the text or labels to
 #'   pass to any text geom.
 #' @param smooth_params Optional. Logical or a list of parameters passed to
-#'   [smoothr::smooth]. If `TRUE`, apply [smoothr::smooth] to location data
+#'   [smoothr::smooth()]. If `TRUE`, apply [smoothr::smooth()] to location data
 #'   using default parameters. smooth_params is ignored if data is `NULL`
-#'   (inheriting data from [ggplot]).
+#'   (inheriting data from ggplot).
 #' @param shadow_params Optional. Logical or a list of parameters passed to
-#'   [ggfx::with_shadow]. If `TRUE`, apply [ggfx::with_shadow] to the layer
+#'   [ggfx::with_shadow()]. If `TRUE`, apply [ggfx::with_shadow()] to the layer
 #'   using default parameters. shadow_params is ignored if layer_fn is provided.
 #' @param ... Additional parameters passed to selected geom or layer_fn
 #' @inheritParams getdata::get_location_data
@@ -93,7 +92,7 @@ layer_location_data <- function(mapping = NULL,
                                 shadow_params = NULL,
                                 basemap = FALSE,
                                 ...) {
-  if (!rlang::is_function(data) && !rlang::is_formula(data)) {
+  if (!is_fn(data)) {
     if (!is.null(data)) {
       data <-
         getdata::get_location_data(
@@ -137,12 +136,8 @@ layer_location_data <- function(mapping = NULL,
     }
   }
 
-  if (!is.null(layer_fn)) {
-    if (!rlang::is_function(layer_fn)) {
-      return(use_fn(data, layer_fn))
-    }
-
-    return(layer_fn(data, mapping = mapping, ...))
+  if (!is.null(layer_fn) && is_fn(layer_fn)) {
+    return(use_fn(data, layer_fn, mapping = mapping, ...))
   }
 
   params <- list2(...)
@@ -232,7 +227,8 @@ layer_location_data <- function(mapping = NULL,
       )
   }
 
-  # Reset defaults for geom_sf_text and geom_sf_label (and functions based on those)
+  # Reset defaults for geom_sf_text and geom_sf_label (and functions based on
+  # those)
   if (any(rlang::has_name(init_params, c("nudge_x", "nudge_y")))) {
     params$position <- NULL
   } else {
@@ -251,31 +247,6 @@ layer_location_data <- function(mapping = NULL,
   layer <- with_shadow(layer, shadow_params)
 
   make_basemap(layer, basemap)
-}
-
-#' @noRd
-with_fn <- function(x, pkg = NULL, fn, params = NULL) {
-  if (is.null(params)) {
-    return(x)
-  }
-
-  is_pkg_installed(pkg)
-
-  if (is.list(params)) {
-    eval_tidy(quo(fn(x, !!!params)))
-  } else if (params) {
-    fn(x)
-  }
-}
-
-#' @noRd
-with_smooth <- function(x, params) {
-  with_fn(x, "smoothr", smoothr::smooth, params)
-}
-
-#' @noRd
-with_shadow <- function(x, params) {
-  with_fn(x, "ggfx", ggfx::with_shadow, params)
 }
 
 #' Modify function parameters
