@@ -1,85 +1,120 @@
 #' Create a layer showing a location and related context
 #'
-#' Intended for use with [make_inset_map] function.
+#' Create a ggplot2 layer for a location in a provided context. This function is
+#' useful for making inset locator maps in combination with the [make_inset_map]
+#' function.
 #'
-#' @param data,location data and location can be a either sf object for the
-#'   location or a ggplot layer representing the location. location can also be
-#'   a formula or a function used to subset context (requires context to be an
-#'   sf object). If data and context are both provided and both are sf objects,
-#'   data is ignored.
-#' @param fill,color Fill and color aesthetics for location data
-#' @param context A sf object for context area or a ggplot layer representing
+#' @param data,location A data and location can be a either `sf` object or a
+#'   ggplot layer. Either data or location is required and, if data and location
+#'   are both provided, location is ignored. If data is `NULL` and location is a
+#'   formula or function, the context data is passed to the location function
+#'   and the results used as the data for the location layer.
+#' @param fill,color Fill and color fixed aesthetics for location data.
+#' @param context A `sf` object for context area or a ggplot layer representing
 #'   the context.
-#' @param context_params list with parameters for context layer; defaults to
-#'   list(fill = "white", color = "black", alpha = 1, ...).
-#' @param layer_between An optional ggplot2 layer to insert between the context
-#'   layer and the location layer.
-#' @param neatline If `TRUE`, add a neatline layer to the returned layer.
-#'   Requires that data be an sf object and not inherited.
-#' @param ... Additional parameters passed to [layer_location_data] for location
+#' @param context_params A list with parameters for context layer; defaults to
+#'   `list(fill = "white", color = "black", alpha = 1, ...)`.
+#' @param mid_layer A ggplot2 layer to insert between the context
+#'   layer and the location layer. Optional.
+#' @param neatline A logical object, `CoordSf` object, or a list containing a
+#'   `CoordSf` object (typically from [layer_neatline()]).
+#'
+#'   - If logical and `TRUE`, add a neatline layer using data from the context
+#'   layer with `color = NA` and `bgcolor = "none"`.
+#'   - If object from [layer_neatline()], add it as is.
+#' @param ... Additional parameters passed to [layer_location_data()] if data or
+#'   location is an `sf` object.
 #' @inheritParams layer_location_data
 #' @name layer_location_context
 #' @aliases layer_show_context
 #' @export
-#' @importFrom rlang eval_tidy quo
+#' @importFrom dplyr case_when
 layer_location_context <- function(data = NULL,
                                    location = NULL,
                                    fill = "gray70",
                                    color = "black",
                                    context = NULL,
                                    context_params = list(fill = "white", color = "black", alpha = 1, ...),
-                                   layer_between = NULL,
                                    crs = getOption("maplayer.crs", default = 3857),
+                                   mid_layer = NULL,
                                    neatline = TRUE,
                                    basemap = FALSE,
                                    ...) {
-  sf_context <- is_sf(context)
+  location_type <-
+    dplyr::case_when(
+      is_fn(location) && is.null(data) ~ "fn_location",
+      is_sf(data) | is_sf(location) ~ "sf",
+      is_gg(data) | is_gg(location) ~ "gg"
+    )
 
-  if (is_function(location) && sf_context) {
-    data <- location(context)
-  } else if (is_formula(location) && sf_context) {
-    data <- use_fn(context, location)
-  }
+  context_type <-
+    dplyr::case_when(
+      is_sf(context) ~ "sf",
+      is_gg(context) ~ "gg"
+    )
 
-  if (is_sf(data) | is_sf(location)) {
-    if (!is.null(location)) {
-      data <- location
+  if ((location_type == "fn_location") && (context_type == "sf")) {
+    if (context_type == "gg") {
+      context_data <- context_layer[[1]]$data
+      sfext::check_sf(context_data)
+    } else {
+      context_data <- context
     }
 
-    location_layer <-
-      layer_location_data(data = data, fill = fill, color = color, crs = crs, ...)
-  } else if ("gg" %in% class(data)) {
-    location_layer <- data
-  } else if ("gg" %in% class(location)) {
-    location_layer <- location
+    data <- use_fn(context_data, location)
+    location_type <- "sf"
   }
 
-  if (sf_context) {
+  location_layer <-
+    switch(location_type,
+      "sf" = layer_location_data(
+        data = data %||% location,
+        fill = fill,
+        color = color,
+        crs = crs,
+        ...
+      ),
+      "gg" = data %||% location
+    )
+
+  if (is.null(context_params$mapping)) {
+    context_params$mapping <- aes()
+  }
+
+  context_layer <-
+    switch(context_type,
+      "sf" = eval_tidy_fn(
+        context,
+        fn = layer_location_data,
+        params = context_params
+      ),
+      "gg" = context
+    )
+
+  if (!is.null(mid_layer)) {
     context_layer <-
-      eval_tidy(quo(layer_location_data(data = context, !!!context_params)))
-  } else if ("gg" %in% class(context)) {
-    context_layer <- context
-  }
-
-  neatline_layer <- NULL
-
-  if (neatline && sf_context) {
-    neatline_layer <-
-      layer_neatline(
-        data = context,
-        color = NA,
-        bgcolor = "none",
-        crs = crs
+      append(
+        context_layer,
+        mid_layer
       )
   }
 
-  layer_stack <-
-    list(
+  context_layer <-
+    append(
       context_layer,
-      layer_between,
-      location_layer,
-      neatline_layer
+      location_layer
     )
 
-  make_basemap(layer_stack, basemap)
+  context_layer <-
+    set_neatline(
+      x = context_layer,
+      neatline = neatline,
+      data = context_layer[[1]]$data,
+      color = NA,
+      bgcolor = "none",
+      crs = crs
+    )
+
+  make_basemap(context_layer, basemap)
 }
+
