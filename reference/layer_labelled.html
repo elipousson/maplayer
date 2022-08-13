@@ -67,9 +67,7 @@ the following geoms: "text", "sf_text", "label", "sf_label", "textsf",
 <span>  diag_ratio <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  unit <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop_shadow <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  x_offset <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  y_offset <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  sigma <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  shadow_params <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -78,7 +76,7 @@ the following geoms: "text", "sf_text", "label", "sf_label", "textsf",
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>Data to use for labels (must be an sf object or a data frame that
-can be converted to an sf object using <a href="https://elipousson.github.io/sfext/reference/as_sf.html" class="external-link">sfext::as_sf</a>)</p></dd>
+can be converted to an sf object using <code><a href="https://elipousson.github.io/sfext/reference/as_sf.html" class="external-link">sfext::as_sf()</a></code>)</p></dd>
 
 
 <dt>location</dt>
@@ -101,7 +99,7 @@ the creation of the label_col</p></dd>
 
 
 <dt>mapping</dt>
-<dd><p>Aesthetic mapping, Default: NULL</p></dd>
+<dd><p>Aesthetic mapping, Default: <code>NULL</code></p></dd>
 
 
 <dt>union</dt>
@@ -133,26 +131,20 @@ to units matching GDAL units for x; defaults to "meter"</p></dd>
 
 
 <dt>drop_shadow</dt>
-<dd><p>If <code>TRUE</code>, use <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> to add a drop shadow to
-the label layer. Defaults to <code>FALSE</code>.</p></dd>
+<dd><p>If <code>TRUE</code>, use <code><a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow()</a></code> to add a drop shadow
+to the label layer with shadow_params. Defaults to <code>FALSE</code>.</p></dd>
 
 
-<dt>x_offset, y_offset, sigma</dt>
-<dd><p>Parameters passed to <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> if
-<code>drop_shadow = TRUE</code>.</p></dd>
+<dt>shadow_params</dt>
+<dd><p>Parameters passed to <code><a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow()</a></code> if <code>drop_shadow = TRUE</code>. Defaults to <code>list(x_offset = 5, y_offset = 5, sigma = 0.5)</code>.</p></dd>
 
 
 <dt>...</dt>
 <dd><p>Arguments passed on to <code><a href="layer_location_data.html">layer_location_data</a></code></p><dl><dt><code>smooth_params</code></dt>
 <dd><p>Optional. Logical or a list of parameters passed to
-<a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth</a>. If <code>TRUE</code>, apply <a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth</a> to location data
+<code><a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth()</a></code>. If <code>TRUE</code>, apply <code><a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth()</a></code> to location data
 using default parameters. smooth_params is ignored if data is <code>NULL</code>
-(inheriting data from <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a>).</p></dd>
-
-    <dt><code>shadow_params</code></dt>
-<dd><p>Optional. Logical or a list of parameters passed to
-<a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a>. If <code>TRUE</code>, apply <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> to the layer
-using default parameters. shadow_params is ignored if layer_fn is provided.</p></dd>
+(inheriting data from ggplot).</p></dd>
 
     <dt><code>asp</code></dt>
 <dd><p>Aspect ratio of width to height as a numeric value (e.g. 0.33) or
@@ -183,7 +175,7 @@ or <a href="https://elipousson.github.io/sfext/reference/read_sf_ext.html" class
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Note: Unlike in some getdata package functions, fn is applied to all of the
 data; not a subset of the data based on location. For this function, dist and
-unit are both used by <code><a href="https://elipousson.github.io/sfext/reference/st_clip.html" class="external-link">sfext::st_clip()</a></code> (not by <a href="layer_location_data.html">layer_location_data</a>)</p>
+unit are both used by <code><a href="https://elipousson.github.io/sfext/reference/st_clip.html" class="external-link">sfext::st_clip()</a></code> (not by <code><a href="layer_location_data.html">layer_location_data()</a></code>)</p>
 <p>The function also overrides the label aesthetics to hide the colored letters
 that would otherwise appear when using a theme legend.</p>
     </div>

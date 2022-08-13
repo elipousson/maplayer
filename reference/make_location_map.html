@@ -66,14 +66,7 @@ function is primarily appropriate for the layer_mapbox (<code>geom = "mapbox"</c
 <span>  bg_layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fg_layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  save <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  postfix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  device <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dpi <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  ggsave_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dpi <span class="op">=</span> <span class="fl">300</span>, <span class="va">...</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -91,14 +84,7 @@ function is primarily appropriate for the layer_mapbox (<code>geom = "mapbox"</c
 <span>  basemap <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  geom <span class="op">=</span> <span class="st">"mapbox"</span>,</span>
 <span>  save <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  postfix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  filetype <span class="op">=</span> <span class="st">"jpeg"</span>,</span>
-<span>  dpi <span class="op">=</span> <span class="fl">72</span>,</span>
+<span>  ggsave_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>filetype <span class="op">=</span> <span class="st">"jpeg"</span>, dpi <span class="op">=</span> <span class="fl">72</span>, <span class="va">...</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -119,14 +105,7 @@ function is primarily appropriate for the layer_mapbox (<code>geom = "mapbox"</c
 <span>  bg_layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fg_layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  save <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  label <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  prefix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  postfix <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  filename <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  device <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dpi <span class="op">=</span> <span class="fl">300</span>,</span>
+<span>  ggsave_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dpi <span class="op">=</span> <span class="fl">300</span>, <span class="va">...</span><span class="op">)</span>,</span>
 <span>  image_geom <span class="op">=</span> <span class="st">"label"</span>,</span>
 <span>  groupname_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  group_meta <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -192,9 +171,9 @@ package), a <code>sf</code>, <code>sfc</code>, or <code>bbox</code>  object incl
 
 <dt>geom</dt>
 <dd><p>A character string indicating which ggplot2 geom to use, Default:
-'sf'. Options include "sf" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf</a>), "icon" (<a href="layer_icon.html">layer_icon</a>),
-"markers" (<a href="layer_markers.html">layer_markers</a>), "sf_text" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text</a>), and "sf_label"
-(<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label</a>). See details for a full list.</p></dd>
+'sf'. Options include "sf" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf()</a></code>), "icon" (<code><a href="layer_icon.html">layer_icon()</a></code>),
+"markers" (<code><a href="layer_markers.html">layer_markers()</a></code>), "sf_text" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text()</a></code>), and
+"sf_label" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label()</a></code>). See details for a full list.</p></dd>
 
 
 <dt>basemap</dt>
@@ -214,45 +193,8 @@ requires <code>basemap = TRUE</code> and filename is not NULL <em>or</em> ... in
 parameter. Default: <code>FALSE</code></p></dd>
 
 
-<dt>name</dt>
-<dd><p>Plot name, used to create filename (if filename is <code>NULL</code>) using
-<code><a href="https://elipousson.github.io/sfext/reference/make_filename.html" class="external-link">sfext::make_filename()</a></code></p></dd>
-
-
-<dt>label</dt>
-<dd><p>Label to combine with name converted to snake case with
-<code><a href="https://rdrr.io/pkg/janitor/man/make_clean_names.html" class="external-link">janitor::make_clean_names()</a></code>. The label is designed to identify the area
-or other shared characteristics across multiple data files, maps, or plots.</p></dd>
-
-
-<dt>prefix</dt>
-<dd><p>File name prefix. "date" adds a date prefix, "time" adds a
-date/time prefix; defaults to <code>NULL</code>.</p></dd>
-
-
-<dt>postfix</dt>
-<dd><p>File name postfix; defaults to <code>NULL</code>.</p></dd>
-
-
-<dt>filename</dt>
-<dd><p>File name to create on disk.</p></dd>
-
-
-<dt>device</dt>
-<dd><p>Device to use. Can either be a device function
-(e.g. <a href="https://rdrr.io/r/grDevices/png.html" class="external-link">png</a>), or one of "eps", "ps", "tex" (pictex),
-"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).</p></dd>
-
-
-<dt>path</dt>
-<dd><p>Path of the directory to save plot to: <code>path</code> and <code>filename</code>
-are combined to create the fully qualified file name. Defaults to the
-working directory.</p></dd>
-
-
-<dt>dpi</dt>
-<dd><p>Plot resolution. Also accepts a string input: "retina" (320),
-"print" (300), or "screen" (72). Applies only to raster output types.</p></dd>
+<dt>ggsave_params</dt>
+<dd><p>List of parameters passed to <code><a href="ggsave_ext.html">ggsave_ext()</a></code>.</p></dd>
 
 
 <dt>...</dt>
@@ -270,11 +212,6 @@ Default: <code>NULL</code></p></dd>
 
 <dt>format</dt>
 <dd><p>Image format, "post", "story", or "cover", Default: <code>NULL</code></p></dd>
-
-
-<dt>filetype</dt>
-<dd><p>File type to use if passing parameters to <a href="https://elipousson.github.io/sfext/reference/read_sf_ext.html" class="external-link">sfext::read_sf_download</a>
-or <a href="https://elipousson.github.io/sfext/reference/read_sf_ext.html" class="external-link">sfext::read_sf_pkg</a> (required for extdata and cached data).</p></dd>
 
 
 <dt>image_path</dt>
@@ -336,8 +273,9 @@ number column.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Using make_image_map:</p>
-<p>make_image_map wraps <a href="https://elipousson.github.io/sfext/reference/read_sf_exif.html" class="external-link">sfext::read_sf_exif</a> and make_location_map. It is designed for
-making simple maps of photos in combination with reference tables.</p>
+<p>make_image_map wraps <a href="https://elipousson.github.io/sfext/reference/read_sf_exif.html" class="external-link">sfext::read_sf_exif</a> and make_location_map. It is
+designed for making simple maps of photos in combination with reference
+tables.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

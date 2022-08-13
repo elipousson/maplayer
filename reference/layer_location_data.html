@@ -95,9 +95,9 @@ package), a <code>sf</code>, <code>sfc</code>, or <code>bbox</code>  object incl
 
 <dt>geom</dt>
 <dd><p>A character string indicating which ggplot2 geom to use, Default:
-'sf'. Options include "sf" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf</a>), "icon" (<a href="layer_icon.html">layer_icon</a>),
-"markers" (<a href="layer_markers.html">layer_markers</a>), "sf_text" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text</a>), and "sf_label"
-(<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label</a>). See details for a full list.</p></dd>
+'sf'. Options include "sf" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf()</a></code>), "icon" (<code><a href="layer_icon.html">layer_icon()</a></code>),
+"markers" (<code><a href="layer_markers.html">layer_markers()</a></code>), "sf_text" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text()</a></code>), and
+"sf_label" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label()</a></code>). See details for a full list.</p></dd>
 
 
 <dt>location</dt>
@@ -171,14 +171,14 @@ pass to any text geom.</p></dd>
 
 <dt>smooth_params</dt>
 <dd><p>Optional. Logical or a list of parameters passed to
-<a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth</a>. If <code>TRUE</code>, apply <a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth</a> to location data
+<code><a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth()</a></code>. If <code>TRUE</code>, apply <code><a href="https://strimas.com/smoothr/reference/smooth.html" class="external-link">smoothr::smooth()</a></code> to location data
 using default parameters. smooth_params is ignored if data is <code>NULL</code>
-(inheriting data from <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a>).</p></dd>
+(inheriting data from ggplot).</p></dd>
 
 
 <dt>shadow_params</dt>
 <dd><p>Optional. Logical or a list of parameters passed to
-<a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a>. If <code>TRUE</code>, apply <a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow</a> to the layer
+<code><a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow()</a></code>. If <code>TRUE</code>, apply <code><a href="https://ggfx.data-imaginist.com/reference/with_shadow.html" class="external-link">ggfx::with_shadow()</a></code> to the layer
 using default parameters. shadow_params is ignored if layer_fn is provided.</p></dd>
 
 
@@ -194,7 +194,7 @@ using default parameters. shadow_params is ignored if layer_fn is provided.</p><
 <p>This function provides a convenient option for filtering data by location
 while calling a different layer function from ggplot2, maplayer, or a
 different package.</p>
-<p>Options for the geom parameter from <a href="https://ggplot2.tidyverse.org/reference/ggplot2-package.html" class="external-link">ggplot2</a>:</p><ul><li><p>"sf" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf</a> - default)</p></li>
+<p>Options for the geom parameter from ggplot2:</p><ul><li><p>"sf" (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf</a> - default)</p></li>
 <li><p>"sf_text" or "text (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text</a>)</p></li>
 <li><p>"sf_label" or "label (<a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label</a>)</p></li>
 </ul><p>Options for the geom parameter included in this package include:</p><ul><li><p>"location" (<a href="layer_location.html">layer_location</a>)</p></li>
@@ -203,7 +203,7 @@ different package.</p>
 <li><p>"mapbox" (<a href="layer_mapbox.html">layer_mapbox</a>)</p></li>
 <li><p>"markers" (<a href="layer_markers.html">layer_markers</a>)</p></li>
 <li><p>"numbers" or "numbered" (<a href="layer_markers.html">layer_numbers</a>)</p></li>
-<li><p>"mark" or "marked" (layer_mark)</p></li>
+<li><p>"mark" or "marked" (<a href="layer_marked.html">layer_marked</a>)</p></li>
 </ul><p>Options for the geom parameter from other suggested packages include:</p><ul><li><p>"textsf" (<a href="https://allancameron.github.io/geomtextpath/reference/geom_textsf.html" class="external-link">geomtextpath::geom_textsf</a>)</p></li>
 <li><p>"labelsf" (<a href="https://allancameron.github.io/geomtextpath/reference/geom_textsf.html" class="external-link">geomtextpath::geom_labelsf</a>)</p></li>
 <li><p>"text_repel" (<a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">ggrepel::geom_text_repel</a>)</p></li>
@@ -218,8 +218,8 @@ provided geoms where label is a required parameter.</p>
     
 
 
-<p>layer_fn can be a purrr style lamba function (converted with <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function</a>) or a function.
-If layer_fn is a function, the mapping parameter is used. If layer_fn is a lambda function</p>
+<p>layer_fn can be a purrr-style lamba function (converted with
+<code><a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">rlang::as_function()</a></code>) or a function.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
