@@ -19,15 +19,13 @@ layer_labelled(
   diag_ratio = NULL,
   unit = NULL,
   drop_shadow = FALSE,
-  x_offset = 5,
-  y_offset = 5,
-  sigma = 0.5,
+  shadow_params = NULL,
   ...
 )
 }
 \arguments{
 \item{data}{Data to use for labels (must be an sf object or a data frame that
-can be converted to an sf object using \link[sfext:as_sf]{sfext::as_sf})}
+can be converted to an sf object using \code{\link[sfext:as_sf]{sfext::as_sf()}})}
 
 \item{location}{Location to label (if not specified the data is assumed to
 conver the whole location);}
@@ -40,7 +38,7 @@ the creation of the label_col}
 
 \item{label_col}{Label column name}
 
-\item{mapping}{Aesthetic mapping, Default: NULL}
+\item{mapping}{Aesthetic mapping, Default: \code{NULL}}
 
 \item{union}{If TRUE, group by label_col and union geometry, Default: \code{FALSE}}
 
@@ -60,22 +58,18 @@ outside edge.}
 instead of "kilometer") are also supported. Distance in units is converted
 to units matching GDAL units for x; defaults to "meter"}
 
-\item{drop_shadow}{If \code{TRUE}, use \link[ggfx:with_shadow]{ggfx::with_shadow} to add a drop shadow to
-the label layer. Defaults to \code{FALSE}.}
+\item{drop_shadow}{If \code{TRUE}, use \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} to add a drop shadow
+to the label layer with shadow_params. Defaults to \code{FALSE}.}
 
-\item{x_offset, y_offset, sigma}{Parameters passed to \link[ggfx:with_shadow]{ggfx::with_shadow} if
-\code{drop_shadow = TRUE}.}
+\item{shadow_params}{Parameters passed to \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} if \code{drop_shadow = TRUE}. Defaults to \code{list(x_offset = 5, y_offset = 5, sigma = 0.5)}.}
 
 \item{...}{
   Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}
   \describe{
     \item{\code{smooth_params}}{Optional. Logical or a list of parameters passed to
-\link[smoothr:smooth]{smoothr::smooth}. If \code{TRUE}, apply \link[smoothr:smooth]{smoothr::smooth} to location data
+\code{\link[smoothr:smooth]{smoothr::smooth()}}. If \code{TRUE}, apply \code{\link[smoothr:smooth]{smoothr::smooth()}} to location data
 using default parameters. smooth_params is ignored if data is \code{NULL}
-(inheriting data from \link{ggplot}).}
-    \item{\code{shadow_params}}{Optional. Logical or a list of parameters passed to
-\link[ggfx:with_shadow]{ggfx::with_shadow}. If \code{TRUE}, apply \link[ggfx:with_shadow]{ggfx::with_shadow} to the layer
-using default parameters. shadow_params is ignored if layer_fn is provided.}
+(inheriting data from ggplot).}
     \item{\code{asp}}{Aspect ratio of width to height as a numeric value (e.g. 0.33) or
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
@@ -93,9 +87,9 @@ the following geoms: "text", "sf_text", "label", "sf_label", "textsf",
 "labelsf", "text_repel", or "label_repel".
 }
 \details{
-Note: Unlike in some \link{getdata} package functions, fn is applied to all of the
+Note: Unlike in some getdata package functions, fn is applied to all of the
 data; not a subset of the data based on location. For this function, dist and
-unit are both used by \code{\link[sfext:st_clip]{sfext::st_clip()}} (not by \link{layer_location_data})
+unit are both used by \code{\link[sfext:st_clip]{sfext::st_clip()}} (not by \code{\link[=layer_location_data]{layer_location_data()}})
 
 The function also overrides the label aesthetics to hide the colored letters
 that would otherwise appear when using a theme legend.

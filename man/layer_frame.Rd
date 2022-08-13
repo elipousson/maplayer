@@ -21,6 +21,7 @@ layer_frame(
   fill = "white",
   neatline = TRUE,
   expand = TRUE,
+  basemap = FALSE,
   union = TRUE,
   ...
 )
@@ -92,11 +93,11 @@ supported geom options.}
     \item{\code{label_col}}{Column name or id for a column with the text or labels to
 pass to any text geom.}
     \item{\code{smooth_params}}{Optional. Logical or a list of parameters passed to
-\link[smoothr:smooth]{smoothr::smooth}. If \code{TRUE}, apply \link[smoothr:smooth]{smoothr::smooth} to location data
+\code{\link[smoothr:smooth]{smoothr::smooth()}}. If \code{TRUE}, apply \code{\link[smoothr:smooth]{smoothr::smooth()}} to location data
 using default parameters. smooth_params is ignored if data is \code{NULL}
-(inheriting data from \link{ggplot}).}
+(inheriting data from ggplot).}
     \item{\code{shadow_params}}{Optional. Logical or a list of parameters passed to
-\link[ggfx:with_shadow]{ggfx::with_shadow}. If \code{TRUE}, apply \link[ggfx:with_shadow]{ggfx::with_shadow} to the layer
+\code{\link[ggfx:with_shadow]{ggfx::with_shadow()}}. If \code{TRUE}, apply \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} to the layer
 using default parameters. shadow_params is ignored if layer_fn is provided.}
     \item{\code{location}}{sf object. If multiple areas are provided, they are unioned
 into a single sf object using \link[sf:geos_combine]{sf::st_union}}
@@ -128,13 +129,12 @@ function is helpful for the background of an inset map intended for use with
 \link{layer_inset}.
 }
 \details{
-The \link{make_frame} helper function calls \link[sfext:st_misc]{sfext::st_circle} (if style =
-"circle"), \link[sfext:st_misc]{sfext::st_square}  (if style = "square"), \link[sfext:st_bbox_ext]{sfext::st_bbox_ext}
-(if style = "rect"), or \link[sfext:st_buffer_ext]{sfext::st_buffer_ext} (if style = "none").
+The \link{make_frame} helper function calls \link[sfext:st_misc]{sfext::st_circle} (if \code{style = "circle"}), \link[sfext:st_misc]{sfext::st_square}  (if \code{style = "square"}), \link[sfext:st_bbox_ext]{sfext::st_bbox_ext}
+(if \code{style = "rect"}), or \link[sfext:st_buffer_ext]{sfext::st_buffer_ext} (if \code{style = "none"}).
 
 If neatline is \code{TRUE}, \link{layer_frame} returns a list of two geoms, the second
 a \link{layer_neatline} layer created using the frame object as the data and the
-parameters bgcolor = "none" and color = "none". asp is set to 1 if style is
+parameters \code{bgcolor = "none"} and \code{color = "none"}. asp is set to 1 if style is
 "circle" or "square" or the provided asp value otherwise.
 
 Additional parameters passed through ... can include additional fixed
@@ -153,7 +153,7 @@ raleigh_msa <-
     crs = 3857
     )
 
-ggplot2::ggplot() +
+ggplot() +
   layer_frame(
     data = raleigh_msa,
     frame = "circle",
@@ -162,7 +162,7 @@ ggplot2::ggplot() +
   ) +
   layer_location_data(
     data = raleigh_msa,
-    mapping = ggplot2::aes(fill = NAME),
+    mapping = aes(fill = NAME),
     alpha = 0.5
   ) +
   ggplot2::guides(

@@ -3,8 +3,7 @@
 \name{layer_neatline}
 \alias{layer_neatline}
 \alias{set_map_limits}
-\title{Set map limits to a feature or bounding box with a buffer, set aspect ratio,
-and panel border}
+\title{Set map limits to a bounding box with a buffer and set aspect ratio}
 \usage{
 layer_neatline(
   data = NULL,
@@ -71,9 +70,10 @@ labels.}
 List of \link[ggplot2:ggsf]{ggplot2::coord_sf} and \link[ggplot2:theme]{ggplot2::theme} calls.
 }
 \description{
-Set limits for a map to the bounding box of a feature using \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.
-Optionally, adjust the x size by applying a buffer and/or adjust the aspect
-ratio of the limiting bounding box to match a set aspect ratio.
+Set limits for a map to the bounding box of a feature using
+\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}. Optionally, adjust the x size by applying a buffer
+and/or adjust the aspect ratio of the limiting bounding box to match a set
+aspect ratio.
 }
 \examples{
 nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))

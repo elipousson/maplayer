@@ -38,9 +38,9 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area.}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
-'sf'. Options include "sf" (\link[ggplot2:ggsf]{ggplot2::geom_sf}), "icon" (\link{layer_icon}),
-"markers" (\link{layer_markers}), "sf_text" (\link[ggplot2:ggsf]{ggplot2::geom_sf_text}), and "sf_label"
-(\link[ggplot2:ggsf]{ggplot2::geom_sf_label}). See details for a full list.}
+'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
+"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
+"sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
 \item{location}{sf object. If multiple areas are provided, they are unioned
 into a single sf object using \link[sf:geos_combine]{sf::st_union}}
@@ -84,12 +84,12 @@ the source data.}
 pass to any text geom.}
 
 \item{smooth_params}{Optional. Logical or a list of parameters passed to
-\link[smoothr:smooth]{smoothr::smooth}. If \code{TRUE}, apply \link[smoothr:smooth]{smoothr::smooth} to location data
+\code{\link[smoothr:smooth]{smoothr::smooth()}}. If \code{TRUE}, apply \code{\link[smoothr:smooth]{smoothr::smooth()}} to location data
 using default parameters. smooth_params is ignored if data is \code{NULL}
-(inheriting data from \link{ggplot}).}
+(inheriting data from ggplot).}
 
 \item{shadow_params}{Optional. Logical or a list of parameters passed to
-\link[ggfx:with_shadow]{ggfx::with_shadow}. If \code{TRUE}, apply \link[ggfx:with_shadow]{ggfx::with_shadow} to the layer
+\code{\link[ggfx:with_shadow]{ggfx::with_shadow()}}. If \code{TRUE}, apply \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} to the layer
 using default parameters. shadow_params is ignored if layer_fn is provided.}
 
 \item{...}{Additional parameters passed to selected geom or layer_fn}
@@ -106,7 +106,7 @@ This function provides a convenient option for filtering data by location
 while calling a different layer function from ggplot2, maplayer, or a
 different package.
 
-Options for the geom parameter from \link{ggplot2}:
+Options for the geom parameter from ggplot2:
 \itemize{
 \item "sf" (\link[ggplot2:ggsf]{ggplot2::geom_sf} - default)
 \item "sf_text" or "text (\link[ggplot2:ggsf]{ggplot2::geom_sf_text})
@@ -121,7 +121,7 @@ Options for the geom parameter included in this package include:
 \item "mapbox" (\link{layer_mapbox})
 \item "markers" (\link{layer_markers})
 \item "numbers" or "numbered" (\link{layer_numbers})
-\item "mark" or "marked" (\link{layer_mark})
+\item "mark" or "marked" (\link{layer_marked})
 }
 
 Options for the geom parameter from other suggested packages include:
@@ -141,8 +141,8 @@ provided geoms where label is a required parameter.
 \section{Using the layer_fn parameter}{
 
 
-layer_fn can be a purrr style lamba function (converted with \link[rlang:as_function]{rlang::as_function}) or a function.
-If layer_fn is a function, the mapping parameter is used. If layer_fn is a lambda function
+layer_fn can be a purrr-style lamba function (converted with
+\code{\link[rlang:as_function]{rlang::as_function()}}) or a function.
 }
 
 \seealso{

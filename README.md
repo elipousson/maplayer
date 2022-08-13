@@ -166,7 +166,7 @@ nc_map +
 ``` r
 nc_map +
   layer_labelled(
-    data = nc[c(10,20,30,40),],
+    data = nc[c(10, 20, 30, 40), ],
     geom = "sf_label",
     label_col = "NAME"
   )
@@ -177,11 +177,11 @@ nc_map +
 ``` r
 nc_map +
   layer_numbers(
-    data = nc[c(10,20,30,40), ],
+    data = nc[c(10, 20, 30, 40), ],
     aes(fill = NAME),
     num_style = "Alph",
     size = 3.5
-    ) +
+  ) +
   guides(fill = "none")
 ```
 
@@ -206,17 +206,23 @@ circle_nc
 
 ``` r
 nc_context <-
+  layer_frame(
+    data = nc,
+    linetype = "twodash",
+    neatline = FALSE,
+    basemap = TRUE
+  ) +
   layer_location_context(
-      location = nc[25, ],
-      context = nc,
-      context_params = list(fill = "white", color = "gray80", alpha = 1),
-      basemap = TRUE
-    )
+    location = nc[25, ],
+    context = nc,
+    context_params = list(fill = "white", color = "gray80", alpha = 1),
+    neatline = FALSE
+  )
 
 nc_context +
   layer_neatline(
     data = nc[25, ],
-    dist = 10,
+    dist = 15,
     unit = "mi",
     asp = 1
   ) +

@@ -8,8 +8,8 @@
 an inset image}
 \usage{
 layer_inset(
-  inset,
   map = NULL,
+  inset = NULL,
   position = "bottomright",
   scale = 1,
   nudge_x = 0,
@@ -19,8 +19,8 @@ layer_inset(
 )
 
 make_inset_map(
-  inset = NULL,
   map = NULL,
+  inset = NULL,
   location = NULL,
   context = NULL,
   position = "bottomright",
@@ -73,7 +73,12 @@ below (but above the background)?}
     \item{\code{ignore_tag}}{Logical. Should autotagging ignore the inset?}
   }}
 
-\item{context}{A sf object for context area or a ggplot layer representing
+\item{location}{A location passed to \code{\link[=layer_location_context]{layer_location_context()}}. This can be
+a sf object, a ggplot layer, or a formula or function. If it is a formula
+or function, it is applied to the context data is passed to the location
+function and the results used as the data for the location layer.}
+
+\item{context}{A \code{sf} object for context area or a ggplot layer representing
 the context.}
 
 \item{path}{image path passed to \link[figpatch:fig]{figpatch::fig} for \link{stamp_inset_img}}

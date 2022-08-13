@@ -21,14 +21,7 @@ make_location_map(
   bg_layer = NULL,
   fg_layer = NULL,
   save = FALSE,
-  name = NULL,
-  label = NULL,
-  prefix = NULL,
-  postfix = NULL,
-  filename = NULL,
-  device = NULL,
-  path = NULL,
-  dpi = 300,
+  ggsave_params = list(dpi = 300, ...),
   ...
 )
 
@@ -46,14 +39,7 @@ make_social_map(
   basemap = TRUE,
   geom = "mapbox",
   save = FALSE,
-  name = NULL,
-  filename = NULL,
-  label = NULL,
-  prefix = NULL,
-  postfix = NULL,
-  path = NULL,
-  filetype = "jpeg",
-  dpi = 72,
+  ggsave_params = list(filetype = "jpeg", dpi = 72, ...),
   ...
 )
 
@@ -74,14 +60,7 @@ make_image_map(
   bg_layer = NULL,
   fg_layer = NULL,
   save = FALSE,
-  name = NULL,
-  label = NULL,
-  prefix = NULL,
-  postfix = NULL,
-  filename = NULL,
-  device = NULL,
-  path = NULL,
-  dpi = 300,
+  ggsave_params = list(dpi = 300, ...),
   image_geom = "label",
   groupname_col = NULL,
   group_meta = NULL,
@@ -126,9 +105,9 @@ package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area
 'portrait'.}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
-'sf'. Options include "sf" (\link[ggplot2:ggsf]{ggplot2::geom_sf}), "icon" (\link{layer_icon}),
-"markers" (\link{layer_markers}), "sf_text" (\link[ggplot2:ggsf]{ggplot2::geom_sf_text}), and "sf_label"
-(\link[ggplot2:ggsf]{ggplot2::geom_sf_label}). See details for a full list.}
+'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
+"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
+"sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
 \item{basemap}{If \code{FALSE}, return a list of ggplot2 layers (or ggproto
 objects). If \code{TRUE}, add the list to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} to return a map.}
@@ -141,30 +120,7 @@ map layer defined by \code{"geom"} and other parameters.}
 requires \code{basemap = TRUE} and filename is not NULL \emph{or} ... include a name
 parameter. Default: \code{FALSE}}
 
-\item{name}{Plot name, used to create filename (if filename is \code{NULL}) using
-\code{\link[sfext:make_filename]{sfext::make_filename()}}}
-
-\item{label}{Label to combine with name converted to snake case with
-\code{\link[janitor:make_clean_names]{janitor::make_clean_names()}}. The label is designed to identify the area
-or other shared characteristics across multiple data files, maps, or plots.}
-
-\item{prefix}{File name prefix. "date" adds a date prefix, "time" adds a
-date/time prefix; defaults to \code{NULL}.}
-
-\item{postfix}{File name postfix; defaults to \code{NULL}.}
-
-\item{filename}{File name to create on disk.}
-
-\item{device}{Device to use. Can either be a device function
-(e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
-"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
-
-\item{path}{Path of the directory to save plot to: \code{path} and \code{filename}
-are combined to create the fully qualified file name. Defaults to the
-working directory.}
-
-\item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
-"print" (300), or "screen" (72). Applies only to raster output types.}
+\item{ggsave_params}{List of parameters passed to \code{\link[=ggsave_ext]{ggsave_ext()}}.}
 
 \item{...}{Additional parameters passed to \link{layer_location_data}.}
 
@@ -174,9 +130,6 @@ working directory.}
 Default: \code{NULL}}
 
 \item{format}{Image format, "post", "story", or "cover", Default: \code{NULL}}
-
-\item{filetype}{File type to use if passing parameters to \link[sfext:read_sf_ext]{sfext::read_sf_download}
-or \link[sfext:read_sf_ext]{sfext::read_sf_pkg} (required for extdata and cached data).}
 
 \item{image_path}{path to location of images for \code{\link[=make_image_map]{make_image_map()}}}
 
@@ -217,6 +170,7 @@ function is primarily appropriate for the layer_mapbox (\code{geom = "mapbox"}).
 \details{
 Using make_image_map:
 
-\link{make_image_map} wraps \link[sfext:read_sf_exif]{sfext::read_sf_exif} and \link{make_location_map}. It is designed for
-making simple maps of photos in combination with reference tables.
+\link{make_image_map} wraps \link[sfext:read_sf_exif]{sfext::read_sf_exif} and \link{make_location_map}. It is
+designed for making simple maps of photos in combination with reference
+tables.
 }

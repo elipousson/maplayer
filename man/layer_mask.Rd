@@ -16,6 +16,7 @@ layer_mask(
   alpha = 0.5,
   mask = NULL,
   neatline = FALSE,
+  expand = TRUE,
   ...
 )
 }

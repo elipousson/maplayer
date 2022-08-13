@@ -12,38 +12,46 @@ layer_location_context(
   color = "black",
   context = NULL,
   context_params = list(fill = "white", color = "black", alpha = 1, ...),
-  layer_between = NULL,
   crs = getOption("maplayer.crs", default = 3857),
+  mid_layer = NULL,
   neatline = TRUE,
   basemap = FALSE,
   ...
 )
 }
 \arguments{
-\item{data, location}{data and location can be a either sf object for the
-location or a ggplot layer representing the location. location can also be
-a formula or a function used to subset context (requires context to be an
-sf object). If data and context are both provided and both are sf objects,
-data is ignored.}
+\item{data, location}{A data and location can be a either \code{sf} object or a
+ggplot layer. Either data or location is required and, if data and location
+are both provided, location is ignored. If data is \code{NULL} and location is a
+formula or function, the context data is passed to the location function
+and the results used as the data for the location layer.}
 
-\item{fill, color}{Fill and color aesthetics for location data}
+\item{fill, color}{Fill and color fixed aesthetics for location data.}
 
-\item{context}{A sf object for context area or a ggplot layer representing
+\item{context}{A \code{sf} object for context area or a ggplot layer representing
 the context.}
 
-\item{context_params}{list with parameters for context layer; defaults to
-list(fill = "white", color = "black", alpha = 1, ...).}
-
-\item{layer_between}{An optional ggplot2 layer to insert between the context
-layer and the location layer.}
+\item{context_params}{A list with parameters for context layer; defaults to
+\code{list(fill = "white", color = "black", alpha = 1, ...)}.}
 
 \item{crs}{Coordinate reference system to return.}
 
-\item{neatline}{If \code{TRUE}, add a neatline layer to the returned layer.
-Requires that data be an sf object and not inherited.}
+\item{mid_layer}{A ggplot2 layer to insert between the context
+layer and the location layer. Optional.}
 
-\item{...}{Additional parameters passed to \link{layer_location_data} for location}
+\item{neatline}{A logical object, \code{CoordSf} object, or a list containing a
+\code{CoordSf} object (typically from \code{\link[=layer_neatline]{layer_neatline()}}).
+\itemize{
+\item If logical and \code{TRUE}, add a neatline layer using data from the context
+layer with \code{color = NA} and \code{bgcolor = "none"}.
+\item If object from \code{\link[=layer_neatline]{layer_neatline()}}, add it as is.
+}}
+
+\item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}} if data or
+location is an \code{sf} object.}
 }
 \description{
-Intended for use with \link{make_inset_map} function.
+Create a ggplot2 layer for a location in a provided context. This function is
+useful for making inset locator maps in combination with the \link{make_inset_map}
+function.
 }

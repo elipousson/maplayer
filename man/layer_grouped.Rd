@@ -32,9 +32,9 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 pass to any text geom.}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
-'sf'. Options include "sf" (\link[ggplot2:ggsf]{ggplot2::geom_sf}), "icon" (\link{layer_icon}),
-"markers" (\link{layer_markers}), "sf_text" (\link[ggplot2:ggsf]{ggplot2::geom_sf_text}), and "sf_label"
-(\link[ggplot2:ggsf]{ggplot2::geom_sf_label}). See details for a full list.}
+'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
+"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
+"sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
 \item{...}{Additional parameters passed to \link{layer_location_data}}
 

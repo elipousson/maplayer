@@ -145,7 +145,7 @@ nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
 nc <- sfext::st_transform_ext(nc, 3857)
 
 basemap <-
-  ggplot2::ggplot() +
+  ggplot() +
   layer_location_data(
     data = nc,
     fill = NA
@@ -155,7 +155,7 @@ basemap <-
 basemap +
   layer_markers(
     data = nc[1:10],
-    mapping = ggplot2::aes(size = AREA),
+    mapping = aes(size = AREA),
     make = TRUE
   )
 
@@ -171,7 +171,7 @@ large_nc$dist <- 2
 basemap +
   layer_numbers(
     data = large_nc,
-    mapping = ggplot2::aes(fill = NAME),
+    mapping = aes(fill = NAME),
     sort = "dist_xmax_ymin",
     num_style = "Roman",
     geom = "label",

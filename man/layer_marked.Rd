@@ -20,9 +20,7 @@ layer_marked(
   radius = expand,
   stat = "sf_coordinates",
   drop_shadow = FALSE,
-  x_offset = 5,
-  y_offset = 5,
-  sigma = 0.5,
+  shadow_params = list(x_offset = 5, y_offset = 5, sigma = 0.5, ...),
   ...
 )
 }
@@ -59,11 +57,10 @@ plot area width.}
 
 \item{stat}{stat to pass to ggforce function; defaults to "sf_coordinates"}
 
-\item{drop_shadow}{If \code{TRUE}, use \link[ggfx:with_shadow]{ggfx::with_shadow} to add a drop shadow to
-the label layer. Defaults to \code{FALSE}.}
+\item{drop_shadow}{If \code{TRUE}, use \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} to add a drop shadow
+to the label layer with shadow_params. Defaults to \code{FALSE}.}
 
-\item{x_offset, y_offset, sigma}{Parameters passed to \link[ggfx:with_shadow]{ggfx::with_shadow} if
-\code{drop_shadow = TRUE}.}
+\item{shadow_params}{Parameters passed to \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} if \code{drop_shadow = TRUE}. Defaults to \code{list(x_offset = 5, y_offset = 5, sigma = 0.5)}.}
 
 \item{...}{Additional parameters passed to \code{\link[ggforce:geom_mark_rect]{ggforce::geom_mark_rect()}},
 \code{\link[ggforce:geom_mark_circle]{ggforce::geom_mark_circle()}}, \code{\link[ggforce:geom_mark_ellipse]{ggforce::geom_mark_ellipse()}}, or
