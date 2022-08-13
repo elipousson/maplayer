@@ -1,9 +1,9 @@
-#' Set map limits to a feature or bounding box with a buffer, set aspect ratio,
-#' and panel border
+#' Set map limits to a bounding box with a buffer and set aspect ratio
 #'
-#' Set limits for a map to the bounding box of a feature using [ggplot2::coord_sf()].
-#' Optionally, adjust the x size by applying a buffer and/or adjust the aspect
-#' ratio of the limiting bounding box to match a set aspect ratio.
+#' Set limits for a map to the bounding box of a feature using
+#' [ggplot2::coord_sf()]. Optionally, adjust the x size by applying a buffer
+#' and/or adjust the aspect ratio of the limiting bounding box to match a set
+#' aspect ratio.
 #'
 #' @param data A `sf`, `sfc`, or `bbox` class object.
 #' @param size Size of panel border, Default: 1
@@ -41,23 +41,31 @@ layer_neatline <- function(data = NULL,
                            label_axes = "----",
                            ...) {
 
-  # Pass variables to bbox adjustment function
-  bbox <-
-    sfext::st_bbox_ext(
-      x = data,
-      dist = dist,
-      diag_ratio = diag_ratio,
-      unit = unit,
-      asp = asp,
-      crs = crs
-    )
+  if (!is.null(data)) {
+    # Pass variables to bbox adjustment function
+    bbox <-
+      sfext::st_bbox_ext(
+        x = data,
+        dist = dist,
+        diag_ratio = diag_ratio,
+        unit = unit,
+        asp = asp,
+        crs = crs
+      )
+
+    xlim <- c(bbox[["xmin"]], bbox[["xmax"]])
+    ylim <- c(bbox[["ymin"]], bbox[["ymax"]])
+  } else {
+    xlim <- NULL
+    ylim <- NULL
+  }
 
   # Set limits with adjustments using coord_sf
   limits <-
     list(
       ggplot2::coord_sf(
-        xlim = c(bbox[["xmin"]], bbox[["xmax"]]),
-        ylim = c(bbox[["ymin"]], bbox[["ymax"]]),
+        xlim = xlim,
+        ylim = ylim,
         expand = expand,
         crs = crs,
         label_axes = label_axes,
@@ -99,8 +107,8 @@ layer_neatline <- function(data = NULL,
     panel_background <- ggplot2::element_blank()
     plot_background <- ggplot2::element_blank()
   } else {
-    panel_background <- ggplot2::element_rect(fill = bgcolor)
-    plot_background <- ggplot2::element_rect(fill = bgcolor)
+    panel_background <- ggplot2::element_rect(fill = bgcolor, color = bgcolor)
+    plot_background <- ggplot2::element_rect(fill = bgcolor, color = bgcolor)
   }
 
   if (is.na(color) || color == "none") {
@@ -123,4 +131,47 @@ layer_neatline <- function(data = NULL,
       )
     )
   )
+}
+
+#' Add a neatline to a ggplot
+#'
+#' @noRd
+set_neatline <- function(x = NULL, neatline = TRUE, data = NULL, crs = NULL, ...) {
+  type <-
+    dplyr::case_when(
+      rlang::is_logical(neatline) && neatline ~ "lgl_true",
+      rlang::is_logical(neatline) && !neatline ~ "lgl_false",
+      is_neatline(neatline) ~ "coord_sf",
+      TRUE ~ NA_character_
+    )
+
+  if (is.na(type)) {
+    cli::cli_abort(
+    c("{.arg neatline} must be logical, a Coord class ggproto object,
+      or list of Coord class ggproto objects.",
+      "i" = "The class of the provided {.arg neatline} is {class(neatline)}.")
+    )
+  }
+
+  neatline_layer <-
+    switch(type,
+      "lgl_true" = layer_neatline(
+        data = data,
+        crs = crs,
+        ...
+      ),
+      "lgl_false" = x,
+      "coord_sf" = neatline
+    )
+
+  if (is.null(x) | (type == "lgl_false")) {
+    neatline_layer
+  } else if (ggplot2::is.ggplot(x)) {
+    x + neatline_layer
+  } else if (is_gg(x)) {
+    if (!is.list(x)) {
+      x <- list(x)
+    }
+    c(x, neatline_layer)
+  }
 }
