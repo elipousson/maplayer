@@ -30,6 +30,7 @@ layer_mask <- function(data = NULL,
                        alpha = 0.5,
                        mask = NULL,
                        neatline = FALSE,
+                       expand = TRUE,
                        ...) {
   # Check if mask is provided
   if (is.null(mask)) {
@@ -71,28 +72,65 @@ layer_mask <- function(data = NULL,
   }
 
   if (all(vapply(c(dist, diag_ratio, asp), is.null, TRUE))) {
-    # FIXME: This option is not documented and may not be expected behavior in
-    # all cases
-    neatline_layer <-
-      layer_neatline(
-        data = mask,
-        expand = TRUE
-      )
+    neatline_data <- mask
   } else {
-    neatline_layer <-
-      layer_neatline(
-        data = data,
-        dist = dist,
-        diag_ratio = diag_ratio,
-        unit = unit,
-        asp = asp,
-        crs = crs,
-        expand = TRUE
-      )
+    neatline_data <- data
   }
 
-  list(
+  set_neatline(
     mask_layer,
-    neatline_layer
+    data = neatline_data,
+    dist = dist,
+    diag_ratio = diag_ratio,
+    unit = unit,
+    asp = asp,
+    crs = crs,
+    expand = expand
   )
+}
+
+#' @noRd
+set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
+  type <-
+    dplyr::case_when(
+      is_sf(mask, ext = TRUE) ~ "sf",
+      rlang::is_logical(mask) && mask && !is.null(data) ~ "lgl_true",
+      rlang::is_logical(mask) && !mask ~ "lgl_false",
+      is_gg(mask) ~ "gg",
+      TRUE ~ NA_character_
+    )
+
+  if (is.na(type)) {
+    cli::cli_abort(
+      c("{.arg mask} must be sf, logical, or ggproto object.",
+        "i" = "The class of the provided {.arg mask} is {class(mask)}.")
+    )
+  }
+
+  mask_layer <-
+    switch(type,
+      "lgl_true" = layer_mask(
+        data = data,
+        crs = crs,
+        ...
+      ),
+      "lgl_false" = x,
+      "sf" = layer_mask(
+        data = mask,
+        crs = crs,
+        ...
+      ),
+      "gg" = mask
+    )
+
+  if (is.null(x) | (type == "lgl_false")) {
+    mask_layer
+  } else if (ggplot2::is.ggplot(x)) {
+    x + mask_layer
+  } else if (is_gg(x)) {
+    c(
+      x,
+      mask_layer
+    )
+  }
 }
