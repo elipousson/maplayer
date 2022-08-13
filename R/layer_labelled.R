@@ -4,15 +4,15 @@
 #' the following geoms: "text", "sf_text", "label", "sf_label", "textsf",
 #' "labelsf", "text_repel", or "label_repel".
 #'
-#' Note: Unlike in some [getdata] package functions, fn is applied to all of the
+#' Note: Unlike in some getdata package functions, fn is applied to all of the
 #' data; not a subset of the data based on location. For this function, dist and
-#' unit are both used by [sfext::st_clip()] (not by [layer_location_data])
+#' unit are both used by [sfext::st_clip()] (not by [layer_location_data()])
 #'
 #' The function also overrides the label aesthetics to hide the colored letters
 #' that would otherwise appear when using a theme legend.
 #'
 #' @param data Data to use for labels (must be an sf object or a data frame that
-#'   can be converted to an sf object using [sfext::as_sf])
+#'   can be converted to an sf object using [sfext::as_sf()])
 #' @param location Location to label (if not specified the data is assumed to
 #'   conver the whole location);
 #' @param fn Function to apply to data before creating labels; can be used in
@@ -20,12 +20,12 @@
 #' @param label_col Label column name
 #' @param geom A geom to use "text", "label", "textsf", "labelsf", "text_repel",
 #'   or "label_repel"
-#' @param mapping Aesthetic mapping, Default: NULL
+#' @param mapping Aesthetic mapping, Default: `NULL`
 #' @param union If TRUE, group by label_col and union geometry, Default: `FALSE`
-#' @param drop_shadow If `TRUE`, use [ggfx::with_shadow] to add a drop shadow to
-#'   the label layer. Defaults to `FALSE`.
-#' @param x_offset,y_offset,sigma Parameters passed to [ggfx::with_shadow] if
-#'   `drop_shadow = TRUE`.
+#' @param drop_shadow If `TRUE`, use [ggfx::with_shadow()] to add a drop shadow
+#'   to the label layer with shadow_params. Defaults to `FALSE`.
+#' @param shadow_params Parameters passed to [ggfx::with_shadow()] if `drop_shadow
+#'   = TRUE`. Defaults to `list(x_offset = 5, y_offset = 5, sigma = 0.5)`.
 #' @inheritParams sfext::st_clip
 #' @inheritDotParams layer_location_data -layer_fn -from_crs
 #' @seealso
@@ -33,10 +33,10 @@
 #' @rdname layer_labelled
 #' @aliases layer_label layer_show_label
 #' @export
+#' @importFrom sfext as_sf check_sf st_clip
 #' @importFrom dplyr summarise
 #' @importFrom sf st_union
-#' @importFrom rlang arg_match
-#' @importFrom sfext as_sf check_sf st_clip
+#' @importFrom rlang as_function arg_match
 #' @importFrom ggplot2 guides guide_legend aes
 layer_labelled <- function(data,
                            location = NULL,
@@ -50,9 +50,7 @@ layer_labelled <- function(data,
                            diag_ratio = NULL,
                            unit = NULL,
                            drop_shadow = FALSE,
-                           x_offset = 5,
-                           y_offset = 5,
-                           sigma = 0.5,
+                           shadow_params = NULL,
                            ...) {
   if (!is_sf(data) && is.data.frame(data)) {
     # FIXME: If data is a dataframe, there should be a way of passing from_crs,
@@ -61,10 +59,7 @@ layer_labelled <- function(data,
     data <- sfext::as_sf(data)
   }
 
-  if (!is.null(fn)) {
-    fn <- as_function(fn)
-    data <- fn(data)
-  }
+  data <- use_fn(data)
 
   sfext::check_sf(data)
 
@@ -80,10 +75,20 @@ layer_labelled <- function(data,
     # FIXME: st_clip likely should be passed to fn for layer_location_data to
     # apply clip to any subset of the data specified by location rather than the
     # whole area
-    clip_fn <- as_function(~ sfext::st_clip(x = .x, clip = clip, dist = dist, diag_ratio = diag_ratio, unit = unit))
+    clip_fn <-
+      rlang::as_function(
+        ~ sfext::st_clip(
+          x = .x,
+          clip = clip,
+          dist = dist,
+          diag_ratio = diag_ratio,
+          unit = unit
+        )
+      )
   }
 
-  # TODO: Duplicate with layer_location_data - consider exporting as internal reference data
+  # TODO: Duplicate with layer_location_data - consider exporting as internal
+  # reference data
   ggplot_text_geoms <- c("text", "sf_text", "label", "sf_label")
   ggrepel_geoms <- c("text_repel", "label_repel")
   geomtextpath_geoms <- c("textsf", "labelsf")
@@ -103,14 +108,9 @@ layer_labelled <- function(data,
     )
 
   if (drop_shadow) {
-    label_layer <-
-      ggfx::with_shadow(
-        label_layer,
-        x_offset = x_offset,
-        y_offset = y_offset,
-        sigma = sigma
-      )
+    label_layer <- with_shadow(label_layer, shadow_params)
   }
+
 
   list(
     label_layer,
