@@ -10,6 +10,7 @@
 #' @inheritParams sfext::st_bbox_ext
 #' @inheritParams layer_location_data
 #' @inheritParams ggsave_ext
+#' @param ggsave_params List of parameters passed to [ggsave_ext()].
 #' @inheritParams mapboxapi::layer_static_mapbox
 #' @param basemap If `FALSE`, return a list of ggplot2 layers (or ggproto
 #'   objects). If `TRUE`, add the list to [ggplot2::ggplot()] to return a map.
@@ -20,8 +21,9 @@
 #'
 #' @details Using make_image_map:
 #'
-#' [make_image_map] wraps [sfext::read_sf_exif] and [make_location_map]. It is designed for
-#' making simple maps of photos in combination with reference tables.
+#' [make_image_map] wraps [sfext::read_sf_exif] and [make_location_map]. It is
+#' designed for making simple maps of photos in combination with reference
+#' tables.
 #'
 #' @rdname make_location_map
 #' @export
@@ -41,23 +43,14 @@ make_location_map <- function(location,
                               bg_layer = NULL,
                               fg_layer = NULL,
                               save = FALSE,
-                              name = NULL,
-                              label = NULL,
-                              prefix = NULL,
-                              postfix = NULL,
-                              filename = NULL,
-                              device = NULL,
-                              path = NULL,
-                              dpi = 300,
+                              ggsave_params = list(dpi = 300, ...),
                               ...) {
-  paper <-
-    sfext::get_paper(
-      paper = paper,
-      orientation = orientation
-    )
-
-  if (is.null(asp)) {
-    asp <- paper$section_asp
+  if (!is.null(paper)) {
+    paper <-
+      sfext::get_paper(
+        paper = paper,
+        orientation = orientation
+      )
   }
 
   if (is.null(data)) {
@@ -66,12 +59,12 @@ make_location_map <- function(location,
   }
 
   stopifnot(
-    is.null(bg_layer) || is.list(bg_layer) || inherits(bg_layer, "gg"),
-    is.null(fg_layer) || is.list(fg_layer) || inherits(fg_layer, "gg")
+    is.null(bg_layer) || is_gg(bg_layer),
+    is.null(fg_layer) || is_gg(fg_layer)
   )
 
-  map_layer <-
-    list(
+  layer_stack <-
+    append(
       bg_layer,
       layer_location_data(
         data = data,
@@ -79,35 +72,35 @@ make_location_map <- function(location,
         dist = dist,
         diag_ratio = diag_ratio,
         unit = unit,
-        asp = asp,
+        asp = asp %||% paper$section_asp,
         crs = crs,
         geom = geom,
         ...
-      ),
+      )
+    )
+
+  layer_stack <-
+    append(
+      layer_stack,
       fg_layer
     )
 
-  map_layer <- make_basemap(map_layer, basemap)
+  layer_stack <- make_basemap(layer_stack, basemap)
 
-  if (save) {
-    # FIXME: basemap condition should be substituted for some condition checking if map_layer is a valid plot
-    ggsave_ext(
-      plot = map_layer,
-      width = paper$section_width,
-      height = paper$section_height,
-      filename = filename,
-      name = name,
-      label = label,
-      prefix = prefix,
-      postfix = postfix,
-      device = device,
-      path = path,
-      scale = scale,
-      dpi = dpi
-    )
+  if (!save) {
+    return(layer_stack)
   }
 
-  map_layer
+  ggsave_params$width <- ggsave_params$width %||% paper$section_width
+  ggsave_params$height <- ggsave_params$height %||% paper$section_height
+
+  eval_tidy_fn(
+    layer_stack,
+    params = ggsave_params,
+    fn = ggsave_ext
+  )
+
+  layer_stack
 }
 
 #' @name make_social_map
@@ -129,14 +122,7 @@ make_social_map <- function(location,
                             basemap = TRUE,
                             geom = "mapbox",
                             save = FALSE,
-                            name = NULL,
-                            filename = NULL,
-                            label = NULL,
-                            prefix = NULL,
-                            postfix = NULL,
-                            path = NULL,
-                            filetype = "jpeg",
-                            dpi = 72,
+                            ggsave_params = list(filetype = "jpeg", dpi = 72, ...),
                             ...) {
   image_size <-
     sfext::get_social_image(
@@ -146,9 +132,7 @@ make_social_map <- function(location,
       orientation = orientation
     )
 
-  if (is.null(asp)) {
-    asp <- image_size$section_asp
-  }
+  asp <- asp %||% image_size$section_asp
 
   bbox <-
     st_bbox_ext(
@@ -170,19 +154,13 @@ make_social_map <- function(location,
   map_layer <- make_basemap(map_layer, basemap)
 
   if (save) {
-    ggsave_social(
-      plot = map_layer,
-      width = image_size$section_width,
-      height = image_size$section_height,
-      filename = filename,
-      name = name,
-      label = label,
-      prefix = prefix,
-      postfix = postfix,
-      filetype = filetype,
-      path = path,
-      scale = scale,
-      dpi = dpi
+    ggsave_params$width <- ggsave_params$width %||% image_size$section_width
+    ggsave_params$height <- ggsave_params$height %||% image_size$section_height
+
+    eval_tidy_fn(
+      map_layer,
+      params = ggsave_params,
+      fn = ggsave_social
     )
   }
 
@@ -213,14 +191,7 @@ make_image_map <- function(image_path,
                            bg_layer = NULL,
                            fg_layer = NULL,
                            save = FALSE,
-                           name = NULL,
-                           label = NULL,
-                           prefix = NULL,
-                           postfix = NULL,
-                           filename = NULL,
-                           device = NULL,
-                           path = NULL,
-                           dpi = 300,
+                           ggsave_params = list(dpi = 300, ...),
                            image_geom = "label",
                            groupname_col = NULL,
                            group_meta = NULL,
@@ -237,17 +208,16 @@ make_image_map <- function(image_path,
       path = image_path
     )
 
-  if (is.null(location)) {
-    location <-
-      sfext::st_bbox_ext(
-        sf::st_union(images),
-        dist = dist,
-        diag_ratio = diag_ratio,
-        unit = unit,
-        asp = asp,
-        crs = crs
-      )
-  }
+  location <-
+    location %||%
+    sfext::st_bbox_ext(
+      sf::st_union(images),
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp,
+      crs = crs
+    )
 
   fg_layer <-
     list(
@@ -275,14 +245,35 @@ make_image_map <- function(image_path,
     bg_layer = bg_layer,
     fg_layer = fg_layer,
     save = save,
-    name = name,
-    label = label,
-    prefix = prefix,
-    postfix = postfix,
-    filename = filename,
-    device = device,
-    path = path,
-    dpi = dpi,
+    ggsave_params = ggsave_params,
     style_url = style_url
   )
+}
+
+
+#' Create a base map by adding the object
+#'
+#' @param x A ggproto object or list of ggproto objects.
+#' @param basemap Either a logical vector or ggplot object.
+#'
+#'   If __logical__ and `TRUE`, add x to [ggplot2::ggplot]. If `FALSE`, return x
+#'   as is.
+#'
+#'   If a __ggplot__, add x to basemap object.
+#'
+#' @export
+#' @importFrom rlang is_logical
+#' @importFrom ggplot2 is.ggproto is.ggplot ggplot
+make_basemap <- function(x, basemap = FALSE) {
+  if (rlang::is_logical(basemap)) {
+    if (basemap) {
+      return(ggplot2::ggplot() + x)
+    }
+
+    return(x)
+  }
+
+  if (ggplot2::is.ggplot(basemap)) {
+    basemap + x
+  }
 }
