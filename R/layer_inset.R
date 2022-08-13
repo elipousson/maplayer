@@ -32,8 +32,8 @@
 #' @return ggplot2 map with inset map added using patchwork
 #' @rdname layer_inset
 #' @export
-layer_inset <- function(inset,
-                        map = NULL,
+layer_inset <- function(map = NULL,
+                        inset = NULL,
                         position = "bottomright",
                         scale = 1,
                         nudge_x = 0,
@@ -54,11 +54,15 @@ layer_inset <- function(inset,
 
 #' @name make_inset_map
 #' @rdname layer_inset
+#' @param location A location passed to [layer_location_context()]. This can be
+#'   a sf object, a ggplot layer, or a formula or function. If it is a formula
+#'   or function, it is applied to the context data is passed to the location
+#'   function and the results used as the data for the location layer.
 #' @inheritParams layer_location_context
 #' @export
 make_inset_map <-
-  function(inset = NULL,
-           map = NULL,
+  function(map = NULL,
+           inset = NULL,
            location = NULL,
            context = NULL,
            position = "bottomright",
@@ -166,7 +170,7 @@ make_inset_element <- function(inset,
 #' patchwork::inset_element
 #'
 #' @noRd
-get_inset_position <- function(scale = 1, position = NULL, nudge_x = 0, nudge_y = 0) {
+get_inset_position <- function(position = NULL, nudge_x = 0, nudge_y = 0, scale = 1) {
 
   # FIXME: This is an incomplete implementation of a scale factor for an inset map
   # top, bottom, left, and right probably should all be based on scale as well
