@@ -5,13 +5,13 @@
 #' function is helpful for the background of an inset map intended for use with
 #' [layer_inset].
 #'
-#' The [make_frame] helper function calls [sfext::st_circle] (if style =
-#' "circle"), [sfext::st_square]  (if style = "square"), [sfext::st_bbox_ext]
-#' (if style = "rect"), or [sfext::st_buffer_ext] (if style = "none").
+#' The [make_frame] helper function calls [sfext::st_circle] (if `style =
+#' "circle"`), [sfext::st_square]  (if `style = "square"`), [sfext::st_bbox_ext]
+#' (if `style = "rect"`), or [sfext::st_buffer_ext] (if `style = "none"`).
 #'
 #' If neatline is `TRUE`, [layer_frame] returns a list of two geoms, the second
 #' a [layer_neatline] layer created using the frame object as the data and the
-#' parameters bgcolor = "none" and color = "none". asp is set to 1 if style is
+#' parameters `bgcolor = "none"` and `color = "none"`. asp is set to 1 if style is
 #' "circle" or "square" or the provided asp value otherwise.
 #'
 #' Additional parameters passed through ... can include additional fixed
@@ -51,6 +51,7 @@ layer_frame <- function(data,
                         fill = "white",
                         neatline = TRUE,
                         expand = TRUE,
+                        basemap = FALSE,
                         union = TRUE,
                         ...) {
   if (is.null(data)) {
@@ -93,7 +94,7 @@ layer_frame <- function(data,
       ...
     )
 
-  if (!neatline | is.null(data)) {
+  if (is.null(data)) {
     return(frame_layer)
   }
 
@@ -101,8 +102,10 @@ layer_frame <- function(data,
     asp <- 1
   }
 
-  neatline_layer <-
-    layer_neatline(
+  frame_layer <-
+    set_neatline(
+      frame_layer,
+      neatline = neatline,
       data = frame,
       asp = asp,
       bgcolor = "none",
@@ -110,9 +113,9 @@ layer_frame <- function(data,
       expand = expand
     )
 
-  list(
+  make_basemap(
     frame_layer,
-    neatline_layer
+    basemap
   )
 }
 
@@ -124,6 +127,7 @@ layer_frame <- function(data,
 #' @export
 #' @importFrom sf st_union
 #' @importFrom sfext check_sf as_sf st_buffer_ext st_circle st_square
+#' @importFrom rlang arg_match
 make_frame <- function(x,
                        dist = NULL,
                        diag_ratio = NULL,
@@ -145,7 +149,7 @@ make_frame <- function(x,
     x <- sf::st_union(x)
   }
 
-  style <- match.arg(style, c("circle", "square", "rect", "buffer", "none"))
+  style <- rlang::arg_match(style, c("circle", "square", "rect", "buffer", "none"))
 
   if (style != "none") {
     if (is.null(asp) | (style == "buffer")) {
@@ -167,8 +171,11 @@ make_frame <- function(x,
           class = "sf"
         )
     }
-  } else if (!all(sapply(c(dist, diag_ratio, asp), is.null))) {
-    cli_warn("Provided {.arg dist}, {.arg diag_ratio}, and {.arg asp} are ignored when {.code style = none}.")
+  } else if (!all(vapply(c(dist, diag_ratio, asp), is.null, FALSE))) {
+    cli_warn(
+      "Provided {.arg dist}, {.arg diag_ratio},
+    and {.arg asp} are ignored when {.code style = none}."
+    )
   }
 
   switch(style,
