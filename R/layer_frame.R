@@ -36,7 +36,7 @@
 #' @name layer_frame
 #' @family layer
 #' @export
-layer_frame <- function(data,
+layer_frame <- function(data = NULL,
                         dist = NULL,
                         diag_ratio = NULL,
                         unit = "meter",
@@ -85,9 +85,8 @@ layer_frame <- function(data,
   }
 
   frame_layer <-
-    layer_location_data(
+    ggplot2::geom_sf(
       data = frame,
-      geom = "sf",
       fill = fill,
       color = color,
       linetype = linetype,
@@ -149,39 +148,43 @@ make_frame <- function(x,
     x <- sf::st_union(x)
   }
 
-  style <- rlang::arg_match(style, c("circle", "square", "rect", "buffer", "none"))
+  style <-
+    rlang::arg_match(style, c("circle", "square", "rect", "buffer", "none"))
 
-  if (style != "none") {
-    if (is.null(asp) | (style == "buffer")) {
-      x <-
-        sfext::st_buffer_ext(
-          x = x,
-          dist = dist,
-          diag_ratio = diag_ratio,
-          unit = unit
-        )
-    } else {
-      x <-
-        st_bbox_ext(
-          x = x,
-          dist = dist,
-          diag_ratio = diag_ratio,
-          unit = unit,
-          asp = asp,
-          class = "sf"
-        )
+  if (style == "none") {
+    if (!all(vapply(c(dist, diag_ratio, asp), is.null, FALSE))) {
+      cli_warn(
+        "Provided {.arg dist}, {.arg diag_ratio}, and {.arg asp} are ignored
+        when {.code style = none}."
+      )
     }
-  } else if (!all(vapply(c(dist, diag_ratio, asp), is.null, FALSE))) {
-    cli_warn(
-      "Provided {.arg dist}, {.arg diag_ratio},
-    and {.arg asp} are ignored when {.code style = none}."
-    )
+    return(x)
+  }
+
+  if (is.null(asp) | (style == "buffer")) {
+    x <-
+      sfext::st_buffer_ext(
+        x = x,
+        dist = dist,
+        diag_ratio = diag_ratio,
+        unit = unit
+      )
+  } else {
+    x <-
+      st_bbox_ext(
+        x = x,
+        dist = dist,
+        diag_ratio = diag_ratio,
+        unit = unit,
+        asp = asp,
+        class = "sf"
+      )
   }
 
   switch(style,
     "circle" = sfext::st_circle(x, scale = scale, inscribed = inscribed, dTolerance = dTolerance),
     "square" = sfext::st_square(x, scale = scale, rotate = rotate, inscribed = inscribed),
     "rect" = st_bbox_ext(x, asp = asp, class = "sf"),
-    "none" = x
+    "buffer" = x
   )
 }

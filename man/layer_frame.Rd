@@ -6,7 +6,7 @@
 \title{Create a frame layer around a simple feature object}
 \usage{
 layer_frame(
-  data,
+  data = NULL,
   dist = NULL,
   diag_ratio = NULL,
   unit = "meter",
@@ -114,7 +114,7 @@ default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
   }}
 
-\item{x}{A sf, sfc, or bbox object}
+\item{x}{A \code{sf}, \code{sfc}, or \code{bbox} object}
 
 \item{dTolerance}{numeric; tolerance parameter, specified for all or for each
 feature geometry. If you run \code{st_simplify}, the input data is

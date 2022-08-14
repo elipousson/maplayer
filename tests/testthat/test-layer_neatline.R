@@ -1,6 +1,8 @@
 test_that("layer_neatline works", {
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
-  nc_map <- ggplot2::ggplot(nc) + ggplot2::geom_sf()
+  nc_map <-
+    ggplot2::ggplot(nc) +
+    ggplot2::geom_sf()
   # Check class with default params
   expect_s3_class(
     nc_map +
