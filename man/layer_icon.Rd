@@ -12,7 +12,6 @@ layer_icon(
   px = NULL,
   source = NULL,
   svg = NULL,
-  color = "black",
   crs = getOption("maplayer.crs", default = 3857),
   ...
 )
@@ -24,7 +23,6 @@ geom_sf_icon(
   px = NULL,
   source = NULL,
   svg = NULL,
-  color = "black",
   crs = getOption("maplayer.crs", default = 3857),
   ...
 )
@@ -41,7 +39,7 @@ value. Note that the icon column should not be mapped with
 \code{\link[ggplot2:aes]{ggplot2::aes()}}.}
 
 \item{icon}{Icon name. Default \code{NULL}. If \code{icon} is provided, \code{iconname_col}
-is ignored.}
+is ignored. See \code{map_icons$name} for supported options.}
 
 \item{px}{Icon size in pixels. See \code{map_icons$px} for supported options.
 Optional but may be necessary to differentiate icons with duplicate names.}
@@ -52,9 +50,6 @@ Optional but may be required to differentiate icons with duplicate names.}
 \item{svg}{Optional. Custom file path or URL with SVG to pass to \code{svg}
 parameter for  \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}}.  If \code{icon} is provided, \code{svg} is
 ignored.}
-
-\item{color}{SVG color passed to  \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}}. default color is
-set to "black".}
 
 \item{crs}{Coordinate reference system; defaults to \code{NULL}.}
 
@@ -67,9 +62,12 @@ Set `options(GGSVG_DEBUG = TRUE)` for some verbose debugging which will
 cause `{ggsvg}` to output (to the console) the final SVG for each and every element
 in the plot.}
   }}
+
+\item{color}{Icon color passed to \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}}; defaults to
+"black".}
 }
 \description{
-Use the  \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}} function to plot icons using the centroids
+Use the \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}} function to plot icons using the centroids
 from the input simple feature object to set the icon location.
 }
 \examples{

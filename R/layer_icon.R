@@ -41,10 +41,13 @@ layer_icon <- function(data = NULL,
                        px = NULL,
                        source = NULL,
                        svg = NULL,
-                       color = "black",
                        crs = getOption("maplayer.crs", default = 3857),
                        ...) {
-  is_pkg_installed(pkg = "ggsvg")
+  is_pkg_installed(pkg = "ggsvg", repo = "coolbutuseless/ggsvg")
+  is_pkg_installed(pkg = "rsvg")
+
+  sf_col <- attributes(data)$sf_column %||% "geometry"
+  defaults <- list("geometry" = sf_col)
 
   if (!is.null(iconname_col) && is.null(icon)) {
     data <-
@@ -53,18 +56,16 @@ layer_icon <- function(data = NULL,
         iconname_col = iconname_col,
         px = px,
         source = source,
-        single = FALSE,
         crs = crs
       )
 
-    ggsvg::geom_point_svg(
+    geom_sf_coordinates(
       mapping = ggplot2::aes(
-        geometry = .data[[attributes(data)$sf_column %||% "geometry"]],
         svg = .data[["svg"]]
       ),
       data = data,
-      color = color,
-      stat = "sf_coordinates",
+      geom = ggsvg::geom_point_svg,
+      defaults = defaults,
       ...
     )
   } else {
@@ -84,17 +85,12 @@ layer_icon <- function(data = NULL,
       )
     }
 
-    suppressWarnings(
-      ggsvg::geom_point_svg(
-        mapping = ggplot2::aes(
-          geometry = .data[[attributes(data)$sf_column %||% "geometry"]]
-        ),
-        data = data,
-        svg = svg,
-        color = color,
-        stat = "sf_coordinates",
-        ...
-      )
+    geom_sf_coordinates(
+      svg = svg,
+      data = data,
+      geom = ggsvg::geom_point_svg,
+      defaults = defaults,
+      ...
     )
   }
 }

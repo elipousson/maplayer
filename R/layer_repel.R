@@ -25,11 +25,10 @@ layer_repel <- function(mapping = aes(),
 
   geom <- rlang::arg_match(geom)
 
-  switch(
-    geom,
-      "text" = geom_sf_text_repel(mapping = mapping, data = data, ...),
-      "label" = geom_sf_label_repel(mapping = mapping, data = data, ...)
-    )
+  switch(geom,
+    "text" = geom_sf_text_repel(mapping = mapping, data = data, ...),
+    "label" = geom_sf_label_repel(mapping = mapping, data = data, ...)
+  )
 }
 
 #' @name geom_sf_label_repel
@@ -40,7 +39,7 @@ geom_sf_label_repel <- function(mapping = aes(), data = NULL, ...) {
     data = data,
     geom = ggrepel::geom_label_repel,
     ...
-    )
+  )
 }
 
 #' @name geom_sf_text_repel
@@ -57,7 +56,8 @@ geom_sf_text_repel <- function(mapping = aes(), data = NULL, ...) {
 #' Helper function to add geometry to mapping and "sf_coordinates" to stat
 #'
 #' @noRd
-geom_sf_coordinates <- function(mapping = aes(), data = NULL, geom = NULL, ...) {
+geom_sf_coordinates <- function(mapping = aes(), data = NULL, geom = NULL, .envir = parent.frame(), call = .envir, ...) {
+  mapping <- mapping %||% aes()
   geom(
     mapping = aes_sf_coords(mapping, data),
     data = data,
@@ -77,8 +77,10 @@ aes_sf_coords <- function(mapping = aes(), data = NULL, sf_col = "geometry") {
     return(mapping)
   }
 
+  sf_col <- sfext::get_sf_col(data) %||% sf_col
+
   utils::modifyList(
-    aes(geometry = .data[[sfext::get_sf_col(data) %||% sf_col]]),
+    aes(geometry = .data[[sf_col]]),
     mapping
   )
 }
