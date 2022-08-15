@@ -37,8 +37,6 @@ label is provided to mapping; required otherwise.}
 \item{...}{
   Arguments passed on to \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel}}
   \describe{
-    \item{\code{stat}}{The statistical transformation to use on the data for this
-layer, as a string.}
     \item{\code{position}}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
     \item{\code{parse}}{If TRUE, the labels will be parsed into expressions and
