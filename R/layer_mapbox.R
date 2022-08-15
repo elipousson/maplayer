@@ -1,6 +1,6 @@
 #' Use mapboxapi to make a Mapbox static map layer
 #'
-#' @param data `sf`, `sfc`, or `bbox` object; any objects convertible with [as_bbox]
+#' @param data A `sf`, `sfc`, or `bbox` object.
 #' @inheritParams layer_neatline
 #' @inheritParams mapboxapi::layer_static_mapbox
 #' @param style_url Map style url used to fill style_id and username parameters,
@@ -71,23 +71,20 @@ layer_mapbox <- function(data = NULL,
       ...
     )
 
-  if (neatline) {
-    mapbox_layer <-
-      list(
-        mapbox_layer,
-        layer_neatline(
-          data = bbox,
-          crs = crs_mapbox,
-          color = color,
-          bgcolor = bgcolor,
-          size = size,
-          linetype = linetype,
-          expand = expand,
-          hide_grid = hide_grid,
-          label_axes = label_axes
-        )
-      )
-  }
+  mapbox_layer <-
+    set_neatline(
+      mapbox_layer,
+      neatline = neatline,
+      data = bbox,
+      crs = crs_mapbox,
+      color = color,
+      bgcolor = bgcolor,
+      size = size,
+      linetype = linetype,
+      expand = expand,
+      hide_grid = hide_grid,
+      label_axes = label_axes
+    )
 
   make_basemap(mapbox_layer, basemap)
 }

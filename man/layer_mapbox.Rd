@@ -31,7 +31,7 @@ layer_mapbox(
 )
 }
 \arguments{
-\item{data}{\code{sf}, \code{sfc}, or \code{bbox} object; any objects convertible with \link{as_bbox}}
+\item{data}{A \code{sf}, \code{sfc}, or \code{bbox} object.}
 
 \item{dist}{buffer distance in units. Optional.}
 
