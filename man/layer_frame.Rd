@@ -23,6 +23,7 @@ layer_frame(
   expand = TRUE,
   basemap = FALSE,
   union = TRUE,
+  by_feature = FALSE,
   ...
 )
 
@@ -37,11 +38,12 @@ make_frame(
   rotate = 0,
   inscribed = FALSE,
   dTolerance = 0,
-  union = TRUE
+  union = TRUE,
+  by_feature = FALSE
 )
 }
 \arguments{
-\item{data}{A sf object to create the frame around.}
+\item{data, x}{A \code{sf}, \code{sfc}, or \code{bbox} object to create the frame around.}
 
 \item{dist}{buffer distance in units. Optional.}
 
@@ -113,8 +115,6 @@ returning from function.}
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
   }}
-
-\item{x}{A \code{sf}, \code{sfc}, or \code{bbox} object}
 
 \item{dTolerance}{numeric; tolerance parameter, specified for all or for each
 feature geometry. If you run \code{st_simplify}, the input data is

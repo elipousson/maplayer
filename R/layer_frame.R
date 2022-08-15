@@ -19,7 +19,7 @@
 #' to the frame simple feature object created by [make_frame] (not to the
 #' original input data).
 #'
-#' @param data A sf object to create the frame around.
+#' @param data,x A `sf`, `sfc`, or `bbox` object to create the frame around.
 #' @param style Style of framing shape to add, "circle", "square", "rect",
 #'   "buffer", or "none". If style is "buffer", the asp parameter is ignored. If
 #'   style is "none", the dist, diag_ratio, and asp parameters are ignored and
@@ -27,6 +27,8 @@
 #' @param union If `TRUE`, pass data to [sf::st_union] before buffering and
 #'   creating frame; defaults to `TRUE`.
 #' @inheritParams layer_neatline
+#' @inheritParams sfext::st_square
+#' @inheritParams sfext::st_circle
 #' @param fill,color,size,linetype Fixed aesthetics for frame, passed to
 #'   [layer_location_data].
 #' @param neatline If `TRUE`, return a list of layers that includes a
@@ -53,6 +55,7 @@ layer_frame <- function(data = NULL,
                         expand = TRUE,
                         basemap = FALSE,
                         union = TRUE,
+                        by_feature = FALSE,
                         ...) {
   if (is.null(data)) {
     frame <- function(x) {
@@ -66,7 +69,8 @@ layer_frame <- function(data = NULL,
         scale = scale,
         rotate = rotate,
         inscribed = inscribed,
-        union = union
+        union = union,
+        by_feature = by_feature
       )
     }
   } else {
@@ -80,7 +84,8 @@ layer_frame <- function(data = NULL,
       scale = scale,
       rotate = rotate,
       inscribed = inscribed,
-      union = union
+      union = union,
+      by_feature = by_feature
     )
   }
 
@@ -137,17 +142,8 @@ make_frame <- function(x,
                        rotate = 0,
                        inscribed = FALSE,
                        dTolerance = 0,
-                       union = TRUE) {
-  sfext::check_sf(x, ext = TRUE)
-
-  if (!is_sf(x)) {
-    x <- sfext::as_sf(x)
-  }
-
-  if (union) {
-    x <- sf::st_union(x)
-  }
-
+                       union = TRUE,
+                       by_feature = FALSE) {
   style <-
     rlang::arg_match(style, c("circle", "square", "rect", "buffer", "none"))
 
@@ -159,6 +155,10 @@ make_frame <- function(x,
       )
     }
     return(x)
+  }
+
+  if (union) {
+    x <- sf::st_union(x)
   }
 
   if (is.null(asp) | (style == "buffer")) {
@@ -182,8 +182,8 @@ make_frame <- function(x,
   }
 
   switch(style,
-    "circle" = sfext::st_circle(x, scale = scale, inscribed = inscribed, dTolerance = dTolerance),
-    "square" = sfext::st_square(x, scale = scale, rotate = rotate, inscribed = inscribed),
+    "circle" = sfext::st_circle(x, scale = scale, inscribed = inscribed, by_feature = by_feature, dTolerance = dTolerance),
+    "square" = sfext::st_square(x, scale = scale, rotate = rotate, by_feature = by_feature, inscribed = inscribed),
     "rect" = st_bbox_ext(x, asp = asp, class = "sf"),
     "buffer" = x
   )
