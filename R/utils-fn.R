@@ -20,7 +20,7 @@ is_fn <- function(x) {
 #' @inheritParams cli::cli_abort
 #' @noRd
 #' @importFrom rlang is_function is_formula as_function
-make_fn <- function(fn, ..., arg = caller_arg(x), call = caller_env()) {
+make_fn <- function(fn, ..., arg = caller_arg(fn), call = caller_env()) {
   if (rlang::is_function(fn)) {
     return(fn)
   }
