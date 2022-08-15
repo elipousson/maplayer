@@ -182,6 +182,13 @@ using default parameters. smooth_params is ignored if data is <code>NULL</code>
 using default parameters. shadow_params is ignored if layer_fn is provided.</p></dd>
 
 
+<dt>basemap</dt>
+<dd><p>Either a logical vector or ggplot object.</p>
+<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot</a>. If <code>FALSE</code>, return x
+as is.</p>
+<p>If a <strong>ggplot</strong>, add x to basemap object.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Additional parameters passed to selected geom or layer_fn</p></dd>
 

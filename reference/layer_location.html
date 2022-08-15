@@ -195,8 +195,12 @@ provided. defaults to <code>NULL</code></p></dd>
 
 
 <dt>neatline</dt>
-<dd><p>If <code>TRUE</code>, add <code>layer_neatline</code> with <code>expand = TRUE</code>;
-defaults to FALSE.</p></dd>
+<dd><p>A logical object, <code>CoordSf</code> object, or a list containing a
+<code>CoordSf</code> object (typically from <code><a href="layer_neatline.html">layer_neatline()</a></code>) added to layer by
+<code><a href="layer_neatline.html">set_neatline()</a></code>.</p><ul><li><p>If logical and <code>TRUE</code>, add a neatline layer using data, crs and any
+additional parameters passed to ... If logical and <code>FALSE</code>, return x as is.</p></li>
+<li><p>If object from <code><a href="layer_neatline.html">layer_neatline()</a></code>, add it as is.</p></li>
+</ul></dd>
 
 
 <dt>smooth_params</dt>

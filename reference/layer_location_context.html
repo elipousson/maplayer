@@ -104,10 +104,17 @@ layer and the location layer. Optional.</p></dd>
 
 <dt>neatline</dt>
 <dd><p>A logical object, <code>CoordSf</code> object, or a list containing a
-<code>CoordSf</code> object (typically from <code><a href="layer_neatline.html">layer_neatline()</a></code>).</p><ul><li><p>If logical and <code>TRUE</code>, add a neatline layer using data from the context
+<code>CoordSf</code> object (typically from <code><a href="layer_neatline.html">layer_neatline()</a></code>) added to layer.</p><ul><li><p>If logical and <code>TRUE</code>, add a neatline layer using data from the context
 layer with <code>color = NA</code> and <code>bgcolor = "none"</code>.</p></li>
 <li><p>If object from <code><a href="layer_neatline.html">layer_neatline()</a></code>, add it as is.</p></li>
 </ul></dd>
+
+
+<dt>basemap</dt>
+<dd><p>Either a logical vector or ggplot object.</p>
+<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot</a>. If <code>FALSE</code>, return x
+as is.</p>
+<p>If a <strong>ggplot</strong>, add x to basemap object.</p></dd>
 
 
 <dt>...</dt>

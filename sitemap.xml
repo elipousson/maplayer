@@ -34,6 +34,9 @@
     <loc>https://elipousson.github.io/maplayer/reference/layer_icon.html</loc>
   </url>
   <url>
+    <loc>https://elipousson.github.io/maplayer/reference/layer_image_path.html</loc>
+  </url>
+  <url>
     <loc>https://elipousson.github.io/maplayer/reference/layer_inset.html</loc>
   </url>
   <url>
@@ -62,6 +65,9 @@
   </url>
   <url>
     <loc>https://elipousson.github.io/maplayer/reference/layer_neatline.html</loc>
+  </url>
+  <url>
+    <loc>https://elipousson.github.io/maplayer/reference/layer_repel.html</loc>
   </url>
   <url>
     <loc>https://elipousson.github.io/maplayer/reference/layer_scaled.html</loc>

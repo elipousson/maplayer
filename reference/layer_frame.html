@@ -75,6 +75,7 @@ function is helpful for the background of an inset map intended for use with
 <span>  expand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  basemap <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  union <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  by_feature <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -89,14 +90,15 @@ function is helpful for the background of an inset map intended for use with
 <span>  rotate <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  inscribed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  dTolerance <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  union <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  union <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  by_feature <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>data</dt>
-<dd><p>A sf object to create the frame around.</p></dd>
+    <dl><dt>data, x</dt>
+<dd><p>A <code>sf</code>, <code>sfc</code>, or <code>bbox</code> object to create the frame around.</p></dd>
 
 
 <dt>dist</dt>
@@ -159,6 +161,13 @@ the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
 limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></dd>
 
 
+<dt>basemap</dt>
+<dd><p>Either a logical vector or ggplot object.</p>
+<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot</a>. If <code>FALSE</code>, return x
+as is.</p>
+<p>If a <strong>ggplot</strong>, add x to basemap object.</p></dd>
+
+
 <dt>union</dt>
 <dd><p>If <code>TRUE</code>, pass data to <a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">sf::st_union</a> before buffering and
 creating frame; defaults to <code>TRUE</code>.</p></dd>
@@ -214,10 +223,6 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
 
   
 </dl></dd>
-
-
-<dt>x</dt>
-<dd><p>A <code>sf</code>, <code>sfc</code>, or <code>bbox</code> object</p></dd>
 
 
 <dt>dTolerance</dt>
