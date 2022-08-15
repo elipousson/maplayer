@@ -107,14 +107,14 @@ Symbol Library is created by the National Park Service so is assumed to be a
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>A data frame with 1855 rows and 5 variables:</p><dl><dt><code>name</code></dt>
+    <p>A tibble with 4,889 rows and 5 variables:</p><dl><dt><code>name</code></dt>
 <dd><p>Icon name</p></dd>
 
 <dt><code>url</code></dt>
 <dd><p>Icon URL on GitHub repo</p></dd>
 
 <dt><code>style</code></dt>
-<dd><p>Icon style (Weather Underground icons only)</p></dd>
+<dd><p>Icon style (blank if not applicable)</p></dd>
 
 <dt><code>size</code></dt>
 <dd><p>Icon width/height (pixels)</p></dd>
@@ -124,6 +124,11 @@ Symbol Library is created by the National Park Service so is assumed to be a
 
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>The name column is not unique so a px or source may be required when using
+<code><a href="layer_icon.html">layer_icon()</a></code>.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
