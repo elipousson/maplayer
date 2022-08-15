@@ -8,9 +8,8 @@
 
 utils::globalVariables(
   c(
-    ":=", "df", "geometry", "angle",
-    "lon", "lat", "name", "repo",
-    "svg_url", "x1", "x2", "y1", "y2"
+    "df", "geometry", "angle", "lon", "lat", "name", "repo",
+    "x1", "x2", "y1", "y2", "x", "y"
   )
 )
 
