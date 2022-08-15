@@ -3,6 +3,7 @@
 \name{layer_neatline}
 \alias{layer_neatline}
 \alias{set_map_limits}
+\alias{set_neatline}
 \title{Set map limits to a bounding box with a buffer and set aspect ratio}
 \usage{
 layer_neatline(
@@ -21,6 +22,8 @@ layer_neatline(
   label_axes = "----",
   ...
 )
+
+set_neatline(x = NULL, neatline = TRUE, data = NULL, crs = NULL, ...)
 }
 \arguments{
 \item{data}{A \code{sf}, \code{sfc}, or \code{bbox} class object.}
@@ -65,6 +68,18 @@ limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 labels.}
 
 \item{...}{Additional parameters to pass to \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.}
+
+\item{x}{For \code{\link[=set_neatline]{set_neatline()}}, a \code{ggplot} class object, \code{ggproto} class
+object or list of \code{ggproto} objects to combine with neatline layer.}
+
+\item{neatline}{A logical object, \code{CoordSf} object, or a list containing a
+\code{CoordSf} object (typically from \code{\link[=layer_neatline]{layer_neatline()}}) added to layer by
+\code{\link[=set_neatline]{set_neatline()}}.
+\itemize{
+\item If logical and \code{TRUE}, add a neatline layer using data, crs and any
+additional parameters passed to ... If logical and \code{FALSE}, return x as is.
+\item If object from \code{\link[=layer_neatline]{layer_neatline()}}, add it as is.
+}}
 }
 \value{
 List of \link[ggplot2:ggsf]{ggplot2::coord_sf} and \link[ggplot2:theme]{ggplot2::theme} calls.

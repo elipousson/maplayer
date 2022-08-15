@@ -41,6 +41,9 @@ layer_neatline <- function(data = NULL,
                            label_axes = "----",
                            ...) {
 
+  xlim <- NULL
+  ylim <- NULL
+
   if (!is.null(data)) {
     # Pass variables to bbox adjustment function
     bbox <-
@@ -55,9 +58,6 @@ layer_neatline <- function(data = NULL,
 
     xlim <- c(bbox[["xmin"]], bbox[["xmax"]])
     ylim <- c(bbox[["ymin"]], bbox[["ymax"]])
-  } else {
-    xlim <- NULL
-    ylim <- NULL
   }
 
   # Set limits with adjustments using coord_sf
@@ -103,10 +103,10 @@ layer_neatline <- function(data = NULL,
       )
   }
 
-  if (is.na(bgcolor) || bgcolor == "none") {
-    panel_background <- ggplot2::element_blank()
-    plot_background <- ggplot2::element_blank()
-  } else {
+  panel_background <- ggplot2::element_blank()
+  plot_background <- ggplot2::element_blank()
+
+  if (!is.na(bgcolor) && bgcolor != "none") {
     panel_background <- ggplot2::element_rect(fill = bgcolor, color = bgcolor)
     plot_background <- ggplot2::element_rect(fill = bgcolor, color = bgcolor)
   }
@@ -133,9 +133,21 @@ layer_neatline <- function(data = NULL,
   )
 }
 
-#' Add a neatline to a ggplot
+#' @name set_neatline
+#' @rdname layer_neatline
+#' @param x For [set_neatline()], a `ggplot` class object, `ggproto` class
+#'   object or list of `ggproto` objects to combine with neatline layer.
+#' @param neatline A logical object, `CoordSf` object, or a list containing a
+#'   `CoordSf` object (typically from [layer_neatline()]) added to layer by
+#'   [set_neatline()].
 #'
-#' @noRd
+#'   - If logical and `TRUE`, add a neatline layer using data, crs and any
+#'   additional parameters passed to ... If logical and `FALSE`, return x as is.
+#'   - If object from [layer_neatline()], add it as is.
+#' @export
+#' @importFrom dplyr case_when
+#' @importFrom rlang is_logical
+#' @importFrom ggplot2 is.ggplot
 set_neatline <- function(x = NULL, neatline = TRUE, data = NULL, crs = NULL, ...) {
   type <-
     dplyr::case_when(
@@ -147,8 +159,8 @@ set_neatline <- function(x = NULL, neatline = TRUE, data = NULL, crs = NULL, ...
 
   if (is.na(type)) {
     cli::cli_abort(
-    c("{.arg neatline} must be logical, a Coord class ggproto object,
-      or list of Coord class ggproto objects.",
+    c("{.arg neatline} must be {.cls logical}, a {.cls {c('Coord', 'ggproto')}} object,
+      or list of {.cls {c('Coord', 'ggproto')}} objects.",
       "i" = "The class of the provided {.arg neatline} is {class(neatline)}.")
     )
   }
