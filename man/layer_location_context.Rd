@@ -40,12 +40,19 @@ the context.}
 layer and the location layer. Optional.}
 
 \item{neatline}{A logical object, \code{CoordSf} object, or a list containing a
-\code{CoordSf} object (typically from \code{\link[=layer_neatline]{layer_neatline()}}).
+\code{CoordSf} object (typically from \code{\link[=layer_neatline]{layer_neatline()}}) added to layer.
 \itemize{
 \item If logical and \code{TRUE}, add a neatline layer using data from the context
 layer with \code{color = NA} and \code{bgcolor = "none"}.
 \item If object from \code{\link[=layer_neatline]{layer_neatline()}}, add it as is.
 }}
+
+\item{basemap}{Either a logical vector or ggplot object.
+
+If \strong{logical} and \code{TRUE}, add x to \link[ggplot2:ggplot]{ggplot2::ggplot}. If \code{FALSE}, return x
+as is.
+
+If a \strong{ggplot}, add x to basemap object.}
 
 \item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}} if data or
 location is an \code{sf} object.}

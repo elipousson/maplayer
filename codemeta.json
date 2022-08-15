@@ -105,6 +105,13 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "ggpath",
+      "name": "ggpath",
+      "version": ">= 0.0.0.9000",
+      "sameAs": "https://github.com/mrcaseb/ggpath"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "ggpattern",
       "name": "ggpattern",
       "provider": {
@@ -156,7 +163,7 @@
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://github.com/walkerke/mapboxapi"
+      "sameAs": "https://CRAN.R-project.org/package=mapboxapi"
     },
     {
       "@type": "SoftwareApplication",
@@ -181,6 +188,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=patchwork"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rsvg",
+      "name": "rsvg",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rsvg"
     },
     {
       "@type": "SoftwareApplication",
@@ -230,6 +249,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=tibble"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "vdiffr",
+      "name": "vdiffr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=vdiffr"
     }
   ],
   "softwareRequirements": {
@@ -351,7 +382,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "351.986KB",
+  "fileSize": "1884.255KB",
   "readme": "https://github.com/elipousson/maplayer/blob/main/README.md",
   "contIntegration": "https://app.codecov.io/gh/elipousson/maplayer?branch=main",
   "developmentStatus": ["https://lifecycle.r-lib.org/articles/stages.html#experimental", "https://www.repostatus.org/#active"],

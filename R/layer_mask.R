@@ -12,8 +12,7 @@
 #' @param mask A `sf` or `bbox` object to define the edge of the mask.
 #'   `diag_ratio`, `dist`, and `asp` parameters are ignored if a `mask` is
 #'   provided. defaults to `NULL`
-#' @param neatline If `TRUE`, add `layer_neatline` with `expand = TRUE`;
-#'   defaults to FALSE.
+#' @inheritParams layer_neatline
 #' @param ... Additional parameters to pass to [ggplot2::geom_sf()]
 #' @return  [ggplot2::geom_sf()] function.
 #' @export

@@ -31,6 +31,9 @@ defined at the top level of the plot.}
 \item{label_col}{Column name to use for label aesthetic mapping. Optional if
 label is provided to mapping; required otherwise.}
 
+\item{geom}{Character vector with geom to use, "text" for
+\code{\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel()}} or "label" for \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel()}}.}
+
 \item{...}{
   Arguments passed on to \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel}}
   \describe{

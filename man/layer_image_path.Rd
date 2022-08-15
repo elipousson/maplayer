@@ -8,7 +8,7 @@ layer_image_path(
   data = NULL,
   path = NULL,
   path_col = "path",
-  width = 0.25,
+  width = 0.1,
   crs = getOption("maplayer.crs", 3857),
   segment_params = NULL,
   neatline = FALSE,
@@ -24,6 +24,12 @@ data is ignored.}
 
 \item{path}{A path to folder of one or more files with EXIF location
 metadata.}
+
+\item{path_col}{Column name with file paths from data. Defaults to "path"
+(path name used by data returned from \code{\link[sfext:read_sf_exif]{sfext::read_sf_exif()}})}
+
+\item{width}{Width of the image in npc (Normalised Parent Coordinates) passed
+to \code{\link[ggpath:geom_from_path]{ggpath::geom_from_path()}}; defaults to 0.1.}
 
 \item{crs}{The coordinate reference system (CRS) into which all data should
 be projected before plotting. If not specified, will use the CRS defined

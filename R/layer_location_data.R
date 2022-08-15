@@ -64,6 +64,7 @@
 #' @param ... Additional parameters passed to selected geom or layer_fn
 #' @inheritParams getdata::get_location_data
 #' @inheritParams ggplot2::geom_sf
+#' @inheritParams make_basemap
 #' @rdname layer_location_data
 #' @family layer
 #' @export

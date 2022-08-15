@@ -6,6 +6,8 @@
 #'
 #' @param label_col Column name to use for label aesthetic mapping. Optional if
 #'   label is provided to mapping; required otherwise.
+#' @param geom Character vector with geom to use, "text" for
+#'   [ggrepel::geom_text_repel()] or "label" for [ggrepel::geom_label_repel()].
 #' @inheritParams ggrepel::geom_label_repel
 #' @inheritDotParams ggrepel::geom_label_repel
 #' @export

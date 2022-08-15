@@ -36,6 +36,13 @@ pass to any text geom.}
 "markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
 "sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
+\item{basemap}{Either a logical vector or ggplot object.
+
+If \strong{logical} and \code{TRUE}, add x to \link[ggplot2:ggplot]{ggplot2::ggplot}. If \code{FALSE}, return x
+as is.
+
+If a \strong{ggplot}, add x to basemap object.}
+
 \item{...}{Additional parameters passed to \link{layer_location_data}}
 
 \item{layers}{If \code{TRUE}; return a list of layers; if \code{FALSE}; return a list

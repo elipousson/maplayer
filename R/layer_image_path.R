@@ -7,8 +7,12 @@
 #'   same name as the path_col argument. Optional if "path" is provided for
 #'   [sfext::read_sf_exif()]. Required if path is `NULL`. If path is provided,
 #'   data is ignored.
+#' @param path_col Column name with file paths from data. Defaults to "path"
+#'   (path name used by data returned from [sfext::read_sf_exif()])
 #' @param segment_params Not implemented: parameters to define segments
 #'   connecting images to the location.
+#' @param width Width of the image in npc (Normalised Parent Coordinates) passed
+#'   to [ggpath::geom_from_path()]; defaults to 0.1.
 #' @inheritParams sfext::read_sf_exif
 #' @inheritParams ggpath::geom_from_path
 #' @inheritParams set_neatline
@@ -21,7 +25,7 @@
 layer_image_path <- function(data = NULL,
                              path = NULL,
                              path_col = "path",
-                             width = 0.25,
+                             width = 0.1,
                              crs = getOption("maplayer.crs", 3857),
                              segment_params = NULL,
                              neatline = FALSE,

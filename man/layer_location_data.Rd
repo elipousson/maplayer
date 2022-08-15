@@ -92,6 +92,13 @@ using default parameters. smooth_params is ignored if data is \code{NULL}
 \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}}. If \code{TRUE}, apply \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} to the layer
 using default parameters. shadow_params is ignored if layer_fn is provided.}
 
+\item{basemap}{Either a logical vector or ggplot object.
+
+If \strong{logical} and \code{TRUE}, add x to \link[ggplot2:ggplot]{ggplot2::ggplot}. If \code{FALSE}, return x
+as is.
+
+If a \strong{ggplot}, add x to basemap object.}
+
 \item{...}{Additional parameters passed to selected geom or layer_fn}
 }
 \description{

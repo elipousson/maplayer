@@ -104,8 +104,14 @@ without modification.}
 \code{diag_ratio}, \code{dist}, and \code{asp} parameters are ignored if a \code{mask} is
 provided. defaults to \code{NULL}}
 
-\item{neatline}{If \code{TRUE}, add \code{layer_neatline} with \code{expand = TRUE};
-defaults to FALSE.}
+\item{neatline}{A logical object, \code{CoordSf} object, or a list containing a
+\code{CoordSf} object (typically from \code{\link[=layer_neatline]{layer_neatline()}}) added to layer by
+\code{\link[=set_neatline]{set_neatline()}}.
+\itemize{
+\item If logical and \code{TRUE}, add a neatline layer using data, crs and any
+additional parameters passed to ... If logical and \code{FALSE}, return x as is.
+\item If object from \code{\link[=layer_neatline]{layer_neatline()}}, add it as is.
+}}
 
 \item{smooth_params}{Optional. Logical or a list of parameters passed to
 \code{\link[smoothr:smooth]{smoothr::smooth()}}. If \code{TRUE}, apply \code{\link[smoothr:smooth]{smoothr::smooth()}} to location data

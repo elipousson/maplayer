@@ -170,7 +170,6 @@ join_map_icons <- function(data = NULL,
           iconname_col = iconname_col,
           px = px,
           source = source,
-          single = FALSE,
           crs = crs
         )
       }

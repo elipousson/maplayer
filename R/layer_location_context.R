@@ -17,7 +17,7 @@
 #' @param mid_layer A ggplot2 layer to insert between the context
 #'   layer and the location layer. Optional.
 #' @param neatline A logical object, `CoordSf` object, or a list containing a
-#'   `CoordSf` object (typically from [layer_neatline()]).
+#'   `CoordSf` object (typically from [layer_neatline()]) added to layer.
 #'
 #'   - If logical and `TRUE`, add a neatline layer using data from the context
 #'   layer with `color = NA` and `bgcolor = "none"`.
