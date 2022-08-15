@@ -20,11 +20,16 @@
 #' (MLA)](https://github.com/Esri/calcite-point-symbols#licensing). The NPMap
 #' Symbol Library is created by the National Park Service so is assumed to be a
 #' [Public Domain work in the U.S.](http://www.usa.gov/publicdomain/label/1.0/).
-#' @format A data frame with 1855 rows and 5 variables:
+#'
+#' @details
+#' The name column is not unique so a px or source may be required when using
+#' [layer_icon()].
+#'
+#' @format A tibble with 4,889 rows and 5 variables:
 #' \describe{
 #'   \item{`name`}{Icon name}
 #'   \item{`url`}{Icon URL on GitHub repo}
-#'   \item{`style`}{Icon style (Weather Underground icons only)}
+#'   \item{`style`}{Icon style (blank if not applicable)}
 #'   \item{`size`}{Icon width/height (pixels)}
 #'   \item{`repo`}{GitHub repository for icon collection}
 #' }

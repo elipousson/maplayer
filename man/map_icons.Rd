@@ -5,11 +5,11 @@
 \alias{map_icons}
 \title{Map icons}
 \format{
-A data frame with 1855 rows and 5 variables:
+A tibble with 4,889 rows and 5 variables:
 \describe{
 \item{\code{name}}{Icon name}
 \item{\code{url}}{Icon URL on GitHub repo}
-\item{\code{style}}{Icon style (Weather Underground icons only)}
+\item{\code{style}}{Icon style (blank if not applicable)}
 \item{\code{size}}{Icon width/height (pixels)}
 \item{\code{repo}}{GitHub repository for icon collection}
 }
@@ -39,5 +39,9 @@ The OSM map icons use an unspecified PD style license.
 The Calcite icons are \href{https://github.com/Esri/calcite-point-symbols#licensing}{available under the Esri Master License Agreement (MLA)}. The NPMap
 Symbol Library is created by the National Park Service so is assumed to be a
 \href{http://www.usa.gov/publicdomain/label/1.0/}{Public Domain work in the U.S.}.
+}
+\details{
+The name column is not unique so a px or source may be required when using
+\code{\link[=layer_icon]{layer_icon()}}.
 }
 \keyword{datasets}
