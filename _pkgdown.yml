@@ -17,14 +17,16 @@ reference:
   - '`layer_frame`'
   - '`layer_grouped`'
   - '`layer_icon`'
+  - '`layer_image_path`'
   - '`layer_mapbox`'
   - '`layer_marked`'
   - '`layer_markers`'
   - '`layer_markers`'
   - '`layer_mask`'
   - '`layer_neatline`'
+  - '`layer_repel`'
   - '`layer_scaled`'
-- title: Additional layers for combining ggplot2 maps
+- title: Additional layers for combining maps with patchwork
   contents:
   - '`layer_inset`'
 - title: Add scales, labels, and theme elements to ggplot2 maps
