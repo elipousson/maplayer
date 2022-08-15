@@ -1,4 +1,3 @@
-
 library(httr)
 library(dplyr)
 library(stringr)
@@ -51,8 +50,7 @@ calcite <-
     ),
     style = "",
     name = str_remove(name, "-[:digit:]+$")
-  ) |>
-  arrange(name, desc(size))
+  )
 
 lane_icons <-
   get_repo_svg(repo = "openstreetmap/lane-icons", branch = "master") |>
@@ -86,8 +84,7 @@ nps_icons <-
     name = str_remove(name, "-black-[:digit:]+$"),
     name = str_remove(name, "^shielded/"),
     name = str_remove(name, "^standalone/")
-  ) |>
-  arrange(name, desc(size))
+  )
 
 map_icons <-
   bind_rows(
@@ -102,6 +99,9 @@ map_icons <-
   relocate(
     repo,
     .after = everything()
-  )
+  ) |>
+  arrange(repo, name, style, desc(size))
+
+map_icons <- dplyr::as_tibble(map_icons)
 
 usethis::use_data(map_icons, overwrite = TRUE)
