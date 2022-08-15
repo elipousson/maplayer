@@ -45,65 +45,6 @@ add_col <- function(data, col = NULL) {
   data
 }
 
-#' Modify mapping for ggplot2 aesthetics
-#'
-#' @param mapping aesthetic mapping to modify
-#' @param data Data used to determine sf column for geometry aesthetic
-#' @param ... Additional parameters with aesthetics to modify and column values
-#'   to use, e.g. label = label_col
-#' @noRd
-modify_mapping <- function(mapping = NULL, data = NULL, ...) {
-  if (is.null(mapping)) {
-    mapping <-
-      ggplot2::aes()
-  }
-
-  params <- list2(...)
-
-  if (!is.null(params)) {
-    if (("label" %in% names(params)) && !is.null(params$label)) {
-      mapping <-
-        utils::modifyList(
-          ggplot2::aes(label = .data[[params$label]]),
-          mapping
-        )
-    }
-
-    if (("description" %in% names(params)) && !is.null(params$description)) {
-      mapping <-
-        utils::modifyList(
-          ggplot2::aes(description = .data[[params$description]]),
-          mapping
-        )
-    }
-
-    if (("fill" %in% names(params)) && !is.null(params$fill)) {
-      mapping <-
-        utils::modifyList(
-          ggplot2::aes(fill = .data[[params$fill]]),
-          mapping
-        )
-    }
-
-    if (("color" %in% names(params)) && !is.null(params$color)) {
-      mapping <-
-        utils::modifyList(
-          ggplot2::aes(color = .data[[params$color]]),
-          mapping
-        )
-    }
-  }
-
-  if (!is.null(data)) {
-    mapping <-
-      utils::modifyList(
-        ggplot2::aes(geometry = .data[[attributes(data)$sf_column]]),
-        mapping
-      )
-  }
-
-  return(mapping)
-}
 
 #' Does the data frame has a column with the same name?
 #'

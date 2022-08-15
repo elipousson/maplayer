@@ -76,13 +76,3 @@ eval_tidy_fn <- function(x, params = NULL, pkg = NULL, fn = NULL, arg = caller_a
     fn(x)
   }
 }
-
-#' @noRd
-with_smooth <- function(x, params = NULL) {
-  eval_tidy_fn(x, params, "smoothr", smoothr::smooth)
-}
-
-#' @noRd
-with_shadow <- function(x, params = NULL) {
-  eval_tidy_fn(x, params, "ggfx", ggfx::with_shadow)
-}
