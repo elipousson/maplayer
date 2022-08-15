@@ -3,7 +3,7 @@
 \name{layer_icon}
 \alias{layer_icon}
 \alias{geom_sf_icon}
-\title{Add a SVG icons to a ggplot2 plot based on a simple feature object}
+\title{Use ggsvg to add a layer with icons at feature locations}
 \usage{
 layer_icon(
   data = NULL,
@@ -41,7 +41,7 @@ value. Note that the icon column should not be mapped with
 \code{\link[ggplot2:aes]{ggplot2::aes()}}.}
 
 \item{icon}{Icon name. Default \code{NULL}. If \code{icon} is provided, \code{iconname_col}
-is not used.}
+is ignored.}
 
 \item{px}{Icon size in pixels. See \code{map_icons$px} for supported options.
 Optional but may be necessary to differentiate icons with duplicate names.}
@@ -51,14 +51,22 @@ Optional but may be required to differentiate icons with duplicate names.}
 
 \item{svg}{Optional. Custom file path or URL with SVG to pass to \code{svg}
 parameter for  \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}}.  If \code{icon} is provided, \code{svg} is
-not used.}
+ignored.}
 
 \item{color}{SVG color passed to  \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}}. default color is
 set to "black".}
 
 \item{crs}{Coordinate reference system; defaults to \code{NULL}.}
 
-\item{...}{Additional parameters to  \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}}.}
+\item{...}{
+  Arguments passed on to \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg}}
+  \describe{
+    \item{\code{defaults}}{named list of default values for new aesthetics
+
+Set `options(GGSVG_DEBUG = TRUE)` for some verbose debugging which will
+cause `{ggsvg}` to output (to the console) the final SVG for each and every element
+in the plot.}
+  }}
 }
 \description{
 Use the  \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}} function to plot icons using the centroids
