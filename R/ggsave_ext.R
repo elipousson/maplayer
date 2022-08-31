@@ -1,5 +1,6 @@
 #' Save a ggplot2 plot to file and update file EXIF metadata
 #'
+#' @description
 #' Save a plot or map then update the EXIF metadata for the title, author, and
 #' create data. [ggsave_ext()] also supports creating a file name based on a
 #' sentence case name with spaces (e.g. "Baltimore city map") and appending a
@@ -10,6 +11,9 @@
 #' parameters or use the [gridExtras] package to create a single combined PDF
 #' file.
 #'
+#' @param plot Plot to save, defaults to last plot displayed. If plot is an
+#'   "magick-image" class object, it is converted to a plot using
+#'   [magick::image_ggplot()]
 #' @inheritParams ggplot2::ggsave
 #' @param name Plot name, used to create filename (if filename is `NULL`) using
 #'   [sfext::make_filename()]
@@ -67,7 +71,9 @@ ggsave_ext <- function(plot = last_plot(),
   if (is.null(device) && (!is.null(filetype) | !is.null(filename))) {
     filetype <- filetype %||% sfext::str_extract_filetype(filename)
 
-    filename <- sfext::str_remove_filetype(filename, filetype)
+    if (!is.null(filename)) {
+      filename <- sfext::str_remove_filetype(filename, filetype)
+    }
 
     device <- filetype
   }
@@ -82,6 +88,11 @@ ggsave_ext <- function(plot = last_plot(),
       prefix = prefix,
       postfix = postfix
     )
+
+  if (inherits(plot, "magick-image")) {
+    is_pkg_installed("magick")
+    plot <- magick::image_ggplot(plot)
+  }
 
   ggplot2::ggsave(
     filename = filename,

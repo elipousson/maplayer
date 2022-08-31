@@ -36,6 +36,7 @@ Suggests:
     ggrepel,
     ggsvg (>= 0.1.11),
     gridExtra,
+    magick,
     mapboxapi,
     paletteer,
     patchwork,
@@ -45,7 +46,7 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     vdiffr
-Remotes:  
+Remotes: 
     coolbutuseless/ggsvg,
     elipousson/getdata,
     elipousson/sfext,
