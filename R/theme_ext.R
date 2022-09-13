@@ -168,7 +168,6 @@ theme_legend <- function(position = NULL,
   if ("none" %in% position) {
     legend_theme <- ggplot2::theme(legend.position = "none")
   } else {
-
     # TODO: Document that inset legends only work with a subset of position options
     leg_pos <- make_legend_position(position = position, justification = justification, inset = inset)
 
@@ -327,7 +326,6 @@ make_legend_title <- function(title = NULL) {
     # text <- ggplot2::element_text(hjust = align)
     align_title <- title$align
   } else if (is.null(title)) {
-
     # text <- ggplot2::element_text(hjust = align)
     # FIXME: This may break
     title <- ggplot2::element_text(face = "bold")

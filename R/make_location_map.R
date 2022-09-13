@@ -64,7 +64,7 @@ make_location_map <- function(location,
   )
 
   layer_stack <-
-    append(
+    c(
       bg_layer,
       layer_location_data(
         data = data,
@@ -80,7 +80,7 @@ make_location_map <- function(location,
     )
 
   layer_stack <-
-    append(
+    c(
       layer_stack,
       fg_layer
     )

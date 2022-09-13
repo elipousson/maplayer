@@ -102,7 +102,8 @@ set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
   if (is.na(type)) {
     cli::cli_abort(
       c("{.arg mask} must be sf, logical, or ggproto object.",
-        "i" = "The class of the provided {.arg mask} is {class(mask)}.")
+        "i" = "The class of the provided {.arg mask} is {class(mask)}."
+      )
     )
   }
 

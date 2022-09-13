@@ -40,7 +40,6 @@ layer_neatline <- function(data = NULL,
                            hide_grid = TRUE,
                            label_axes = "----",
                            ...) {
-
   xlim <- NULL
   ylim <- NULL
 
@@ -77,7 +76,7 @@ layer_neatline <- function(data = NULL,
 
   if (hide_grid) {
     limits <-
-      append(
+      c(
         limits,
         list(
           ggplot2::theme(
@@ -89,7 +88,7 @@ layer_neatline <- function(data = NULL,
 
   if (label_axes == "----") {
     limits <-
-      append(
+      c(
         limits,
         list(
           ggplot2::theme(
@@ -121,7 +120,7 @@ layer_neatline <- function(data = NULL,
       )
   }
 
-  append(
+  c(
     limits,
     list(
       ggplot2::theme(
@@ -159,9 +158,10 @@ set_neatline <- function(x = NULL, neatline = TRUE, data = NULL, crs = NULL, ...
 
   if (is.na(type)) {
     cli::cli_abort(
-    c("{.arg neatline} must be {.cls logical}, a {.cls {c('Coord', 'ggproto')}} object,
+      c("{.arg neatline} must be {.cls logical}, a {.cls {c('Coord', 'ggproto')}} object,
       or list of {.cls {c('Coord', 'ggproto')}} objects.",
-      "i" = "The class of the provided {.arg neatline} is {class(neatline)}.")
+        "i" = "The class of the provided {.arg neatline} is {class(neatline)}."
+      )
     )
   }
 

@@ -239,7 +239,7 @@ layer_location_data <- function(mapping = NULL,
 
   # Reset default for ggrepel functions
   if (!rlang::has_name(init_params, c("direction")) &&
-      (geom_chr %in% ggrepel_geoms)) {
+    (geom_chr %in% ggrepel_geoms)) {
     params$direction <- "both"
   }
 

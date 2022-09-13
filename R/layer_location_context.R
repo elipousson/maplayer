@@ -93,14 +93,14 @@ layer_location_context <- function(data = NULL,
 
   if (!is.null(mid_layer)) {
     context_layer <-
-      append(
+      c(
         context_layer,
         mid_layer
       )
   }
 
   context_layer <-
-    append(
+    c(
       context_layer,
       location_layer
     )
@@ -117,4 +117,3 @@ layer_location_context <- function(data = NULL,
 
   make_basemap(context_layer, basemap)
 }
-

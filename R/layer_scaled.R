@@ -23,7 +23,6 @@ layer_scaled <-
            paper = NULL,
            orientation = NULL,
            clip = FALSE) {
-
     # Get paper with actual width, height, and units
     scaled_paper <-
       sfext::convert_dist_scale(

@@ -85,7 +85,7 @@ layer_location <-
         )
 
       location_layer <-
-        append(
+        c(
           location_layer,
           label_layer
         )

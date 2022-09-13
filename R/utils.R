@@ -57,8 +57,9 @@ has_same_name_col <- function(x, col = NULL, prefix = "orig", ask = FALSE, quiet
 
     if (ask && !quiet) {
       if (!cli_yeah(
-      "The provided data includes an existing column named '{col}'.
-      Do you want to proceed and rename this column to {new_col}?")) {
+        "The provided data includes an existing column named '{col}'.
+      Do you want to proceed and rename this column to {new_col}?"
+      )) {
         cli_abort("Please rename your column to use this function.")
       }
     }

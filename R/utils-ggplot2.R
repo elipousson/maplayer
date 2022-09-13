@@ -2,7 +2,9 @@
 #'
 #' @noRd
 is_gg <- function(x) {
-  inherits(x, "gg") | all(vapply(x, function(x) {inherits(x, "gg")}, FALSE))
+  inherits(x, "gg") | all(vapply(x, function(x) {
+    inherits(x, "gg")
+  }, FALSE))
 }
 
 

@@ -171,7 +171,6 @@ make_inset_element <- function(inset,
 #'
 #' @noRd
 get_inset_position <- function(position = NULL, nudge_x = 0, nudge_y = 0, scale = 1) {
-
   # FIXME: This is an incomplete implementation of a scale factor for an inset map
   # top, bottom, left, and right probably should all be based on scale as well
   top <- 0.5
