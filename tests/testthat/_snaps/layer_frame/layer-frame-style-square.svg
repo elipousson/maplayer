@@ -169,9 +169,9 @@
 <text x='80.09' y='102.91' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='9.79px' lengthAdjust='spacingAndGlyphs'>38</text>
 <text x='89.88' y='102.91' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='3.31px' lengthAdjust='spacingAndGlyphs'>°</text>
 <text x='93.19' y='102.91' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='6.36px' lengthAdjust='spacingAndGlyphs'>N</text>
-<text x='80.09' y='35.75' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='9.79px' lengthAdjust='spacingAndGlyphs'>39</text>
-<text x='89.88' y='35.75' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='3.31px' lengthAdjust='spacingAndGlyphs'>°</text>
-<text x='93.19' y='35.75' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='6.36px' lengthAdjust='spacingAndGlyphs'>N</text>
+<text x='80.09' y='35.76' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='9.79px' lengthAdjust='spacingAndGlyphs'>39</text>
+<text x='89.88' y='35.76' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='3.31px' lengthAdjust='spacingAndGlyphs'>°</text>
+<text x='93.19' y='35.76' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='6.36px' lengthAdjust='spacingAndGlyphs'>N</text>
 <polyline points='101.74,502.80 104.48,502.80 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='101.74,435.65 104.48,435.65 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='101.74,368.49 104.48,368.49 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />

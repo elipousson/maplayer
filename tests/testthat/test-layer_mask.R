@@ -7,7 +7,7 @@ test_that("layer_mask works", {
 
   skip_on_ci()
   expect_s3_class(
-    layer_mask_data_sf_mask_sf ,
+    layer_mask_data_sf_mask_sf,
     "gg"
   )
   vdiffr::expect_doppelganger(

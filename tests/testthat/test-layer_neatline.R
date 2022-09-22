@@ -7,12 +7,14 @@ test_that("layer_neatline works", {
   expect_s3_class(
     nc_map +
       layer_neatline(data = nc[1, ]),
-    "ggplot")
+    "ggplot"
+  )
   # Check class with expand parameter TRUE
   expect_s3_class(
     nc_map +
       layer_neatline(data = nc[1, ], expand = TRUE),
-    "ggplot")
+    "ggplot"
+  )
   vdiffr::expect_doppelganger(
     title = "layer_neatline",
     fig = nc_map +
