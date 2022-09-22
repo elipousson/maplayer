@@ -37,13 +37,14 @@
 #'   predicate or filter to define area for annotation. A filter can also be
 #'   passed to any of the {ggforce} functions using the filter aesthetic.
 #'   Default: NULL
-#' @param mapping Aesthetic mapping to pass to geom, Default: NULL
+#' @param mapping Aesthetic mapping to pass to geom, Default: `NULL`
 #' @param center If `FALSE`, use [sfext::st_cast_ext] MULTIPOLYGON and
 #'   POLYGON data to POINT; If `TRUE`, use [sfext::st_center] use centroid as
 #'   the feature geometry. Defaults to FALSE.
+#' @param desc_col Column name to use for description. Defaults to `NULL`.
 #' @inheritParams ggforce::geom_mark_circle
-#' @param geom geom to use for layer ("rect", "circle", "ellipse", or "hull"),
-#'   Default: `NULL`
+#' @param geom geom to use for layer (options include "rect", "circle",
+#'   "ellipse", or "hull"), Default: `NULL`
 #' @param font_family,font_face,font_color Parameters passed to label.family,
 #'   label.fontface, and label.colour. If `NULL`, values are set to match
 #'   [ggplot2::geom_label] defaults. Defaults to `NULL`.

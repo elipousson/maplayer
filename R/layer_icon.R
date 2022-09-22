@@ -20,8 +20,6 @@
 #' @param svg Optional. Custom file path or URL with SVG to pass to `svg`
 #'   parameter for  [ggsvg::geom_point_svg()].  If `icon` is provided, `svg` is
 #'   ignored.
-#' @param color Icon color passed to [ggsvg::geom_point_svg()]; defaults to
-#'   "black".
 #' @param crs Coordinate reference system; defaults to `NULL`.
 #' @inheritDotParams ggsvg::geom_point_svg
 #' @example examples/layer_icon.R

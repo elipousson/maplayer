@@ -97,7 +97,8 @@ without modification.}
 \item{data}{Character string (e.g. url, file path, or name of data from
 package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area.}
 
-\item{crs}{Coordinate reference system of bounding box to return}
+\item{crs}{Coordinate reference system of bounding box to return; defaults to
+\code{NULL} which maintains the crs of the input object.}
 
 \item{paper}{Paper, Default: 'letter'.}
 
@@ -151,7 +152,7 @@ currently supported)}
 groupname_col.}
 
 \item{num_style}{Style of enumeration, either "arabic", "alph", "Alph",
-"roman", "Roman"}
+"roman", "Roman".}
 
 \item{num_start}{Starting number; defaults to 1.}
 

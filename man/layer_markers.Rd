@@ -103,7 +103,7 @@ currently supported)}
 groupname_col.}
 
 \item{num_style}{Style of enumeration, either "arabic", "alph", "Alph",
-"roman", "Roman"}
+"roman", "Roman".}
 
 \item{num_start}{Starting number; defaults to 1.}
 

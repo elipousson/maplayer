@@ -26,7 +26,7 @@ package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{groupname_col}{Group column name}
+\item{groupname_col}{Group column name. Defaults to "group".}
 
 \item{label_col}{Column name or id for a column with the text or labels to
 pass to any text geom.}
@@ -43,10 +43,7 @@ as is.
 
 If a \strong{ggplot}, add x to basemap object.}
 
-\item{...}{Additional parameters passed to \link{layer_location_data}}
-
-\item{layers}{If \code{TRUE}; return a list of layers; if \code{FALSE}; return a list
-of ggplot2 maps; defaults to \code{TRUE}}
+\item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}}}
 }
 \description{
 Can be used to make multiple layers or multiple maps based on a grouping

@@ -127,6 +127,8 @@ layer_frame <- function(data = NULL,
 #' @inheritParams sfext::st_misc
 #' @name make_frame
 #' @rdname layer_frame
+#' @param by_feature If `TRUE`, create a frame around each feature. If `FALSE`
+#'   (default), union the provided features before creating a frame.
 #' @inheritParams sfext::st_misc
 #' @inheritParams sfext::st_buffer_ext
 #' @export

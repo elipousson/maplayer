@@ -70,8 +70,8 @@ the input data is used as the frame.}
 
 \item{rotate}{numeric; degrees to rotate (-360 to 360), Default: 0}
 
-\item{inscribed}{If \code{TRUE}, make circle or square inscribed within x, if
-\code{FALSE}, make it circumscribed.}
+\item{inscribed}{If \code{TRUE}, make circle, square, or donut inscribed within x, if
+\code{FALSE}, make it circumscribed. Use}
 
 \item{fill, color, size, linetype}{Fixed aesthetics for frame, passed to
 \link{layer_location_data}.}
@@ -92,6 +92,9 @@ If a \strong{ggplot}, add x to basemap object.}
 
 \item{union}{If \code{TRUE}, pass data to \link[sf:geos_combine]{sf::st_union} before buffering and
 creating frame; defaults to \code{TRUE}.}
+
+\item{by_feature}{If \code{TRUE}, create a frame around each feature. If \code{FALSE}
+(default), union the provided features before creating a frame.}
 
 \item{...}{
   Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}

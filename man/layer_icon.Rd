@@ -62,9 +62,6 @@ Set `options(GGSVG_DEBUG = TRUE)` for some verbose debugging which will
 cause `{ggsvg}` to output (to the console) the final SVG for each and every element
 in the plot.}
   }}
-
-\item{color}{Icon color passed to \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}}; defaults to
-"black".}
 }
 \description{
 Use the \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}} function to plot icons using the centroids

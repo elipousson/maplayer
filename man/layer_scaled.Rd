@@ -37,9 +37,10 @@ to units matching GDAL units for x; defaults to "meter"}
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
 
-\item{crs}{Coordinate reference system of bounding box to return}
+\item{crs}{Coordinate reference system of bounding box to return; defaults to
+\code{NULL} which maintains the crs of the input object.}
 
-\item{scale}{Scale name}
+\item{scale}{Scale name from \code{standard_scales[["scale"]]}.}
 
 \item{paper}{Paper, Default: 'letter'.}
 

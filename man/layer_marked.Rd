@@ -33,12 +33,14 @@ predicate or filter to define area for annotation. A filter can also be
 passed to any of the {ggforce} functions using the filter aesthetic.
 Default: NULL}
 
-\item{mapping}{Aesthetic mapping to pass to geom, Default: NULL}
+\item{mapping}{Aesthetic mapping to pass to geom, Default: \code{NULL}}
 
 \item{label_col}{Label column name}
 
-\item{geom}{geom to use for layer ("rect", "circle", "ellipse", or "hull"),
-Default: \code{NULL}}
+\item{desc_col}{Column name to use for description. Defaults to \code{NULL}.}
+
+\item{geom}{geom to use for layer (options include "rect", "circle",
+"ellipse", or "hull"), Default: \code{NULL}}
 
 \item{center}{If \code{FALSE}, use \link[sfext:st_cast_ext]{sfext::st_cast_ext} MULTIPOLYGON and
 POLYGON data to POINT; If \code{TRUE}, use \link[sfext:st_misc]{sfext::st_center} use centroid as

@@ -7,10 +7,8 @@
 #' `TRUE`.
 #'
 #' @inheritParams layer_location_data
-#' @param groupname_col Group column name
-#' @param layers If `TRUE`; return a list of layers; if `FALSE`; return a list
-#'   of ggplot2 maps; defaults to `TRUE`
-#' @param ... Additional parameters passed to [layer_location_data]
+#' @param groupname_col Group column name. Defaults to "group".
+#' @param ... Additional parameters passed to [layer_location_data()]
 #' @rdname layer_grouped
 #' @aliases layer_group_data
 #' @export
