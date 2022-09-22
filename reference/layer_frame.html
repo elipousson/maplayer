@@ -141,8 +141,8 @@ the input data is used as the frame.</p></dd>
 
 
 <dt>inscribed</dt>
-<dd><p>If <code>TRUE</code>, make circle or square inscribed within x, if
-<code>FALSE</code>, make it circumscribed.</p></dd>
+<dd><p>If <code>TRUE</code>, make circle, square, or donut inscribed within x, if
+<code>FALSE</code>, make it circumscribed. Use</p></dd>
 
 
 <dt>fill, color, size, linetype</dt>
@@ -171,6 +171,11 @@ as is.</p>
 <dt>union</dt>
 <dd><p>If <code>TRUE</code>, pass data to <a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">sf::st_union</a> before buffering and
 creating frame; defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>by_feature</dt>
+<dd><p>If <code>TRUE</code>, create a frame around each feature. If <code>FALSE</code>
+(default), union the provided features before creating a frame.</p></dd>
 
 
 <dt>...</dt>
