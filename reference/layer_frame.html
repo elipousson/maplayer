@@ -163,9 +163,11 @@ limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</
 
 <dt>basemap</dt>
 <dd><p>Either a logical vector or ggplot object.</p>
-<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot</a>. If <code>FALSE</code>, return x
+<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code>. If <code>FALSE</code>, return x
 as is.</p>
-<p>If a <strong>ggplot</strong>, add x to basemap object.</p></dd>
+<p>If a <strong>ggplot</strong>, add x to basemap object.</p>
+<p>If a <strong>ggproto</strong> object (or list that contains a <strong>ggproto</strong> object), add x
+and basemap object to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code>.</p></dd>
 
 
 <dt>union</dt>
