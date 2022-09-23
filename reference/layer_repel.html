@@ -59,12 +59,15 @@ repelled from simple feature locations.</p>
 <span>  data <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  label_col <span class="op">=</span> <span class="st">"name"</span>,</span>
 <span>  geom <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"text"</span>, <span class="st">"label"</span><span class="op">)</span>,</span>
+<span>  location_lims <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">geom_sf_label_repel</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">geom_sf_label_repel</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="cn">NULL</span>, label_col <span class="op">=</span> <span class="st">"name"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">geom_sf_text_repel</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">geom_sf_text_repel</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="op">)</span>, data <span class="op">=</span> <span class="cn">NULL</span>, label_col <span class="op">=</span> <span class="st">"name"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -90,6 +93,18 @@ label is provided to mapping; required otherwise.</p></dd>
 <dt>geom</dt>
 <dd><p>Character vector with geom to use, "text" for
 <code><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">ggrepel::geom_text_repel()</a></code> or "label" for <code><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">ggrepel::geom_label_repel()</a></code>.</p></dd>
+
+
+<dt>location_lims</dt>
+<dd><p>A <code>sf</code>, <code>sfc</code>, or <code>bbox</code> object to use in setting xlim
+and ylim values if no xlim and ylim value area provided. Using this
+parameter constrains labels to the bounding box of <code>location_lims</code>.</p></dd>
+
+
+<dt>xlim, ylim</dt>
+<dd><p>Limits for the x and y axes. Text labels will be constrained
+to these limits. By default, text labels are constrained to the entire plot
+area.</p></dd>
 
 
 <dt>...</dt>
