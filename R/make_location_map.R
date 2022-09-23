@@ -115,9 +115,8 @@ make_location_map <- function(location,
   layer_stack <-
     c(
       bg_layer,
-      overlay,
-      fg_layer,
-      addon
+      layer,
+      fg_layer
     )
 
   layer_stack <- make_basemap(layer_stack, basemap)
