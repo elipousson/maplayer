@@ -11,12 +11,15 @@ layer_repel(
   data = NULL,
   label_col = "name",
   geom = c("text", "label"),
+  location_lims = NULL,
+  xlim = c(NA, NA),
+  ylim = c(NA, NA),
   ...
 )
 
-geom_sf_label_repel(mapping = aes(), data = NULL, ...)
+geom_sf_label_repel(mapping = aes(), data = NULL, label_col = "name", ...)
 
-geom_sf_text_repel(mapping = aes(), data = NULL, ...)
+geom_sf_text_repel(mapping = aes(), data = NULL, label_col = "name", ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}} or
@@ -33,6 +36,14 @@ label is provided to mapping; required otherwise.}
 
 \item{geom}{Character vector with geom to use, "text" for
 \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel()}} or "label" for \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel()}}.}
+
+\item{location_lims}{A \code{sf}, \code{sfc}, or \code{bbox} object to use in setting xlim
+and ylim values if no xlim and ylim value area provided. Using this
+parameter constrains labels to the bounding box of \code{location_lims}.}
+
+\item{xlim, ylim}{Limits for the x and y axes. Text labels will be constrained
+to these limits. By default, text labels are constrained to the entire plot
+area.}
 
 \item{...}{
   Arguments passed on to \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel}}
