@@ -17,5 +17,5 @@ as is.
 If a \strong{ggplot}, add x to basemap object.}
 }
 \description{
-Create a base map by adding the object
+Add a basemap to a ggplot2 layer.
 }

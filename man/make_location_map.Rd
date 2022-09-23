@@ -14,12 +14,14 @@ make_location_map(
   asp = NULL,
   data = NULL,
   crs = NULL,
-  paper = "Letter",
+  paper = "letter",
   orientation = NULL,
   geom = "sf",
   basemap = TRUE,
   bg_layer = NULL,
+  layer = NULL,
   fg_layer = NULL,
+  neatline = FALSE,
   save = FALSE,
   ggsave_params = list(dpi = 300, ...),
   ...
@@ -110,12 +112,29 @@ package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area
 "markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
 "sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
-\item{basemap}{If \code{FALSE}, return a list of ggplot2 layers (or ggproto
-objects). If \code{TRUE}, add the list to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} to return a map.}
+\item{basemap}{Either a logical vector or ggplot object.
+
+If \strong{logical} and \code{TRUE}, add x to \link[ggplot2:ggplot]{ggplot2::ggplot}. If \code{FALSE}, return x
+as is.
+
+If a \strong{ggplot}, add x to basemap object.}
 
 \item{bg_layer, fg_layer}{A ggplot2 layer or a list of ggproto objects (e.g.
 scales, labels, etc.) to add to the background or foreground of the primary
 map layer defined by \code{"geom"} and other parameters.}
+
+\item{layer}{If provided, layer is a ggplot2 layer or a list of ggproto
+objects (e.g. scales, labels, etc.) that will be used instead of the
+provided location or data.}
+
+\item{neatline}{A logical object, \code{CoordSf} object, or a list containing a
+\code{CoordSf} object (typically from \code{\link[=layer_neatline]{layer_neatline()}}) added to layer by
+\code{\link[=set_neatline]{set_neatline()}}.
+\itemize{
+\item If logical and \code{TRUE}, add a neatline layer using data, crs and any
+additional parameters passed to ... If logical and \code{FALSE}, return x as is.
+\item If object from \code{\link[=layer_neatline]{layer_neatline()}}, add it as is.
+}}
 
 \item{save}{If \code{TRUE}, save file with \link{ggsave_ext} or \link{ggsave_social},
 requires \code{basemap = TRUE} and filename is not NULL \emph{or} ... include a name
@@ -123,7 +142,7 @@ parameter. Default: \code{FALSE}}
 
 \item{ggsave_params}{List of parameters passed to \code{\link[=ggsave_ext]{ggsave_ext()}}.}
 
-\item{...}{Additional parameters passed to \link{layer_location_data}.}
+\item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}}.}
 
 \item{image}{Image size name, Default: \code{NULL}}
 
@@ -169,9 +188,9 @@ Location is used as the data parameter of layer_location_data so this
 function is primarily appropriate for the layer_mapbox (\code{geom = "mapbox"}).
 }
 \details{
-Using make_image_map:
+Using \code{\link[=make_image_map]{make_image_map()}}:
 
-\link{make_image_map} wraps \link[sfext:read_sf_exif]{sfext::read_sf_exif} and \link{make_location_map}. It is
+\code{\link[=make_image_map]{make_image_map()}} wraps \code{\link[sfext:read_sf_exif]{sfext::read_sf_exif()}} and \code{\link[=make_location_map]{make_location_map()}}. It is
 designed for making simple maps of photos in combination with reference
 tables.
 }

@@ -1,3 +1,33 @@
+#' Create a base map by adding the object
+#'
+#' Add a basemap to a ggplot2 layer.
+#'
+#' @param x A ggproto object or list of ggproto objects.
+#' @param basemap Either a logical vector or ggplot object.
+#'
+#'   If __logical__ and `TRUE`, add x to [ggplot2::ggplot]. If `FALSE`, return x
+#'   as is.
+#'
+#'   If a __ggplot__, add x to basemap object.
+#'
+#' @name make_basemap
+#' @export
+#' @importFrom rlang is_logical
+#' @importFrom ggplot2 is.ggproto is.ggplot ggplot
+make_basemap <- function(x, basemap = FALSE) {
+  if (rlang::is_logical(basemap)) {
+    if (basemap) {
+      return(ggplot2::ggplot() + x)
+    }
+
+    return(x)
+  }
+
+  if (ggplot2::is.ggplot(basemap)) {
+    basemap + x
+  }
+}
+
 #' Make a ggplot map using layer_location_data
 #'
 #' Location is used as the data parameter of layer_location_data so this
@@ -12,16 +42,19 @@
 #' @inheritParams ggsave_ext
 #' @param ggsave_params List of parameters passed to [ggsave_ext()].
 #' @inheritParams mapboxapi::layer_static_mapbox
-#' @param basemap If `FALSE`, return a list of ggplot2 layers (or ggproto
-#'   objects). If `TRUE`, add the list to [ggplot2::ggplot()] to return a map.
 #' @param bg_layer,fg_layer A ggplot2 layer or a list of ggproto objects (e.g.
 #'   scales, labels, etc.) to add to the background or foreground of the primary
 #'   map layer defined by `"geom"` and other parameters.
-#' @param ... Additional parameters passed to [layer_location_data].
+#' @param layer If provided, layer is a ggplot2 layer or a list of ggproto
+#'   objects (e.g. scales, labels, etc.) that will be used instead of the
+#'   provided location or data.
+#' @inheritParams make_basemap
+#' @inheritParams set_neatline
+#' @param ... Additional parameters passed to [layer_location_data()].
 #'
-#' @details Using make_image_map:
+#' @details Using [make_image_map()]:
 #'
-#' [make_image_map] wraps [sfext::read_sf_exif] and [make_location_map]. It is
+#' [make_image_map()] wraps [sfext::read_sf_exif()] and [make_location_map()]. It is
 #' designed for making simple maps of photos in combination with reference
 #' tables.
 #'
@@ -36,12 +69,14 @@ make_location_map <- function(location,
                               asp = NULL,
                               data = NULL,
                               crs = NULL,
-                              paper = "Letter",
+                              paper = "letter",
                               orientation = NULL,
                               geom = "sf",
                               basemap = TRUE,
                               bg_layer = NULL,
+                              layer = NULL,
                               fg_layer = NULL,
+                              neatline = FALSE,
                               save = FALSE,
                               ggsave_params = list(dpi = 300, ...),
                               ...) {
@@ -53,10 +88,24 @@ make_location_map <- function(location,
       )
   }
 
-  if (is.null(data)) {
+  if (is.null(data) && is.null(layer)) {
     data <- location
     location <- NULL
+    rlang::check_required(data)
   }
+
+  layer <-
+    layer %||% layer_location_data(
+      data = data,
+      location = location,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp %||% paper$section_asp,
+      crs = crs,
+      geom = geom,
+      ...
+    )
 
   stopifnot(
     is.null(bg_layer) || is_gg(bg_layer),
@@ -66,26 +115,15 @@ make_location_map <- function(location,
   layer_stack <-
     c(
       bg_layer,
-      layer_location_data(
-        data = data,
-        location = location,
-        dist = dist,
-        diag_ratio = diag_ratio,
-        unit = unit,
-        asp = asp %||% paper$section_asp,
-        crs = crs,
-        geom = geom,
-        ...
-      )
-    )
-
-  layer_stack <-
-    c(
-      layer_stack,
-      fg_layer
+      overlay,
+      fg_layer,
+      addon
     )
 
   layer_stack <- make_basemap(layer_stack, basemap)
+
+  layer_stack <- set_neatline(layer_stack, neatline)
+
 
   if (!save) {
     return(layer_stack)
@@ -219,61 +257,28 @@ make_image_map <- function(image_path,
       crs = crs
     )
 
-  fg_layer <-
-    list(
-      fg_layer,
-      layer_markers(
-        data = images,
-        geom = image_geom,
-        crs = crs,
-        groupname_col = groupname_col,
-        group_meta = group_meta,
-        number = number,
-        num_by_group = num_by_group,
-        num_style = num_style,
-        num_start = num_start,
-        suffix = suffix,
-        sort = sort,
-        desc = desc,
-        ...
-      )
-    )
-
   make_location_map(
     location = location,
     geom = geom,
     bg_layer = bg_layer,
+    layer = layer_markers(
+      data = images,
+      geom = image_geom,
+      crs = crs,
+      groupname_col = groupname_col,
+      group_meta = group_meta,
+      number = number,
+      num_by_group = num_by_group,
+      num_style = num_style,
+      num_start = num_start,
+      suffix = suffix,
+      sort = sort,
+      desc = desc,
+      ...
+    ),
     fg_layer = fg_layer,
     save = save,
     ggsave_params = ggsave_params,
     style_url = style_url
   )
-}
-
-
-#' Create a base map by adding the object
-#'
-#' @param x A ggproto object or list of ggproto objects.
-#' @param basemap Either a logical vector or ggplot object.
-#'
-#'   If __logical__ and `TRUE`, add x to [ggplot2::ggplot]. If `FALSE`, return x
-#'   as is.
-#'
-#'   If a __ggplot__, add x to basemap object.
-#'
-#' @export
-#' @importFrom rlang is_logical
-#' @importFrom ggplot2 is.ggproto is.ggplot ggplot
-make_basemap <- function(x, basemap = FALSE) {
-  if (rlang::is_logical(basemap)) {
-    if (basemap) {
-      return(ggplot2::ggplot() + x)
-    }
-
-    return(x)
-  }
-
-  if (ggplot2::is.ggplot(basemap)) {
-    basemap + x
-  }
 }
