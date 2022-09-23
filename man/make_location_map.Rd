@@ -114,10 +114,13 @@ package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area
 
 \item{basemap}{Either a logical vector or ggplot object.
 
-If \strong{logical} and \code{TRUE}, add x to \link[ggplot2:ggplot]{ggplot2::ggplot}. If \code{FALSE}, return x
+If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return x
 as is.
 
-If a \strong{ggplot}, add x to basemap object.}
+If a \strong{ggplot}, add x to basemap object.
+
+If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
+and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
 \item{bg_layer, fg_layer}{A ggplot2 layer or a list of ggproto objects (e.g.
 scales, labels, etc.) to add to the background or foreground of the primary

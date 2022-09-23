@@ -85,10 +85,13 @@ limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
 \item{basemap}{Either a logical vector or ggplot object.
 
-If \strong{logical} and \code{TRUE}, add x to \link[ggplot2:ggplot]{ggplot2::ggplot}. If \code{FALSE}, return x
+If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return x
 as is.
 
-If a \strong{ggplot}, add x to basemap object.}
+If a \strong{ggplot}, add x to basemap object.
+
+If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
+and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
 \item{union}{If \code{TRUE}, pass data to \link[sf:geos_combine]{sf::st_union} before buffering and
 creating frame; defaults to \code{TRUE}.}

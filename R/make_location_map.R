@@ -5,10 +5,13 @@
 #' @param x A ggproto object or list of ggproto objects.
 #' @param basemap Either a logical vector or ggplot object.
 #'
-#'   If __logical__ and `TRUE`, add x to [ggplot2::ggplot]. If `FALSE`, return x
+#'   If __logical__ and `TRUE`, add x to [ggplot2::ggplot()]. If `FALSE`, return x
 #'   as is.
 #'
 #'   If a __ggplot__, add x to basemap object.
+#'
+#'   If a __ggproto__ object (or list that contains a __ggproto__ object), add x
+#'   and basemap object to [ggplot2::ggplot()].
 #'
 #' @name make_basemap
 #' @export
@@ -24,8 +27,14 @@ make_basemap <- function(x, basemap = FALSE) {
   }
 
   if (ggplot2::is.ggplot(basemap)) {
-    basemap + x
+    return(basemap + x)
+  } else if (!is_gg(basemap)) {
+    cli_abort(
+      "{.arg basemap} must be a {.cls lgl} object or {.cls ggproto} object."
+    )
   }
+
+  ggplot2::ggplot() + c(basemap, x)
 }
 
 #' Make a ggplot map using layer_location_data

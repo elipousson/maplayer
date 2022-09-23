@@ -94,10 +94,13 @@ using default parameters. shadow_params is ignored if layer_fn is provided.}
 
 \item{basemap}{Either a logical vector or ggplot object.
 
-If \strong{logical} and \code{TRUE}, add x to \link[ggplot2:ggplot]{ggplot2::ggplot}. If \code{FALSE}, return x
+If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return x
 as is.
 
-If a \strong{ggplot}, add x to basemap object.}
+If a \strong{ggplot}, add x to basemap object.
+
+If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
+and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
 \item{...}{Additional parameters passed to selected geom or layer_fn}
 }

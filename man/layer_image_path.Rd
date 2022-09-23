@@ -22,8 +22,7 @@ same name as the path_col argument. Optional if "path" is provided for
 \code{\link[sfext:read_sf_exif]{sfext::read_sf_exif()}}. Required if path is \code{NULL}. If path is provided,
 data is ignored.}
 
-\item{path}{A path to folder of one or more files with EXIF location
-metadata.}
+\item{path}{A path to folder or file.}
 
 \item{path_col}{Column name with file paths from data. Defaults to "path"
 (path name used by data returned from \code{\link[sfext:read_sf_exif]{sfext::read_sf_exif()}})}
@@ -49,10 +48,13 @@ additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 
 \item{basemap}{Either a logical vector or ggplot object.
 
-If \strong{logical} and \code{TRUE}, add x to \link[ggplot2:ggplot]{ggplot2::ggplot}. If \code{FALSE}, return x
+If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return x
 as is.
 
-If a \strong{ggplot}, add x to basemap object.}
+If a \strong{ggplot}, add x to basemap object.
+
+If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
+and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
 \item{...}{Additional EXIF tags to pass to \link[exiftoolr:exif_read]{exiftoolr::exif_read}}
 }
