@@ -18,6 +18,10 @@ labs_ext <- function(title = ggplot2::waiver(),
                      caption = ggplot2::waiver(),
                      tag = ggplot2::waiver(),
                      alt = ggplot2::waiver(),
+                     fill = ggplot2::waiver(),
+                     color = ggplot2::waiver(),
+                     size = ggplot2::waiver(),
+                     shape = ggplot2::waiver(),
                      location = NULL,
                      name_col = NULL, # Check param name
                      source = NULL,
@@ -30,6 +34,10 @@ labs_ext <- function(title = ggplot2::waiver(),
     caption = glue(caption, .na = .na, .null = .null),
     tag = glue(tag, .na = .na, .null = .null),
     alt = glue(alt, .na = .na, .null = .null),
+    fill = glue(fill, .na = .na, .null = .null),
+    color = glue(color, .na = .na, .null = .null),
+    size = glue(size, .na = .na, .null = .null),
+    shape = glue(shape, .na = .na, .null = .null),
     ...
   )
 }
