@@ -14,13 +14,13 @@ reference:
   - '`make_basemap`'
 - title: Additional layers for sf objects
   contents:
+  - '`layer_count`'
   - '`layer_frame`'
   - '`layer_grouped`'
   - '`layer_icon`'
   - '`layer_image_path`'
   - '`layer_mapbox`'
   - '`layer_marked`'
-  - '`layer_markers`'
   - '`layer_markers`'
   - '`layer_mask`'
   - '`layer_neatline`'
