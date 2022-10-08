@@ -112,17 +112,8 @@ make_markers.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
-<dd><p>The data to be displayed in this layer. There are three
-options:</p>
-<p>If <code>NULL</code>, the default, the data is inherited from the plot
-data as specified in the call to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code>.</p>
-<p>A <code>data.frame</code>, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-<code><a href="https://ggplot2.tidyverse.org/reference/fortify.html" class="external-link">fortify()</a></code> for which variables will be created.</p>
-<p>A <code>function</code> will be called with a single argument,
-the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data. A <code>function</code> can be created
-from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
+<dd><p>Character string (e.g. url, file path, or name of data from
+package), a <code>sf</code>, <code>sfc</code>, or <code>bbox</code>  object including data in area.</p></dd>
 
 
 <dt>mapping</dt>
@@ -133,7 +124,10 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
 
 
 <dt>geom</dt>
-<dd><p>The geometric object to use display the data</p></dd>
+<dd><p>A character string indicating which ggplot2 geom to use, Default:
+'sf'. Options include "sf" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf()</a></code>), "icon" (<code><a href="layer_icon.html">layer_icon()</a></code>),
+"markers" (<code>layer_markers()</code>), "sf_text" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text()</a></code>), and
+"sf_label" (<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label()</a></code>). See details for a full list.</p></dd>
 
 
 <dt>make</dt>
@@ -198,7 +192,9 @@ grouped; Default: <code>NULL</code></p></dd>
 
 
 <dt>style</dt>
-<dd><p>Style of number markers to map; defaults to "roundrect".</p></dd>
+<dd><p>Marker style; defaults to <code>NULL</code> for <code>layer_markers()</code> (supports
+"facet"); defaults to "roundrect" for <code>layer_markers()</code> when numbered =
+<code>TRUE</code> (default is only supported option at present).</p></dd>
 
 
 <dt>size</dt>
