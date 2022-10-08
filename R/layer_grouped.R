@@ -8,6 +8,8 @@
 #'
 #' @inheritParams layer_location_data
 #' @param groupname_col Group column name. Defaults to "group".
+#' @param aesthetics Aesthetic to map to groupname_col. Defaults to "fill"; also
+#'   supports "color" or c("fill", "color").
 #' @param ... Additional parameters passed to [layer_location_data()]
 #' @rdname layer_grouped
 #' @aliases layer_group_data

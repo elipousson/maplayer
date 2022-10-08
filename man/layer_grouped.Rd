@@ -46,6 +46,9 @@ If a \strong{ggplot}, add x to basemap object.
 If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
 and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
+\item{aesthetics}{Aesthetic to map to groupname_col. Defaults to "fill"; also
+supports "color" or c("fill", "color").}
+
 \item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}}}
 }
 \description{

@@ -9,9 +9,10 @@
 #' @param number If `TRUE`, number markers using [layer_markers()] (not
 #'   currently supported)
 #' @inheritParams sfext::number_features
-#' @param style Style; defaults to `NULL` for [layer_markers()] (supports
+#' @param style Marker style; defaults to `NULL` for [layer_markers()] (supports
 #'   "facet"); defaults to "roundrect" for [layer_markers()] when numbered =
-#'   TRUE,
+#'   `TRUE` (default is only supported option at present).
+#' @inheritParams  layer_location_data
 #' @param ... Additional parameters passed to [layer_group_data()]
 #' @return ggplot2 layers
 #' @example examples/layer_markers.R
@@ -95,7 +96,6 @@ layer_markers <- function(data,
 
 #' @rdname layer_markers
 #' @name layer_numbers
-#' @param style Style of number markers to map; defaults to "roundrect".
 #' @param size Marker size, Default: 5
 #' @param num_by_group If `TRUE`, numbers are added by group based on
 #'   groupname_col.

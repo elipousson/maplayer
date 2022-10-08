@@ -64,27 +64,18 @@ make_markers(
 )
 }
 \arguments{
-\item{data}{The data to be displayed in this layer. There are three
-options:
-
-If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
-
-A \code{data.frame}, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
-
-A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
-from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+\item{data}{Character string (e.g. url, file path, or name of data from
+package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area.}
 
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
 \code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{geom}{The geometric object to use display the data}
+\item{geom}{A character string indicating which ggplot2 geom to use, Default:
+'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
+"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
+"sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
 \item{make}{If \code{TRUE}, pass data to \link{make_markers}.}
 
@@ -121,7 +112,9 @@ grouped; Default: \code{NULL}}
 \item{...}{Additional parameters passed to \code{\link[=get_location_data]{get_location_data()}} when using
 \code{make = TRUE} to pass data to \link{make_markers}}
 
-\item{style}{Style of number markers to map; defaults to "roundrect".}
+\item{style}{Marker style; defaults to \code{NULL} for \code{\link[=layer_markers]{layer_markers()}} (supports
+"facet"); defaults to "roundrect" for \code{\link[=layer_markers]{layer_markers()}} when numbered =
+\code{TRUE} (default is only supported option at present).}
 
 \item{size}{Marker size, Default: 5}
 

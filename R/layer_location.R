@@ -8,6 +8,8 @@
 #' @param color Color for location; defaults to "black".
 #' @param linetype Line type for location; defaults to "dashed".
 #' @param fill Fill for location; defaults to "NA".
+#' @param label_geom Optional character string or function with geom to use for
+#'   labelling location layer. Passed to geom parameter of [layer_labelled()]
 #' @param ... Additional parameters passed to get_location if data is `NULL`.
 #' @inheritParams getdata::get_location
 #' @inheritParams layer_location_data

@@ -61,6 +61,8 @@ scale_group_data <-
 
 #' @name group_data_pal
 #' @rdname scale_group_data
+#' @param pkg Package name to use as prefix for palette name when selecting a
+#'   palette with [paletteer::paletteer_d()]
 #' @export
 #' @importFrom dplyr n_groups filter mutate bind_cols group_keys
 group_data_pal <- function(data,

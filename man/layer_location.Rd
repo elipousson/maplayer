@@ -69,6 +69,9 @@ id is provided.}
 
 \item{label}{label type (e.g. "text", "label")}
 
+\item{label_geom}{Optional character string or function with geom to use for
+labelling location layer. Passed to geom parameter of \code{\link[=layer_labelled]{layer_labelled()}}}
+
 \item{label_col}{Column name or id for a column with the text or labels to
 pass to any text geom.}
 

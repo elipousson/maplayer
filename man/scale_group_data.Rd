@@ -105,6 +105,9 @@ notation.
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
 same time, via \code{aesthetics = c("colour", "fill")}.}
+
+\item{pkg}{Package name to use as prefix for palette name when selecting a
+palette with \code{\link[paletteer:paletteer_d]{paletteer::paletteer_d()}}}
 }
 \description{
 Designed for use with layer_group_data. group_data_pal generates palettes
