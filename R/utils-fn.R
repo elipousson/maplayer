@@ -71,7 +71,13 @@ eval_tidy_fn <- function(x, params = NULL, pkg = NULL, fn = NULL, arg = caller_a
   fn <- make_fn(fn, arg = arg, call = call)
 
   if (is.list(params)) {
-    rlang::eval_tidy(rlang::quo(fn(x, !!!params)))
+    if (rlang::is_missing(x)) {
+      fn_quo <- rlang::quo(fn(!!!params))
+    } else {
+      fn_quo <- rlang::quo(fn(x, !!!params))
+    }
+
+    rlang::eval_tidy(fn_quo)
   } else if (rlang::is_logical(params) && params) {
     fn(x)
   }
