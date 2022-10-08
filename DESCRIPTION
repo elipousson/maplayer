@@ -22,6 +22,7 @@ Imports:
     glue,
     purrr,
     rlang,
+    scales,
     sf,
     sfext (>= 0.1.0),
     stringr
@@ -41,7 +42,6 @@ Suggests:
     paletteer,
     patchwork,
     rsvg,
-    scales,
     smoothr,
     testthat (>= 3.0.0),
     tibble,
