@@ -60,9 +60,9 @@ use_fn <- function(x = NULL, fn = NULL, ..., arg = caller_arg(fn), call = caller
 #' @param param Parameters to splice as additional arguments of function.
 #' @param pkg Package name passed to [is_pkg_installed]
 #' @noRd
-#' @importFrom rlang eval_tidy quo is_logical
+#' @importFrom rlang is_missing eval_tidy quo is_logical
 eval_tidy_fn <- function(x, params = NULL, pkg = NULL, fn = NULL, arg = caller_arg(fn), call = caller_env()) {
-  if (is.null(params)) {
+  if (is.null(params) && !rlang::is_missing(x)) {
     return(x)
   }
 
