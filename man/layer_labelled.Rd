@@ -31,10 +31,10 @@ can be converted to an sf object using \code{\link[sfext:as_sf]{sfext::as_sf()}}
 conver the whole location);}
 
 \item{geom}{A geom to use "text", "label", "textsf", "labelsf", "text_repel",
-or "label_repel"}
+or "label_repel" or a geom function (passed to layer_fn).}
 
 \item{fn}{Function to apply to data before creating labels; can be used in
-the creation of the label_col}
+the creation of the label_col.}
 
 \item{label_col}{Label column name}
 

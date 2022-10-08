@@ -16,10 +16,10 @@
 #' @param location Location to label (if not specified the data is assumed to
 #'   conver the whole location);
 #' @param fn Function to apply to data before creating labels; can be used in
-#'   the creation of the label_col
+#'   the creation of the label_col.
 #' @param label_col Label column name
 #' @param geom A geom to use "text", "label", "textsf", "labelsf", "text_repel",
-#'   or "label_repel"
+#'   or "label_repel" or a geom function (passed to layer_fn).
 #' @param mapping Aesthetic mapping, Default: `NULL`
 #' @param union If TRUE, group by label_col and union geometry, Default: `FALSE`
 #' @param drop_shadow If `TRUE`, use [ggfx::with_shadow()] to add a drop shadow
@@ -87,22 +87,29 @@ layer_labelled <- function(data,
       )
   }
 
-  # TODO: Duplicate with layer_location_data - consider exporting as internal
-  # reference data
-  ggplot_text_geoms <- c("text", "sf_text", "label", "sf_label")
-  ggrepel_geoms <- c("text_repel", "label_repel")
-  geomtextpath_geoms <- c("textsf", "labelsf")
-  text_geoms <- c(ggplot_text_geoms, geomtextpath_geoms, ggrepel_geoms)
+  layer_fn <- NULL
 
-  geom <- rlang::arg_match(geom, text_geoms)
+  if (is.character(geom)) {
+    # TODO: Duplicate with layer_location_data - consider exporting as internal
+    # reference data
+    ggplot_text_geoms <- c("text", "sf_text", "label", "sf_label")
+    ggrepel_geoms <- c("text_repel", "label_repel")
+    geomtextpath_geoms <- c("textsf", "labelsf")
+    text_geoms <- c(ggplot_text_geoms, geomtextpath_geoms, ggrepel_geoms)
+    geom <- rlang::arg_match(geom, text_geoms)
+  } else if (is_fn(geom)) {
+    layer_fn <- geom
+    geom <- NULL
+  }
 
   label_layer <-
     layer_location_data(
       data = data,
       location = location,
       fn = clip_fn,
-      mapping = mapping,
+      mapping = aes_label(mapping, data = data, label_col = label_col),
       geom = geom,
+      layer_fn = layer_fn,
       label_col = label_col,
       ...
     )
@@ -121,4 +128,3 @@ layer_labelled <- function(data,
     )
   )
 }
-
