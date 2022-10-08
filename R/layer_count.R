@@ -44,7 +44,7 @@ layer_count <- function(data,
                         largest = TRUE,
                         replace_na = FALSE,
                         lims = NULL,
-                        .id = NULL,
+                        .id = "id",
                         grid_params = list(
                           alpha = 1,
                           color = NA

@@ -13,7 +13,7 @@ layer_count(
   largest = TRUE,
   replace_na = FALSE,
   lims = NULL,
-  .id = NULL,
+  .id = "id",
   grid_params = list(alpha = 1, color = NA),
   show_data = FALSE,
   data_params = list(mapping = aes(), alpha = 0.75, size = 1),
@@ -39,6 +39,13 @@ has a column with the same name as .id (defaults to "id").}
 
 \item{replace_na}{If \code{TRUE}, replace NA values from count with 0. If \code{FALSE},
 filter NA values from the returned object.}
+
+\item{lims}{Optional numeric vector with minimum or both minimum and
+maximum count values. If provided, any values below the minimum are set to
+that minimum and any values above the maximum as set to the maximum. If
+only one value is provided, it is assumed to be a minimum limit.}
+
+\item{.id}{A name to use for the cell id column. Defaults to "id".}
 
 \item{grid_params}{Passed to \code{\link[=layer_location_data]{layer_location_data()}} to style foreground grid
 with fill based on count.}
