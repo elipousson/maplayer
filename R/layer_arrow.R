@@ -15,8 +15,8 @@
 #'   "arrowsegment", "diagonal0", "link") or a geom function.
 #' @seealso
 #'  [ggplot2::reexports()], [ggplot2::geom_segment()], [ggplot2::aes()]
-#' @rdname layer_arrow
-#' @noRd
+#' @name layer_arrow
+#' @export
 #' @importFrom ggplot2 arrow geom_curve aes
 #' @importFrom rlang arg_match
 #' @importFrom sfext as_xy
