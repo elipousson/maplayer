@@ -107,6 +107,7 @@ layer_location <-
 
     set_neatline(
       x = location_layer,
+      neatline = neatline,
       data = data,
       dist = dist,
       diag_ratio = diag_ratio,
