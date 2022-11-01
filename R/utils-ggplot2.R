@@ -116,15 +116,14 @@ modify_mapping <- function(mapping = NULL, data = NULL, ...) {
     }
   }
 
-  if (!is.null(data)) {
-    mapping <-
-      utils::modifyList(
-        ggplot2::aes(geometry = .data[[attributes(data)$sf_column]]),
-        mapping
-      )
+  if (is.null(data)) {
+    return(mapping)
   }
 
-  return(mapping)
+  utils::modifyList(
+    ggplot2::aes(geometry = .data[[attributes(data)$sf_column]]),
+    mapping
+  )
 }
 
 
