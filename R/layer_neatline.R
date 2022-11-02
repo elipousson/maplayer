@@ -68,7 +68,7 @@ layer_neatline <- function(data = NULL,
         expand = expand,
         crs = crs,
         label_axes = label_axes,
-        # Suppress warning about coordinate system being displaced
+        # Suppress warning about coordinate system being repplaced
         default = TRUE,
         ...
       )
@@ -80,7 +80,9 @@ layer_neatline <- function(data = NULL,
         limits,
         list(
           ggplot2::theme(
-            panel.grid = ggplot2::element_blank()
+            panel.grid = ggplot2::element_blank(),
+            panel.grid.major = ggplot2::element_blank(),
+            panel.grid.minor = ggplot2::element_blank()
           )
         )
       )
@@ -147,7 +149,11 @@ layer_neatline <- function(data = NULL,
 #' @importFrom dplyr case_when
 #' @importFrom rlang is_logical
 #' @importFrom ggplot2 is.ggplot
-set_neatline <- function(x = NULL, neatline = TRUE, data = NULL, crs = NULL, ...) {
+set_neatline <- function(x = NULL,
+                         neatline = TRUE,
+                         data = NULL,
+                         crs = NULL,
+                         ...) {
   type <-
     dplyr::case_when(
       rlang::is_logical(neatline) && neatline ~ "lgl_true",
