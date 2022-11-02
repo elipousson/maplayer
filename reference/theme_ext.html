@@ -63,7 +63,8 @@ NULL or method = "set" is recommended.</p>
 <span>  geom_text <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  hjust <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vjust <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  method <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_margin</span><span class="op">(</span></span>
@@ -78,7 +79,8 @@ NULL or method = "set" is recommended.</p>
 <span>  fill <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  color <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  size <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  method <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">theme_legend</span><span class="op">(</span></span>
@@ -87,9 +89,11 @@ NULL or method = "set" is recommended.</p>
 <span>  margin <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>  unit <span class="op">=</span> <span class="st">"pt"</span>,</span>
 <span>  inset <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  nudge_inset <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  bgcolor <span class="op">=</span> <span class="st">"white"</span>,</span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span>, align <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
-<span>  method <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  method <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -123,6 +127,10 @@ Default: <code>TRUE</code>.</p></dd>
 <dt>method</dt>
 <dd><p>Method with name of the ggplot2 geom function to use for
 modifying theme ("set", "update", or "replace"); defaults to <code>NULL</code>.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Additional parameters passed to <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">ggplot2::theme()</a></code>.</p></dd>
 
 
 <dt>margin</dt>
@@ -178,14 +186,19 @@ Coordinates ("npc"); defaults NULL</p></dd>
 
 <dt>justification</dt>
 <dd><p>If <code>NULL</code>, justification is set to "center"; defaults to
-<code>NULL</code>. Use justification to set legend position if inset = FALSE. Supports
-"topleft", "bottomleft", "topright", or "bottomright" values.</p></dd>
+<code>NULL</code>. Use justification to set legend position if <code>inset = FALSE</code>.
+Supports "topleft", "bottomleft", "topright", or "bottomright" values.</p></dd>
 
 
 <dt>inset</dt>
 <dd><p>If <code>TRUE</code> and position is "topleft", "bottomleft", "topright",
 or "bottomright", place the legend in an inset position; defaults to
 <code>TRUE</code>.</p></dd>
+
+
+<dt>nudge_inset</dt>
+<dd><p>Position adjustment in "npc" units to use for inset
+legends. Defaults to 0.05.</p></dd>
 
 
 <dt>bgcolor</dt>
