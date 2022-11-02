@@ -13,7 +13,8 @@ theme_text(
   geom_text = TRUE,
   hjust = NULL,
   vjust = NULL,
-  method = NULL
+  method = NULL,
+  ...
 )
 
 theme_margin(
@@ -28,7 +29,8 @@ theme_margin(
   fill = NA,
   color = NA,
   size = 0,
-  method = NULL
+  method = NULL,
+  ...
 )
 
 theme_legend(
@@ -37,9 +39,11 @@ theme_legend(
   margin = 8,
   unit = "pt",
   inset = TRUE,
+  nudge_inset = 0.05,
   bgcolor = "white",
   title = list(face = "bold", align = 0),
-  method = NULL
+  method = NULL,
+  ...
 )
 }
 \arguments{
@@ -62,6 +66,8 @@ Default: \code{TRUE}.}
 
 \item{method}{Method with name of the ggplot2 geom function to use for
 modifying theme ("set", "update", or "replace"); defaults to \code{NULL}.}
+
+\item{...}{Additional parameters passed to \code{\link[ggplot2:theme]{ggplot2::theme()}}.}
 
 \item{margin}{Margin distance, a margin style supported by \code{\link[=get_margin]{get_margin()}} or
 a margin object; defaults to 10.}
@@ -95,12 +101,15 @@ two-element numeric vector to set position using Normalized Parent
 Coordinates ("npc"); defaults NULL}
 
 \item{justification}{If \code{NULL}, justification is set to "center"; defaults to
-\code{NULL}. Use justification to set legend position if inset = FALSE. Supports
-"topleft", "bottomleft", "topright", or "bottomright" values.}
+\code{NULL}. Use justification to set legend position if \code{inset = FALSE}.
+Supports "topleft", "bottomleft", "topright", or "bottomright" values.}
 
 \item{inset}{If \code{TRUE} and position is "topleft", "bottomleft", "topright",
 or "bottomright", place the legend in an inset position; defaults to
 \code{TRUE}.}
+
+\item{nudge_inset}{Position adjustment in "npc" units to use for inset
+legends. Defaults to 0.05.}
 
 \item{bgcolor}{Fill color for legend background; defaults to 'white'.}
 
