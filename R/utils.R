@@ -132,18 +132,22 @@ check_file_overwrite <- function(filename = NULL,
                                  ask = TRUE,
                                  call = caller_env()) {
   filename <- filename %||% basename(path)
+  filepath <- filename
 
-  if (has_filetype(path)) {
-    filepath <- path
-    path <- dirname(path)
-  } else if (has_filetype(filename)) {
-    filepath <- file.path(path, filename)
-  } else {
-    cli_abort(
-      "{.arg filename} or {.arg path} must include a valid filetype.",
-      call = call
-    )
+  if (!is.null(path)) {
+    if (has_filetype(path) && is.null(filename)) {
+      filepath <- path
+      path <- dirname(path)
+    } else {
+      filepath <- file.path(path, filename)
+    }
   }
+
+  cli_abort_ifnot(
+    "{.arg filename} or {.arg path} must include a valid file type.",
+    condition = has_filetype(filepath),
+    call = call
+  )
 
   if (file.exists(filepath)) {
     if (!overwrite && ask && rlang::is_interactive()) {
@@ -159,18 +163,18 @@ check_file_overwrite <- function(filename = NULL,
     cli_abort_ifnot(
       c(
         "!" = "{.file {filename}} can't be saved.",
-        "i" = "A file with the same name already exists and
-        {.arg overwrite = FALSE}."
+        "i" = "A file with the same name already exists.
+        Set {.code overwrite = TRUE} to remove."
       ),
       condition = overwrite,
       call = call
     )
 
     cli_inform(
-      c("v" = "Removing {.val {filename}} from {.file {path}}")
+      c("v" = "Removing {.path {filepath}}")
     )
 
-    file.remove(file.path(path, filename))
+    file.remove(filepath)
   }
 
   invisible(NULL)

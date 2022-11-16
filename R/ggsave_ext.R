@@ -107,6 +107,9 @@ ggsave_ext <- function(plot = last_plot(),
 
   if (inherits(plot, "magick-image")) {
     is_pkg_installed("magick")
+    cli_inform(
+      "Converting {.arg plot} from {.cls magick-image} to {.cls ggplot}."
+    )
     plot <- magick::image_ggplot(plot)
   }
 
@@ -124,7 +127,7 @@ ggsave_ext <- function(plot = last_plot(),
   )
 
   cli_inform(
-    c("v" = "Saving {.val {basename(filename)}} to {.file {dirname(path)}}")
+    c("v" = "Saving {.path {filename}}.")
   )
 
   if (exif) {
