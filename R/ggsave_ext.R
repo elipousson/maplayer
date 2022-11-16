@@ -21,10 +21,14 @@
 #' @param paper Paper matching name from `paper_sizes` (e.g. "letter"). Not case
 #'   sensitive.
 #' @param orientation Page orientation ("portrait", "landscape", or "square").
+#' @param asp Numeric aspect ratio used to determine width or height if only one
+#'   of the two arguments is provided; defaults to `NULL`.
 #' @param bgcolor Background color to optionally override `plot.background`
 #'   theme element.
 #' @param exif If `TRUE`, the EXIF metadata for the exported file is updated
 #'   with the exifr package; defaults to `FALSE`.
+#' @param overwrite If `TRUE`, overwrite any existing file with the same name
+#'   without asking.
 #' @inheritParams sfext::write_exif
 #' @inheritDotParams ggplot2::ggsave -width -height -units -bg
 #' @example examples/ggsave_ext.R
@@ -46,6 +50,7 @@ ggsave_ext <- function(plot = last_plot(),
                        orientation = "portrait",
                        width = NULL,
                        height = NULL,
+                       asp = NULL,
                        units = "in",
                        scale = 1,
                        dpi = 300,
@@ -55,6 +60,7 @@ ggsave_ext <- function(plot = last_plot(),
                        author = NULL,
                        keywords = NULL,
                        args = NULL,
+                       overwrite = TRUE,
                        ...) {
   if (!is.null(paper)) {
     paper <- sfext::get_paper(paper = paper, orientation = orientation)
@@ -62,10 +68,18 @@ ggsave_ext <- function(plot = last_plot(),
     width <- paper$width
     height <- paper$height
     units <- paper$units
+  } else if (!is.null(asp) && is_any_null(c(width, height))) {
+    if (is.null(height)) {
+      height <- width * asp
+    } else if (is.null(width)) {
+      width <- height / asp
+    }
   }
 
-  stopifnot(
-    is.numeric(width) && is.numeric(height)
+  cli_abort_ifnot(
+    "{.arg paper}, numeric {.arg width} and {.arg height}, or a numeric
+    {.arg asp} and {.arg width} or {.arg height} must be provided.",
+    condition = is.numeric(width) && is.numeric(height)
   )
 
   if (is.null(device) && (!is.null(filetype) | !is.null(filename))) {
@@ -89,6 +103,8 @@ ggsave_ext <- function(plot = last_plot(),
       postfix = postfix
     )
 
+  check_file_overwrite(filename = filename, overwrite = overwrite, ask = FALSE)
+
   if (inherits(plot, "magick-image")) {
     is_pkg_installed("magick")
     plot <- magick::image_ggplot(plot)
@@ -105,6 +121,10 @@ ggsave_ext <- function(plot = last_plot(),
     dpi = dpi,
     bg = bgcolor,
     ...
+  )
+
+  cli_inform(
+    c("v" = "Saving {.val {basename(filename)}} to {.file {dirname(path)}}")
   )
 
   if (exif) {

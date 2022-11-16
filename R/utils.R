@@ -13,6 +13,10 @@ utils::globalVariables(
   )
 )
 
+# @staticimports pkg:isstatic
+#   has_filetype is_any_null
+
+
 #' Group data by column if present
 #'
 #' @param data Data frame or simple feature object
@@ -56,7 +60,7 @@ has_same_name_col <- function(x, col = NULL, prefix = "orig", ask = FALSE, quiet
     new_col <- paste0(prefix, "_", col)
 
     if (ask && !quiet) {
-      if (!cli_yeah(
+      if (!cli_yesno(
         "The provided data includes an existing column named '{col}'.
       Do you want to proceed and rename this column to {new_col}?"
       )) {
@@ -118,64 +122,56 @@ is_geom_pkg_installed <- function(geom) {
 }
 
 
-# This file contains code from the usethis R package <https://github.com/r-lib/usethis>
-# The license and copyright for this package follows:
-#
-# MIT License
-#
-# Copyright (c) 2020 usethis authors
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-#   The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
-#' Modified version of [usethis::ui_yeah]
+#' Check if a file exists and remove file or error
 #'
 #' @noRd
-#' @importFrom rlang is_interactive
-#' @importFrom utils menu
-cli_yeah <- function(x,
-                     yes = c("Yes", "Definitely", "For sure", "Yup", "Yeah", "I agree", "Absolutely"),
-                     no = c("No way", "Not now", "Negative", "No", "Nope", "Absolutely not"),
-                     n_yes = 1,
-                     n_no = 2,
-                     shuffle = TRUE,
-                     .envir = parent.frame()) {
-  x <- glue_collapse(x, "\n")
-  x <- glue(x, .envir = .envir)
+#' @importFrom rlang caller_env is_interactive
+check_file_overwrite <- function(filename = NULL,
+                                 path = NULL,
+                                 overwrite = TRUE,
+                                 ask = TRUE,
+                                 call = caller_env()) {
+  filename <- filename %||% basename(path)
 
-  if (!rlang::is_interactive()) {
+  if (has_filetype(path)) {
+    filepath <- path
+    path <- dirname(path)
+  } else if (has_filetype(filename)) {
+    filepath <- file.path(path, filename)
+  } else {
     cli_abort(
-      c(
-        "User input required, but session is not interactive.",
-        "Query: {x}"
-      )
+      "{.arg filename} or {.arg path} must include a valid filetype.",
+      call = call
     )
   }
 
-  n_yes <- min(n_yes, length(yes))
-  n_no <- min(n_no, length(no))
-  qs <- c(sample(yes, n_yes), sample(no, n_no))
+  if (file.exists(filepath)) {
+    if (!overwrite && ask && rlang::is_interactive()) {
+      overwrite <-
+        cli_yesno(
+          c(
+            "i" = "A file with the same name exists in {.path {path}}",
+            ">" = "Do you want to overwrite {.val {filename}}?"
+          )
+        )
+    }
 
-  if (shuffle) {
-    qs <- sample(qs)
+    cli_abort_ifnot(
+      c(
+        "!" = "{.file {filename}} can't be saved.",
+        "i" = "A file with the same name already exists and
+        {.arg overwrite = FALSE}."
+      ),
+      condition = overwrite,
+      call = call
+    )
+
+    cli_inform(
+      c("v" = "Removing {.val {filename}} from {.file {path}}")
+    )
+
+    file.remove(file.path(path, filename))
   }
 
-  cli_inform(x)
-  out <- utils::menu(qs)
-  out != 0L && qs[[out]] %in% yes
+  invisible(NULL)
 }

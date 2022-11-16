@@ -20,6 +20,7 @@ ggsave_ext(
   orientation = "portrait",
   width = NULL,
   height = NULL,
+  asp = NULL,
   units = "in",
   scale = 1,
   dpi = 300,
@@ -29,6 +30,7 @@ ggsave_ext(
   author = NULL,
   keywords = NULL,
   args = NULL,
+  overwrite = TRUE,
   ...
 )
 
@@ -87,6 +89,9 @@ sensitive.}
 \item{width, height, units}{Plot size in \code{units} ("in", "cm", "mm", or "px").
 If not supplied, uses the size of current graphics device.}
 
+\item{asp}{Numeric aspect ratio used to determine width or height if only one
+of the two arguments is provided; defaults to \code{NULL}.}
+
 \item{scale}{Multiplicative scaling factor.}
 
 \item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
@@ -108,6 +113,9 @@ Default: \code{NULL}.}
 \item{args}{Alternate arguments passed to \code{\link[exiftoolr:exif_call]{exiftoolr::exif_call()}}. If args
 is not \code{NULL}, title, author, date, and keywords are ignored; defaults to
 \code{NULL}.}
+
+\item{overwrite}{If \code{TRUE}, overwrite any existing file with the same name
+without asking.}
 
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:ggsave]{ggplot2::ggsave}}
