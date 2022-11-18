@@ -69,7 +69,7 @@ aspect ratio.</p>
 <span>  crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"maplayer.crs"</span><span class="op">)</span>,</span>
 <span>  color <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>  bgcolor <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>  size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  linetype <span class="op">=</span> <span class="st">"solid"</span>,</span>
 <span>  expand <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  hide_grid <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -125,8 +125,8 @@ in the first sf layer of the plot.</p></dd>
 "none", panel background is set to <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">ggplot2::element_blank()</a></code></p></dd>
 
 
-<dt>size</dt>
-<dd><p>Size of panel border, Default: 1</p></dd>
+<dt>linewidth</dt>
+<dd><p>Line width of panel border, Default: 0.5</p></dd>
 
 
 <dt>linetype</dt>
@@ -188,7 +188,7 @@ additional parameters passed to ... If logical and <code>FALSE</code>, return x 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="layer_location_data.html">layer_location_data</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span></span></span>
-<span class="r-in"><span>  <span class="fu">layer_neatline</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>, asp <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">1.5</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">layer_neatline</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span>, asp <span class="op">=</span> <span class="fl">1</span>, color <span class="op">=</span> <span class="st">"red"</span>, linewidth <span class="op">=</span> <span class="fl">1</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="layer_neatline-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
