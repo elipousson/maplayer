@@ -70,8 +70,8 @@ get_location"><meta property="og:image" content="https://elipousson.github.io/ma
 <span>  union <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  crs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"maplayer.crs"</span>, default <span class="op">=</span> <span class="fl">3857</span><span class="op">)</span>,</span>
 <span>  color <span class="op">=</span> <span class="st">"gray40"</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
-<span>  size <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  fill <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  diag_ratio <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -88,10 +88,10 @@ get_location"><meta property="og:image" content="https://elipousson.github.io/ma
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>mapping</dt>
-<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code> or
-<code><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
+<dd><p>Set of aesthetic mappings created by <code><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes()</a></code>. If specified and
+<code>inherit.aes = TRUE</code> (the default), it is combined with the default mapping
+at the top level of the plot. You must supply <code>mapping</code> if there is no plot
+mapping.</p></dd>
 
 
 <dt>data</dt>
@@ -101,7 +101,7 @@ plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
 <dt>type</dt>
 <dd><p>Type of location to return. Type can be an sf object, e.g. a data
 frame with multiple neighborhoods or a character string that can be passed
-to <a href="https://elipousson.github.io/getdata/reference/get_location_data.html" class="external-link">get_location_data</a>. If index is provided, character can also be a
+to <code><a href="https://elipousson.github.io/getdata/reference/get_location_data.html" class="external-link">get_location_data()</a></code>. If index is provided, character can also be a
 character string to match the name of a list.</p></dd>
 
 
@@ -116,10 +116,10 @@ match the class of the id_col for type.</p></dd>
 
 <dt>location</dt>
 <dd><p>An address, bounding box (<code>bbox</code>), or simple feature (<code>sf</code>)
-object passed to <a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">sf::st_filter</a>. Any valid address or
-addresses are geocoded with tidygeocoder::geo, converted to
-a simple feature object, and then used as a spatial filter. <code>bbox</code> objects
-are converted using <code><a href="https://elipousson.github.io/sfext/reference/sf_bbox_misc.html" class="external-link">sfext::sf_bbox_to_sf()</a></code>. Multiple addresses are supported.</p></dd>
+object passed to <code><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">sf::st_filter()</a></code>. Any valid address or addresses are
+geocoded with <code>tidygeocoder::geo()</code>, converted to a simple feature object,
+and then used as a spatial filter. <code>bbox</code> objects are converted using
+<code><a href="https://elipousson.github.io/sfext/reference/sf_bbox_misc.html" class="external-link">sfext::sf_bbox_to_sf()</a></code>. Multiple addresses are supported.</p></dd>
 
 
 <dt>name_col</dt>
@@ -152,8 +152,8 @@ pass to any text geom.</p></dd>
 
 <dt>union</dt>
 <dd><p>If <code>TRUE</code>, the location geometry is unioned with
-<a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">sf::st_union</a> and the names are combined into a single value.
-Default: <code>FALSE</code>.</p></dd>
+<code><a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">sf::st_union()</a></code> and the names are combined into a single value. Default:
+<code>FALSE</code>.</p></dd>
 
 
 <dt>crs</dt>
@@ -164,6 +164,10 @@ type of location.</p></dd>
 
 <dt>color</dt>
 <dd><p>Color for location; defaults to "black".</p></dd>
+
+
+<dt>linewidth</dt>
+<dd><p>Line width for location; defaults to 0.5.</p></dd>
 
 
 <dt>linetype</dt>
