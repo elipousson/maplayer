@@ -29,7 +29,7 @@
 #' @inheritParams layer_neatline
 #' @inheritParams sfext::st_square
 #' @inheritParams sfext::st_circle
-#' @param fill,color,size,linetype Fixed aesthetics for frame, passed to
+#' @param fill,color,linewidth,linetype Fixed aesthetics for frame, passed to
 #'   [layer_location_data].
 #' @param neatline If `TRUE`, return a list of layers that includes a
 #'   [layer_neatline]
@@ -49,7 +49,7 @@ layer_frame <- function(data = NULL,
                         rotate = 0,
                         inscribed = FALSE,
                         color = "black",
-                        size = 1,
+                        linewidth = 1,
                         linetype = "solid",
                         fill = "white",
                         neatline = TRUE,
@@ -96,6 +96,7 @@ layer_frame <- function(data = NULL,
       fill = fill,
       color = color,
       linetype = linetype,
+      linewidth = linewidth,
       ...
     )
 
@@ -109,7 +110,7 @@ layer_frame <- function(data = NULL,
 
   frame_layer <-
     set_neatline(
-      frame_layer,
+      x = frame_layer,
       neatline = neatline,
       data = frame,
       asp = asp,

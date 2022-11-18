@@ -21,8 +21,8 @@ layer_location(
   union = FALSE,
   crs = getOption("maplayer.crs", default = 3857),
   color = "gray40",
+  linewidth = 0.5,
   linetype = "dashed",
-  size = 1,
   fill = NA,
   dist = NULL,
   diag_ratio = NULL,
@@ -36,16 +36,16 @@ layer_location(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
-\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{data}{Data for location to show.}
 
 \item{type}{Type of location to return. Type can be an sf object, e.g. a data
 frame with multiple neighborhoods or a character string that can be passed
-to \link[getdata]{get_location_data}. If index is provided, character can also be a
+to \code{\link[getdata:get_location_data]{get_location_data()}}. If index is provided, character can also be a
 character string to match the name of a list.}
 
 \item{name}{Location name to return.}
@@ -54,10 +54,10 @@ character string to match the name of a list.}
 match the class of the id_col for type.}
 
 \item{location}{An address, bounding box (\code{bbox}), or simple feature (\code{sf})
-object passed to \link[sf:st_join]{sf::st_filter}. Any valid address or
-addresses are geocoded with \link[tidygeocoder:geo]{tidygeocoder::geo}, converted to
-a simple feature object, and then used as a spatial filter. \code{bbox} objects
-are converted using \code{\link[sfext:sf_bbox_misc]{sfext::sf_bbox_to_sf()}}. Multiple addresses are supported.}
+object passed to \code{\link[sf:st_join]{sf::st_filter()}}. Any valid address or addresses are
+geocoded with \code{\link[tidygeocoder:geo]{tidygeocoder::geo()}}, converted to a simple feature object,
+and then used as a spatial filter. \code{bbox} objects are converted using
+\code{\link[sfext:sf_bbox_misc]{sfext::sf_bbox_to_sf()}}. Multiple addresses are supported.}
 
 \item{name_col}{Column name in type with name values, Default: 'name'
 Required if name provided.}
@@ -76,14 +76,16 @@ labelling location layer. Passed to geom parameter of \code{\link[=layer_labelle
 pass to any text geom.}
 
 \item{union}{If \code{TRUE}, the location geometry is unioned with
-\link[sf:geos_combine]{sf::st_union} and the names are combined into a single value.
-Default: \code{FALSE}.}
+\code{\link[sf:geos_combine]{sf::st_union()}} and the names are combined into a single value. Default:
+\code{FALSE}.}
 
 \item{crs}{Coordinate reference system to return; defaults to NULL which
 returns data using the same coordinate reference system as the provided
 type of location.}
 
 \item{color}{Color for location; defaults to "black".}
+
+\item{linewidth}{Line width for location; defaults to 0.5.}
 
 \item{linetype}{Line type for location; defaults to "dashed".}
 

@@ -16,7 +16,7 @@ layer_frame(
   rotate = 0,
   inscribed = FALSE,
   color = "black",
-  size = 1,
+  linewidth = 1,
   linetype = "solid",
   fill = "white",
   neatline = TRUE,
@@ -73,7 +73,7 @@ the input data is used as the frame.}
 \item{inscribed}{If \code{TRUE}, make circle, square, or donut inscribed within x, if
 \code{FALSE}, make it circumscribed. Use}
 
-\item{fill, color, size, linetype}{Fixed aesthetics for frame, passed to
+\item{fill, color, linewidth, linetype}{Fixed aesthetics for frame, passed to
 \link{layer_location_data}.}
 
 \item{neatline}{If \code{TRUE}, return a list of layers that includes a
@@ -123,10 +123,10 @@ returning from function.}
     \item{\code{crop}}{If \code{TRUE}, x is cropped to y using \code{\link[sf:st_crop]{sf::st_crop()}}.}
     \item{\code{trim}}{If \code{TRUE}, x is trimmed to y with \code{\link[sfext:st_trim]{st_trim()}}.}
     \item{\code{crs}}{Coordinate reference system to return.}
-    \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
-\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+    \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
   }}
 
 \item{dTolerance}{numeric; tolerance parameter, specified for all or for each

@@ -6,6 +6,7 @@
 #' @param data Data for location to show.
 #' @param label label type (e.g. "text", "label")
 #' @param color Color for location; defaults to "black".
+#' @param linewidth Line width for location; defaults to 0.5.
 #' @param linetype Line type for location; defaults to "dashed".
 #' @param fill Fill for location; defaults to "NA".
 #' @param label_geom Optional character string or function with geom to use for
@@ -38,8 +39,8 @@ layer_location <-
            union = FALSE,
            crs = getOption("maplayer.crs", default = 3857),
            color = "gray40",
+           linewidth = 0.5,
            linetype = "dashed",
-           size = 1,
            fill = NA,
            dist = NULL,
            diag_ratio = NULL,
@@ -70,8 +71,8 @@ layer_location <-
       layer_location_data(
         data = data,
         color = color,
+        linewidth = linewidth,
         linetype = linetype,
-        size = size,
         fill = fill
       )
 
