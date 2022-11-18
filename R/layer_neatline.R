@@ -1,3 +1,25 @@
+#' ggplot2 theme object used to help hide the grid in layer_neatline()
+#'
+#' @importFrom ggplot2 theme element_blank
+#' @noRd
+theme_hide_grid <- ggplot2::theme(
+  panel.grid = ggplot2::element_blank(),
+  panel.grid.major = ggplot2::element_blank(),
+  panel.grid.minor = ggplot2::element_blank()
+)
+
+#' ggplot2 theme object used to help hide axis in layer_neatline()
+#'
+#' @importFrom ggplot2 theme element_blank
+#' @noRd
+theme_hide_axis <- ggplot2::theme(
+  axis.title = ggplot2::element_blank(),
+  axis.text = ggplot2::element_blank(),
+  axis.ticks = ggplot2::element_blank(),
+  axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
+  axis.line = ggplot2::element_blank()
+)
+
 #' Set map limits to a bounding box with a buffer and set aspect ratio
 #'
 #' Set limits for a map to the bounding box of a feature using
@@ -6,7 +28,7 @@
 #' aspect ratio.
 #'
 #' @param data A `sf`, `sfc`, or `bbox` class object.
-#' @param size Size of panel border, Default: 1
+#' @param linewidth Line width of panel border, Default: 0.5
 #' @param color Color of panel border, Default: 'black'
 #' @param bgcolor Fill color of panel background; defaults to "white". If
 #'   "none", panel background is set to [ggplot2::element_blank()]
@@ -34,7 +56,7 @@ layer_neatline <- function(data = NULL,
                            crs = getOption("maplayer.crs"),
                            color = "black",
                            bgcolor = "white",
-                           size = 1,
+                           linewidth = 0.5,
                            linetype = "solid",
                            expand = TRUE,
                            hide_grid = TRUE,
@@ -79,11 +101,7 @@ layer_neatline <- function(data = NULL,
       c(
         limits,
         list(
-          ggplot2::theme(
-            panel.grid = ggplot2::element_blank(),
-            panel.grid.major = ggplot2::element_blank(),
-            panel.grid.minor = ggplot2::element_blank()
-          )
+          theme_hide_grid
         )
       )
   }
@@ -93,13 +111,7 @@ layer_neatline <- function(data = NULL,
       c(
         limits,
         list(
-          ggplot2::theme(
-            axis.title = ggplot2::element_blank(),
-            axis.text = ggplot2::element_blank(),
-            axis.ticks = ggplot2::element_blank(),
-            axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
-            axis.line = ggplot2::element_blank()
-          )
+          theme_hide_axis
         )
       )
   }
@@ -117,7 +129,7 @@ layer_neatline <- function(data = NULL,
   } else {
     panel_border <-
       ggplot2::element_rect(
-        color = color, size = size,
+        color = color, linewidth = linewidth,
         linetype = linetype, fill = NA
       )
   }
