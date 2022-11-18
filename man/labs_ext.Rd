@@ -2,7 +2,7 @@
 % Please edit documentation in R/labs_ext.R
 \name{labs_ext}
 \alias{labs_ext}
-\title{Add labels to a ggplot2 location map}
+\title{Add labels to a ggplot2 plot or map}
 \usage{
 labs_ext(
   title = ggplot2::waiver(),
@@ -19,6 +19,7 @@ labs_ext(
   source = NULL,
   .na = "NA",
   .null = NULL,
+  .envir = parent.frame(),
   ...
 )
 }
@@ -38,13 +39,16 @@ top-left of the plot by default.}
 
 \item{location}{sf or bbox object or character string}
 
-\item{name_col}{Column name holding name or identifier for distinct
-places within the simple feature collection provided to location. Not
-supported for bbox objects.}
+\item{name_col}{Column name holding name or identifier for distinct places
+within the simple feature collection provided to location. Not supported
+for bbox objects.}
 
 \item{source}{Data source(s). Not yet used or supported by function.}
 
-\item{.na, .null}{Additional parameters passed to \link[glue:glue]{glue::glue}}
+\item{.na, .null}{Additional parameters passed to \code{\link[glue:glue]{glue::glue()}}}
+
+\item{.envir}{Environment passed to \code{\link[glue:glue]{glue::glue()}}; defaults to
+\code{\link[=parent.frame]{parent.frame()}}.}
 
 \item{...}{A list of new name-value pairs. The name should be an aesthetic.}
 }
