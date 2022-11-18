@@ -21,10 +21,10 @@ layer_grouped(
 \item{data}{Character string (e.g. url, file path, or name of data from
 package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area.}
 
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}} or
-\code{\link[ggplot2:aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{aes()}}. If specified and
+\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
+at the top level of the plot. You must supply \code{mapping} if there is no plot
+mapping.}
 
 \item{groupname_col}{Group column name. Defaults to "group".}
 
