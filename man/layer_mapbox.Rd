@@ -22,7 +22,7 @@ layer_mapbox(
   neatline = TRUE,
   color = "black",
   bgcolor = "white",
-  size = 1,
+  linewidth = 0.5,
   linetype = "solid",
   expand = TRUE,
   hide_grid = TRUE,
@@ -86,7 +86,7 @@ attribution elsewhere on the webpage or document.}
 \item{bgcolor}{Fill color of panel background; defaults to "white". If
 "none", panel background is set to \code{\link[ggplot2:element]{ggplot2::element_blank()}}}
 
-\item{size}{Size of panel border, Default: 1}
+\item{linewidth}{Line width of panel border, Default: 0.5}
 
 \item{linetype}{Line type of panel border, Default: 'solid'}
 
