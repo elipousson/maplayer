@@ -16,8 +16,8 @@
 #'   [magick::image_ggplot()]
 #' @inheritParams ggplot2::ggsave
 #' @param name Plot name, used to create filename (if filename is `NULL`) using
-#'   [sfext::make_filename()]
-#' @inheritParams sfext::make_filename
+#'   [filenamr::make_filename()]
+#' @inheritParams filenamr::make_filename
 #' @param paper Paper matching name from `paper_sizes` (e.g. "letter"). Not case
 #'   sensitive.
 #' @param orientation Page orientation ("portrait", "landscape", or "square").
@@ -30,13 +30,18 @@
 #' @param overwrite If `TRUE`, overwrite any existing file with the same name
 #'   without asking.
 #' @inheritParams sfext::write_exif
+#' @param preview If `TRUE`, open saved file in default system application.
+#'   Based on [tjmisc::ggpreview()].
 #' @inheritDotParams ggplot2::ggsave -width -height -units -bg
 #' @example examples/ggsave_ext.R
 #' @seealso
 #'  [ggplot2::ggsave()]
 #' @rdname ggsave_ext
 #' @export
-#' @importFrom ggplot2 ggsave last_plot
+#' @importFrom sfext get_paper
+#' @importFrom filenamr str_extract_fileext str_remove_fileext make_filename
+#'   check_file_overwrite write_exif
+#' @importFrom ggplot2 ggsave
 ggsave_ext <- function(plot = last_plot(),
                        name = NULL,
                        label = NULL,
@@ -61,6 +66,7 @@ ggsave_ext <- function(plot = last_plot(),
                        keywords = NULL,
                        args = NULL,
                        overwrite = TRUE,
+                       preview = FALSE,
                        ...) {
   if (!is.null(paper)) {
     paper <- sfext::get_paper(paper = paper, orientation = orientation)
@@ -68,12 +74,15 @@ ggsave_ext <- function(plot = last_plot(),
     width <- paper$width
     height <- paper$height
     units <- paper$units
-  } else if (!is.null(asp) && is_any_null(c(width, height))) {
-    if (is.null(height)) {
-      height <- width * asp
-    } else if (is.null(width)) {
-      width <- height / asp
-    }
+  } else if (!is.null(asp) && (is.null(width) | is.null(height))) {
+    cli_abort_ifnot(
+      "{.arg width} or {.arg height} must be provided if {.arg asp} is provided
+      and {.code paper = NULL}.",
+      condition = !is.null(width) | !is.null(height)
+    )
+
+    height <- height %||% width * asp
+    width <- width  %||% height / asp
   }
 
   cli_abort_ifnot(
@@ -83,27 +92,27 @@ ggsave_ext <- function(plot = last_plot(),
   )
 
   if (is.null(device) && (!is.null(filetype) | !is.null(filename))) {
-    filetype <- filetype %||% sfext::str_extract_filetype(filename)
+    filetype <- filetype %||% filenamr::str_extract_fileext(filename)
 
     if (!is.null(filename)) {
-      filename <- sfext::str_remove_filetype(filename, filetype)
+      filename <- filenamr::str_remove_fileext(filename, filetype)
     }
 
     device <- filetype
   }
 
   filename <-
-    sfext::make_filename(
+    filenamr::make_filename(
       name = name,
       label = label,
       filename = filename,
-      filetype = filetype,
+      fileext = filetype,
       path = path,
       prefix = prefix,
       postfix = postfix
     )
 
-  check_file_overwrite(filename = filename, overwrite = overwrite, ask = FALSE)
+  filenamr::check_file_overwrite(filename = filename, overwrite = overwrite, ask = FALSE)
 
   if (inherits(plot, "magick-image")) {
     is_pkg_installed("magick")
@@ -131,15 +140,19 @@ ggsave_ext <- function(plot = last_plot(),
   )
 
   if (exif) {
-    sfext::write_exif(
+    filenamr::write_exif(
       path = filename,
-      filetype = filetype,
+      fileext = filetype,
       title = title,
       author = author,
       keywords = keywords,
       date = NULL,
       args = args
     )
+  }
+
+  if (preview) {
+    system2("open", filename)
   }
 }
 
@@ -198,12 +211,36 @@ ggsave_social <- function(plot = last_plot(),
 #'   [layer_inset()] function.
 #' @export
 #' @importFrom purrr map
-map_ggsave_ext <- function(plot, single_file = TRUE, ..., filename = NULL, filetype = "jpeg", postfix = "pg_") {
-  stopifnot(
-    is.list(plot)
+map_ggsave_ext <- function(plot,
+                           name = NULL,
+                           label = NULL,
+                           prefix = NULL,
+                           postfix = "pg_",
+                           filename = NULL,
+                           device = NULL,
+                           filetype = NULL,
+                           path = NULL,
+                           overwrite = TRUE,
+                           ...,
+                           single_file = TRUE) {
+  cli_abort_ifnot(
+    "{.arg plot} must be a list object.",
+    condition = is.list(plot)
   )
 
-  if (single_file) {
+  filename <-
+    filenamr::make_filename(
+      name = name,
+      label = label,
+      filename = filename,
+      fileext = filetype,
+      path = NULL,
+      prefix = prefix
+    )
+
+  is_patchwork_plot <- !inherits(plot, "patchwork")
+
+  if (single_file && !is_patchwork_plot) {
     is_pkg_installed("gridExtra")
 
     plot <-
@@ -222,13 +259,58 @@ map_ggsave_ext <- function(plot, single_file = TRUE, ..., filename = NULL, filet
     return(invisible(NULL))
   }
 
+  path <- path %||% getwd()
+
+  if (has_fileext(filename, "pdf") && single_file) {
+    is_pkg_installed("qpdf")
+    is_pkg_installed("fs")
+
+    path <- file.path(path, "ggsave_ext_single_file_temp")
+
+    if (fs::dir_exists(path)) {
+      fs::dir_delete(path)
+    } else {
+      fs::dir_create(path)
+    }
+
+  } else if (single_file) {
+    cli_warn("{.arg single_file} can't be used with patchwork plots unless saving a pdf file.")
+    single_file <- FALSE
+  }
+
+  postfixes <- NULL
   for (pg in seq(plot)) {
+    pg_postfix <- glue("{postfix}{pg}")
+
     ggsave_ext(
       plot = plot[[pg]],
-      postfix = glue("{postfix}{pg}"),
+      postfix = pg_postfix,
       filename = filename,
-      filetype = filetype,
+      path = path,
       ...
     )
   }
+
+  if (!single_file) {
+    return(invisible(NULL))
+  }
+  input <-
+    list.files(
+      path = path,
+      pattern = "*.pdf"
+    )
+
+  filenamr::check_file_overwrite(
+    filename = filename,
+    path = path,
+    overwrite = overwrite,
+    ask = FALSE
+  )
+
+  qpdf::pdf_combine(
+    input = input,
+    output = filename
+  )
+
+  fs::dir_delete(path)
 }

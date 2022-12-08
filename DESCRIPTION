@@ -17,6 +17,7 @@ Depends:
 Imports: 
     cli,
     dplyr,
+    filenamr (>= 0.1.0),
     getdata (>= 0.1.0),
     ggplot2,
     glue,
@@ -46,11 +47,12 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     vdiffr
-Remotes: 
+Remotes:  
     coolbutuseless/ggsvg,
     elipousson/getdata,
     elipousson/sfext,
-    mrcaseb/ggpath
+    mrcaseb/ggpath,
+    elipousson/filenamr
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8

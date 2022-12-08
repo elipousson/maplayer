@@ -14,7 +14,7 @@ utils::globalVariables(
 )
 
 # @staticimports pkg:isstatic
-#   has_filetype is_any_null
+#   has_fileext is_any_null
 
 
 #' Group data by column if present
@@ -129,13 +129,14 @@ is_geom_pkg_installed <- function(geom) {
 check_file_overwrite <- function(filename = NULL,
                                  path = NULL,
                                  overwrite = TRUE,
+                                 quiet = FALSE,
                                  ask = TRUE,
                                  call = caller_env()) {
   filename <- filename %||% basename(path)
   filepath <- filename
 
   if (!is.null(path)) {
-    if (has_filetype(path) && is.null(filename)) {
+    if (has_fileext(path) && is.null(filename)) {
       filepath <- path
       path <- dirname(path)
     } else {
@@ -145,7 +146,7 @@ check_file_overwrite <- function(filename = NULL,
 
   cli_abort_ifnot(
     "{.arg filename} or {.arg path} must include a valid file type.",
-    condition = has_filetype(filepath),
+    condition = has_fileext(filepath),
     call = call
   )
 

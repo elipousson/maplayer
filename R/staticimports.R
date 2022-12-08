@@ -3,26 +3,27 @@
 # Imported from pkg:isstatic
 # ======================================================================
 
-#' Does string contain a filetype or the specified filetype?
+#' Does string contain the specified file type or any file extension?
 #'
 #' Check if string contains any filetype or the provided filetype. If string is
 #' `NULL`, returns `FALSE`.
 #'
 #' @param string String to be tested with or without filetype. Defaults to
 #'   `NULL`.
-#' @param filetype File type to test against. Optional.
+#' @param fileext File type to test against. Optional.
 #' @param ignore.case If `FALSE`, the pattern matching is case sensitive. If
 #'   `TRUE`, case is ignored.
 #' @noRd
-has_filetype <- function(string = NULL, filetype = NULL, ignore.case = FALSE) {
+has_fileext <- function(string = NULL, fileext = NULL, ignore.case = FALSE) {
   if (is.null(string)) {
     return(FALSE)
   }
 
-  if (is.null(filetype)) {
-    filetype <- "[a-zA-Z0-9]+"
+  if (is.null(fileext)) {
+    fileext <- "[a-zA-Z0-9]+"
   }
-  grepl(paste0("\\.", filetype, "$(?!\\.)"), string, ignore.case, perl = TRUE)
+
+  is_fileext_path(string, fileext, ignore.case)
 }
 
 #' Do any items in a list or vector return TRUE from a predicate function?
@@ -30,8 +31,8 @@ has_filetype <- function(string = NULL, filetype = NULL, ignore.case = FALSE) {
 #' @param x A list or vector passed to [vapply()].
 #' @param FUN Function passed to FUN parameter of [vapply()].
 #' @noRd
-is_any <- function(x, FUN) {
-  any(vapply(x, FUN, FUN.VALUE = TRUE))
+is_any <- function(x, FUN, ...) {
+  any(vapply(x, FUN, FUN.VALUE = TRUE, ...))
 }
 
 #' Is any item in a list or vector a NULL value?
@@ -40,4 +41,14 @@ is_any <- function(x, FUN) {
 #' @noRd
 is_any_null <- function(x) {
   is_any(x, is.null)
+}
+
+#' Is this a file path or url ending in the specified file extension?
+#'
+#' @noRd
+is_fileext_path <- function(x, fileext, ignore.case = TRUE) {
+  grepl(
+    paste0("\\.", paste0(fileext, collapse = "|"), "$(?!\\.)"),
+    x, ignore.case = ignore.case, perl = TRUE
+  )
 }
