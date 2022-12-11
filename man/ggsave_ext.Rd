@@ -31,6 +31,8 @@ ggsave_ext(
   keywords = NULL,
   args = NULL,
   overwrite = TRUE,
+  ask = FALSE,
+  preview = FALSE,
   ...
 )
 
@@ -52,11 +54,17 @@ ggsave_social(
 
 map_ggsave_ext(
   plot,
-  single_file = TRUE,
-  ...,
+  name = NULL,
+  label = NULL,
+  prefix = NULL,
+  postfix = "pg_",
   filename = NULL,
-  filetype = "jpeg",
-  postfix = "pg_"
+  device = NULL,
+  filetype = NULL,
+  path = NULL,
+  overwrite = TRUE,
+  ...,
+  single_file = TRUE
 )
 }
 \arguments{
@@ -65,7 +73,7 @@ map_ggsave_ext(
 \code{\link[magick:image_ggplot]{magick::image_ggplot()}}}
 
 \item{name}{Plot name, used to create filename (if filename is \code{NULL}) using
-\code{\link[sfext:make_filename]{sfext::make_filename()}}}
+\code{\link[filenamr:make_filename]{filenamr::make_filename()}}}
 
 \item{label}{Label to combine with name converted to snake case with
 \code{\link[janitor:make_clean_names]{janitor::make_clean_names()}}. The label is designed to identify the area
@@ -82,7 +90,7 @@ date/time prefix; defaults to \code{NULL}.}
 (e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 
-\item{filetype}{File type or extension.}
+\item{filetype}{The file extension or file type; defaults to \code{NULL}.}
 
 \item{path}{Path of the directory to save plot to: \code{path} and \code{filename}
 are combined to create the fully qualified file name. Defaults to the
@@ -121,8 +129,15 @@ Default: \code{NULL}.}
 is not \code{NULL}, title, author, date, and keywords are ignored; defaults to
 \code{NULL}.}
 
-\item{overwrite}{If \code{TRUE}, overwrite any existing file with the same name
-without asking.}
+\item{overwrite}{If \code{TRUE} (default), overwrite any existing file with the
+same name or ask to overwrite if \code{ask = TRUE}. Passed to
+\code{\link[filenamr:check_file_overwrite]{filenamr::check_file_overwrite()}}.}
+
+\item{ask}{If \code{TRUE}, ask before overwriting file with the same name.
+Defaults to \code{FALSE}. Passed to \code{\link[filenamr:check_file_overwrite]{filenamr::check_file_overwrite()}}.}
+
+\item{preview}{If \code{TRUE}, open saved file in default system application.
+Based on \code{\link[tjmisc:ggpreview]{tjmisc::ggpreview()}}.}
 
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:ggsave]{ggplot2::ggsave}}

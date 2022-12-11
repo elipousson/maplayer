@@ -27,8 +27,11 @@
 #'   theme element.
 #' @param exif If `TRUE`, the EXIF metadata for the exported file is updated
 #'   with the exifr package; defaults to `FALSE`.
-#' @param overwrite If `TRUE`, overwrite any existing file with the same name
-#'   without asking.
+#' @param overwrite If `TRUE` (default), overwrite any existing file with the
+#'   same name or ask to overwrite if `ask = TRUE`. Passed to
+#'   [filenamr::check_file_overwrite()].
+#' @param ask If `TRUE`, ask before overwriting file with the same name.
+#'   Defaults to `FALSE`. Passed to [filenamr::check_file_overwrite()].
 #' @inheritParams sfext::write_exif
 #' @param preview If `TRUE`, open saved file in default system application.
 #'   Based on [tjmisc::ggpreview()].
@@ -66,6 +69,7 @@ ggsave_ext <- function(plot = last_plot(),
                        keywords = NULL,
                        args = NULL,
                        overwrite = TRUE,
+                       ask = FALSE,
                        preview = FALSE,
                        ...) {
   if (!is.null(paper)) {
@@ -81,8 +85,8 @@ ggsave_ext <- function(plot = last_plot(),
       condition = !is.null(width) | !is.null(height)
     )
 
-    height <- height %||% width * asp
-    width <- width  %||% height / asp
+    height <- height %||% width / asp
+    width <- width  %||% height * asp
   }
 
   cli_abort_ifnot(
@@ -112,7 +116,11 @@ ggsave_ext <- function(plot = last_plot(),
       postfix = postfix
     )
 
-  filenamr::check_file_overwrite(filename = filename, overwrite = overwrite, ask = FALSE)
+  filenamr::check_file_overwrite(
+    filename = filename,
+    overwrite = overwrite,
+    ask = ask
+    )
 
   if (inherits(plot, "magick-image")) {
     is_pkg_installed("magick")
