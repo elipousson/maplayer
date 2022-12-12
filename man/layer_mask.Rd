@@ -2,6 +2,7 @@
 % Please edit documentation in R/layer_mask.R
 \name{layer_mask}
 \alias{layer_mask}
+\alias{set_mask}
 \title{Create a mask layer based on a simple feature object}
 \usage{
 layer_mask(
@@ -19,11 +20,14 @@ layer_mask(
   expand = TRUE,
   ...
 )
+
+set_mask(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...)
 }
 \arguments{
 \item{data}{\code{sf}, \code{sfc}, or \code{bbox} object. If dist, diag_ratio, and/or asp
 are provided, data is adjusted to set the boundaries of the mask. If data
-is not provided, \code{mask} is required.}
+is not provided, \code{mask} is required. If data is \code{NA}, mask is continuous
+otherwise the data is erased from the mask area.}
 
 \item{dist}{buffer distance in units. Optional.}
 
@@ -50,7 +54,7 @@ without modification.}
 
 \item{alpha}{mask alpha/transparency; defaults to 0.5}
 
-\item{mask}{A \code{sf} or \code{bbox} object to define the edge of the mask.
+\item{mask}{A \code{sf}, \code{sfc}, or \code{bbox} object to define the mask area.
 \code{diag_ratio}, \code{dist}, and \code{asp} parameters are ignored if a \code{mask} is
 provided. defaults to \code{NULL}}
 
@@ -68,10 +72,15 @@ the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
 \item{...}{Additional parameters to pass to \code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}}
+
+\item{x}{An object \code{sf}, \code{bbox}, \code{sfc}, \code{raster}, or \code{sp} object or a
+\code{data.frame} that can be converted to an \code{sf} object or a list of \code{sf},
+\code{bbox}, or \code{sfc} objects. \code{\link[sfext:st_bbox_asp]{st_bbox_asp()}} also supports vectors in the same
+format as a \code{bbox} object.}
 }
 \value{
 \code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}} function.
 }
 \description{
-Returns a mask for an area or areas as a simple feature object.
+Returns a mask for an area or areas as a simple feature object. \code{neatline = TRUE} only works for this layer if data is passed directly; not inherited.
 }

@@ -1,15 +1,17 @@
 #' Create a mask layer based on a simple feature object
 #'
-#' Returns a mask for an area or areas as a simple feature object.
+#' Returns a mask for an area or areas as a simple feature object. `neatline =
+#' TRUE` only works for this layer if data is passed directly; not inherited.
 #'
 #' @param data `sf`, `sfc`, or `bbox` object. If dist, diag_ratio, and/or asp
 #'   are provided, data is adjusted to set the boundaries of the mask. If data
-#'   is not provided, `mask` is required.
+#'   is not provided, `mask` is required. If data is `NA`, mask is continuous
+#'   otherwise the data is erased from the mask area.
 #' @inheritParams sfext::st_bbox_ext
 #' @param fill mask fill color; defaults to "white"
 #' @param color mask edge color; defaults to `NA`
 #' @param alpha mask alpha/transparency; defaults to 0.5
-#' @param mask A `sf` or `bbox` object to define the edge of the mask.
+#' @param mask A `sf`, `sfc`, or `bbox` object to define the mask area.
 #'   `diag_ratio`, `dist`, and `asp` parameters are ignored if a `mask` is
 #'   provided. defaults to `NULL`
 #' @inheritParams layer_neatline
@@ -31,90 +33,169 @@ layer_mask <- function(data = NULL,
                        neatline = FALSE,
                        expand = TRUE,
                        ...) {
-  # Check if mask is provided
-  if (is.null(mask)) {
-    # Get adjusted bbox
-    mask <-
-      st_bbox_ext(
-        x = data,
+  mask_layer <-
+    ggplot2::layer_sf(
+      geom = ggplot2::GeomSf,
+      stat = "sf",
+      data = make_mask_data(
+        data,
         dist = dist,
         diag_ratio = diag_ratio,
         unit = unit,
         asp = asp,
         crs = crs,
-        class = "sf"
+        mask = mask
+      ),
+      position = "identity",
+      params = list(
+        fill = fill,
+        color = color,
+        alpha = alpha,
+        ...
       )
-  } else {
-    # Convert mask to sf if needed
-    mask <- sfext::as_sf(mask)
-  }
-
-  if (!is.null(data)) {
-    # Erase data from mask
-    data <- sfext::st_transform_ext(data, crs, class = "sf")
-    mask <- sfext::st_erase(x = mask, y = data)
-  }
-
-  # Create mask layer
-  mask_layer <-
-    layer_location_data(
-      data = mask,
-      geom = "sf",
-      fill = fill,
-      color = color,
-      alpha = alpha,
-      ...
     )
 
   if (!neatline) {
     return(mask_layer)
   }
 
-  if (all(vapply(c(dist, diag_ratio, asp), is.null, TRUE))) {
-    neatline_data <- mask
-  } else {
-    neatline_data <- data
-  }
-
-  set_neatline(
+  set_mask_neatline(
     mask_layer,
-    data = neatline_data,
+    data = data,
     dist = dist,
     diag_ratio = diag_ratio,
     unit = unit,
     asp = asp,
     crs = crs,
+    mask = mask,
     expand = expand
   )
 }
 
 #' @noRd
+set_mask_neatline <- function(mask_layer,
+                              data = NULL,
+                              dist = NULL,
+                              diag_ratio = NULL,
+                              unit = NULL,
+                              asp = NULL,
+                              crs = getOption("maplayer.crs", default = 3857),
+                              mask = NULL,
+                              expand = TRUE) {
+  if (all(vapply(c(dist, diag_ratio, asp), is.null, TRUE)) && !is.null(mask)) {
+    set_neatline(
+      mask_layer,
+      data = mask,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp,
+      crs = crs,
+      expand = expand
+    )
+  } else if (!is.null(data)) {
+    set_neatline(
+      mask_layer,
+      data = data,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp,
+      crs = crs,
+      expand = expand
+    )
+  }
+}
+
+#' Make mask data to pass to layer_sf
+#'
+#' @noRd
+#' @importFrom sfext check_sf st_erase
+#' @importFrom cliExtras cli_warn_ifnot
+make_mask_data <- function(data = NULL,
+                           dist = NULL,
+                           diag_ratio = NULL,
+                           unit = NULL,
+                           asp = NULL,
+                           crs = getOption("maplayer.crs", default = 3857),
+                           mask = NULL) {
+  if (is.null(data)) {
+    return(
+      function(x) {
+        make_mask_data(
+          x,
+          dist = dist,
+          diag_ratio = diag_ratio,
+          unit = unit,
+          asp = asp,
+          crs = crs,
+          mask = mask
+        )
+      }
+    )
+  }
+
+  if (!is.null(mask)) {
+    sfext::check_sf(mask, null.ok = TRUE, ext = TRUE)
+    cliExtras::cli_warn_ifnot(
+      "{.arg {c('dist', 'diag_ratio', 'asp')}} are ignored when
+      {.arg mask} is provided.",
+      condition = is_all_null(c(dist, diag_ratio, asp))
+    )
+  }
+
+  # Get adjusted bbox if mask is not provided
+  mask <-
+    mask %||%
+    st_bbox_ext(
+      x = data,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp,
+      crs = crs,
+      class = "sf"
+    )
+
+  if (!all(is.na(data))) {
+    sfext::st_erase(x = mask, y = data)
+  } else {
+    mask
+  }
+}
+
+#' @name set_mask
+#' @rdname layer_mask
+#' @export
+#' @importFrom dplyr case_when
+#' @importFrom rlang is_logical
+#' @importFrom cli cli_abort
+#' @importFrom ggplot2 is.ggplot
 set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
   type <-
     dplyr::case_when(
-      is_sf(mask, ext = TRUE) ~ "sf",
       rlang::is_logical(mask) && mask && !is.null(data) ~ "lgl_true",
       rlang::is_logical(mask) && !mask ~ "lgl_false",
+      is_sf(mask, ext = TRUE) ~ "sf",
       is_gg(mask) ~ "gg",
       TRUE ~ NA_character_
     )
 
-  if (is.na(type)) {
-    cli::cli_abort(
-      c("{.arg mask} must be sf, logical, or ggproto object.",
-        "i" = "The class of the provided {.arg mask} is {class(mask)}."
-      )
-    )
-  }
+  cliExtras::cli_abort_ifnot(
+    c("{.arg mask} must be sf, logical, or ggproto object.",
+      "i" = "The class of the provided {.arg mask} is {class(mask)}."
+    ),
+    condition = !is.na(type)
+  )
 
   mask_layer <-
     switch(type,
+      "lgl_false" = x,
       "lgl_true" = layer_mask(
         data = data,
         crs = crs,
         ...
       ),
-      "lgl_false" = x,
       "sf" = layer_mask(
         data = mask,
         crs = crs,
@@ -124,13 +205,14 @@ set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
     )
 
   if (is.null(x) | (type == "lgl_false")) {
-    mask_layer
-  } else if (ggplot2::is.ggplot(x)) {
-    x + mask_layer
-  } else if (is_gg(x)) {
-    c(
-      x,
-      mask_layer
-    )
+    return(mask_layer)
+  }
+
+  if (ggplot2::is.ggplot(x)) {
+    return(x + mask_layer)
+  }
+
+  if (is_gg(x)) {
+    return(c(x, mask_layer))
   }
 }
