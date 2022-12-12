@@ -44,14 +44,14 @@ stamp_inset_img(
 )
 }
 \arguments{
-\item{inset}{plot or map created with \link{ggplot2} passed to p argument of
-\link[patchwork:inset_element]{patchwork::inset_element}. If both location and context are provided to
-\link{make_inset_map}, inset is optional and any provided value is replaced with
-a new layer created by \link{layer_location_context}.}
+\item{inset}{plot or map created with \code{\link[=ggplot2]{ggplot2()}} passed to p argument of
+\code{\link[patchwork:inset_element]{patchwork::inset_element()}}. If both location and context are provided to
+\code{\link[=make_inset_map]{make_inset_map()}}, inset is optional and any provided value is replaced with
+a new layer created by \code{\link[=layer_location_context]{layer_location_context()}}.}
 
 \item{position}{inset map position, Default: 'bottomright'. position,
 nudge_x, and nudge_y are used to set the left, bottom, top, and right
-parameters for \link[patchwork:inset_element]{patchwork::inset_element}.}
+parameters for \code{\link[patchwork:inset_element]{patchwork::inset_element()}}.}
 
 \item{scale}{scale of inset map, defaults to 1.}
 
@@ -81,27 +81,27 @@ function and the results used as the data for the location layer.}
 \item{context}{A \code{sf} object for context area or a ggplot layer representing
 the context.}
 
-\item{path}{image path passed to \link[figpatch:fig]{figpatch::fig} for \link{stamp_inset_img}}
+\item{path}{image path passed to \code{\link[figpatch:fig]{figpatch::fig()}} for \code{\link[=stamp_inset_img]{stamp_inset_img()}}}
 
-\item{plot, map}{plot or map created with \link{ggplot2}}
+\item{plot, map}{plot or map created with \code{\link[=ggplot2]{ggplot2()}}}
 
-\item{img_margin}{margin around image for \link{stamp_inset_img} created by
-\link[ggplot2:element]{ggplot2::margin}. Defaults to no margin.}
+\item{img_margin}{margin around image for \code{\link[=stamp_inset_img]{stamp_inset_img()}} created by
+\code{\link[ggplot2:element]{ggplot2::margin()}}. Defaults to no margin.}
 }
 \value{
 ggplot2 map with inset map added using patchwork
 }
 \description{
-\link{layer_inset} is useful when you want to add an inset to a plot.
+\code{\link[=layer_inset]{layer_inset()}} is useful when you want to add an inset to a plot.
 }
 \details{
-\link{make_inset_map} is useful for creating an inset map just using the location
+\code{\link[=make_inset_map]{make_inset_map()}} is useful for creating an inset map just using the location
 with fewer options for customization. In that case, the ... parameters are
-passed to \link{layer_location_context} instead of \link[patchwork:inset_element]{patchwork::inset_element}
+passed to \code{\link[=layer_location_context]{layer_location_context()}} instead of \code{\link[patchwork:inset_element]{patchwork::inset_element()}}
 
-\link{stamp_inset_img} is useful for applying a logo to a map. The ... parameters
-are passed to \link[figpatch:fig]{figpatch::fig}
+\code{\link[=stamp_inset_img]{stamp_inset_img()}} is useful for applying a logo to a map. The ... parameters
+are passed to \code{\link[figpatch:fig]{figpatch::fig()}}
 
-Note, currently, plots created with \link{layer_inset} do not work with
-\link{map_ggsave_ext} using the \code{single_file = TRUE} parameter.
+Note, currently, plots created with \code{\link[=layer_inset]{layer_inset()}} do not work with
+\code{\link[=map_ggsave_ext]{map_ggsave_ext()}} using the \code{single_file = TRUE} parameter.
 }

@@ -43,7 +43,7 @@ package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area
 "sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
 \item{location}{sf object. If multiple areas are provided, they are unioned
-into a single sf object using \link[sf:geos_combine]{sf::st_union}}
+into a single sf object using \code{\link[sf:geos_combine]{sf::st_union()}}}
 
 \item{dist}{buffer distance in units. Optional.}
 
@@ -61,8 +61,9 @@ without modification.}
 
 \item{package}{Name of the package to search for data.}
 
-\item{filetype}{File type to use if passing parameters to \link[sfext:read_sf_ext]{sfext::read_sf_download}
-or \link[sfext:read_sf_ext]{sfext::read_sf_pkg} (required for extdata and cached data).}
+\item{filetype}{File type to use if passing parameters to
+\code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for extdata
+and cached data).}
 
 \item{fn}{Function to apply to data after filtering by location but before
 returning from function.}

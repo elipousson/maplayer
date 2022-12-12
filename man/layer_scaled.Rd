@@ -20,8 +20,8 @@ layer_scaled(
 \arguments{
 \item{data}{A \code{sf}, \code{sfc}, or \code{bbox} class object.}
 
-\item{dist}{distance to convert. If paper is provided, paper width and height
-are used as dist.}
+\item{dist}{distance to convert. If paper is provided, dist is optional and
+paper width and height are used as dist.}
 
 \item{diag_ratio}{ratio of diagonal distance of area's bounding box used as
 buffer distance. e.g. if the diagonal distance is 3000 meters and the

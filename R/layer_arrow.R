@@ -29,7 +29,6 @@ layer_arrow <- function(mapping = NULL,
                         to,
                         geom = "segment",
                         ...) {
-
   if (!is_fn(geom)) {
     geom <-
       rlang::arg_match(
@@ -45,11 +44,11 @@ layer_arrow <- function(mapping = NULL,
 
     geom <-
       switch(geom,
-             "segment" = ggplot2::geom_segment,
-             "curve" = ggplot2::geom_curve,
-             "arrowsegment" = ggarchery::geom_arrowsegment,
-             "diagonal0" = ggforce::geom_diagonal0,
-             "link" = ggforce::geom_link
+        "segment" = ggplot2::geom_segment,
+        "curve" = ggplot2::geom_curve,
+        "arrowsegment" = ggarchery::geom_arrowsegment,
+        "diagonal0" = ggforce::geom_diagonal0,
+        "link" = ggforce::geom_link
       )
   }
 

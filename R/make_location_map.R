@@ -34,7 +34,8 @@ make_basemap <- function(x, basemap = FALSE) {
     )
   }
 
-  ggplot2::ggplot() + c(basemap, x)
+  ggplot2::ggplot() +
+    c(basemap, x)
 }
 
 #' Make a ggplot map using layer_location_data

@@ -16,7 +16,7 @@ layer_frame(
   rotate = 0,
   inscribed = FALSE,
   color = "black",
-  linewidth = 1,
+  linewidth = 0.5,
   linetype = "solid",
   fill = "white",
   neatline = TRUE,
@@ -93,7 +93,7 @@ If a \strong{ggplot}, add x to basemap object.
 If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
 and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{union}{If \code{TRUE}, pass data to \link[sf:geos_combine]{sf::st_union} before buffering and
+\item{union}{If \code{TRUE}, pass data to \code{\link[sf:geos_combine]{sf::st_union()}} before buffering and
 creating frame; defaults to \code{TRUE}.}
 
 \item{by_feature}{If \code{TRUE}, create a frame around each feature. If \code{FALSE}
@@ -115,9 +115,10 @@ using default parameters. smooth_params is ignored if data is \code{NULL}
 \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}}. If \code{TRUE}, apply \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} to the layer
 using default parameters. shadow_params is ignored if layer_fn is provided.}
     \item{\code{location}}{sf object. If multiple areas are provided, they are unioned
-into a single sf object using \link[sf:geos_combine]{sf::st_union}}
-    \item{\code{filetype}}{File type to use if passing parameters to \link[sfext:read_sf_ext]{sfext::read_sf_download}
-or \link[sfext:read_sf_ext]{sfext::read_sf_pkg} (required for extdata and cached data).}
+into a single sf object using \code{\link[sf:geos_combine]{sf::st_union()}}}
+    \item{\code{filetype}}{File type to use if passing parameters to
+\code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for extdata
+and cached data).}
     \item{\code{fn}}{Function to apply to data after filtering by location but before
 returning from function.}
     \item{\code{crop}}{If \code{TRUE}, x is cropped to y using \code{\link[sf:st_crop]{sf::st_crop()}}.}
@@ -139,20 +140,21 @@ meters.}
 Create a circle or square that can be used as a frame around a simple feature
 object using fixed aesthetics for fill, color, size, and linetype. This
 function is helpful for the background of an inset map intended for use with
-\link{layer_inset}.
+\code{\link[=layer_inset]{layer_inset()}}.
 }
 \details{
-The \link{make_frame} helper function calls \link[sfext:st_misc]{sfext::st_circle} (if \code{style = "circle"}), \link[sfext:st_misc]{sfext::st_square}  (if \code{style = "square"}), \link[sfext:st_bbox_ext]{sfext::st_bbox_ext}
-(if \code{style = "rect"}), or \link[sfext:st_buffer_ext]{sfext::st_buffer_ext} (if \code{style = "none"}).
+The \code{\link[=make_frame]{make_frame()}} helper function calls \code{\link[sfext:st_misc]{sfext::st_circle()}} (if \code{style = "circle"}), \code{\link[sfext:st_misc]{sfext::st_square()}}  (if \code{style = "square"}),
+\code{\link[sfext:st_bbox_ext]{sfext::st_bbox_ext()}} (if \code{style = "rect"}), or \code{\link[sfext:st_buffer_ext]{sfext::st_buffer_ext()}} (if
+\code{style = "none"}).
 
-If neatline is \code{TRUE}, \link{layer_frame} returns a list of two geoms, the second
-a \link{layer_neatline} layer created using the frame object as the data and the
-parameters \code{bgcolor = "none"} and \code{color = "none"}. asp is set to 1 if style is
-"circle" or "square" or the provided asp value otherwise.
+If neatline is \code{TRUE}, \code{\link[=layer_frame]{layer_frame()}} returns a list of two geoms, the
+second a \code{\link[=layer_neatline]{layer_neatline()}} layer created using the frame object as the data
+and the parameters \code{bgcolor = "none"} and \code{color = "none"}. asp is set to 1
+if style is "circle" or "square" or the provided asp value otherwise.
 
 Additional parameters passed through ... can include additional fixed
 aesthetics (e.g. alpha). If using the fn parameter, the function is applied
-to the frame simple feature object created by \link{make_frame} (not to the
+to the frame simple feature object created by \code{\link[=make_frame]{make_frame()}} (not to the
 original input data).
 }
 \examples{

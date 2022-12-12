@@ -30,7 +30,7 @@ layer_location(
   asp = NULL,
   mask = FALSE,
   neatline = FALSE,
-  smooth_params = TRUE,
+  smooth_params = NULL,
   shadow_params = NULL,
   ...
 )
@@ -105,7 +105,7 @@ provided.}
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
 
-\item{mask}{A \code{sf} or \code{bbox} object to define the edge of the mask.
+\item{mask}{A \code{sf}, \code{sfc}, or \code{bbox} object to define the mask area.
 \code{diag_ratio}, \code{dist}, and \code{asp} parameters are ignored if a \code{mask} is
 provided. defaults to \code{NULL}}
 

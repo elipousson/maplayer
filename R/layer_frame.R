@@ -3,20 +3,21 @@
 #' Create a circle or square that can be used as a frame around a simple feature
 #' object using fixed aesthetics for fill, color, size, and linetype. This
 #' function is helpful for the background of an inset map intended for use with
-#' [layer_inset].
+#' [layer_inset()].
 #'
-#' The [make_frame] helper function calls [sfext::st_circle] (if `style =
-#' "circle"`), [sfext::st_square]  (if `style = "square"`), [sfext::st_bbox_ext]
-#' (if `style = "rect"`), or [sfext::st_buffer_ext] (if `style = "none"`).
+#' The [make_frame()] helper function calls [sfext::st_circle()] (if `style =
+#' "circle"`), [sfext::st_square()]  (if `style = "square"`),
+#' [sfext::st_bbox_ext()] (if `style = "rect"`), or [sfext::st_buffer_ext()] (if
+#' `style = "none"`).
 #'
-#' If neatline is `TRUE`, [layer_frame] returns a list of two geoms, the second
-#' a [layer_neatline] layer created using the frame object as the data and the
-#' parameters `bgcolor = "none"` and `color = "none"`. asp is set to 1 if style is
-#' "circle" or "square" or the provided asp value otherwise.
+#' If neatline is `TRUE`, [layer_frame()] returns a list of two geoms, the
+#' second a [layer_neatline()] layer created using the frame object as the data
+#' and the parameters `bgcolor = "none"` and `color = "none"`. asp is set to 1
+#' if style is "circle" or "square" or the provided asp value otherwise.
 #'
 #' Additional parameters passed through ... can include additional fixed
 #' aesthetics (e.g. alpha). If using the fn parameter, the function is applied
-#' to the frame simple feature object created by [make_frame] (not to the
+#' to the frame simple feature object created by [make_frame()] (not to the
 #' original input data).
 #'
 #' @param data,x A `sf`, `sfc`, or `bbox` object to create the frame around.
@@ -24,7 +25,7 @@
 #'   "buffer", or "none". If style is "buffer", the asp parameter is ignored. If
 #'   style is "none", the dist, diag_ratio, and asp parameters are ignored and
 #'   the input data is used as the frame.
-#' @param union If `TRUE`, pass data to [sf::st_union] before buffering and
+#' @param union If `TRUE`, pass data to [sf::st_union()] before buffering and
 #'   creating frame; defaults to `TRUE`.
 #' @inheritParams layer_neatline
 #' @inheritParams sfext::st_square
@@ -49,7 +50,7 @@ layer_frame <- function(data = NULL,
                         rotate = 0,
                         inscribed = FALSE,
                         color = "black",
-                        linewidth = 1,
+                        linewidth = 0.5,
                         linetype = "solid",
                         fill = "white",
                         neatline = TRUE,
@@ -186,8 +187,14 @@ make_frame <- function(x,
   }
 
   switch(style,
-    "circle" = sfext::st_circle(x, scale = scale, inscribed = inscribed, by_feature = by_feature, dTolerance = dTolerance),
-    "square" = sfext::st_square(x, scale = scale, rotate = rotate, by_feature = by_feature, inscribed = inscribed),
+    "circle" = sfext::st_circle(
+      x, scale = scale, inscribed = inscribed,
+      by_feature = by_feature, dTolerance = dTolerance
+      ),
+    "square" = sfext::st_square(
+      x, scale = scale, rotate = rotate,
+      by_feature = by_feature, inscribed = inscribed
+      ),
     "rect" = st_bbox_ext(x, asp = asp, class = "sf"),
     "buffer" = x
   )

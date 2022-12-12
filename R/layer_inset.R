@@ -1,31 +1,31 @@
 #' Use patchwork to create a map with an inset context map or figpatch to stamp
 #' an inset image
 #'
-#' [layer_inset] is useful when you want to add an inset to a plot.
+#' [layer_inset()] is useful when you want to add an inset to a plot.
 #'
-#' [make_inset_map] is useful for creating an inset map just using the location
+#' [make_inset_map()] is useful for creating an inset map just using the location
 #' with fewer options for customization. In that case, the ... parameters are
-#' passed to [layer_location_context] instead of [patchwork::inset_element]
+#' passed to [layer_location_context()] instead of [patchwork::inset_element()]
 #'
-#' [stamp_inset_img] is useful for applying a logo to a map. The ... parameters
-#' are passed to [figpatch::fig]
+#' [stamp_inset_img()] is useful for applying a logo to a map. The ... parameters
+#' are passed to [figpatch::fig()]
 #'
-#' Note, currently, plots created with [layer_inset] do not work with
-#' [map_ggsave_ext] using the `single_file = TRUE` parameter.
+#' Note, currently, plots created with [layer_inset()] do not work with
+#' [map_ggsave_ext()] using the `single_file = TRUE` parameter.
 #'
-#' @param inset plot or map created with [ggplot2] passed to p argument of
-#'   [patchwork::inset_element]. If both location and context are provided to
-#'   [make_inset_map], inset is optional and any provided value is replaced with
-#'   a new layer created by [layer_location_context].
-#' @param plot,map plot or map created with [ggplot2]
-#' @param path image path passed to [figpatch::fig] for [stamp_inset_img]
-#' @param img_margin margin around image for [stamp_inset_img] created by
-#'   [ggplot2::margin]. Defaults to no margin.
+#' @param inset plot or map created with [ggplot2()] passed to p argument of
+#'   [patchwork::inset_element()]. If both location and context are provided to
+#'   [make_inset_map()], inset is optional and any provided value is replaced with
+#'   a new layer created by [layer_location_context()].
+#' @param plot,map plot or map created with [ggplot2()]
+#' @param path image path passed to [figpatch::fig()] for [stamp_inset_img()]
+#' @param img_margin margin around image for [stamp_inset_img()] created by
+#'   [ggplot2::margin()]. Defaults to no margin.
 #' @inheritParams layer_location_context
 #' @param scale scale of inset map, defaults to 1.
 #' @param position inset map position, Default: 'bottomright'. position,
 #'   nudge_x, and nudge_y are used to set the left, bottom, top, and right
-#'   parameters for [patchwork::inset_element].
+#'   parameters for [patchwork::inset_element()].
 #' @param nudge_x,nudge_y nudge x and/or y position of inset map, Default: 0.
 #' @inheritParams patchwork::inset_element
 #' @inheritDotParams patchwork::inset_element

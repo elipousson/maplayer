@@ -48,7 +48,7 @@ layer_location <-
            asp = NULL,
            mask = FALSE,
            neatline = FALSE,
-           smooth_params = TRUE,
+           smooth_params = NULL,
            shadow_params = NULL,
            ...) {
     if (is.null(data) && (!is.null(type) | !is.null(index))) {
