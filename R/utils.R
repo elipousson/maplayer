@@ -14,8 +14,7 @@ utils::globalVariables(
 )
 
 # @staticimports pkg:isstatic
-#   has_fileext is_any_null
-
+#   has_fileext is_any_null is_all_null is_unit
 
 #' Group data by column if present
 #'
@@ -55,12 +54,13 @@ add_col <- function(data, col = NULL) {
 #' @noRd
 #' @importFrom dplyr rename
 #' @importFrom rlang has_name
+#' @importFrom cliExtras cli_yesno
 has_same_name_col <- function(x, col = NULL, prefix = "orig", ask = FALSE, quiet = FALSE) {
   if (rlang::has_name(x, col)) {
     new_col <- paste0(prefix, "_", col)
 
     if (ask && !quiet) {
-      if (!cli_yesno(
+      if (!cliExtras::cli_yesno(
         "The provided data includes an existing column named '{col}'.
       Do you want to proceed and rename this column to {new_col}?"
       )) {
@@ -119,64 +119,4 @@ is_geom_pkg_installed <- function(geom) {
   if (geom %in% ggpattern_geoms) {
     return(is_pkg_installed("ggpattern"))
   }
-}
-
-
-#' Check if a file exists and remove file or error
-#'
-#' @noRd
-#' @importFrom rlang caller_env is_interactive
-check_file_overwrite <- function(filename = NULL,
-                                 path = NULL,
-                                 overwrite = TRUE,
-                                 quiet = FALSE,
-                                 ask = TRUE,
-                                 call = caller_env()) {
-  filename <- filename %||% basename(path)
-  filepath <- filename
-
-  if (!is.null(path)) {
-    if (has_fileext(path) && is.null(filename)) {
-      filepath <- path
-      path <- dirname(path)
-    } else {
-      filepath <- file.path(path, filename)
-    }
-  }
-
-  cli_abort_ifnot(
-    "{.arg filename} or {.arg path} must include a valid file type.",
-    condition = has_fileext(filepath),
-    call = call
-  )
-
-  if (file.exists(filepath)) {
-    if (!overwrite && ask && rlang::is_interactive()) {
-      overwrite <-
-        cli_yesno(
-          c(
-            "i" = "A file with the same name exists in {.path {path}}",
-            ">" = "Do you want to overwrite {.val {filename}}?"
-          )
-        )
-    }
-
-    cli_abort_ifnot(
-      c(
-        "!" = "{.file {filename}} can't be saved.",
-        "i" = "A file with the same name already exists.
-        Set {.code overwrite = TRUE} to remove."
-      ),
-      condition = overwrite,
-      call = call
-    )
-
-    cli_inform(
-      c("v" = "Removing {.path {filepath}}")
-    )
-
-    file.remove(filepath)
-  }
-
-  invisible(NULL)
 }

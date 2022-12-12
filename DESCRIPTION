@@ -16,6 +16,7 @@ Depends:
     R (>= 2.10)
 Imports: 
     cli,
+    cliExtras (>= 0.1.0),
     dplyr,
     filenamr (>= 0.1.0),
     getdata (>= 0.1.0),
@@ -52,7 +53,8 @@ Remotes:
     elipousson/getdata,
     elipousson/sfext,
     mrcaseb/ggpath,
-    elipousson/filenamr
+    elipousson/filenamr,
+    elipousson/cliExtras
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8

@@ -19,7 +19,7 @@ is_fn <- function(x) {
 #'
 #' @inheritParams cli::cli_abort
 #' @noRd
-#' @importFrom rlang is_function is_formula as_function
+#' @importFrom rlang is_function is_formula as_function caller_env caller_arg
 make_fn <- function(fn, ..., arg = caller_arg(fn), call = caller_env()) {
   if (rlang::is_function(fn)) {
     return(fn)
@@ -60,7 +60,7 @@ use_fn <- function(x = NULL, fn = NULL, ..., arg = caller_arg(fn), call = caller
 #' @param param Parameters to splice as additional arguments of function.
 #' @param pkg Package name passed to [is_pkg_installed]
 #' @noRd
-#' @importFrom rlang is_missing eval_tidy quo is_logical
+#' @importFrom rlang caller_arg caller_env is_missing eval_tidy quo is_logical
 eval_tidy_fn <- function(x, params = NULL, pkg = NULL, fn = NULL, arg = caller_arg(fn), call = caller_env()) {
   if (is.null(params) && !rlang::is_missing(x)) {
     return(x)
