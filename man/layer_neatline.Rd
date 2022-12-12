@@ -14,12 +14,24 @@ layer_neatline(
   asp = getOption("maplayer.asp"),
   crs = getOption("maplayer.crs"),
   color = "black",
-  bgcolor = "white",
   linewidth = 0.5,
   linetype = "solid",
+  bgcolor = "white",
   expand = TRUE,
   hide_grid = TRUE,
   label_axes = "----",
+  axis.title = NULL,
+  axis.text = NULL,
+  axis.ticks = NULL,
+  axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
+  axis.line = NULL,
+  panel.grid = NULL,
+  panel.grid.major = NULL,
+  panel.grid.minor = NULL,
+  panel.border = NULL,
+  panel.background = NULL,
+  plot.background = NULL,
+  plot.margin = NULL,
   ...
 )
 
@@ -50,12 +62,12 @@ in the first sf layer of the plot.}
 
 \item{color}{Color of panel border, Default: 'black'}
 
-\item{bgcolor}{Fill color of panel background; defaults to "white". If
-"none", panel background is set to \code{\link[ggplot2:element]{ggplot2::element_blank()}}}
-
 \item{linewidth}{Line width of panel border, Default: 0.5}
 
 \item{linetype}{Line type of panel border, Default: 'solid'}
+
+\item{bgcolor}{Fill color of panel background; defaults to "white". If
+"none", panel background is set to \code{\link[ggplot2:element]{ggplot2::element_blank()}}}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
@@ -64,10 +76,22 @@ limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 \item{hide_grid}{If \code{TRUE}, hide grid lines. Default: \code{TRUE}}
 
 \item{label_axes}{A description of which axes to label passed to
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes
-labels.}
+\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes labels.}
 
-\item{...}{Additional parameters to pass to \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.}
+\item{axis.title, axis.text, axis.ticks, axis.ticks.length, axis.line}{Theme
+elements passed as is if label_axes is anything other than "----".}
+
+\item{panel.grid, panel.grid.major, panel.grid.minor}{Passed as is if hide_grid
+is FALSE.}
+
+\item{panel.border, panel.background, plot.background, plot.margin}{panel.border
+is used as is if not NULL or \code{ggplot2::element_blank()} if it is NULL
+unless color is NA or "none". panel.background and plot.background are used
+as is or \code{ggplot2::element_blank()} if bg color is NA or "none".
+plot.margin is set to \code{ggplot2::margin(1, 1, 1, 1)} if \code{NULL} or
+\code{ggplot2::margin(0, 0, 0, 0)} if expand is \code{FALSE}.}
+
+\item{...}{Additional parameters passed to \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.}
 
 \item{x}{For \code{\link[=set_neatline]{set_neatline()}}, a \code{ggplot} class object, \code{ggproto} class
 object or list of \code{ggproto} objects to combine with neatline layer.}
@@ -80,6 +104,8 @@ object or list of \code{ggproto} objects to combine with neatline layer.}
 additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 \item If object from \code{\link[=layer_neatline]{layer_neatline()}}, add it as is.
 }}
+
+\item{default_margin}{Plot margin to use as default \code{ggplot2::margin(0, 0, 0, 0)} if \code{expand = FALSE}.}
 }
 \value{
 List of \link[ggplot2:ggsf]{ggplot2::coord_sf} and \link[ggplot2:theme]{ggplot2::theme} calls.

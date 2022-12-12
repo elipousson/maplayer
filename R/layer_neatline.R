@@ -1,25 +1,3 @@
-#' ggplot2 theme object used to help hide the grid in layer_neatline()
-#'
-#' @importFrom ggplot2 theme element_blank
-#' @noRd
-theme_hide_grid <- ggplot2::theme(
-  panel.grid = ggplot2::element_blank(),
-  panel.grid.major = ggplot2::element_blank(),
-  panel.grid.minor = ggplot2::element_blank()
-)
-
-#' ggplot2 theme object used to help hide axis in layer_neatline()
-#'
-#' @importFrom ggplot2 theme element_blank
-#' @noRd
-theme_hide_axis <- ggplot2::theme(
-  axis.title = ggplot2::element_blank(),
-  axis.text = ggplot2::element_blank(),
-  axis.ticks = ggplot2::element_blank(),
-  axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
-  axis.line = ggplot2::element_blank()
-)
-
 #' Set map limits to a bounding box with a buffer and set aspect ratio
 #'
 #' Set limits for a map to the bounding box of a feature using
@@ -35,9 +13,20 @@ theme_hide_axis <- ggplot2::theme(
 #' @param linetype Line type of panel border, Default: 'solid'
 #' @param hide_grid If `TRUE`, hide grid lines. Default: `TRUE`
 #' @param label_axes A description of which axes to label passed to
-#'   [ggplot2::coord_sf()]; defaults to '----' which hides all axes
-#'   labels.
-#' @param ... Additional parameters to pass to [ggplot2::coord_sf()].
+#'   [ggplot2::coord_sf()]; defaults to '----' which hides all axes labels.
+#' @param default_margin Plot margin to use as default `ggplot2::margin(0, 0, 0,
+#'   0)` if `expand = FALSE`.
+#' @param ... Additional parameters passed to [ggplot2::coord_sf()].
+#' @param axis.title,axis.text,axis.ticks,axis.ticks.length,axis.line Theme
+#'   elements passed as is if label_axes is anything other than "----".
+#' @param panel.grid,panel.grid.major,panel.grid.minor Passed as is if hide_grid
+#'   is FALSE.
+#' @param panel.border,panel.background,plot.background,plot.margin panel.border
+#'   is used as is if not NULL or `ggplot2::element_blank()` if it is NULL
+#'   unless color is NA or "none". panel.background and plot.background are used
+#'   as is or `ggplot2::element_blank()` if bg color is NA or "none".
+#'   plot.margin is set to `ggplot2::margin(1, 1, 1, 1)` if `NULL` or
+#'   `ggplot2::margin(0, 0, 0, 0)` if expand is `FALSE`.
 #' @inheritParams ggplot2::coord_sf
 #' @inheritParams sfext::st_bbox_ext
 #' @return List of [ggplot2::coord_sf] and [ggplot2::theme] calls.
@@ -55,18 +44,81 @@ layer_neatline <- function(data = NULL,
                            asp = getOption("maplayer.asp"),
                            crs = getOption("maplayer.crs"),
                            color = "black",
-                           bgcolor = "white",
                            linewidth = 0.5,
                            linetype = "solid",
+                           bgcolor = "white",
                            expand = TRUE,
                            hide_grid = TRUE,
                            label_axes = "----",
+                           axis.title = NULL,
+                           axis.text = NULL,
+                           axis.ticks = NULL,
+                           axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
+                           axis.line = NULL,
+                           panel.grid = NULL,
+                           panel.grid.major = NULL,
+                           panel.grid.minor = NULL,
+                           panel.border = NULL,
+                           panel.background = NULL,
+                           plot.background = NULL,
+                           plot.margin = NULL,
                            ...) {
+  xy_lims <- set_xy_lims(data, dist, diag_ratio, unit, asp, crs)
+
+  list(
+    # Set limits with adjustments using coord_sf
+    ggplot2::coord_sf(
+      xlim = xy_lims$xlim,
+      ylim = xy_lims$ylim,
+      expand = expand,
+      crs = crs,
+      label_axes = label_axes,
+      # Suppress warning about coordinate system being replaced
+      default = TRUE,
+      ...
+    ),
+    theme_grid(
+      hide_grid,
+      panel.grid = panel.grid,
+      panel.grid.major = panel.grid.major,
+      panel.grid.minor = panel.grid.minor
+    ),
+    theme_sf_axes(
+      label_axes,
+      axis.title = axis.title,
+      axis.text = axis.text,
+      axis.ticks = axis.ticks,
+      axis.ticks.length = axis.ticks.length,
+      axis.line = axis.line
+    ),
+    theme_background(
+      color,
+      linewidth,
+      linetype,
+      bgcolor,
+      expand,
+      panel.border = panel.border,
+      panel.background = panel.background,
+      plot.background = plot.background,
+      plot.margin = plot.margin
+    )
+  )
+}
+
+#' Set xlim and ylim based on data
+#'
+#' @noRd
+#' @importFrom sfext st_bbox_ext
+set_xy_lims <- function(data = NULL,
+                        dist = getOption("maplayer.dist"),
+                        diag_ratio = getOption("maplayer.diag_ratio"),
+                        unit = getOption("maplayer.unit", default = "meter"),
+                        asp = getOption("maplayer.asp"),
+                        crs = getOption("maplayer.crs")) {
   xlim <- NULL
   ylim <- NULL
 
   if (!is.null(data)) {
-    # Pass variables to bbox adjustment function
     bbox <-
       sfext::st_bbox_ext(
         x = data,
@@ -81,68 +133,109 @@ layer_neatline <- function(data = NULL,
     ylim <- c(bbox[["ymin"]], bbox[["ymax"]])
   }
 
-  # Set limits with adjustments using coord_sf
-  limits <-
-    list(
-      ggplot2::coord_sf(
-        xlim = xlim,
-        ylim = ylim,
-        expand = expand,
-        crs = crs,
-        label_axes = label_axes,
-        # Suppress warning about coordinate system being repplaced
-        default = TRUE,
-        ...
+  list(
+    "xlim" = xlim,
+    "ylim" = ylim
+  )
+}
+
+#' Set ggplot2 panel grid theme elements
+#'
+#' @importFrom ggplot2 theme element_blank
+#' @noRd
+theme_grid <- function(hide_grid = TRUE,
+                       panel.grid = NULL,
+                       panel.grid.major = NULL,
+                       panel.grid.minor = NULL) {
+  if (hide_grid) {
+    return(
+      ggplot2::theme(
+        panel.grid = ggplot2::element_blank(),
+        panel.grid.major = ggplot2::element_blank(),
+        panel.grid.minor = ggplot2::element_blank()
       )
     )
-
-  if (hide_grid) {
-    limits <-
-      c(
-        limits,
-        list(
-          theme_hide_grid
-        )
-      )
   }
 
+  ggplot2::theme(
+    panel.grid = panel.grid,
+    panel.grid.major = panel.grid.major,
+    panel.grid.minor = panel.grid.minor
+  )
+}
+
+#' Set ggplot2 axis theme elements based on label_axes parameter
+#'
+#' @noRd
+#' @importFrom ggplot2 theme element_blank unit
+theme_sf_axes <- function(label_axes = "----",
+                          axis.title = NULL,
+                          axis.text = NULL,
+                          axis.ticks = NULL,
+                          axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
+                          axis.line = NULL) {
   if (label_axes == "----") {
-    limits <-
-      c(
-        limits,
-        list(
-          theme_hide_axis
-        )
+    return(
+      ggplot2::theme(
+        axis.title = ggplot2::element_blank(),
+        axis.text = ggplot2::element_blank(),
+        axis.ticks = ggplot2::element_blank(),
+        axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
+        axis.line = ggplot2::element_blank()
       )
+    )
   }
 
-  panel_background <- ggplot2::element_blank()
-  plot_background <- ggplot2::element_blank()
+  ggplot2::theme(
+    axis.title = axis.title,
+    axis.text = axis.text,
+    axis.ticks = axis.ticks,
+    axis.ticks.length = axis.ticks.length,
+    axis.line = axis.line
+  )
+}
 
-  if (!is.na(bgcolor) && bgcolor != "none") {
-    panel_background <- ggplot2::element_rect(fill = bgcolor, color = bgcolor)
-    plot_background <- ggplot2::element_rect(fill = bgcolor, color = bgcolor)
-  }
+#' Set ggplot2 panel border, panel background, and plot background theme
+#' elements
+#'
+#' @noRd
+#' @importFrom ggplot2 theme element_blank element_rect
+theme_background <- function(color = "black",
+                             linewidth = 0.5,
+                             linetype = "solid",
+                             bgcolor = "white",
+                             expand = TRUE,
+                             plot.background = NULL,
+                             plot.margin = NULL,
+                             panel.border = NULL,
+                             panel.background = NULL) {
+  panel.border <- panel.border %||% ggplot2::element_blank()
+  panel.background <- panel.background %||% ggplot2::element_blank()
+  plot.background <- plot.background %||% ggplot2::element_blank()
+  plot.margin <- plot.margin %||% ggplot2::margin(1, 1, 1, 1)
 
-  if (is.na(color) || color == "none") {
-    panel_border <- ggplot2::element_blank()
-  } else {
-    panel_border <-
+  if (!is.na(color) && (color != "none")) {
+    panel.border <-
       ggplot2::element_rect(
         color = color, linewidth = linewidth,
         linetype = linetype, fill = NA
       )
   }
 
-  c(
-    limits,
-    list(
-      ggplot2::theme(
-        panel.border = panel_border,
-        panel.background = panel_background,
-        plot.background = plot_background
-      )
-    )
+  if (!is.na(bgcolor) && bgcolor != "none") {
+    panel.background <- ggplot2::element_rect(fill = bgcolor, color = bgcolor)
+    plot.background <- ggplot2::element_rect(fill = bgcolor, color = bgcolor)
+  }
+
+  if (!expand) {
+    plot.margin <- ggplot2::margin(0, 0, 0, 0)
+  }
+
+  ggplot2::theme(
+    panel.border = panel.border,
+    panel.background = panel.background,
+    plot.background = plot.background,
+    plot.margin = plot.margin
   )
 }
 
@@ -195,13 +288,17 @@ set_neatline <- function(x = NULL,
     )
 
   if (is.null(x) | (type == "lgl_false")) {
-    neatline_layer
-  } else if (ggplot2::is.ggplot(x)) {
-    x + neatline_layer
-  } else if (is_gg(x)) {
+    return(neatline_layer)
+  }
+
+  if (ggplot2::is.ggplot(x)) {
+    return(x + neatline_layer)
+  }
+
+  if (is_gg(x)) {
     if (!is.list(x)) {
       x <- list(x)
     }
-    c(x, neatline_layer)
+    return(c(x, neatline_layer))
   }
 }
