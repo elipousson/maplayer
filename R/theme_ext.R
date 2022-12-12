@@ -214,20 +214,18 @@ theme_legend <- function(position = NULL,
     leg_title <- make_legend_title(title = title)
 
     # FIXME: This part needs a test
+    leg_margin <- margin
     # If margin is not a unit object
     if (!inherits(margin, "unit")) {
-      # use a numeric margin as a dist
+      # use a character margin as a margin type
+      dist <- NULL
       if (is.numeric(margin)) {
+      # use a numeric margin as a dist
         dist <- margin
         margin <- NULL
-      } else {
-        # use a character margin as a margin type
-        dist <- NULL
       }
 
       leg_margin <- sfext::get_margin(margin = margin, dist = dist, unit = unit)
-    } else {
-      leg_margin <- margin
     }
 
     legend_theme <-
@@ -338,7 +336,6 @@ make_legend_position <- function(justification = NULL,
       box_justification <- "right"
     }
   }
-
 
   list(
     "position" = position,
