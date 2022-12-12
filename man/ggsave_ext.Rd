@@ -17,7 +17,7 @@ ggsave_ext(
   filetype = NULL,
   path = NULL,
   paper = NULL,
-  orientation = "portrait",
+  orientation = NULL,
   width = NULL,
   height = NULL,
   asp = NULL,
@@ -33,6 +33,7 @@ ggsave_ext(
   overwrite = TRUE,
   ask = FALSE,
   preview = FALSE,
+  limitsize = TRUE,
   ...
 )
 
@@ -137,14 +138,16 @@ same name or ask to overwrite if \code{ask = TRUE}. Passed to
 Defaults to \code{FALSE}. Passed to \code{\link[filenamr:check_file_overwrite]{filenamr::check_file_overwrite()}}.}
 
 \item{preview}{If \code{TRUE}, open saved file in default system application.
-Based on \code{\link[tjmisc:ggpreview]{tjmisc::ggpreview()}}.}
+Based on \code{\link[=ggpreview]{ggpreview()}} from tjmisc package.}
+
+\item{limitsize}{When \code{TRUE} (the default), \code{ggsave()} will not
+save images larger than 50x50 inches, to prevent the common error of
+specifying dimensions in pixels.}
 
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:ggsave]{ggplot2::ggsave}}
   \describe{
-    \item{\code{limitsize}}{When \code{TRUE} (the default), \code{ggsave()} will not
-save images larger than 50x50 inches, to prevent the common error of
-specifying dimensions in pixels.}
+    \item{\code{}}{}
   }}
 
 \item{image}{Image size name, Default: \code{NULL}}

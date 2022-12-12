@@ -34,14 +34,13 @@
 #'   Defaults to `FALSE`. Passed to [filenamr::check_file_overwrite()].
 #' @inheritParams sfext::write_exif
 #' @param preview If `TRUE`, open saved file in default system application.
-#'   Based on [tjmisc::ggpreview()].
+#'   Based on [ggpreview()] from tjmisc package.
 #' @inheritDotParams ggplot2::ggsave -width -height -units -bg
 #' @example examples/ggsave_ext.R
 #' @seealso
 #'  [ggplot2::ggsave()]
 #' @rdname ggsave_ext
 #' @export
-#' @importFrom sfext get_paper
 #' @importFrom filenamr str_extract_fileext str_remove_fileext make_filename
 #'   check_file_overwrite write_exif
 #' @importFrom ggplot2 ggsave
@@ -55,7 +54,7 @@ ggsave_ext <- function(plot = last_plot(),
                        filetype = NULL,
                        path = NULL,
                        paper = NULL,
-                       orientation = "portrait",
+                       orientation = NULL,
                        width = NULL,
                        height = NULL,
                        asp = NULL,
@@ -71,29 +70,18 @@ ggsave_ext <- function(plot = last_plot(),
                        overwrite = TRUE,
                        ask = FALSE,
                        preview = FALSE,
+                       limitsize = TRUE,
                        ...) {
-  if (!is.null(paper)) {
-    paper <- sfext::get_paper(paper = paper, orientation = orientation)
-
-    width <- paper$width
-    height <- paper$height
-    units <- paper$units
-  } else if (!is.null(asp) && (is.null(width) | is.null(height))) {
-    cli_abort_ifnot(
-      "{.arg width} or {.arg height} must be provided if {.arg asp} is provided
-      and {.code paper = NULL}.",
-      condition = !is.null(width) | !is.null(height)
+  dims <-
+    set_ggsave_dims(
+      paper = paper,
+      orientation = orientation,
+      width = width,
+      height = height,
+      asp = asp,
+      units = units,
+      limitsize = limitsize
     )
-
-    height <- height %||% width / asp
-    width <- width  %||% height * asp
-  }
-
-  cli_abort_ifnot(
-    "{.arg paper}, numeric {.arg width} and {.arg height}, or a numeric
-    {.arg asp} and {.arg width} or {.arg height} must be provided.",
-    condition = is.numeric(width) && is.numeric(height)
-  )
 
   if (is.null(device) && (!is.null(filetype) | !is.null(filename))) {
     filetype <- filetype %||% filenamr::str_extract_fileext(filename)
@@ -120,7 +108,7 @@ ggsave_ext <- function(plot = last_plot(),
     filename = filename,
     overwrite = overwrite,
     ask = ask
-    )
+  )
 
   if (inherits(plot, "magick-image")) {
     is_pkg_installed("magick")
@@ -135,9 +123,9 @@ ggsave_ext <- function(plot = last_plot(),
     plot = plot,
     device = device,
     scale = scale,
-    width = width,
-    height = height,
-    units = units,
+    width = dims$width,
+    height = dims$height,
+    units = dims$units,
     dpi = dpi,
     bg = bgcolor,
     ...
@@ -164,12 +152,78 @@ ggsave_ext <- function(plot = last_plot(),
   }
 }
 
+#' Set the dimensions of a plot for ggsave_ext()
+#'
+#' @noRd
+#' @importFrom sfext get_paper
+set_ggsave_dims <- function(paper = NULL,
+                            orientation = NULL,
+                            width = NULL,
+                            height = NULL,
+                            asp = NULL,
+                            units = "in",
+                            limitsize = TRUE) {
+  if (!is.null(paper)) {
+    paper <- sfext::get_paper(paper = paper, orientation = orientation)
+
+    dims <-
+      list(
+        "width" = paper$width,
+        "height" = paper$height,
+        "units" = paper$units
+      )
+
+    return(dims)
+  }
+
+  if (!is.null(asp) && (is.null(width) | is.null(height))) {
+    if (is.null(width) && is.null(height)) {
+      cli_abort(
+        "{.arg width} or {.arg height} must be provided if {.arg asp} is provided
+      and {.code paper = NULL}."
+      )
+    }
+
+    dims <-
+      list(
+        "width" = width %||% (height * asp),
+        "height" = height %||% (width / asp),
+        "units" = units
+      )
+
+    return(dims)
+  }
+
+  if (!(is.numeric(width) && is.numeric(height))) {
+    cli_abort(
+      "{.arg paper}, numeric {.arg width} and {.arg height}, or a numeric
+    {.arg asp} and {.arg width} or {.arg height} must be provided."
+    )
+  }
+
+  if (any((c(width, height) > 50)) && units == "in" && limitsize) {
+    cli_warn(
+      "Switching {.arg units} from default {.val in} to {.val px} when
+      dimensions exceed 50 inches and {.code limitsize = TRUE}."
+    )
+
+    units <- "px"
+  }
+
+  list(
+    "width" = width,
+    "height" = height,
+    "units" = units
+  )
+}
+
 #' @rdname ggsave_ext
 #' @name ggsave_social
 #' @inheritParams sfext::get_social_image
 #' @export
 #' @importFrom ggplot2 last_plot
-#' @importFrom rlang exec
+#' @importFrom sfext get_social_image
+#' @importFrom rlang list2 exec
 ggsave_social <- function(plot = last_plot(),
                           image = "Instagram post",
                           platform = NULL,
@@ -218,6 +272,7 @@ ggsave_social <- function(plot = last_plot(),
 #'   patchwork including inset maps created with the
 #'   [layer_inset()] function.
 #' @export
+#' @importFrom filenamr make_filename check_file_overwrite
 #' @importFrom purrr map
 map_ggsave_ext <- function(plot,
                            name = NULL,
@@ -231,10 +286,11 @@ map_ggsave_ext <- function(plot,
                            overwrite = TRUE,
                            ...,
                            single_file = TRUE) {
-  cli_abort_ifnot(
-    "{.arg plot} must be a list object.",
-    condition = is.list(plot)
-  )
+  if (!is.list(plot)) {
+    cli_abort(
+      "{.arg plot} must be a {.cls list}."
+    )
+  }
 
   filename <-
     filenamr::make_filename(
@@ -280,7 +336,6 @@ map_ggsave_ext <- function(plot,
     } else {
       fs::dir_create(path)
     }
-
   } else if (single_file) {
     cli_warn("{.arg single_file} can't be used with patchwork plots unless saving a pdf file.")
     single_file <- FALSE
