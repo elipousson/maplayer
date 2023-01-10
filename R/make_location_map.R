@@ -43,7 +43,7 @@ make_basemap <- function(x, basemap = FALSE) {
 #' Location is used as the data parameter of layer_location_data so this
 #' function is primarily appropriate for the layer_mapbox (`geom = "mapbox"`).
 #'
-#' @inheritParams sfext::get_paper
+#' @inheritParams papersize::get_paper
 #' @param save If `TRUE`, save file with [ggsave_ext] or [ggsave_social],
 #'   requires `basemap = TRUE` and filename is not NULL *or* ... include a name
 #'   parameter. Default: `FALSE`
@@ -71,7 +71,7 @@ make_basemap <- function(x, basemap = FALSE) {
 #' @rdname make_location_map
 #' @export
 #' @importFrom ggplot2 ggplot
-#' @importFrom sfext get_paper
+#' @importFrom papersize get_paper
 make_location_map <- function(location,
                               dist = NULL,
                               diag_ratio = NULL,
@@ -79,7 +79,10 @@ make_location_map <- function(location,
                               asp = NULL,
                               data = NULL,
                               crs = NULL,
-                              paper = "letter",
+                              paper = NULL,
+                              width = NULL,
+                              height = NULL,
+                              units = "in",
                               orientation = NULL,
                               geom = "sf",
                               basemap = TRUE,
@@ -92,9 +95,18 @@ make_location_map <- function(location,
                               ...) {
   if (!is.null(paper)) {
     paper <-
-      sfext::get_paper(
+      papersize::get_paper(
         paper = paper,
         orientation = orientation
+      )
+  } else if (!is.null(width) | !is.null(height)) {
+    paper <-
+      papersize::make_page_size(
+        width,
+        height,
+        units,
+        asp,
+        orientation
       )
   }
 
@@ -111,9 +123,10 @@ make_location_map <- function(location,
       dist = dist,
       diag_ratio = diag_ratio,
       unit = unit,
-      asp = asp %||% paper$section_asp,
+      asp = asp %||% paper$asp,
       crs = crs,
       geom = geom,
+      neatline = neatline,
       ...
     )
 
@@ -138,8 +151,8 @@ make_location_map <- function(location,
     return(layer_stack)
   }
 
-  ggsave_params$width <- ggsave_params$width %||% paper$section_width
-  ggsave_params$height <- ggsave_params$height %||% paper$section_height
+  ggsave_params$width <- ggsave_params$width %||% paper$width
+  ggsave_params$height <- ggsave_params$height %||% paper$height
 
   eval_tidy_fn(
     layer_stack,
@@ -155,7 +168,7 @@ make_location_map <- function(location,
 #' @inheritParams sfext::get_social_image
 #' @export
 #' @importFrom ggplot2 ggplot
-#' @importFrom sfext get_social_image
+#' @importFrom papersize get_social_size
 make_social_map <- function(location,
                             dist = NULL,
                             diag_ratio = NULL,
@@ -172,14 +185,14 @@ make_social_map <- function(location,
                             ggsave_params = list(filetype = "jpeg", dpi = 72, ...),
                             ...) {
   image_size <-
-    sfext::get_social_image(
-      image = image,
+    papersize::get_social_size(
+      name = image,
       platform = platform,
       format = format,
       orientation = orientation
     )
 
-  asp <- asp %||% image_size$section_asp
+  asp <- asp %||% image_size$asp
 
   bbox <-
     st_bbox_ext(
@@ -201,8 +214,8 @@ make_social_map <- function(location,
   map_layer <- make_basemap(map_layer, basemap)
 
   if (save) {
-    ggsave_params$width <- ggsave_params$width %||% image_size$section_width
-    ggsave_params$height <- ggsave_params$height %||% image_size$section_height
+    ggsave_params$width <- ggsave_params$width %||% image_size$width
+    ggsave_params$height <- ggsave_params$height %||% image_size$height
 
     eval_tidy_fn(
       map_layer,
@@ -221,7 +234,8 @@ make_social_map <- function(location,
 #'   mark the location of images (based on EXIF metadata).
 #' @inheritParams layer_markers
 #' @export
-#' @importFrom sfext read_sf_exif st_bbox_ext
+#' @importFrom sfext st_bbox_ext
+#' @importFrom filenamr read_exif
 make_image_map <- function(image_path,
                            location = NULL,
                            dist = NULL,
@@ -251,8 +265,9 @@ make_image_map <- function(image_path,
                            desc = FALSE,
                            ...) {
   images <-
-    sfext::read_sf_exif(
-      path = image_path
+    filenamr::read_exif(
+      path = image_path,
+      geometry = TRUE
     )
 
   location <-
