@@ -74,8 +74,7 @@ a margin object; defaults to 10.}
 
 \item{paper}{Paper, Default: 'letter'.}
 
-\item{orientation}{Orientation "portrait", "landscape", or "square", Default:
-'portrait'.}
+\item{orientation}{Page orientation, Default: NULL}
 
 \item{dist}{Margin distance (single value used to all sides), Default: \code{NULL}}
 
@@ -91,10 +90,6 @@ note: headers and footers are not currently supported for "px" units.}
 
 \item{fill}{Fill for \code{plot.background} theme element passed to
 \code{\link[ggplot2:element]{ggplot2::element_rect()}} Default: \code{NA}.}
-
-\item{size}{Size number (only used for "ISO" and "JIS" series). Standard,
-series, and size may all be required to return a single paper when using
-these parameters.}
 
 \item{position}{Legend position (“left”,“top”, “right”, “bottom”) or a
 two-element numeric vector to set position using Normalized Parent

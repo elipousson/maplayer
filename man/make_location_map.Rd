@@ -14,7 +14,10 @@ make_location_map(
   asp = NULL,
   data = NULL,
   crs = NULL,
-  paper = "letter",
+  paper = NULL,
+  width = NULL,
+  height = NULL,
+  units = "in",
   orientation = NULL,
   geom = "sf",
   basemap = TRUE,
@@ -102,10 +105,16 @@ package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area
 \item{crs}{Coordinate reference system of bounding box to return; defaults to
 \code{NULL} which maintains the crs of the input object.}
 
-\item{paper}{Paper, Default: 'letter'.}
+\item{paper}{Paper matching name from \code{paper_sizes} (e.g. "letter"). Not case
+sensitive.}
 
-\item{orientation}{Orientation "portrait", "landscape", or "square", Default:
-'portrait'.}
+\item{width}{Page width in "in", "px" or "mm" units. Default: NULL}
+
+\item{height}{Page height in "in", "px" or "mm" units. Default: NULL}
+
+\item{units}{Units to convert page dimensions to using \code{\link[papersize:convert_unit_type]{convert_unit_type()}}.}
+
+\item{orientation}{Page orientation, Default: NULL}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
 'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
