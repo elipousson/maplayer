@@ -218,7 +218,7 @@ set_ggsave_dims <- function(paper = NULL,
 #' @inheritParams sfext::get_social_image
 #' @export
 #' @importFrom papersize get_social_size
-#' @importFrom rlang exec
+#' @importFrom rlang exec list2
 ggsave_social <- function(plot = last_plot(),
                           image = "Instagram post",
                           platform = NULL,
@@ -242,7 +242,7 @@ ggsave_social <- function(plot = last_plot(),
 
   params <-
     modify_fn_fmls(
-      params = list2(...),
+      params = rlang::list2(...),
       fn = ggsave_ext,
       plot = plot,
       width = image_size$width,
