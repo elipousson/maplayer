@@ -14,7 +14,9 @@
 #' @inheritParams ggrepel::geom_label_repel
 #' @inheritDotParams ggrepel::geom_label_repel -stat
 #' @export
+#' @importFrom cliExtras cli_abort_ifnot
 #' @importFrom rlang is_character arg_match
+#' @importFrom sfext as_bbox sf_bbox_point
 layer_repel <- function(mapping = aes(),
                         data = NULL,
                         label_col = "name",
@@ -23,20 +25,19 @@ layer_repel <- function(mapping = aes(),
                         xlim = c(NA, NA),
                         ylim = c(NA, NA),
                         ...) {
-  if (!rlang::is_character(label_col, 1)) {
-    cli_abort(
-      "{.arg label_col} must be length 1, not {length(label_col)}."
+  cliExtras::cli_abort_ifnot(
+      "{.arg label_col} must be length 1, not {length(label_col)}.",
+      condition = rlang::is_character(label_col, 1)
     )
-  }
 
   if (!is.null(location_lims) && all(is.na(c(ylim, xlim)))) {
     bbox <- sfext::as_bbox(location_lims)
 
-    min <- sfext::sf_bbox_point(bbox, c("xmin", "ymin"))
-    max <- sfext::sf_bbox_point(bbox, c("xmax", "ymax"))
+    xlim <- sfext::sf_bbox_point(bbox, c("xmin", "xmax"))[[1]]
+    ylim <- sfext::sf_bbox_point(bbox, c("ymin", "ymax"))[[1]]
 
-    xlim <- c(min[[1]], max[[1]])
-    ylim <- c(min[[2]], max[[2]])
+    xlim <- c(xlim[[1]], xlim[[2]])
+    ylim <- c(ylim[[1]], ylim[[2]])
   }
 
   geom <- rlang::arg_match(geom)
