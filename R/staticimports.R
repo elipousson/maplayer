@@ -28,16 +28,21 @@ has_fileext <- function(string = NULL, fileext = NULL, ignore.case = FALSE) {
 
 #' Do all items in a list or vector return TRUE from a predicate function?
 #'
-#' @param x A list or vector passed to [vapply()].
-#' @param FUN Function passed to FUN parameter of [vapply()].
+#' @param x A list or vector passed to X parameter of [vapply()].
+#' @inheritParams base::vapply
+#' @inheritDotParams base::vapply -X
+#' @returns `TRUE` if FUN returns `TRUE` for all elements of x or `FALSE` if any
+#'   element returns `FALSE`.
+#' @seealso [is_any()]
 #' @noRd
 is_all <- function(x, FUN, ...) {
   all(vapply(x, FUN, FUN.VALUE = TRUE, ...))
 }
 
-#' Are all items in a list or vector NULL values?
+#' - [is_all_null()]: Are all items in a list or vector `NULL` values?
 #'
-#' @param x A list or vector to check.
+#' @name is_all_null
+#' @rdname is_all
 #' @noRd
 is_all_null <- function(x) {
   is_all(x, is.null)
@@ -62,6 +67,10 @@ is_any_null <- function(x) {
 
 #' Is this a file path or url ending in the specified file extension?
 #'
+#' @param x A character vector to check.
+#' @param fileext A file extension (or multiple file extensions) to compare to
+#'   x. Required.
+#' @inheritParams base::grepl
 #' @noRd
 is_fileext_path <- function(x, fileext, ignore.case = TRUE) {
   grepl(
@@ -71,10 +80,18 @@ is_fileext_path <- function(x, fileext, ignore.case = TRUE) {
   )
 }
 
+#' Is this a patchwork class object?
+#'
+#' @param x Object to be tested.
+#' @export
+is_patchwork <- function(x) {
+  inherits(x, "patchwork")
+}
+
 #' Is this a unit class object?
 #'
 #' @param x Object to be tested.
 #' @noRd
 is_unit <- function(x) {
-  inherits(x, c("unit", "unit_v2"))
+  inherits(x, "unit")
 }

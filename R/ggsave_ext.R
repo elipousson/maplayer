@@ -41,8 +41,10 @@
 #'  [ggplot2::ggsave()]
 #' @rdname ggsave_ext
 #' @export
+#' @importFrom cliExtras set_cli_quiet
 #' @importFrom filenamr str_extract_fileext str_remove_fileext make_filename
 #'   check_file_overwrite write_exif
+#' @importFrom cli cli_alert_success
 #' @importFrom ggplot2 ggsave
 ggsave_ext <- function(plot = last_plot(),
                        name = NULL,
@@ -71,7 +73,14 @@ ggsave_ext <- function(plot = last_plot(),
                        ask = FALSE,
                        preview = FALSE,
                        limitsize = TRUE,
+                       quiet = FALSE,
                        ...) {
+  if (quiet) {
+    existing_handler <- getOption("cli.default_handler")
+    cliExtras::set_cli_quiet(TRUE)
+    on.exit(options("cli.default_handler" = existing_handler))
+  }
+
   dims <-
     set_ggsave_dims(
       paper = paper,
@@ -112,7 +121,7 @@ ggsave_ext <- function(plot = last_plot(),
 
   if (inherits(plot, "magick-image")) {
     is_pkg_installed("magick")
-    cli_inform(
+    cli::cli_alert_success(
       "Converting {.arg plot} from {.cls magick-image} to {.cls ggplot}."
     )
     plot <- magick::image_ggplot(plot)
@@ -131,7 +140,7 @@ ggsave_ext <- function(plot = last_plot(),
     ...
   )
 
-  cli_inform(
+  cli::cli_alert_success(
     c("v" = "Saving {.path {filename}}.")
   )
 
@@ -155,7 +164,8 @@ ggsave_ext <- function(plot = last_plot(),
 #' Set the dimensions of a plot for ggsave_ext()
 #'
 #' @noRd
-#' @importFrom sfext get_paper
+#' @importFrom papersize get_page_size make_page_size
+#' @importFrom cli cli_alert_warning
 set_ggsave_dims <- function(paper = NULL,
                             orientation = NULL,
                             width = NULL,
@@ -164,66 +174,51 @@ set_ggsave_dims <- function(paper = NULL,
                             units = "in",
                             limitsize = TRUE) {
   if (!is.null(paper)) {
-    paper <- sfext::get_paper(paper = paper, orientation = orientation)
+    paper <- papersize::get_page_size(paper, orientation = orientation)
 
     dims <-
       list(
-        "width" = paper$width,
-        "height" = paper$height,
-        "units" = paper$units
+        "width" = paper[["width"]],
+        "height" = paper[["height"]],
+        "units" = paper[["units"]]
       )
 
     return(dims)
   }
 
-  if (!is.null(asp) && (is.null(width) | is.null(height))) {
-    if (is.null(width) && is.null(height)) {
-      cli_abort(
-        "{.arg width} or {.arg height} must be provided if {.arg asp} is provided
-      and {.code paper = NULL}."
-      )
-    }
-
-    dims <-
-      list(
-        "width" = width %||% (height * asp),
-        "height" = height %||% (width / asp),
-        "units" = units
-      )
-
-    return(dims)
-  }
-
-  if (!(is.numeric(width) && is.numeric(height))) {
-    cli_abort(
-      "{.arg paper}, numeric {.arg width} and {.arg height}, or a numeric
-    {.arg asp} and {.arg width} or {.arg height} must be provided."
+  page <-
+    papersize::make_page_size(
+      width = width,
+      height = height,
+      asp = asp,
+      units = units
     )
-  }
 
-  if (any((c(width, height) > 50)) && units == "in" && limitsize) {
-    cli_warn(
+  dims <-
+    list(
+      "width" = page$width,
+      "height" = page$height,
+      "units" = page$units
+    )
+
+  if (any((c(dims$width, dims$height) > 50)) && (units == "in") && limitsize) {
+    cli::cli_alert_warning(
       "Switching {.arg units} from default {.val in} to {.val px} when
       dimensions exceed 50 inches and {.code limitsize = TRUE}."
     )
 
-    units <- "px"
+    dims$units <- "px"
   }
 
-  list(
-    "width" = width,
-    "height" = height,
-    "units" = units
-  )
+  dims
 }
 
 #' @rdname ggsave_ext
 #' @name ggsave_social
 #' @inheritParams sfext::get_social_image
 #' @export
-#' @importFrom ggplot2 last_plot
-#' @importFrom sfext get_social_image
-#' @importFrom rlang list2 exec
+#' @importFrom papersize get_social_size
+#' @importFrom rlang exec
 ggsave_social <- function(plot = last_plot(),
                           image = "Instagram post",
                           platform = NULL,
@@ -238,8 +233,8 @@ ggsave_social <- function(plot = last_plot(),
                           units = "px",
                           ...) {
   image_size <-
-    sfext::get_social_image(
-      image = image,
+    papersize::get_social_size(
+      name = image,
       platform = platform,
       format = format,
       orientation = orientation
@@ -274,6 +269,7 @@ ggsave_social <- function(plot = last_plot(),
 #' @export
 #' @importFrom filenamr make_filename check_file_overwrite
 #' @importFrom purrr map
+#' @importFrom cli cli_bullets
 map_ggsave_ext <- function(plot,
                            name = NULL,
                            label = NULL,
@@ -302,9 +298,9 @@ map_ggsave_ext <- function(plot,
       prefix = prefix
     )
 
-  is_patchwork_plot <- !inherits(plot, "patchwork")
+  is_patchwork_plot <- is_patchwork(plot)
 
-  if (single_file && !is_patchwork_plot) {
+  if (single_file & !is_patchwork_plot) {
     is_pkg_installed("gridExtra")
 
     plot <-
@@ -317,32 +313,32 @@ map_ggsave_ext <- function(plot,
 
     ggsave_ext(
       plot = plot,
+      filename = filename,
+      path = path,
+      device = device,
       ...
     )
 
-    return(invisible(NULL))
+    return(invisible())
   }
 
-  path <- path %||% getwd()
-
-  if (has_fileext(filename, "pdf") && single_file) {
-    is_pkg_installed("qpdf")
-    is_pkg_installed("fs")
-
-    path <- file.path(path, "ggsave_ext_single_file_temp")
-
-    if (fs::dir_exists(path)) {
-      fs::dir_delete(path)
+  if (single_file) {
+    if (has_fileext(filename, "pdf")) {
+      output_path <- path
+      path <- tempdir()
     } else {
-      fs::dir_create(path)
+      cli::cli_bullets(
+        c(
+          "!" = "{.arg single_file} = TRUE only works with {.cls patchwork}
+          plots when saving a pdf file.",
+          "i" = "Setting {.arg single_file} to {.code FALSE}."
+        )
+      )
+      single_file <- FALSE
     }
-  } else if (single_file) {
-    cli_warn("{.arg single_file} can't be used with patchwork plots unless saving a pdf file.")
-    single_file <- FALSE
   }
 
-  postfixes <- NULL
-  for (pg in seq(plot)) {
+  for (pg in seq_along(plot)) {
     pg_postfix <- glue("{postfix}{pg}")
 
     ggsave_ext(
@@ -350,13 +346,17 @@ map_ggsave_ext <- function(plot,
       postfix = pg_postfix,
       filename = filename,
       path = path,
+      device = device,
       ...
     )
   }
 
   if (!single_file) {
-    return(invisible(NULL))
+    return(invisible())
   }
+
+  is_pkg_installed("qpdf")
+
   input <-
     list.files(
       path = path,
@@ -365,15 +365,19 @@ map_ggsave_ext <- function(plot,
 
   filenamr::check_file_overwrite(
     filename = filename,
-    path = path,
+    path = output_path,
     overwrite = overwrite,
     ask = FALSE
   )
 
+  if (!is.null(output_path)) {
+    output <- file.path(output_path, filename)
+  }
+
   qpdf::pdf_combine(
     input = input,
-    output = filename
+    output = output
   )
 
-  fs::dir_delete(path)
+  unlink(path, recursive = TRUE)
 }

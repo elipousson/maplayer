@@ -34,6 +34,7 @@ ggsave_ext(
   ask = FALSE,
   preview = FALSE,
   limitsize = TRUE,
+  quiet = FALSE,
   ...
 )
 
