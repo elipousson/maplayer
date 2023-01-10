@@ -13,6 +13,7 @@ layer_neatline(
   unit = getOption("maplayer.unit", default = "meter"),
   asp = getOption("maplayer.asp"),
   crs = getOption("maplayer.crs"),
+  nudge = getOption("maplayer.nudge"),
   color = "black",
   linewidth = 0.5,
   linetype = "solid",
@@ -59,6 +60,9 @@ without modification.}
 \item{crs}{The coordinate reference system (CRS) into which all data should
 be projected before plotting. If not specified, will use the CRS defined
 in the first sf layer of the plot.}
+
+\item{nudge}{Passed as to parameter \code{\link[sfext:st_nudge]{st_nudge()}} when not \code{NULL}. Numeric
+vector or sf object.}
 
 \item{color}{Color of panel border, Default: 'black'}
 

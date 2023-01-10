@@ -43,6 +43,7 @@ layer_neatline <- function(data = NULL,
                            unit = getOption("maplayer.unit", default = "meter"),
                            asp = getOption("maplayer.asp"),
                            crs = getOption("maplayer.crs"),
+                           nudge = getOption("maplayer.nudge"),
                            color = "black",
                            linewidth = 0.5,
                            linetype = "solid",
@@ -63,7 +64,7 @@ layer_neatline <- function(data = NULL,
                            plot.background = NULL,
                            plot.margin = NULL,
                            ...) {
-  xy_lims <- set_xy_lims(data, dist, diag_ratio, unit, asp, crs)
+  xy_lims <- set_xy_lims(data, dist, diag_ratio, unit, asp, crs, nudge)
 
   list(
     # Set limits with adjustments using coord_sf
@@ -114,7 +115,8 @@ set_xy_lims <- function(data = NULL,
                         diag_ratio = getOption("maplayer.diag_ratio"),
                         unit = getOption("maplayer.unit", default = "meter"),
                         asp = getOption("maplayer.asp"),
-                        crs = getOption("maplayer.crs")) {
+                        crs = getOption("maplayer.crs"),
+                        nudge = getOption("maplayer.nudge")) {
   xlim <- NULL
   ylim <- NULL
 
@@ -126,7 +128,8 @@ set_xy_lims <- function(data = NULL,
         diag_ratio = diag_ratio,
         unit = unit,
         asp = asp,
-        crs = crs
+        crs = crs,
+        nudge = nudge
       )
 
     xlim <- c(bbox[["xmin"]], bbox[["xmax"]])
