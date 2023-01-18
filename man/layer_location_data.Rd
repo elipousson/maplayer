@@ -14,7 +14,7 @@ layer_location_data(
   unit = getOption("maplayer.unit", default = "meter"),
   asp = getOption("maplayer.asp"),
   package = getOption("maplayer.data_package"),
-  filetype = getOption("maplayer.data_filetype"),
+  filetype = getOption("maplayer.data_filetype", "gpkg"),
   fn = NULL,
   layer_fn = NULL,
   crop = TRUE,
