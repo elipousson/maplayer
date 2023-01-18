@@ -70,8 +70,8 @@ the input data is used as the frame.}
 
 \item{rotate}{numeric; degrees to rotate (-360 to 360), Default: 0}
 
-\item{inscribed}{If \code{TRUE}, make circle, square, or donut inscribed within x, if
-\code{FALSE}, make it circumscribed. Use}
+\item{inscribed}{If \code{TRUE}, make circle, square, or donut inscribed within x,
+if \code{FALSE}, make it circumscribed.}
 
 \item{fill, color, linewidth, linetype}{Fixed aesthetics for frame, passed to
 \link{layer_location_data}.}
