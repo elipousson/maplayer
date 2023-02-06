@@ -126,7 +126,6 @@ make_location_map <- function(location,
       asp = asp %||% paper$asp,
       crs = crs,
       geom = geom,
-      neatline = neatline,
       ...
     )
 

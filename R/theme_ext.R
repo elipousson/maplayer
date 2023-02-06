@@ -35,7 +35,7 @@
 #' @param method Method with name of the ggplot2 geom function to use for
 #'   modifying theme ("set", "update", or "replace"); defaults to `NULL`.
 #' @param ... Additional parameters passed to [ggplot2::theme()].
-#' @inheritParams sfext::get_paper
+#' @inheritParams papersize::get_paper
 #' @inheritParams sfext::get_margin
 #' @seealso
 #'  - [ggplot2::theme()]
@@ -158,7 +158,7 @@ theme_margin <- function(margin = "standard",
           color = color,
           size = grid::unit(size, units = unit)
         ),
-        plot.margin = get_margin(
+        plot.margin = sfext::get_margin(
           margin = margin,
           paper = paper,
           orientation = orientation,
@@ -225,7 +225,11 @@ theme_legend <- function(position = NULL,
         margin <- NULL
       }
 
-      leg_margin <- sfext::get_margin(margin = margin, dist = dist, unit = unit)
+      leg_margin <- sfext::get_margin(
+        margin = margin,
+        dist = dist,
+        unit = unit
+      )
     }
 
     legend_theme <-

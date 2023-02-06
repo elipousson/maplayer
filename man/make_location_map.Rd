@@ -108,13 +108,14 @@ package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area
 \item{paper}{Paper matching name from \code{paper_sizes} (e.g. "letter"). Not case
 sensitive.}
 
-\item{width}{Page width in "in", "px" or "mm" units. Default: NULL}
+\item{width}{Page width in "in", "px" or "mm" units. Default: \code{NULL}}
 
-\item{height}{Page height in "in", "px" or "mm" units. Default: NULL}
+\item{height}{Page height in "in", "px" or "mm" units. Default: \code{NULL}}
 
 \item{units}{Units to convert page dimensions to using \code{\link[papersize:convert_unit_type]{convert_unit_type()}}.}
 
-\item{orientation}{Page orientation, Default: NULL}
+\item{orientation}{Page orientation, Default: \code{NULL}. Supported options are
+"portrait", "landscape", or "square".}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
 'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),

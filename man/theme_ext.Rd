@@ -74,7 +74,8 @@ a margin object; defaults to 10.}
 
 \item{paper}{Paper, Default: 'letter'.}
 
-\item{orientation}{Page orientation, Default: NULL}
+\item{orientation}{Page orientation, Default: \code{NULL}. Supported options are
+"portrait", "landscape", or "square".}
 
 \item{dist}{Margin distance (single value used to all sides), Default: \code{NULL}}
 
