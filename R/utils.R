@@ -14,7 +14,7 @@ utils::globalVariables(
 )
 
 # @staticimports pkg:isstatic
-#   has_fileext is_any_null is_all_null is_unit is_patchwork
+#   has_fileext is_all_null is_unit is_patchwork is_list_of
 
 #' Group data by column if present
 #'

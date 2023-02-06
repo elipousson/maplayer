@@ -13,6 +13,7 @@
 #' @param fileext File type to test against. Optional.
 #' @param ignore.case If `FALSE`, the pattern matching is case sensitive. If
 #'   `TRUE`, case is ignored.
+#' @seealso [isstatic::is_fileext_path()]
 #' @noRd
 has_fileext <- function(string = NULL, fileext = NULL, ignore.case = FALSE) {
   if (is.null(string)) {
@@ -33,7 +34,7 @@ has_fileext <- function(string = NULL, fileext = NULL, ignore.case = FALSE) {
 #' @inheritDotParams base::vapply -X
 #' @returns `TRUE` if FUN returns `TRUE` for all elements of x or `FALSE` if any
 #'   element returns `FALSE`.
-#' @seealso [is_any()]
+#' @seealso [isstatic::is_any()]
 #' @noRd
 is_all <- function(x, FUN, ...) {
   all(vapply(x, FUN, FUN.VALUE = TRUE, ...))
@@ -48,29 +49,14 @@ is_all_null <- function(x) {
   is_all(x, is.null)
 }
 
-#' Do any items in a list or vector return TRUE from a predicate function?
+#' Does this text end in the provided file extension?
 #'
-#' @param x A list or vector passed to [vapply()].
-#' @param FUN Function passed to FUN parameter of [vapply()].
-#' @noRd
-is_any <- function(x, FUN, ...) {
-  any(vapply(x, FUN, FUN.VALUE = TRUE, ...))
-}
-
-#' Is any item in a list or vector a NULL value?
-#'
-#' @param x A list or vector to check.
-#' @noRd
-is_any_null <- function(x) {
-  is_any(x, is.null)
-}
-
-#' Is this a file path or url ending in the specified file extension?
-#'
-#' @param x A character vector to check.
-#' @param fileext A file extension (or multiple file extensions) to compare to
-#'   x. Required.
+#' @param x A character vector to check for matches, or an object which can be
+#'   coerced by [as.character()] to a character vector.
+#' @param fileext A file extension to compare to x. Required. If a vector of
+#'   multiple extensions are provided, returns `TRUE` for any match.
 #' @inheritParams base::grepl
+#' @seealso [isstatic::has_fileext()]
 #' @noRd
 is_fileext_path <- function(x, fileext, ignore.case = TRUE) {
   grepl(
@@ -80,10 +66,20 @@ is_fileext_path <- function(x, fileext, ignore.case = TRUE) {
   )
 }
 
-#' Is this a patchwork class object?
+#' Do all items in this list inherit the provided class?
 #'
 #' @param x Object to be tested.
-#' @export
+#' @param what A character vector naming classes.
+#' @noRd
+is_list_of <- function(x, what = NULL) {
+  is.list(x) && all(vapply(x, FUN = inherits, FUN.VALUE = TRUE, what))
+}
+
+#' Is this a patchwork class object?
+#'
+#' @name is_patchwork
+#' @rdname is_gg
+#' @noRd
 is_patchwork <- function(x) {
   inherits(x, "patchwork")
 }

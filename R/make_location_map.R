@@ -130,8 +130,9 @@ make_location_map <- function(location,
     )
 
   stopifnot(
-    is.null(bg_layer) || is_gg(bg_layer),
-    is.null(fg_layer) || is_gg(fg_layer)
+    is.null(layer) || is_gg(layer) || is_list_of(layer, "gg"),
+    is.null(bg_layer) || is_gg(bg_layer) || is_list_of(bg_layer, "gg"),
+    is.null(fg_layer) || is_gg(fg_layer) || is_list_of(fg_layer, "gg")
   )
 
   layer_stack <-
