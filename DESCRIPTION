@@ -33,6 +33,7 @@ Suggests:
     covr,
     figpatch,
     geomtextpath,
+    ggarchery (>= 0.4.1),
     ggforce,
     ggfx,
     ggpath (>= 0.0.0.9000),
@@ -50,13 +51,14 @@ Suggests:
     testthat (>= 3.0.0),
     tibble,
     vdiffr
-Remotes: 
+Remotes:  
     coolbutuseless/ggsvg,
     elipousson/getdata,
     elipousson/sfext,
     elipousson/filenamr,
     elipousson/cliExtras,
-    elipousson/papersize
+    elipousson/papersize,
+    mdhall272/ggarchery
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8
