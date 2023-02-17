@@ -31,7 +31,7 @@ layer_scaled <-
         scale = scale
       )
 
-    data_units <- get_dist_units(data)
+    data_units <- papersize::get_dist_units(data)
 
     if (nrow(scaled_paper) > 1) {
       cli::cli_warn(c(
@@ -47,7 +47,7 @@ layer_scaled <-
     if (!is_sf(data, ext = TRUE)) {
       cli::cli_abort(
         "{.arg data} must be a {.cls bbox}, {.cls sf}, or {.cls sfc} object."
-        )
+      )
     }
 
     # Get adjusted bounding box for data
@@ -68,7 +68,8 @@ layer_scaled <-
     if (!clip && !bbox_fit_check(bbox, scaled_paper)) {
       cli_abort(
         "This data covers a larger area than can be displayed at this scale
-        ({scale}) on this paper ({paper}).")
+        ({scale}) on this paper ({paper})."
+      )
     }
 
     scaled_dist <- max(c(scaled_paper$width_actual, scaled_paper$height_actual)) / 2
@@ -103,15 +104,10 @@ bbox_fit_check <- function(bbox, paper = NULL, cols = c("actual_width", "actual_
   # Compare bbox xdist and ydist to actual dimensions
   # FIXME: move this into a helper function
 
-  units <- sfext::get_dist_units(paper[[cols[1]]])
+  units <- papersize::get_dist_units(paper[[cols[1]]])
 
   ydist <- sfext::sf_bbox_ydist(bbox, units = units, drop = FALSE)
   xdist <- sfext::sf_bbox_xdist(bbox, units = units, drop = FALSE)
-
-  print(xdist)
-  print(ydist)
-  print(paper[[cols[1]]])
-  print(paper[[cols[2]]])
 
   (xdist <= paper[[cols[1]]]) && (ydist <= paper[[cols[2]]])
 }
