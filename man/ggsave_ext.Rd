@@ -79,7 +79,8 @@ map_ggsave_ext(
 
 \item{label}{Label to combine with name converted to snake case with
 \code{\link[janitor:make_clean_names]{janitor::make_clean_names()}}. The label is designed to identify the area
-or other shared characteristics across multiple data files, maps, or plots.}
+or other shared characteristics across multiple data files, maps, or plots.
+label is ignored if name is NULL or if name includes a file extension.}
 
 \item{prefix}{File name prefix. "date" adds a date prefix, "time" adds a
 date/time prefix; defaults to \code{NULL}.}
@@ -139,7 +140,7 @@ same name or ask to overwrite if \code{ask = TRUE}. Passed to
 Defaults to \code{FALSE}. Passed to \code{\link[filenamr:check_file_overwrite]{filenamr::check_file_overwrite()}}.}
 
 \item{preview}{If \code{TRUE}, open saved file in default system application.
-Based on \code{\link[=ggpreview]{ggpreview()}} from tjmisc package.}
+Based on \code{ggpreview()} from the tjmisc package.}
 
 \item{limitsize}{When \code{TRUE} (the default), \code{ggsave()} will not
 save images larger than 50x50 inches, to prevent the common error of

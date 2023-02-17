@@ -34,7 +34,7 @@
 #'   Defaults to `FALSE`. Passed to [filenamr::check_file_overwrite()].
 #' @inheritParams sfext::write_exif
 #' @param preview If `TRUE`, open saved file in default system application.
-#'   Based on [ggpreview()] from tjmisc package.
+#'   Based on `ggpreview()` from the tjmisc package.
 #' @inheritDotParams ggplot2::ggsave -width -height -units -bg
 #' @example examples/ggsave_ext.R
 #' @seealso
