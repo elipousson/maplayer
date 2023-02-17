@@ -7,7 +7,7 @@
 \title{Make a ggplot map using layer_location_data}
 \usage{
 make_location_map(
-  location,
+  location = NULL,
   dist = NULL,
   diag_ratio = NULL,
   unit = NULL,
@@ -80,8 +80,11 @@ make_image_map(
 )
 }
 \arguments{
-\item{location}{sf object. If multiple areas are provided, they are unioned
-into a single sf object using \code{\link[sf:geos_combine]{sf::st_union()}}}
+\item{location}{A sf object passed to \code{\link[=layer_location_data]{layer_location_data()}} with data if
+layer is \code{NULL}. location is ignored if layer is provided. If data is
+\code{NULL}, location is passed as data to facilitate using this function with
+\code{geom = "mapbox"} where data is used to define the map area. Defaults to
+\code{NULL}}
 
 \item{dist}{buffer distance in units. Optional.}
 
@@ -134,11 +137,17 @@ and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
 \item{bg_layer, fg_layer}{A ggplot2 layer or a list of ggproto objects (e.g.
 scales, labels, etc.) to add to the background or foreground of the primary
-map layer defined by \code{"geom"} and other parameters.}
+map layer defined by \code{"geom"} and other parameters. If the geom creates an
+opaque layer or layer is an opaque layer (e.g. a layer produced by
+\code{\link[=layer_mapbox]{layer_mapbox()}}) that covers the full map extent, the bg_layer will not be
+visible.}
 
-\item{layer}{If provided, layer is a ggplot2 layer or a list of ggproto
-objects (e.g. scales, labels, etc.) that will be used instead of the
-provided location or data.}
+\item{layer}{A ggplot2 layer or a list of ggproto objects. If layer is
+provided, all parameters passed to \code{\link[=layer_location_data]{layer_location_data()}} (including data,
+location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
+this case, the function simply stacks the bg_layer, layer, and fg_layer
+objects then applies the basemap and neatline (using the \code{\link[=make_basemap]{make_basemap()}}
+and \code{\link[=set_neatline]{set_neatline()}} helper functions.)}
 
 \item{neatline}{A logical object, \code{CoordSf} object, or a list containing a
 \code{CoordSf} object (typically from \code{\link[=layer_neatline]{layer_neatline()}}) added to layer by
@@ -150,8 +159,8 @@ additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 }}
 
 \item{save}{If \code{TRUE}, save file with \link{ggsave_ext} or \link{ggsave_social},
-requires \code{basemap = TRUE} and filename is not NULL \emph{or} ... include a name
-parameter. Default: \code{FALSE}}
+requires \code{basemap = TRUE} and filename is not \code{NULL} \emph{or} \code{...} must
+include a name parameter. Defaults to \code{FALSE}.}
 
 \item{ggsave_params}{List of parameters passed to \code{\link[=ggsave_ext]{ggsave_ext()}}.}
 
@@ -203,7 +212,7 @@ function is primarily appropriate for the layer_mapbox (\code{geom = "mapbox"}).
 \details{
 Using \code{\link[=make_image_map]{make_image_map()}}:
 
-\code{\link[=make_image_map]{make_image_map()}} wraps \code{\link[sfext:read_sf_exif]{sfext::read_sf_exif()}} and \code{\link[=make_location_map]{make_location_map()}}. It is
-designed for making simple maps of photos in combination with reference
+\code{\link[=make_image_map]{make_image_map()}} wraps \code{\link[sfext:read_sf_exif]{sfext::read_sf_exif()}} and \code{\link[=make_location_map]{make_location_map()}}.
+It is designed for making simple maps of photos in combination with reference
 tables.
 }

@@ -16,22 +16,24 @@
 #' @name make_basemap
 #' @export
 #' @importFrom rlang is_logical
-#' @importFrom ggplot2 is.ggproto is.ggplot ggplot
+#' @importFrom ggplot2 ggplot is.ggplot
+#' @importFrom cliExtras cli_abort_ifnot
 make_basemap <- function(x, basemap = FALSE) {
   if (rlang::is_logical(basemap)) {
-    if (basemap) {
+    if (isTRUE(basemap)) {
       return(ggplot2::ggplot() + x)
     }
 
     return(x)
   }
 
+  cliExtras::cli_abort_ifnot(
+    "{.arg basemap} must be a {.cls lgl} or
+   {.cls ggproto} object." = is_gg(basemap)
+  )
+
   if (ggplot2::is.ggplot(basemap)) {
     return(basemap + x)
-  } else if (!is_gg(basemap)) {
-    cli_abort(
-      "{.arg basemap} must be a {.cls lgl} object or {.cls ggproto} object."
-    )
   }
 
   ggplot2::ggplot() +
@@ -43,36 +45,47 @@ make_basemap <- function(x, basemap = FALSE) {
 #' Location is used as the data parameter of layer_location_data so this
 #' function is primarily appropriate for the layer_mapbox (`geom = "mapbox"`).
 #'
+#' @param location A sf object passed to [layer_location_data()] with data if
+#'   layer is `NULL`. location is ignored if layer is provided. If data is
+#'   `NULL`, location is passed as data to facilitate using this function with
+#'   `geom = "mapbox"` where data is used to define the map area. Defaults to
+#'   `NULL`
 #' @inheritParams papersize::get_paper
 #' @param save If `TRUE`, save file with [ggsave_ext] or [ggsave_social],
-#'   requires `basemap = TRUE` and filename is not NULL *or* ... include a name
-#'   parameter. Default: `FALSE`
+#'   requires `basemap = TRUE` and filename is not `NULL` *or* `...` must
+#'   include a name parameter. Defaults to `FALSE`.
 #' @inheritParams sfext::st_bbox_ext
 #' @inheritParams layer_location_data
 #' @inheritParams ggsave_ext
 #' @param ggsave_params List of parameters passed to [ggsave_ext()].
 #' @inheritParams mapboxapi::layer_static_mapbox
+#' @param layer A ggplot2 layer or a list of ggproto objects. If layer is
+#'   provided, all parameters passed to [layer_location_data()] (including data,
+#'   location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
+#'   this case, the function simply stacks the bg_layer, layer, and fg_layer
+#'   objects then applies the basemap and neatline (using the [make_basemap()]
+#'   and [set_neatline()] helper functions.)
 #' @param bg_layer,fg_layer A ggplot2 layer or a list of ggproto objects (e.g.
 #'   scales, labels, etc.) to add to the background or foreground of the primary
-#'   map layer defined by `"geom"` and other parameters.
-#' @param layer If provided, layer is a ggplot2 layer or a list of ggproto
-#'   objects (e.g. scales, labels, etc.) that will be used instead of the
-#'   provided location or data.
+#'   map layer defined by `"geom"` and other parameters. If the geom creates an
+#'   opaque layer or layer is an opaque layer (e.g. a layer produced by
+#'   [layer_mapbox()]) that covers the full map extent, the bg_layer will not be
+#'   visible.
 #' @inheritParams make_basemap
 #' @inheritParams set_neatline
 #' @param ... Additional parameters passed to [layer_location_data()].
 #'
 #' @details Using [make_image_map()]:
 #'
-#' [make_image_map()] wraps [sfext::read_sf_exif()] and [make_location_map()]. It is
-#' designed for making simple maps of photos in combination with reference
+#' [make_image_map()] wraps [sfext::read_sf_exif()] and [make_location_map()].
+#' It is designed for making simple maps of photos in combination with reference
 #' tables.
 #'
 #' @rdname make_location_map
 #' @export
-#' @importFrom ggplot2 ggplot
-#' @importFrom papersize get_paper
-make_location_map <- function(location,
+#' @importFrom papersize get_paper make_page_size
+#' @importFrom rlang check_required
+make_location_map <- function(location = NULL,
                               dist = NULL,
                               diag_ratio = NULL,
                               unit = NULL,
@@ -167,7 +180,6 @@ make_location_map <- function(location,
 #' @rdname make_location_map
 #' @inheritParams sfext::get_social_image
 #' @export
-#' @importFrom ggplot2 ggplot
 #' @importFrom papersize get_social_size
 make_social_map <- function(location,
                             dist = NULL,
@@ -234,8 +246,9 @@ make_social_map <- function(location,
 #'   mark the location of images (based on EXIF metadata).
 #' @inheritParams layer_markers
 #' @export
-#' @importFrom sfext st_bbox_ext
 #' @importFrom filenamr read_exif
+#' @importFrom sfext st_bbox_ext
+#' @importFrom sf st_union
 make_image_map <- function(image_path,
                            location = NULL,
                            dist = NULL,
