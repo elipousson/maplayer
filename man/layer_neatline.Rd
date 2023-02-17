@@ -108,8 +108,6 @@ object or list of \code{ggproto} objects to combine with neatline layer.}
 additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 \item If object from \code{\link[=layer_neatline]{layer_neatline()}}, add it as is.
 }}
-
-\item{default_margin}{Plot margin to use as default \code{ggplot2::margin(0, 0, 0, 0)} if \code{expand = FALSE}.}
 }
 \value{
 List of \link[ggplot2:ggsf]{ggplot2::coord_sf} and \link[ggplot2:theme]{ggplot2::theme} calls.

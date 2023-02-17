@@ -14,9 +14,6 @@
 #' @param hide_grid If `TRUE`, hide grid lines. Default: `TRUE`
 #' @param label_axes A description of which axes to label passed to
 #'   [ggplot2::coord_sf()]; defaults to '----' which hides all axes labels.
-#' @param default_margin Plot margin to use as default `ggplot2::margin(0, 0, 0,
-#'   0)` if `expand = FALSE`.
-#' @param ... Additional parameters passed to [ggplot2::coord_sf()].
 #' @param axis.title,axis.text,axis.ticks,axis.ticks.length,axis.line Theme
 #'   elements passed as is if label_axes is anything other than "----".
 #' @param panel.grid,panel.grid.major,panel.grid.minor Passed as is if hide_grid
@@ -27,6 +24,7 @@
 #'   as is or `ggplot2::element_blank()` if bg color is NA or "none".
 #'   plot.margin is set to `ggplot2::margin(1, 1, 1, 1)` if `NULL` or
 #'   `ggplot2::margin(0, 0, 0, 0)` if expand is `FALSE`.
+#' @param ... Additional parameters passed to [ggplot2::coord_sf()].
 #' @inheritParams ggplot2::coord_sf
 #' @inheritParams sfext::st_bbox_ext
 #' @return List of [ggplot2::coord_sf] and [ggplot2::theme] calls.
