@@ -55,7 +55,7 @@ function is primarily appropriate for the layer_mapbox (<code>geom = "mapbox"</c
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">make_location_map</span><span class="op">(</span></span>
-<span>  <span class="va">location</span>,</span>
+<span>  location <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dist <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  diag_ratio <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  unit <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -131,8 +131,11 @@ function is primarily appropriate for the layer_mapbox (<code>geom = "mapbox"</c
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>location</dt>
-<dd><p>sf object. If multiple areas are provided, they are unioned
-into a single sf object using <code><a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">sf::st_union()</a></code></p></dd>
+<dd><p>A sf object passed to <code><a href="layer_location_data.html">layer_location_data()</a></code> with data if
+layer is <code>NULL</code>. location is ignored if layer is provided. If data is
+<code>NULL</code>, location is passed as data to facilitate using this function with
+<code>geom = "mapbox"</code> where data is used to define the map area. Defaults to
+<code>NULL</code></p></dd>
 
 
 <dt>dist</dt>
@@ -210,13 +213,19 @@ and basemap object to <code><a href="https://ggplot2.tidyverse.org/reference/ggp
 <dt>bg_layer, fg_layer</dt>
 <dd><p>A ggplot2 layer or a list of ggproto objects (e.g.
 scales, labels, etc.) to add to the background or foreground of the primary
-map layer defined by <code>"geom"</code> and other parameters.</p></dd>
+map layer defined by <code>"geom"</code> and other parameters. If the geom creates an
+opaque layer or layer is an opaque layer (e.g. a layer produced by
+<code><a href="layer_mapbox.html">layer_mapbox()</a></code>) that covers the full map extent, the bg_layer will not be
+visible.</p></dd>
 
 
 <dt>layer</dt>
-<dd><p>If provided, layer is a ggplot2 layer or a list of ggproto
-objects (e.g. scales, labels, etc.) that will be used instead of the
-provided location or data.</p></dd>
+<dd><p>A ggplot2 layer or a list of ggproto objects. If layer is
+provided, all parameters passed to <code><a href="layer_location_data.html">layer_location_data()</a></code> (including data,
+location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
+this case, the function simply stacks the bg_layer, layer, and fg_layer
+objects then applies the basemap and neatline (using the <code><a href="make_basemap.html">make_basemap()</a></code>
+and <code><a href="layer_neatline.html">set_neatline()</a></code> helper functions.)</p></dd>
 
 
 <dt>neatline</dt>
@@ -230,8 +239,8 @@ additional parameters passed to ... If logical and <code>FALSE</code>, return x 
 
 <dt>save</dt>
 <dd><p>If <code>TRUE</code>, save file with <a href="ggsave_ext.html">ggsave_ext</a> or <a href="ggsave_ext.html">ggsave_social</a>,
-requires <code>basemap = TRUE</code> and filename is not NULL <em>or</em> ... include a name
-parameter. Default: <code>FALSE</code></p></dd>
+requires <code>basemap = TRUE</code> and filename is not <code>NULL</code> <em>or</em> <code>...</code> must
+include a name parameter. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>ggsave_params</dt>
@@ -314,8 +323,8 @@ number column.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Using <code>make_image_map()</code>:</p>
-<p><code>make_image_map()</code> wraps <code><a href="https://elipousson.github.io/sfext/reference/read_sf_exif.html" class="external-link">sfext::read_sf_exif()</a></code> and <code>make_location_map()</code>. It is
-designed for making simple maps of photos in combination with reference
+<p><code>make_image_map()</code> wraps <code><a href="https://elipousson.github.io/sfext/reference/read_sf_exif.html" class="external-link">sfext::read_sf_exif()</a></code> and <code>make_location_map()</code>.
+It is designed for making simple maps of photos in combination with reference
 tables.</p>
     </div>
 

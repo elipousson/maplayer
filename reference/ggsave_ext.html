@@ -152,7 +152,8 @@ file.</p>
 <dt>label</dt>
 <dd><p>Label to combine with name converted to snake case with
 <code><a href="https://sfirke.github.io/janitor/reference/make_clean_names.html" class="external-link">janitor::make_clean_names()</a></code>. The label is designed to identify the area
-or other shared characteristics across multiple data files, maps, or plots.</p></dd>
+or other shared characteristics across multiple data files, maps, or plots.
+label is ignored if name is NULL or if name includes a file extension.</p></dd>
 
 
 <dt>prefix</dt>
@@ -254,7 +255,7 @@ Defaults to <code>FALSE</code>. Passed to <code><a href="https://elipousson.gith
 
 <dt>preview</dt>
 <dd><p>If <code>TRUE</code>, open saved file in default system application.
-Based on <code>ggpreview()</code> from tjmisc package.</p></dd>
+Based on <code>ggpreview()</code> from the tjmisc package.</p></dd>
 
 
 <dt>limitsize</dt>
