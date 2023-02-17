@@ -44,7 +44,11 @@ layer_image_path <- function(data = NULL,
   path_layer <-
     geom_sf_coordinates(
       geom = ggpath::geom_from_path,
-      mapping = aes(path = .data[[path_col]], x = ggplot2::after_stat(x), y = ggplot2::after_stat(y)),
+      mapping = aes(
+        path = .data[[path_col]],
+        x = ggplot2::after_stat(x),
+        y = ggplot2::after_stat(y)
+      ),
       data = data,
       width = width,
       ...

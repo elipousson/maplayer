@@ -26,9 +26,9 @@ layer_repel <- function(mapping = aes(),
                         ylim = c(NA, NA),
                         ...) {
   cliExtras::cli_abort_ifnot(
-      "{.arg label_col} must be length 1, not {length(label_col)}.",
-      condition = rlang::is_character(label_col, 1)
-    )
+    "{.arg label_col} must be length 1, not {length(label_col)}.",
+    condition = rlang::is_character(label_col, 1)
+  )
 
   if (!is.null(location_lims) && all(is.na(c(ylim, xlim)))) {
     bbox <- sfext::as_bbox(location_lims)

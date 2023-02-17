@@ -220,7 +220,7 @@ theme_legend <- function(position = NULL,
       # use a character margin as a margin type
       dist <- NULL
       if (is.numeric(margin)) {
-      # use a numeric margin as a dist
+        # use a numeric margin as a dist
         dist <- margin
         margin <- NULL
       }

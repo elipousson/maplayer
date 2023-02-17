@@ -188,13 +188,15 @@ make_frame <- function(x,
 
   switch(style,
     "circle" = sfext::st_circle(
-      x, scale = scale, inscribed = inscribed,
+      x,
+      scale = scale, inscribed = inscribed,
       by_feature = by_feature, dTolerance = dTolerance
-      ),
+    ),
     "square" = sfext::st_square(
-      x, scale = scale, rotate = rotate,
+      x,
+      scale = scale, rotate = rotate,
       by_feature = by_feature, inscribed = inscribed
-      ),
+    ),
     "rect" = st_bbox_ext(x, asp = asp, class = "sf"),
     "buffer" = x
   )
