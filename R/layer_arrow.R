@@ -36,11 +36,7 @@ layer_arrow <- function(mapping = NULL,
         c("segment", "curve", "arrowsegment", "diagonal0", "link")
       )
 
-    if (geom == "arrowsegment") {
-      is_pkg_installed("ggarchery", "mdhall272/ggarchery")
-    } else if (geom %in% c("diagonal0", "geom_link")) {
-      is_pkg_installed("ggforce")
-    }
+    check_geom_installed(geom)
 
     geom <-
       switch(geom,
@@ -53,9 +49,11 @@ layer_arrow <- function(mapping = NULL,
   }
 
   data <-
-    vctrs::vec_cbind(
-      sfext::as_xy(from, bbox = data, crs = crs),
-      sfext::as_xy(to, bbox = data, nm = c("xend", "yend"), crs = crs)
+    list_cbind(
+      list(
+        sfext::as_xy(from, bbox = data, crs = crs),
+        sfext::as_xy(to, bbox = data, nm = c("xend", "yend"), crs = crs)
+      )
     )
 
   mapping <-
