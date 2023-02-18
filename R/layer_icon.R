@@ -28,11 +28,9 @@
 #'  [map_icons]
 #' @rdname layer_icon
 #' @export
-#' @importFrom sf st_geometry_type st_centroid st_coordinates
-#' @importFrom dplyr left_join rename bind_cols filter
-#' @importFrom sfext check_sf st_transform_ext
+#' @importFrom rlang check_installed has_name
+#' @importFrom sfext get_sf_col
 #' @importFrom ggplot2 aes
-#' @importFrom stringr str_detect
 layer_icon <- function(data = NULL,
                        iconname_col = "icon",
                        icon = NULL,
@@ -41,11 +39,10 @@ layer_icon <- function(data = NULL,
                        svg = NULL,
                        crs = getOption("maplayer.crs", default = 3857),
                        ...) {
-  is_pkg_installed(pkg = "ggsvg", repo = "coolbutuseless/ggsvg")
-  is_pkg_installed(pkg = "rsvg")
+  rlang::check_installed("rsvg")
+  check_dev_installed("ggsvg", "coolbutuseless/ggsvg")
 
-  sf_col <- attributes(data)$sf_column %||% "geometry"
-  defaults <- list("geometry" = sf_col)
+  defaults <- list("geometry" = sfext::get_sf_col(data))
 
   if (!is.null(iconname_col) && is.null(icon)) {
     data <-
@@ -57,40 +54,42 @@ layer_icon <- function(data = NULL,
         crs = crs
       )
 
-    geom_sf_coordinates(
-      mapping = ggplot2::aes(
-        svg = .data[["svg"]]
-      ),
-      data = data,
-      geom = ggsvg::geom_point_svg,
-      defaults = defaults,
-      ...
-    )
-  } else {
-    if (!is.null(icon)) {
-      svg <-
-        get_map_icon(
-          icon = icon,
-          source = source,
-          px = px,
-          single = TRUE
-        )[["svg"]]
-    }
-
-    if (is.null(svg)) {
-      cli::cli_abort(
-        "{.arg iconname_col}, {.arg icon}, or {.arg svg} must be provided."
+    layer <-
+      geom_sf_coordinates(
+        mapping = ggplot2::aes(
+          svg = .data[["svg"]]
+        ),
+        data = data,
+        geom = ggsvg::geom_point_svg,
+        defaults = defaults,
+        ...
       )
-    }
 
-    geom_sf_coordinates(
-      svg = svg,
-      data = data,
-      geom = ggsvg::geom_point_svg,
-      defaults = defaults,
-      ...
-    )
+    return(layer)
   }
+
+  if (!is.null(icon)) {
+    svg <-
+      get_map_icon(
+        icon = icon,
+        source = source,
+        px = px,
+        single = TRUE
+      )[["svg"]]
+  }
+
+  cli_abort_ifnot(
+    "{.arg iconname_col}, {.arg icon},
+    or {.arg svg} must be provided." = !is.null(svg)
+  )
+
+  geom_sf_coordinates(
+    svg = svg,
+    data = data,
+    geom = ggsvg::geom_point_svg,
+    defaults = defaults,
+    ...
+  )
 }
 
 #' @rdname layer_icon
@@ -105,31 +104,30 @@ geom_sf_icon <- layer_icon
 #' @param read If TRUE, read url from `map_icons` to text for SVG using
 #'   [readLines()]. Defaults to `TRUE`.
 #' @noRd
-#' @importFrom dplyr filter bind_cols
-#' @importFrom purrr map_chr
+#' @importFrom dplyr bind_cols
+#' @importFrom cliExtras cli_abort_if
 get_map_icon <- function(icon = NULL, px = NULL, source = NULL, single = TRUE, read = TRUE) {
   icon_name <- icon
   icon <- map_icons
 
   if (!is.null(icon_name)) {
-    icon <- dplyr::filter(icon, .data$name %in% icon_name)
+    icon <- icon[icon$name %in% icon_name, ]
   }
 
   if (!is.null(px)) {
-    icon <- dplyr::filter(icon, .data$size %in% px)
+    icon <- icon[icon$size %in% as.numeric(px), ]
   }
 
   if (!is.null(source)) {
-    icon <- dplyr::filter(icon, grepl(source, repo))
+    icon <- icon[grepl(source, icon$repo), ]
   }
 
-  if ((nrow(icon) > 1) && single) {
-    cli_abort(
+  cli_abort_if(
       c("{.arg icon} matches {nrow(icon)} icon, not 1.",
         "i" = "Provide the {.arg px} and/or {.arg source} to select a single icon."
-      )
+      ),
+      condition = (nrow(icon) > 1) && single
     )
-  }
 
   if (!read) {
     return(icon)
@@ -137,7 +135,7 @@ get_map_icon <- function(icon = NULL, px = NULL, source = NULL, single = TRUE, r
 
   dplyr::bind_cols(
     icon,
-    "svg" = purrr::map_chr(
+    "svg" = map_chr(
       icon$url,
       ~ paste(suppressWarnings(readLines(.x)), collapse = "\n")
     )
@@ -159,7 +157,8 @@ join_map_icons <- function(data = NULL,
                            source = NULL,
                            px = NULL,
                            crs = NULL,
-                           fun.geometry = function(x) sf::st_centroid(sf::st_zm(x))) {
+                           fun.geometry = function(x) sf::st_centroid(sf::st_zm(x)),
+                           call = parent.frame()) {
   if (is.null(data)) {
     return(
       function(x) {
@@ -174,13 +173,13 @@ join_map_icons <- function(data = NULL,
     )
   }
 
-  sfext::check_sf(data)
+  sfext::check_sf(data, call = call)
 
-  if (!rlang::has_name(data, iconname_col)) {
-    cli::cli_abort(
-      "{.arg iconname_col} {.value {iconname_col}} can't be found in {.arg data}."
+  cli_abort_ifnot(
+      "{.arg iconname_col} {.value {iconname_col}} can't be found
+      in {.arg data}." = rlang::has_name(data, iconname_col),
+      call = call
     )
-  }
 
   col_icons <- sort(unique(data[[iconname_col]]))
 
