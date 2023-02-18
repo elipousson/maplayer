@@ -82,6 +82,12 @@ based on provided from and to parameters.</p></dd>
 <dd><p>Required if from or to are character vectors to <code><a href="https://elipousson.github.io/sfext/reference/as_xy.html" class="external-link">sfext::as_xy()</a></code></p></dd>
 
 
+<dt>crs</dt>
+<dd><p>A character or numeric reference to a coordinate reference system
+supported by <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">sf::st_crs()</a></code> or another  <code>sf</code>, <code>sfc</code>, or <code>bbox</code> object that
+is used to provide crs.</p></dd>
+
+
 <dt>from, to</dt>
 <dd><p>Required. Passed to x parameter of <code><a href="https://elipousson.github.io/sfext/reference/as_xy.html" class="external-link">sfext::as_xy()</a></code> (using <code>nm = c("xend", "yend")</code>) for the to parameter.</p></dd>
 
@@ -89,6 +95,11 @@ based on provided from and to parameters.</p></dd>
 <dt>geom</dt>
 <dd><p>Character string for geom to use  c("segment", "curve",
 "arrowsegment", "diagonal0", "link") or a geom function.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Additional parameters passed to <code><a href="https://elipousson.github.io/sfext/reference/sf_bbox_misc.html" class="external-link">sf_bbox_point()</a></code>, <code><a href="https://elipousson.github.io/sfext/reference/as_point.html" class="external-link">as_points()</a></code>,
+or <code><a href="https://elipousson.github.io/sfext/reference/as_sf.html" class="external-link">as_sfc()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
