@@ -130,6 +130,8 @@ theme_text <- function(font_family = NULL,
 
 #' @rdname theme_ext
 #' @name theme_margin
+#' @param size Passed to size of ggplot2::element_rect() to define the
+#'   plot.background theme element.
 #' @export
 #' @importFrom ggplot2 theme element_rect
 #' @importFrom grid unit

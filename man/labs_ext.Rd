@@ -37,6 +37,9 @@ top-left of the plot by default.}
 
 \item{alt}{Text used for the generation of alt-text for the plot.}
 
+\item{fill, color, size, shape}{Optional labels for mapped aesthetics. Default
+to \code{\link[ggplot2:waiver]{ggplot2::waiver()}}.}
+
 \item{location}{sf or bbox object or character string}
 
 \item{name_col}{Column name holding name or identifier for distinct places

@@ -184,7 +184,7 @@ mark the location of images (based on EXIF metadata).}
 group_meta is a non-spatial data frame; Default: \code{NULL}}
 
 \item{group_meta}{Group metadata as a data frame or sf object that intersect
-with markers; Default: \code{NULL}}
+with markers (using join function); Default: \code{NULL}}
 
 \item{number}{If \code{TRUE}, number markers using \code{\link[=layer_markers]{layer_markers()}} (not
 currently supported)}

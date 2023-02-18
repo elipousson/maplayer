@@ -8,6 +8,8 @@
 #' @param name_col Column name holding name or identifier for distinct places
 #'   within the simple feature collection provided to location. Not supported
 #'   for bbox objects.
+#' @param fill,color,size,shape Optional labels for mapped aesthetics. Default
+#'   to [ggplot2::waiver()].
 #' @param source Data source(s). Not yet used or supported by function.
 #' @param alt Text used for the generation of alt-text for the plot.
 #' @param .na,.null Additional parameters passed to [glue::glue()]

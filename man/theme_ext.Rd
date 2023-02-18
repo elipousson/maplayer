@@ -92,6 +92,9 @@ note: headers and footers are not currently supported for "px" units.}
 \item{fill}{Fill for \code{plot.background} theme element passed to
 \code{\link[ggplot2:element]{ggplot2::element_rect()}} Default: \code{NA}.}
 
+\item{size}{Passed to size of ggplot2::element_rect() to define the
+plot.background theme element.}
+
 \item{position}{Legend position (“left”,“top”, “right”, “bottom”) or a
 two-element numeric vector to set position using Normalized Parent
 Coordinates ("npc"); defaults NULL}

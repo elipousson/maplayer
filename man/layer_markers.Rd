@@ -83,7 +83,7 @@ mapping.}
 group_meta is a non-spatial data frame; Default: \code{NULL}}
 
 \item{group_meta}{Group metadata as a data frame or sf object that intersect
-with markers; Default: \code{NULL}}
+with markers (using join function); Default: \code{NULL}}
 
 \item{crs}{Coordinate reference system for markers, Default: \code{NULL}}
 
@@ -125,6 +125,20 @@ grouped; Default: \code{NULL}}
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
 \item{hjust, vjust}{Horizontal and vertical justification.}
+
+\item{join}{Spatial relation function to combine data with group_meta, passed
+to \code{\link[sf:st_join]{sf::st_join()}}. Defaults to \code{\link[sf:geos_binary_pred]{sf::st_intersects()}}.}
+
+\item{geo}{If \code{FALSE}, pass data to \code{\link[getdata:get_location_data]{getdata::get_location_data()}} with \code{geo = TRUE} parameter.}
+
+\item{coords}{Coordinate columns for input data.frame or output sf object (if
+geometry is 'centroid' or 'point') Default: c("lon", "lat").}
+
+\item{address}{Address column name passed to \code{\link[tidygeocoder:geocode]{tidygeocoder::geocode()}} or
+\link[tidygeocoder:geo]{tidygeocoder::geo}}
+
+\item{point}{If \code{TRUE} and data does not have POINT or MULTIPOINT geometry,
+convert to POINT data using \code{\link[sf:geos_unary]{sf::st_centroid()}}.}
 }
 \value{
 ggplot2 layers

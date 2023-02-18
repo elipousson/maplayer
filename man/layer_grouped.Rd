@@ -46,6 +46,9 @@ If a \strong{ggplot}, add x to basemap object.
 If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
 and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
+\item{palette}{Name of palette as a string. Must be on the form
+packagename::palettename.}
+
 \item{aesthetics}{Aesthetic to map to groupname_col. Defaults to "fill"; also
 supports "color" or c("fill", "color").}
 
