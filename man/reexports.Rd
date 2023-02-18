@@ -5,6 +5,7 @@
 \alias{reexports}
 \alias{ggplot}
 \alias{aes}
+\alias{geom_sf}
 \alias{last_plot}
 \alias{margin}
 \alias{guides}
@@ -15,6 +16,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{guides}}, \code{\link[ggplot2]{last_plot}}, \code{\link[ggplot2:element]{margin}}}
+  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2:ggsf]{geom_sf}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{guides}}, \code{\link[ggplot2]{last_plot}}, \code{\link[ggplot2:element]{margin}}}
 }}
 

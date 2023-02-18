@@ -6,6 +6,10 @@ ggplot2::ggplot
 #' @export
 ggplot2::aes
 
+#' @importFrom ggplot2 geom_sf
+#' @export
+ggplot2::geom_sf
+
 #' @importFrom ggplot2 last_plot
 #' @export
 ggplot2::last_plot
