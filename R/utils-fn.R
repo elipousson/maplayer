@@ -66,7 +66,9 @@ eval_tidy_fn <- function(x, params = NULL, pkg = NULL, fn = NULL, arg = caller_a
     return(x)
   }
 
-  is_pkg_installed(pkg)
+  if (!is.null(pkg)) {
+    rlang::check_installed(pkg)
+  }
 
   fn <- make_fn(fn, arg = arg, call = call)
 
