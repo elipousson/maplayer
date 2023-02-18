@@ -16,6 +16,20 @@ utils::globalVariables(
 # @staticimports pkg:isstatic
 #   has_fileext is_all_null is_unit is_patchwork is_list_of
 
+#' @keywords internal
+#' @importFrom rlang zap current_env
+#' @importFrom vctrs vec_cbind
+list_cbind <- function(x,
+                       name_repair = c("unique", "universal", "check_unique"),
+                       size = NULL) {
+  vctrs::vec_cbind(
+    !!!x,
+    .name_repair = name_repair,
+    .size = size,
+    .error_call = rlang::current_env()
+  )
+}
+
 #' Group data by column if present
 #'
 #' @param data Data frame or simple feature object
@@ -92,7 +106,7 @@ has_same_name_col <- function(x, col = NULL, prefix = "orig", ask = FALSE, quiet
 #'   [rlang::check_installed].
 #' @noRd
 #' @importFrom rlang is_installed check_installed
-is_pkg_installed <- function(pkg = NULL, repo = NULL) {
+check_dev_installed <- function(pkg = NULL, repo = NULL) {
   if (!is.null(pkg) && !rlang::is_installed(pkg = pkg)) {
     rlang::check_installed(pkg = repo %||% pkg)
   }
@@ -102,21 +116,25 @@ is_pkg_installed <- function(pkg = NULL, repo = NULL) {
 #'
 #' @param geom geom function name as character.
 #' @noRd
-is_geom_pkg_installed <- function(geom) {
-  ggpattern_geoms <- c("pattern", "sf_pattern")
-  ggrepel_geoms <- c("text_repel", "label_repel")
-  geomtextpath_geoms <- c("textsf", "labelsf")
-
+check_geom_installed <- function(geom) {
   # Check if packages are available for text/label geoms
-  if (geom %in% geomtextpath_geoms) {
-    return(is_pkg_installed("geomtextpath"))
+  if (geom %in% c("text_repel", "label_repel")) {
+    return(rlang::check_installed("ggrepel"))
   }
 
-  if (geom %in% ggrepel_geoms) {
-    return(is_pkg_installed("ggrepel"))
+  if (geom %in% c("textsf", "labelsf")) {
+    return(rlang::check_installed("geomtextpath"))
   }
 
-  if (geom %in% ggpattern_geoms) {
-    return(is_pkg_installed("ggpattern"))
+  if (geom %in% c("pattern", "sf_pattern")) {
+    return(rlang::check_installed("ggpattern"))
+  }
+
+  if (geom == "arrowsegment") {
+    return(check_dev_installed("ggarchery", "mdhall272/ggarchery"))
+  }
+
+  if (geom %in% c("diagonal0", "geom_link")) {
+    return(rlang::check_installed("ggforce"))
   }
 }
