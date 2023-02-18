@@ -22,13 +22,13 @@ Imports:
     getdata (>= 0.1.0),
     ggplot2,
     glue,
+    lifecycle,
     papersize (>= 0.1.0),
-    purrr,
-    rlang,
+    rlang (>= 0.4.11),
     scales,
     sf,
     sfext (>= 0.1.0),
-    stringr
+    vctrs
 Suggests: 
     covr,
     figpatch,
@@ -46,18 +46,19 @@ Suggests:
     paletteer,
     patchwork,
     qpdf,
+    roxygen2,
     rsvg,
     smoothr,
     testthat (>= 3.0.0),
     tibble,
     vdiffr
-Remotes:  
+Remotes: 
     coolbutuseless/ggsvg,
-    elipousson/getdata,
-    elipousson/sfext,
-    elipousson/filenamr,
     elipousson/cliExtras,
+    elipousson/filenamr,
+    elipousson/getdata,
     elipousson/papersize,
+    elipousson/sfext,
     mdhall272/ggarchery
 Config/testthat/edition: 3
 Config/testthat/parallel: true
