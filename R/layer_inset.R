@@ -113,7 +113,7 @@ stamp_inset_img <-
            nudge_y = 0,
            align_to = "full",
            ...) {
-    is_pkg_installed("figpatch")
+    rlang::check_installed("figpatch")
 
     inset <- figpatch::fig(path = path, b_margin = img_margin, ...)
 
@@ -137,7 +137,7 @@ make_inset_element <- function(inset,
                                nudge_y = 0,
                                align_to = "full",
                                ...) {
-  is_pkg_installed("patchwork")
+  rlang::check_installed("patchwork")
 
   inset_position <-
     get_inset_position(
@@ -170,7 +170,10 @@ make_inset_element <- function(inset,
 #' patchwork::inset_element
 #'
 #' @noRd
-get_inset_position <- function(position = NULL, nudge_x = 0, nudge_y = 0, scale = 1) {
+get_inset_position <- function(position = NULL,
+                               nudge_x = 0,
+                               nudge_y = 0,
+                               scale = 1) {
   # FIXME: This is an incomplete implementation of a scale factor for an inset map
   # top, bottom, left, and right probably should all be based on scale as well
   top <- 0.5

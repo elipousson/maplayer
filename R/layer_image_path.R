@@ -35,7 +35,7 @@ layer_image_path <- function(data = NULL,
     data <- sf::st_transform(sfext::read_sf_exif(path), crs = crs)
   }
 
-  is_pkg_installed("ggpath", repo = "mrcaseb/ggpath")
+  check_dev_installed("ggpath", repo = "mrcaseb/ggpath")
 
   if (!rlang::has_name(data, path_col)) {
     cli_abort("{.arg path_col} {.val {path_col}} can't be found in {.arg data}.")

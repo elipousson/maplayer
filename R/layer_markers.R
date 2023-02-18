@@ -105,7 +105,6 @@ layer_markers <- function(data,
 #' @param ... Additional parameters passed to [layer_location_data()]
 #' @export
 #' @importFrom ggplot2 aes unit
-#' @importFrom purrr list_modify zap
 #' @importFrom utils modifyList
 #' @importFrom dplyr arrange mutate row_number
 layer_numbers <- function(data,
@@ -161,13 +160,20 @@ layer_numbers <- function(data,
 
 #' @name make_markers
 #' @rdname layer_markers
+#' @param join Spatial relation function to combine data with group_meta, passed
+#'   to [sf::st_join()]. Defaults to [sf::st_intersects()].
 #' @param groupname_col Group column name, used to join group metadata if
 #'   group_meta is a non-spatial data frame; Default: `NULL`
 #' @param group_meta Group metadata as a data frame or sf object that intersect
-#'   with markers; Default: `NULL`
+#'   with markers (using join function); Default: `NULL`
 #' @param crs Coordinate reference system for markers, Default: `NULL`
 #' @param fn Function to apply to data before results; gives warning if data is
 #'   grouped; Default: `NULL`
+#' @param geo If `FALSE`, pass data to [getdata::get_location_data()] with `geo
+#'   = TRUE` parameter.
+#' @inheritParams sfext::df_to_sf
+#' @param point If `TRUE` and data does not have POINT or MULTIPOINT geometry,
+#'   convert to POINT data using [sf::st_centroid()].
 #' @param ... Additional parameters passed to [get_location_data()] when using
 #'   `make = TRUE` to pass data to [make_markers]
 #' @export

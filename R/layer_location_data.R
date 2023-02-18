@@ -69,7 +69,6 @@
 #' @family layer
 #' @export
 #' @importFrom ggplot2 geom_sf geom_sf_text geom_sf_label
-#' @importFrom purrr discard
 #' @importFrom utils modifyList
 #' @importFrom rlang is_function is_formula arg_match has_name exec
 layer_location_data <- function(mapping = NULL,
@@ -168,7 +167,7 @@ layer_location_data <- function(mapping = NULL,
       c("sf", maplayer_geoms, text_geoms, ggpattern_geoms)
     )
 
-  is_geom_pkg_installed(geom)
+  check_geom_installed(geom)
 
   # Assign aesthetics for text/label geoms
   if (geom %in% text_geoms) {
@@ -253,7 +252,6 @@ layer_location_data <- function(mapping = NULL,
 #' Modify function parameters
 #'
 #' @noRd
-#' @importFrom purrr discard
 #' @importFrom rlang fn_fmls is_missing
 #' @importFrom utils modifyList
 modify_fn_fmls <- function(params,
@@ -264,7 +262,7 @@ modify_fn_fmls <- function(params,
   fmls <- rlang::fn_fmls(fn)
 
   if (!keep_missing) {
-    fmls <- purrr::discard(fmls, rlang::is_missing)
+    fmls <- discard(fmls, rlang::is_missing)
   }
 
   params <- c(list2(...), params)

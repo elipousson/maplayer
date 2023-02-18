@@ -101,7 +101,7 @@ layer_marked <- function(data,
                          drop_shadow = FALSE,
                          shadow_params = list(x_offset = 5, y_offset = 5, sigma = 0.5, ...),
                          ...) {
-  is_pkg_installed("ggforce")
+  rlang::check_installed("ggforce")
 
   # FIXME: This should be consistent across the different layer functions
   data <- sfext::as_sf(data)

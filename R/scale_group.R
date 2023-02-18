@@ -65,15 +65,15 @@ scale_group_data <-
 #'   palette with [paletteer::paletteer_d()]
 #' @export
 #' @importFrom dplyr n_groups filter mutate bind_cols group_keys
+#' @importFrom scales viridis_pal
 group_data_pal <- function(data,
                            palette = NULL,
                            col = NULL,
                            n = NULL,
                            direction = 1,
                            pkg = NULL) {
-  is_pkg_installed("scales")
-  is_pkg_installed("paletteer")
-  is_pkg_installed("tibble")
+  rlang::check_installed("paletteer")
+  rlang::check_installed("tibble")
 
   data <-
     group_by_col(

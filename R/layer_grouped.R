@@ -10,12 +10,12 @@
 #' @param groupname_col Group column name. Defaults to "group".
 #' @param aesthetics Aesthetic to map to groupname_col. Defaults to "fill"; also
 #'   supports "color" or c("fill", "color").
+#' @inheritParams scale_group_data
 #' @param ... Additional parameters passed to [layer_location_data()]
 #' @rdname layer_grouped
 #' @aliases layer_group_data
 #' @export
 #' @importFrom dplyr group_by group_nest
-#' @importFrom purrr map
 #' @importFrom ggplot2 ggplot
 layer_grouped <- function(data,
                           mapping = NULL,
@@ -48,7 +48,7 @@ layer_grouped <- function(data,
   layer_params <- list2(...)
 
   group_layers <-
-    purrr::map(
+    map(
       nested$data,
       ~ layer_location_data(
         data = .x,
@@ -60,7 +60,7 @@ layer_grouped <- function(data,
     )
 
   if (basemap) {
-    group_layers <- purrr::map(
+    group_layers <- map(
       group_layers,
       ~ ggplot2::ggplot() +
         .x
@@ -81,7 +81,7 @@ layer_grouped <- function(data,
       # Combine detail maps with scale and legend
       group_layers <-
         suppressMessages(
-          purrr::map(
+          map(
             group_layers,
             ~ .x +
               group_scale

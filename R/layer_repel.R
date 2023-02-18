@@ -65,7 +65,7 @@ layer_repel <- function(mapping = aes(),
 #' @name geom_sf_label_repel
 #' @rdname layer_repel
 geom_sf_label_repel <- function(mapping = aes(), data = NULL, label_col = "name", ...) {
-  is_pkg_installed("ggrepel")
+  rlang::check_installed("ggrepel")
 
   geom_sf_coordinates(
     mapping = aes_label(mapping, data, label_col),
@@ -78,7 +78,7 @@ geom_sf_label_repel <- function(mapping = aes(), data = NULL, label_col = "name"
 #' @name geom_sf_text_repel
 #' @rdname layer_repel
 geom_sf_text_repel <- function(mapping = aes(), data = NULL, label_col = "name", ...) {
-  is_pkg_installed("ggrepel")
+  rlang::check_installed("ggrepel")
 
   geom_sf_coordinates(
     mapping = aes_label(mapping, data, label_col),

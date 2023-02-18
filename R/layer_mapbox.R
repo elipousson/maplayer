@@ -16,7 +16,6 @@
 #' @rdname layer_mapbox
 #' @md
 #' @export
-#' @importFrom stringr str_extract
 layer_mapbox <- function(data = NULL,
                          dist = NULL,
                          diag_ratio = NULL,
@@ -40,7 +39,7 @@ layer_mapbox <- function(data = NULL,
                          hide_grid = TRUE,
                          label_axes = "----",
                          ...) {
-  is_pkg_installed("mapboxapi", repo = "walkerke/mapboxapi")
+  check_dev_installed("mapboxapi", repo = "walkerke/mapboxapi")
 
   # Set appropriate CRS for Mapbox
   crs_mapbox <- 3857
