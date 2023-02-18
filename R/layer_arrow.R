@@ -53,9 +53,9 @@ layer_arrow <- function(mapping = NULL,
   }
 
   data <-
-    dplyr::bind_cols(
-      sfext::as_xy(from, data = data, crs = crs),
-      sfext::as_xy(to, data = data, nm = c("xend", "yend"), crs = crs)
+    vctrs::vec_cbind(
+      sfext::as_xy(from, bbox = data, crs = crs),
+      sfext::as_xy(to, bbox = data, nm = c("xend", "yend"), crs = crs)
     )
 
   mapping <-

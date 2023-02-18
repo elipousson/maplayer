@@ -20,10 +20,17 @@ based on provided from and to parameters.}
 
 \item{data}{Required if from or to are character vectors to \code{\link[sfext:as_xy]{sfext::as_xy()}}}
 
+\item{crs}{A character or numeric reference to a coordinate reference system
+supported by \code{\link[sf:st_crs]{sf::st_crs()}} or another  \code{sf}, \code{sfc}, or \code{bbox} object that
+is used to provide crs.}
+
 \item{from, to}{Required. Passed to x parameter of \code{\link[sfext:as_xy]{sfext::as_xy()}} (using \code{nm = c("xend", "yend")}) for the to parameter.}
 
 \item{geom}{Character string for geom to use  c("segment", "curve",
 "arrowsegment", "diagonal0", "link") or a geom function.}
+
+\item{...}{Additional parameters passed to \code{\link[sfext:sf_bbox_point]{sf_bbox_point()}}, \code{\link[sfext:as_points]{as_points()}},
+or \code{\link[sfext:as_sfc]{as_sfc()}}.}
 }
 \description{
 A wrapper for \link[ggplot2:geom_segment]{ggplot2::geom_segment}, \code{\link[ggplot2:geom_segment]{ggplot2::geom_curve()}},
