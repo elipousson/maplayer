@@ -144,7 +144,7 @@ group_meta is a non-spatial data frame; Default: <code>NULL</code></p></dd>
 
 <dt>group_meta</dt>
 <dd><p>Group metadata as a data frame or sf object that intersect
-with markers; Default: <code>NULL</code></p></dd>
+with markers (using join function); Default: <code>NULL</code></p></dd>
 
 
 <dt>crs</dt>
@@ -218,6 +218,30 @@ grouped; Default: <code>NULL</code></p></dd>
 
 <dt>hjust, vjust</dt>
 <dd><p>Horizontal and vertical justification.</p></dd>
+
+
+<dt>join</dt>
+<dd><p>Spatial relation function to combine data with group_meta, passed
+to <code><a href="https://r-spatial.github.io/sf/reference/st_join.html" class="external-link">sf::st_join()</a></code>. Defaults to <code><a href="https://r-spatial.github.io/sf/reference/geos_binary_pred.html" class="external-link">sf::st_intersects()</a></code>.</p></dd>
+
+
+<dt>geo</dt>
+<dd><p>If <code>FALSE</code>, pass data to <code><a href="https://elipousson.github.io/getdata/reference/get_location_data.html" class="external-link">getdata::get_location_data()</a></code> with <code>geo = TRUE</code> parameter.</p></dd>
+
+
+<dt>coords</dt>
+<dd><p>Coordinate columns for input data.frame or output sf object (if
+geometry is 'centroid' or 'point') Default: c("lon", "lat").</p></dd>
+
+
+<dt>address</dt>
+<dd><p>Address column name passed to <code>tidygeocoder::geocode()</code> or
+tidygeocoder::geo</p></dd>
+
+
+<dt>point</dt>
+<dd><p>If <code>TRUE</code> and data does not have POINT or MULTIPOINT geometry,
+convert to POINT data using <code><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">sf::st_centroid()</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
