@@ -1,5 +1,14 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# maplayer development
+
+* Add `layer_arrow()`.
+* Add default filetype ("gpkg") to `layer_location_data()`.
+* Add `ggplot2::geom_sf()` to re-exports.
+* Update `map_icons` with [maki v8.0.1](https://github.com/mapbox/maki/releases/tag/v8.0.1) and [temaki v5.3.0](https://github.com/rapideditor/temaki/releases/tag/v5.3.0).
+* Add `{papersize}` and `{cliExtras}` to Imports.
+* Drop `{purrr}` from Imports and adopt rlang equivalents from `standalone-purrr.R`.
+
 # maplayer 0.1.0.9000 (2022-10-13)
 
 - feat: add working layer_count wrapping count_sf_ext

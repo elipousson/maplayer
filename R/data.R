@@ -1,7 +1,7 @@
 #' @title Map icons
 #' @description An index of map icons from four sources:
 #' - [mapbox/maki](https://github.com/mapbox/maki)
-#' - [ideditor/temaki](https://github.com/ideditor/temaki)
+#' - [ideditor/temaki](https://github.com/rapideditor/temaki)
 #' - [manifestinteractive/weather-underground-icons](https://github.com/manifestinteractive/weather-underground-icons/)
 #' - [openstreetmap/map-icons](https://github.com/openstreetmap/map-icons/)
 #' - [openstreetmap/lane-icons](https://github.com/openstreetmap/lane-icons/)
@@ -10,7 +10,7 @@
 #'
 #' Most of these icon sources use open licenses.
 #' [Maki](https://github.com/mapbox/maki/blob/main/LICENSE.txt),
-#' [Temaki](https://github.com/ideditor/temaki/blob/main/LICENSE.md), and the
+#' [Temaki](https://github.com/rapideditor/temaki/blob/main/LICENSE.md), and the
 #' [OSM lane icons](https://github.com/openstreetmap/lane-icons/blob/master/LICENSE.md)
 #' all use a CC0 license. The Weather Underground Icons use an
 #' [MIT
@@ -21,14 +21,14 @@
 #' Symbol Library is created by the National Park Service so is assumed to be a
 #' [Public Domain work in the U.S.](http://www.usa.gov/publicdomain/label/1.0/).
 #'
-#' This index was last updated on November 1, 2022 and may not include any icons
+#' This index was last updated on March 13, 2023 and may not include any icons
 #' that have been added since that date.
 #'
 #' @details
 #' The name column is not unique so a px or source may be required when using
 #' [layer_icon()].
 #'
-#' @format A tibble with 4,891 rows and 5 variables:
+#' @format A tibble with 4,892 rows and 5 variables:
 #' \describe{
 #'   \item{`name`}{Icon name}
 #'   \item{`url`}{Icon URL on GitHub repo}

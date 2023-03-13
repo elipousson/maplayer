@@ -26,7 +26,7 @@ maki <-
   )
 
 temaki <-
-  get_repo_svg(repo = "ideditor/temaki") |>
+  get_repo_svg(repo = "rapideditor/temaki") |>
   mutate(
     size = 40,
     style = ""

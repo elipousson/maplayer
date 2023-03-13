@@ -5,7 +5,7 @@
 \alias{map_icons}
 \title{Map icons}
 \format{
-A tibble with 4,891 rows and 5 variables:
+A tibble with 4,892 rows and 5 variables:
 \describe{
 \item{\code{name}}{Icon name}
 \item{\code{url}}{Icon URL on GitHub repo}
@@ -21,7 +21,7 @@ map_icons
 An index of map icons from four sources:
 \itemize{
 \item \href{https://github.com/mapbox/maki}{mapbox/maki}
-\item \href{https://github.com/ideditor/temaki}{ideditor/temaki}
+\item \href{https://github.com/rapideditor/temaki}{ideditor/temaki}
 \item \href{https://github.com/manifestinteractive/weather-underground-icons/}{manifestinteractive/weather-underground-icons}
 \item \href{https://github.com/openstreetmap/map-icons/}{openstreetmap/map-icons}
 \item \href{https://github.com/openstreetmap/lane-icons/}{openstreetmap/lane-icons}
@@ -31,7 +31,7 @@ An index of map icons from four sources:
 
 Most of these icon sources use open licenses.
 \href{https://github.com/mapbox/maki/blob/main/LICENSE.txt}{Maki},
-\href{https://github.com/ideditor/temaki/blob/main/LICENSE.md}{Temaki}, and the
+\href{https://github.com/rapideditor/temaki/blob/main/LICENSE.md}{Temaki}, and the
 \href{https://github.com/openstreetmap/lane-icons/blob/master/LICENSE.md}{OSM lane icons}
 all use a CC0 license. The Weather Underground Icons use an
 \href{https://github.com/manifestinteractive/weather-underground-icons/blob/master/LICENSE}{MIT license}.
@@ -40,7 +40,7 @@ The Calcite icons are \href{https://github.com/Esri/calcite-point-symbols#licens
 Symbol Library is created by the National Park Service so is assumed to be a
 \href{http://www.usa.gov/publicdomain/label/1.0/}{Public Domain work in the U.S.}.
 
-This index was last updated on November 1, 2022 and may not include any icons
+This index was last updated on March 13, 2023 and may not include any icons
 that have been added since that date.
 }
 \details{
