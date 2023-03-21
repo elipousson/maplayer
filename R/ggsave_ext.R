@@ -43,8 +43,7 @@
 #' @rdname ggsave_ext
 #' @export
 #' @importFrom cliExtras set_cli_quiet
-#' @importFrom filenamr str_extract_fileext str_remove_fileext make_filename
-#'   check_file_overwrite write_exif
+#' @importFrom filenamr make_filename check_file_overwrite write_exif
 #' @importFrom cli cli_alert_success
 #' @importFrom ggplot2 ggsave
 ggsave_ext <- function(plot = last_plot(),
@@ -94,10 +93,10 @@ ggsave_ext <- function(plot = last_plot(),
     )
 
   if (is.null(device) && (!is.null(filetype) | !is.null(filename))) {
-    filetype <- filetype %||% filenamr::str_extract_fileext(filename)
+    filetype <- filetype %||% str_extract_fileext(filename)
 
     if (!is.null(filename)) {
-      filename <- filenamr::str_remove_fileext(filename, filetype)
+      filename <- str_remove_fileext(filename, filetype)
     }
 
     device <- filetype
