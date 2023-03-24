@@ -7,9 +7,9 @@ test_that("layer_marked works", {
     ggplot() +
     geom_sf(data = nc) +
     layer_marked(
-      data = nc[c(1:2),],
+      data = nc[c(1:2), ],
       geom = "circle"
-      ) +
+    ) +
     ggplot2::theme_void()
 
   expect_s3_class(

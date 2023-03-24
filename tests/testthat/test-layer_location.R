@@ -10,7 +10,7 @@ test_that("layer_location works", {
       linewidth = 0.5,
       linetype = "solid",
       fill = "red"
-      )
+    )
 
   expect_s3_class(
     layer_location_type,

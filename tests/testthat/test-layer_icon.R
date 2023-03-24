@@ -3,9 +3,9 @@ test_that("layer_icon works", {
   nc <- sf::st_transform(nc, crs = 3857)
 
   basemap <-
-      ggplot2::ggplot() +
-        ggplot2::theme_void() +
-        layer_location_data(data = nc)
+    ggplot2::ggplot() +
+    ggplot2::theme_void() +
+    layer_location_data(data = nc)
 
   # icon can be set by name matching a name from map_icons
   layer_icon_icon <- basemap +

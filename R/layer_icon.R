@@ -123,11 +123,11 @@ get_map_icon <- function(icon = NULL, px = NULL, source = NULL, single = TRUE, r
   }
 
   cli_abort_if(
-      c("{.arg icon} matches {nrow(icon)} icon, not 1.",
-        "i" = "Provide the {.arg px} and/or {.arg source} to select a single icon."
-      ),
-      condition = (nrow(icon) > 1) && single
-    )
+    c("{.arg icon} matches {nrow(icon)} icon, not 1.",
+      "i" = "Provide the {.arg px} and/or {.arg source} to select a single icon."
+    ),
+    condition = (nrow(icon) > 1) && single
+  )
 
   if (!read) {
     return(icon)
@@ -176,10 +176,10 @@ join_map_icons <- function(data = NULL,
   sfext::check_sf(data, call = call)
 
   cli_abort_ifnot(
-      "{.arg iconname_col} {.value {iconname_col}} can't be found
+    "{.arg iconname_col} {.value {iconname_col}} can't be found
       in {.arg data}." = rlang::has_name(data, iconname_col),
-      call = call
-    )
+    call = call
+  )
 
   col_icons <- sort(unique(data[[iconname_col]]))
 

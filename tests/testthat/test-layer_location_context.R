@@ -6,7 +6,7 @@ test_that("layer_location_context works", {
     ggplot() +
     layer_location_context(
       context = nc,
-      location = nc[1,]
+      location = nc[1, ]
     )
 
   expect_s3_class(

@@ -94,10 +94,7 @@ layer_scaled <-
     return(scaled_layer)
   }
 
-
-
-# FIXME: Replace with new sf_bbox_fit (?)
-
+#' FIXME: Replace with new sf_bbox_fit (?)
 #' @noRd
 #' @importFrom sfext sf_bbox_ydist sf_bbox_xdist
 bbox_fit_check <- function(bbox, paper = NULL, cols = c("actual_width", "actual_height")) {

@@ -5,7 +5,7 @@ test_that("layer_mask works", {
     ggplot2::geom_sf(data = nc) +
     layer_mask(data = nc[1, ], mask = nc)
 
-  #skip_on_ci()
+  # skip_on_ci()
   expect_s3_class(
     layer_mask_data_sf_mask_sf,
     "gg"

@@ -72,12 +72,12 @@ test_that("set_neatline works", {
   expect_s3_class(
     set_neatline(nc_map, data = nc[1, ], neatline = FALSE),
     "ggplot"
-    )
+  )
 
   expect_s3_class(
     set_neatline(nc_map, neatline = layer_neatline(data = nc[1, ])),
     "ggplot"
-    )
+  )
 
 
   # vdiffr::expect_doppelganger(
