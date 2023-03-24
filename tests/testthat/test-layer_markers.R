@@ -18,8 +18,12 @@ test_that("layer_markers works", {
       groupname_col = "category"
     )
 
-  expect_identical(
-    sapply(plot$layers, function(x) class(x$geom)[1]),
-    "GeomSf"
+  expect_s3_class(
+    plot,
+    "gg"
+  )
+
+  expect_snapshot(
+    ggplot2::summarise_layout(ggplot2::ggplot_build(plot))
   )
 })

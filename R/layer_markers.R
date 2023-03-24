@@ -1,4 +1,3 @@
-
 #' Create a ggplot2 layer with map markers or numbered markers
 #'
 #' If make is `TRUE`, groupname_col, group_meta, crs, and fn is all passed on to
@@ -193,29 +192,29 @@ make_markers <- function(data,
                          fn = NULL,
                          ...) {
   if (!geo) {
-    data <-
-      getdata::get_location_data(
-        data = data,
-        crs = crs,
-        geo = TRUE,
-        ...
-      )
+    data <- getdata::get_location_data(
+      data = data,
+      crs = crs,
+      geo = TRUE,
+      ...
+    )
   } else if (is.data.frame(data) && has_name(data, address)) {
-    data <- sfext::df_to_sf(data, address = address, coords = coords, crs = crs)
+    data <- sfext::df_to_sf(
+      data,
+      address = address,
+      coords = coords,
+      crs = crs
+    )
   }
 
-  if (!is.null(group_meta)) {
-    if (is.data.frame(group_meta) && !is.null(groupname_col)) {
-      data <-
-        dplyr::left_join(data, group_meta, by = groupname_col)
-    } else if (is_sf(group_meta) && is_sf(data)) {
-      data <- sf::st_join(x = data, y = group_meta, join = join)
-    }
+  if (is.data.frame(group_meta) && !is.null(groupname_col)) {
+    data <- dplyr::left_join(data, group_meta, by = groupname_col)
+  } else if (is_sf(group_meta) && is_sf(data)) {
+    data <- sf::st_join(x = data, y = group_meta, join = join)
   }
 
   if (!is.null(groupname_col)) {
     data <- dplyr::filter(data, !is.na(.data[[groupname_col]]))
-
     data <- dplyr::group_by(data, .data[[groupname_col]])
   }
 
@@ -224,7 +223,11 @@ make_markers <- function(data,
     data <- suppressWarnings(sf::st_centroid(data))
   }
 
-  if (!is.null(groupname_col) && !is.null(fn)) {
+  if (is.null(fn)) {
+    return(data)
+  }
+
+  if (!is.null(groupname_col)) {
     cli_warn("Function passed to {.arg fn} is being applied to grouped data.")
   }
 
