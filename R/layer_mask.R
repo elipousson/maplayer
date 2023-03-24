@@ -136,7 +136,7 @@ make_mask_data <- function(data = NULL,
   }
 
   if (!is.null(mask)) {
-    sfext::check_sf(mask, null.ok = TRUE, ext = TRUE)
+    sfext::check_sf(mask, allow_null = TRUE, ext = TRUE)
     cliExtras::cli_warn_ifnot(
       "{.arg {c('dist', 'diag_ratio', 'asp')}} are ignored when
       {.arg mask} is provided.",
