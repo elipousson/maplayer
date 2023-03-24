@@ -194,7 +194,7 @@ make_social_map <- function(location,
                             basemap = TRUE,
                             geom = "mapbox",
                             save = FALSE,
-                            ggsave_params = list(filetype = "jpeg", dpi = 72, ...),
+                            ggsave_params = list(fileext = "jpeg", dpi = 72, ...),
                             ...) {
   image_size <-
     papersize::get_social_size(

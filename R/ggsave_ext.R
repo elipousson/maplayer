@@ -53,6 +53,7 @@ ggsave_ext <- function(plot = last_plot(),
                        postfix = NULL,
                        filename = NULL,
                        device = NULL,
+                       fileext = NULL,
                        filetype = NULL,
                        path = NULL,
                        paper = NULL,
@@ -75,11 +76,9 @@ ggsave_ext <- function(plot = last_plot(),
                        limitsize = TRUE,
                        quiet = FALSE,
                        ...) {
-  if (quiet) {
-    existing_handler <- getOption("cli.default_handler")
-    cliExtras::set_cli_quiet(TRUE)
-    on.exit(options("cli.default_handler" = existing_handler))
-  }
+  cli_quiet(quiet)
+
+  fileext <- fileext %||% filetype
 
   dims <-
     set_ggsave_dims(
@@ -92,14 +91,14 @@ ggsave_ext <- function(plot = last_plot(),
       limitsize = limitsize
     )
 
-  if (is.null(device) && (!is.null(filetype) | !is.null(filename))) {
-    filetype <- filetype %||% str_extract_fileext(filename)
+  if (is.null(device) && (!is.null(fileext) | !is.null(filename))) {
+    fileext <- fileext %||% str_extract_fileext(filename)
 
     if (!is.null(filename)) {
-      filename <- str_remove_fileext(filename, filetype)
+      filename <- str_remove_fileext(filename, fileext)
     }
 
-    device <- filetype
+    device <- fileext
   }
 
   filename <-
@@ -107,7 +106,7 @@ ggsave_ext <- function(plot = last_plot(),
       name = name,
       label = label,
       filename = filename,
-      fileext = filetype,
+      fileext = fileext,
       path = path,
       prefix = prefix,
       postfix = postfix
@@ -147,7 +146,7 @@ ggsave_ext <- function(plot = last_plot(),
   if (exif) {
     filenamr::write_exif(
       path = filename,
-      fileext = filetype,
+      fileext = fileext,
       title = title,
       author = author,
       keywords = keywords,
@@ -226,12 +225,14 @@ ggsave_social <- function(plot = last_plot(),
                           orientation = NULL,
                           name = NULL,
                           filename = NULL,
-                          filetype = "jpeg",
+                          fileext = "jpeg",
+                          filetype = NULL,
                           dpi = 72,
                           width = 1080,
                           height = 1080,
                           units = "px",
                           ...) {
+  fileext <- fileext %||% filetype
   image_size <-
     papersize::get_social_size(
       name = image,
@@ -249,7 +250,7 @@ ggsave_social <- function(plot = last_plot(),
       height = image_size$height,
       name = name,
       filename = filename,
-      filetype = filetype,
+      fileext = fileext,
       units = units
     )
 
@@ -276,23 +277,26 @@ map_ggsave_ext <- function(plot,
                            postfix = "pg_",
                            filename = NULL,
                            device = NULL,
+                           fileext = NULL,
                            filetype = NULL,
                            path = NULL,
                            overwrite = TRUE,
                            ...,
                            single_file = TRUE) {
-  if (!is.list(plot)) {
-    cli_abort(
-      "{.arg plot} must be a {.cls list}."
-    )
-  }
+  cli_ifnot(
+    x = is.list(plot),
+    "{.arg plot} must be a {.cls list}.",
+    .fn = cli::cli_abort
+  )
+
+  fileext <- fileext %||% filetype
 
   filename <-
     filenamr::make_filename(
       name = name,
       label = label,
       filename = filename,
-      fileext = filetype,
+      fileext = fileext,
       path = NULL,
       prefix = prefix
     )

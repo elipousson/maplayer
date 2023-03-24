@@ -14,7 +14,8 @@ layer_location_data(
   unit = getOption("maplayer.unit", default = "meter"),
   asp = getOption("maplayer.asp"),
   package = getOption("maplayer.data_package"),
-  filetype = getOption("maplayer.data_filetype", "gpkg"),
+  fileext = getOption("maplayer.data_fileext", "gpkg"),
+  filetype = NULL,
   fn = NULL,
   layer_fn = NULL,
   crop = TRUE,
@@ -61,9 +62,9 @@ without modification.}
 
 \item{package}{Name of the package to search for data.}
 
-\item{filetype}{File type to use if passing parameters to
-\code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for extdata
-and cached data).}
+\item{fileext, filetype}{File extension or type to use if passing parameters
+to \code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for
+extdata and cached data).}
 
 \item{fn}{Function to apply to data after filtering by location but before
 returning from function.}

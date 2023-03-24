@@ -74,9 +74,9 @@ using default parameters. smooth_params is ignored if data is \code{NULL}
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
     \item{\code{package}}{Name of the package to search for data.}
-    \item{\code{filetype}}{File type to use if passing parameters to
-\code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for extdata
-and cached data).}
+    \item{\code{fileext,filetype}}{File extension or type to use if passing parameters
+to \code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for
+extdata and cached data).}
     \item{\code{crop}}{If \code{TRUE}, x is cropped to y using \code{\link[sf:st_crop]{sf::st_crop()}}.}
     \item{\code{trim}}{If \code{TRUE}, x is trimmed to y with \code{\link[sfext:st_trim]{st_trim()}}.}
     \item{\code{crs}}{Coordinate reference system to return.}

@@ -116,9 +116,9 @@ using default parameters. smooth_params is ignored if data is \code{NULL}
 using default parameters. shadow_params is ignored if layer_fn is provided.}
     \item{\code{location}}{sf object. If multiple areas are provided, they are unioned
 into a single sf object using \code{\link[sf:geos_combine]{sf::st_union()}}}
-    \item{\code{filetype}}{File type to use if passing parameters to
-\code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for extdata
-and cached data).}
+    \item{\code{fileext,filetype}}{File extension or type to use if passing parameters
+to \code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for
+extdata and cached data).}
     \item{\code{fn}}{Function to apply to data after filtering by location but before
 returning from function.}
     \item{\code{crop}}{If \code{TRUE}, x is cropped to y using \code{\link[sf:st_crop]{sf::st_crop()}}.}

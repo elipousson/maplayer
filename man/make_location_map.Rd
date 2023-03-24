@@ -44,7 +44,7 @@ make_social_map(
   basemap = TRUE,
   geom = "mapbox",
   save = FALSE,
-  ggsave_params = list(filetype = "jpeg", dpi = 72, ...),
+  ggsave_params = list(fileext = "jpeg", dpi = 72, ...),
   ...
 )
 
