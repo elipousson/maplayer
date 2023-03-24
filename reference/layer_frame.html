@@ -208,10 +208,10 @@ using default parameters. shadow_params is ignored if layer_fn is provided.</p><
 <dd><p>sf object. If multiple areas are provided, they are unioned
 into a single sf object using <code><a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">sf::st_union()</a></code></p></dd>
 
-    <dt><code>filetype</code></dt>
-<dd><p>File type to use if passing parameters to
-<code><a href="https://elipousson.github.io/sfext/reference/read_sf_ext.html" class="external-link">sfext::read_sf_download()</a></code> or <code><a href="https://elipousson.github.io/sfext/reference/read_sf_ext.html" class="external-link">sfext::read_sf_pkg()</a></code> (required for extdata
-and cached data).</p></dd>
+    <dt><code>fileext,filetype</code></dt>
+<dd><p>File extension or type to use if passing parameters
+to <code><a href="https://elipousson.github.io/sfext/reference/read_sf_ext.html" class="external-link">sfext::read_sf_download()</a></code> or <code><a href="https://elipousson.github.io/sfext/reference/read_sf_ext.html" class="external-link">sfext::read_sf_pkg()</a></code> (required for
+extdata and cached data).</p></dd>
 
     <dt><code>fn</code></dt>
 <dd><p>Function to apply to data after filtering by location but before
