@@ -164,7 +164,12 @@ without modification.</p></dd>
 
 <dt>data</dt>
 <dd><p>Character string (e.g. url, file path, or name of data from
-package), a <code>sf</code>, <code>sfc</code>, or <code>bbox</code>  object including data in area.</p></dd>
+package) for a spatial data or a <code>sf</code>, <code>sfc</code>, or <code>bbox</code>  object with
+geometry overlapping the location. If data is <code>NULL</code>, all unnamed
+parameters are passed to <code><a href="https://elipousson.github.io/sfext/reference/read_sf_ext.html" class="external-link">sfext::read_sf_ext()</a></code> with a bbox based on
+location. If data is not <code>NULL</code> and not a data.frame, url, file path, or
+bbox, conversion to a sf object will still always be attempted with
+<code><a href="https://elipousson.github.io/sfext/reference/as_sf.html" class="external-link">sfext::as_sf()</a></code>.</p></dd>
 
 
 <dt>crs</dt>
@@ -238,13 +243,13 @@ additional parameters passed to ... If logical and <code>FALSE</code>, return x 
 
 
 <dt>save</dt>
-<dd><p>If <code>TRUE</code>, save file with <a href="ggsave_ext.html">ggsave_ext</a> or <a href="ggsave_ext.html">ggsave_social</a>,
+<dd><p>If <code>TRUE</code>, save file with <a href="https://elipousson.github.io/papersize/reference/ggsave_ext.html" class="external-link">ggsave_ext</a> or <a href="https://elipousson.github.io/papersize/reference/ggsave_ext.html" class="external-link">ggsave_social</a>,
 requires <code>basemap = TRUE</code> and filename is not <code>NULL</code> <em>or</em> <code>...</code> must
 include a name parameter. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>ggsave_params</dt>
-<dd><p>List of parameters passed to <code><a href="ggsave_ext.html">ggsave_ext()</a></code>.</p></dd>
+<dd><p>List of parameters passed to <code><a href="https://elipousson.github.io/papersize/reference/ggsave_ext.html" class="external-link">papersize::ggsave_ext()</a></code>.</p></dd>
 
 
 <dt>...</dt>
@@ -252,7 +257,7 @@ include a name parameter. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>image</dt>
-<dd><p>Image size name, Default: <code>NULL</code></p></dd>
+<dd><p>Image name passed to name parameter of <code><a href="https://elipousson.github.io/papersize/reference/get_social_size.html" class="external-link">get_social_size()</a></code>.</p></dd>
 
 
 <dt>platform</dt>
