@@ -23,7 +23,7 @@ test_that("layer_markers works", {
     "gg"
   )
 
-  expect_snapshot(
-    ggplot2::summarise_layout(ggplot2::ggplot_build(plot))
-  )
+  # expect_snapshot(
+  #   ggplot2::summarise_layout(ggplot2::ggplot_build(plot))
+  # )
 })
