@@ -79,7 +79,7 @@ pass to any text geom.}
 \code{\link[sf:geos_combine]{sf::st_union()}} and the names are combined into a single value. Default:
 \code{FALSE}.}
 
-\item{crs}{Coordinate reference system to return; defaults to NULL which
+\item{crs}{Coordinate reference system to return; defaults to \code{NULL} which
 returns data using the same coordinate reference system as the provided
 type of location.}
 

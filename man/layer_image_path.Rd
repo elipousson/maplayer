@@ -56,7 +56,7 @@ If a \strong{ggplot}, add x to basemap object.
 If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
 and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{...}{Additional EXIF tags to pass to \link[exiftoolr:exif_read]{exiftoolr::exif_read}}
+\item{...}{Additional EXIF tags to pass to \code{\link[exiftoolr:exif_read]{exiftoolr::exif_read()}}}
 }
 \description{
 Use the \code{\link[ggpath:geom_from_path]{ggpath::geom_from_path()}} function with \code{\link[sfext:read_sf_exif]{sfext::read_sf_exif()}} and

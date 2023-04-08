@@ -56,8 +56,8 @@ make_basemap <- function(x, basemap = FALSE) {
 #'   include a name parameter. Defaults to `FALSE`.
 #' @inheritParams sfext::st_bbox_ext
 #' @inheritParams layer_location_data
-#' @inheritParams ggsave_ext
-#' @param ggsave_params List of parameters passed to [ggsave_ext()].
+#' @inheritParams papersize::ggsave_ext
+#' @param ggsave_params List of parameters passed to [papersize::ggsave_ext()].
 #' @inheritParams mapboxapi::layer_static_mapbox
 #' @param layer A ggplot2 layer or a list of ggproto objects. If layer is
 #'   provided, all parameters passed to [layer_location_data()] (including data,
@@ -178,7 +178,7 @@ make_location_map <- function(location = NULL,
 
 #' @name make_social_map
 #' @rdname make_location_map
-#' @inheritParams sfext::get_social_image
+#' @inheritParams papersize::get_social_size
 #' @export
 #' @importFrom papersize get_social_size
 make_social_map <- function(location,
@@ -246,7 +246,6 @@ make_social_map <- function(location,
 #'   mark the location of images (based on EXIF metadata).
 #' @inheritParams layer_markers
 #' @export
-#' @importFrom filenamr read_exif
 #' @importFrom sfext st_bbox_ext
 #' @importFrom sf st_union
 make_image_map <- function(image_path,
@@ -277,6 +276,7 @@ make_image_map <- function(image_path,
                            sort = "dist_xmin_ymax",
                            desc = FALSE,
                            ...) {
+  rlang::check_installed("filenamr")
   images <-
     filenamr::read_exif(
       path = image_path,

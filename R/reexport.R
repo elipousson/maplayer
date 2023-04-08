@@ -21,3 +21,15 @@ ggplot2::margin
 #' @importFrom ggplot2 guides
 #' @export
 ggplot2::guides
+
+#' @importFrom papersize ggsave_ext
+#' @export
+papersize::ggsave_ext
+
+#' @importFrom papersize map_ggsave_ext
+#' @export
+papersize::map_ggsave_ext
+
+#' @importFrom papersize ggsave_social
+#' @export
+papersize::ggsave_social

@@ -36,7 +36,12 @@ at the top level of the plot. You must supply \code{mapping} if there is no plot
 mapping.}
 
 \item{data}{Character string (e.g. url, file path, or name of data from
-package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area.}
+package) for a spatial data or a \code{sf}, \code{sfc}, or \code{bbox}  object with
+geometry overlapping the location. If data is \code{NULL}, all unnamed
+parameters are passed to \code{\link[sfext:read_sf_ext]{sfext::read_sf_ext()}} with a bbox based on
+location. If data is not \code{NULL} and not a data.frame, url, file path, or
+bbox, conversion to a sf object will still always be attempted with
+\code{\link[sfext:as_sf]{sfext::as_sf()}}.}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
 'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),

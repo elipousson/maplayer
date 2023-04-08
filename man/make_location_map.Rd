@@ -103,7 +103,12 @@ character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} retur
 without modification.}
 
 \item{data}{Character string (e.g. url, file path, or name of data from
-package), a \code{sf}, \code{sfc}, or \code{bbox}  object including data in area.}
+package) for a spatial data or a \code{sf}, \code{sfc}, or \code{bbox}  object with
+geometry overlapping the location. If data is \code{NULL}, all unnamed
+parameters are passed to \code{\link[sfext:read_sf_ext]{sfext::read_sf_ext()}} with a bbox based on
+location. If data is not \code{NULL} and not a data.frame, url, file path, or
+bbox, conversion to a sf object will still always be attempted with
+\code{\link[sfext:as_sf]{sfext::as_sf()}}.}
 
 \item{crs}{Coordinate reference system of bounding box to return; defaults to
 \code{NULL} which maintains the crs of the input object.}
@@ -162,11 +167,11 @@ additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 requires \code{basemap = TRUE} and filename is not \code{NULL} \emph{or} \code{...} must
 include a name parameter. Defaults to \code{FALSE}.}
 
-\item{ggsave_params}{List of parameters passed to \code{\link[=ggsave_ext]{ggsave_ext()}}.}
+\item{ggsave_params}{List of parameters passed to \code{\link[papersize:ggsave_ext]{papersize::ggsave_ext()}}.}
 
 \item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}}.}
 
-\item{image}{Image size name, Default: \code{NULL}}
+\item{image}{Image name passed to name parameter of \code{\link[papersize:get_social_size]{get_social_size()}}.}
 
 \item{platform}{Social media platform, "Instagram", "Facebook", or "Twitter",
 Default: \code{NULL}}
