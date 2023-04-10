@@ -1,12 +1,14 @@
-<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+<!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
-# maplayer development
+# maplayer 0.1.0.9001 (2023-04-10)
 
 * Add `layer_arrow()`.
 * Add default filetype ("gpkg") to `layer_location_data()`.
+* Rename `null.ok` parameter to `allow_null`.
 * Add `ggplot2::geom_sf()` to re-exports.
 * Update `map_icons` with [maki v8.0.1](https://github.com/mapbox/maki/releases/tag/v8.0.1) and [temaki v5.3.0](https://github.com/rapideditor/temaki/releases/tag/v5.3.0).
 * Add `{papersize}` and `{cliExtras}` to Imports.
+* Remove `ggsave_ext()`, `map_ggsave_ext()`, and `ggsave_social()` from package functions but add to reexports from papersize.
 * Drop `{purrr}` from Imports and adopt rlang equivalents from `standalone-purrr.R`.
 
 # maplayer 0.1.0.9000 (2022-10-13)
@@ -89,5 +91,4 @@
 - docs: update package title
 - feat: add as_basemap utility function
 - docs: finish set-up for pkgdown site + minor tweaks to function docs
-
 
