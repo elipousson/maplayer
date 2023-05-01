@@ -302,7 +302,7 @@ make_legend_position <- function(justification = NULL,
       y_justification <- "bottom"
     }
 
-    position <- grid::unit(c(x_position, y_position), unit = "npc")
+    position <- c(x_position, y_position)
     justification <- c(x_justification, y_justification)
     box_justification <-
       switch(x_justification,
