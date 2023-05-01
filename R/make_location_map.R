@@ -112,7 +112,7 @@ make_location_map <- function(location = NULL,
         paper = paper,
         orientation = orientation
       )
-  } else if (!is.null(width) | !is.null(height)) {
+  } else if (!is.null(width) || !is.null(height)) {
     paper <-
       papersize::make_page_size(
         width,

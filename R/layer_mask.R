@@ -204,7 +204,7 @@ set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
       "gg" = mask
     )
 
-  if (is.null(x) | (type == "lgl_false")) {
+  if (is.null(x) || (type == "lgl_false")) {
     return(mask_layer)
   }
 

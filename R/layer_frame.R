@@ -166,7 +166,7 @@ make_frame <- function(x,
     x <- sf::st_union(x)
   }
 
-  if (is.null(asp) | (style == "buffer")) {
+  if (is.null(asp) || (style == "buffer")) {
     x <-
       sfext::st_buffer_ext(
         x = x,

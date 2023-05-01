@@ -288,7 +288,7 @@ set_neatline <- function(x = NULL,
       "coord_sf" = neatline
     )
 
-  if (is.null(x) | (type == "lgl_false")) {
+  if (is.null(x) || (type == "lgl_false")) {
     return(neatline_layer)
   }
 
