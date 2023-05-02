@@ -823,8 +823,6 @@
     Code
       theme_legend()
     Output
-      [1] 0.05 0.50
-      [1] "numeric"
       List of 7
        $ legend.background   :List of 5
         ..$ fill         : chr "white"
