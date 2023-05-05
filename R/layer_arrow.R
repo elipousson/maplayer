@@ -13,9 +13,12 @@
 #' @inheritParams sfext::as_xy
 #' @param geom Character string for geom to use  c("segment", "curve",
 #'   "arrowsegment", "diagonal0", "link") or a geom function.
+#' @param ... Additional parameters passed to function specified by geom
+#'   paramter.
 #' @seealso
 #'  [ggplot2::reexports()], [ggplot2::geom_segment()], [ggplot2::aes()]
 #' @name layer_arrow
+#' @example examples/layer_arrow.R
 #' @export
 #' @importFrom ggplot2 arrow geom_curve aes
 #' @importFrom rlang arg_match

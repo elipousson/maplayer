@@ -29,14 +29,46 @@ is used to provide crs.}
 \item{geom}{Character string for geom to use  c("segment", "curve",
 "arrowsegment", "diagonal0", "link") or a geom function.}
 
-\item{...}{Additional parameters passed to \code{\link[sfext:sf_bbox_point]{sf_bbox_point()}}, \code{\link[sfext:as_points]{as_points()}},
-or \code{\link[sfext:as_sfc]{as_sfc()}}.}
+\item{...}{Additional parameters passed to function specified by geom
+paramter.}
 }
 \description{
 A wrapper for \link[ggplot2:geom_segment]{ggplot2::geom_segment}, \code{\link[ggplot2:geom_segment]{ggplot2::geom_curve()}},
 \code{\link[ggarchery:geom_arrowsegment]{ggarchery::geom_arrowsegment()}}, \code{\link[ggforce:geom_diagonal]{ggforce::geom_diagonal0()}},
 \code{\link[ggforce:geom_link]{ggforce::geom_link()}} that makes it easier to specify the start and end of
 the segment using any object supported by the \code{\link[sfext:as_xy]{sfext::as_xy()}} function.
+}
+\examples{
+library(ggplot2)
+
+nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
+
+nc_map <- ggplot(data = nc) +
+  geom_sf()
+
+nc_map +
+  layer_arrow(
+    data = nc,
+    from = c("xmin", "ymin"),
+    to = c("xmid", "ymax"),
+  )
+
+nc_map +
+  layer_arrow(
+    data = nc,
+    from = c("xmin", "ymin"),
+    to = c("xmid", "ymax"),
+    geom = "curve",
+    curvature = 0.25
+  )
+
+nc_map +
+  layer_arrow(
+    data = nc,
+    from = c("xmax", "ymin"),
+    to = c("xmid", "ymax"),
+    geom = "arrowsegment"
+  )
 }
 \seealso{
 \code{\link[ggplot2:reexports]{ggplot2::reexports()}}, \code{\link[ggplot2:geom_segment]{ggplot2::geom_segment()}}, \code{\link[ggplot2:aes]{ggplot2::aes()}}
