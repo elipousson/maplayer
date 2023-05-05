@@ -209,20 +209,20 @@ sensitive.</p></dd>
 
 <dt>basemap</dt>
 <dd><p>Either a logical vector or ggplot object.</p>
-<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code>. If <code>FALSE</code>, return x
-as is.</p>
+<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code>. If <code>FALSE</code>, return
+x as is.</p>
 <p>If a <strong>ggplot</strong>, add x to basemap object.</p>
 <p>If a <strong>ggproto</strong> object (or list that contains a <strong>ggproto</strong> object), add x
 and basemap object to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code>.</p></dd>
 
 
-<dt>bg_layer, fg_layer</dt>
-<dd><p>A ggplot2 layer or a list of ggproto objects (e.g.
-scales, labels, etc.) to add to the background or foreground of the primary
-map layer defined by <code>"geom"</code> and other parameters. If the geom creates an
-opaque layer or layer is an opaque layer (e.g. a layer produced by
-<code><a href="layer_mapbox.html">layer_mapbox()</a></code>) that covers the full map extent, the bg_layer will not be
-visible.</p></dd>
+<dt>bg_layer, fg_layer, addon</dt>
+<dd><p>A ggplot2 layer or a list of ggproto objects
+(e.g. scales, labels, etc.) to add to the background or foreground of the
+primary map layer defined by <code>"geom"</code> and other parameters. If the geom
+creates an opaque layer or layer is an opaque layer (e.g. a layer produced
+by <code><a href="layer_mapbox.html">layer_mapbox()</a></code>) that covers the full map extent, the bg_layer will not
+be visible.</p></dd>
 
 
 <dt>layer</dt>

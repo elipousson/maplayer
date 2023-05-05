@@ -53,7 +53,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">set_basemap</span><span class="op">(</span><span class="va">x</span>, basemap <span class="op">=</span> <span class="cn">FALSE</span>, call <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">make_basemap</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">make_basemap</span><span class="op">(</span><span class="va">x</span>, basemap <span class="op">=</span> <span class="cn">FALSE</span>, call <span class="op">=</span> <span class="fu">caller_env</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -64,11 +64,18 @@
 
 <dt>basemap</dt>
 <dd><p>Either a logical vector or ggplot object.</p>
-<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code>. If <code>FALSE</code>, return x
-as is.</p>
+<p>If <strong>logical</strong> and <code>TRUE</code>, add x to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code>. If <code>FALSE</code>, return
+x as is.</p>
 <p>If a <strong>ggplot</strong>, add x to basemap object.</p>
 <p>If a <strong>ggproto</strong> object (or list that contains a <strong>ggproto</strong> object), add x
 and basemap object to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot2::ggplot()</a></code>.</p></dd>
+
+
+<dt>call</dt>
+<dd><p>The execution environment of a currently
+running function, e.g. <code>caller_env()</code>. The function will be
+mentioned in error messages as the source of the error. See the
+<code>call</code> argument of <code><a href="https://rlang.r-lib.org/reference/abort.html" class="external-link">abort()</a></code> for more information.</p></dd>
 
 </dl></div>
 

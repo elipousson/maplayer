@@ -96,8 +96,8 @@ an inset image</h1>
     <dl><dt>inset</dt>
 <dd><p>plot or map created with <code><a href="https://ggplot2.tidyverse.org/reference/ggplot2-package.html" class="external-link">ggplot2()</a></code> passed to p argument of
 <code><a href="https://patchwork.data-imaginist.com/reference/inset_element.html" class="external-link">patchwork::inset_element()</a></code>. If both location and context are provided to
-<code>make_inset_map()</code>, inset is optional and any provided value is replaced with
-a new layer created by <code><a href="layer_location_context.html">layer_location_context()</a></code>.</p></dd>
+<code>make_inset_map()</code>, inset is optional and any provided value is replaced
+with a new layer created by <code><a href="layer_location_context.html">layer_location_context()</a></code>.</p></dd>
 
 
 <dt>position</dt>
@@ -175,11 +175,12 @@ the context.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>make_inset_map()</code> is useful for creating an inset map just using the location
-with fewer options for customization. In that case, the ... parameters are
-passed to <code><a href="layer_location_context.html">layer_location_context()</a></code> instead of <code><a href="https://patchwork.data-imaginist.com/reference/inset_element.html" class="external-link">patchwork::inset_element()</a></code></p>
-<p><code>stamp_inset_img()</code> is useful for applying a logo to a map. The ... parameters
-are passed to <code><a href="https://rdrr.io/pkg/figpatch/man/fig.html" class="external-link">figpatch::fig()</a></code></p>
+    <p><code>make_inset_map()</code> is useful for creating an inset map just using the
+location with fewer options for customization. In that case, the ...
+parameters are passed to <code><a href="layer_location_context.html">layer_location_context()</a></code> instead of
+<code><a href="https://patchwork.data-imaginist.com/reference/inset_element.html" class="external-link">patchwork::inset_element()</a></code></p>
+<p><code>stamp_inset_img()</code> is useful for applying a logo to a map. The ...
+parameters are passed to <code><a href="https://rdrr.io/pkg/figpatch/man/fig.html" class="external-link">figpatch::fig()</a></code></p>
 <p>Note, currently, plots created with <code>layer_inset()</code> do not work with
 <code><a href="https://elipousson.github.io/papersize/reference/ggsave_ext.html" class="external-link">map_ggsave_ext()</a></code> using the <code>single_file = TRUE</code> parameter.</p>
     </div>
