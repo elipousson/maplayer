@@ -12,7 +12,7 @@ check_gg <- function(x,
       return(invisible(NULL))
     }
 
-    if (allow_list && is_gg_list(x)) {
+    if (allow_list && obj_is_gg(x)) {
       return(invisible(NULL))
     }
 

@@ -2,9 +2,13 @@
 #'
 #' @noRd
 obj_is_gg <- function(x) {
-  is_gg(x) || is_gg_list(x)
+  is_gg(x) || is_gg_list(x) || is_any_gg(x)
 }
 
+#' @noRd
+is_any_gg <- function(x) {
+  any(vapply(x, is_gg, TRUE))
+}
 
 #' Does object seem to be a neatline layer?
 #'

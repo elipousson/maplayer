@@ -1,4 +1,4 @@
-#' Make a ggplot map using layer_location_data
+#' Make a ggplot map using `layer_location_data()`
 #'
 #' Location is used as the data parameter of layer_location_data so this
 #' function is primarily appropriate for the layer_mapbox (`geom = "mapbox"`).
@@ -9,30 +9,11 @@
 #'   `geom = "mapbox"` where data is used to define the map area. Defaults to
 #'   `NULL`
 #' @inheritParams papersize::get_paper
-#' @param save If `TRUE`, save file with [ggsave_ext] or [ggsave_social],
-#'   requires `basemap = TRUE` and filename is not `NULL` *or* `...` must
-#'   include a name parameter. Defaults to `FALSE`.
 #' @inheritParams sfext::st_bbox_ext
 #' @inheritParams layer_location_data
 #' @inheritParams papersize::ggsave_ext
-#' @param ggsave_params List of parameters passed to [papersize::ggsave_ext()].
-#' @inheritParams mapboxapi::layer_static_mapbox
-#' @param layer A ggplot2 layer or a list of ggproto objects. If layer is
-#'   provided, all parameters passed to [layer_location_data()] (including data,
-#'   location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
-#'   this case, the function simply stacks the bg_layer, layer, and fg_layer
-#'   objects then applies the basemap and neatline (using the [set_basemap()]
-#'   and [set_neatline()] helper functions.)
-#' @param bg_layer,fg_layer,addon A ggplot2 layer or a list of ggproto objects
-#'   (e.g. scales, labels, etc.) to add to the background or foreground of the
-#'   primary map layer defined by `"geom"` and other parameters. If the geom
-#'   creates an opaque layer or layer is an opaque layer (e.g. a layer produced
-#'   by [layer_mapbox()]) that covers the full map extent, the bg_layer will not
-#'   be visible.
-#' @inheritParams set_basemap
-#' @inheritParams set_neatline
 #' @param ... Additional parameters passed to [layer_location_data()].
-#'
+#' @example examples/make_location_map.R
 #' @details Using [make_image_map()]:
 #'
 #' [make_image_map()] wraps [sfext::read_sf_exif()] and [make_location_map()].
@@ -62,9 +43,12 @@ make_location_map <- function(location = NULL,
                               fg_layer = NULL,
                               addon = NULL,
                               neatline = FALSE,
+                              labs_ext_params = list(...),
                               save = FALSE,
                               ggsave_params = list(dpi = 300, ...),
-                              ...) {
+                              ...,
+                              env = caller_env(),
+                              call = caller_env()) {
   if (!is.null(paper)) {
     paper <-
       papersize::get_paper(
@@ -82,10 +66,15 @@ make_location_map <- function(location = NULL,
       )
   }
 
+  if (save) {
+    ggsave_params$width <- ggsave_params$width %||% paper$width
+    ggsave_params$height <- ggsave_params$height %||% paper$height
+  }
+
   if (is.null(data) && is.null(layer)) {
+    check_required(location)
     data <- location
     location <- NULL
-    rlang::check_required(data)
   }
 
   layer <-
@@ -101,38 +90,19 @@ make_location_map <- function(location = NULL,
       ...
     )
 
-  check_gg(layer, allow_null = TRUE)
-  check_gg(bg_layer, allow_null = TRUE)
-  check_gg(fg_layer, allow_null = TRUE)
-  check_gg(addon, allow_null = TRUE)
-
-  layer_stack <-
-    c(
-      bg_layer,
-      layer,
-      fg_layer,
-      addon
-    )
-
-  layer_stack <- set_basemap(layer_stack, basemap)
-
-  layer_stack <- set_neatline(layer_stack, neatline)
-
-
-  if (!save) {
-    return(layer_stack)
-  }
-
-  ggsave_params$width <- ggsave_params$width %||% paper$width
-  ggsave_params$height <- ggsave_params$height %||% paper$height
-
-  eval_tidy_fn(
-    layer_stack,
-    params = ggsave_params,
-    fn = ggsave_ext
+  make_layer_map(
+    basemap = basemap,
+    bg_layer = bg_layer,
+    layer = layer,
+    fg_layer = fg_layer,
+    addon = addon,
+    neatline = neatline,
+    labs_ext_params = labs_ext_params,
+    save = save,
+    ggsave_params = ggsave_params,
+    env = env,
+    call = call
   )
-
-  layer_stack
 }
 
 #' @name make_social_map
@@ -163,26 +133,26 @@ make_social_map <- function(location,
       orientation = orientation
     )
 
-  asp <- asp %||% image_size$asp
-
   bbox <-
     st_bbox_ext(
       x = location,
       dist = dist,
       diag_ratio = diag_ratio,
       unit = unit,
-      asp = asp,
+      asp = asp %||% image_size$asp,
       crs = crs
     )
 
-  map_layer <-
-    layer_location_data(
+  map_layer <- make_layer_map(
+    layer = layer_location_data(
       data = bbox,
       geom = geom,
       ...
-    )
-
-  map_layer <- set_basemap(map_layer, basemap)
+    ),
+    basemap = basemap,
+    neatline = NULL,
+    save = FALSE
+  )
 
   if (save) {
     ggsave_params$width <- ggsave_params$width %||% image_size$width
@@ -253,11 +223,8 @@ make_image_map <- function(image_path,
       crs = crs
     )
 
-  make_location_map(
-    location = location,
-    geom = geom,
-    bg_layer = bg_layer,
-    layer = layer_markers(
+  marker_layer <-
+    layer_markers(
       data = images,
       geom = image_geom,
       crs = crs,
@@ -271,10 +238,107 @@ make_image_map <- function(image_path,
       sort = sort,
       desc = desc,
       ...
-    ),
+    )
+
+  if (is_bare_list(fg_layer)) {
+    fg_layer <- c(
+      marker_layer,
+      fg_layer
+    )
+  } else {
+    fg_layer <-
+      list(
+        marker_layer,
+        fg_layer
+      )
+  }
+
+  make_location_map(
+    location = location,
+    geom = geom,
+    bg_layer = bg_layer,
     fg_layer = fg_layer,
     save = save,
     ggsave_params = ggsave_params,
     style_url = style_url
   )
+}
+
+#' @name make_layer_map
+#' @rdname make_location_map
+#' @param ggsave_params List of parameters passed to [papersize::ggsave_ext()].
+#' @inheritParams mapboxapi::layer_static_mapbox
+#' @param layer A ggplot2 layer or a list of ggproto objects. If layer is
+#'   provided, all parameters passed to [layer_location_data()] (including data,
+#'   location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
+#'   this case, the function simply stacks the bg_layer, layer, and fg_layer
+#'   objects then applies the basemap and neatline (using the [set_basemap()]
+#'   and [set_neatline()] helper functions.)
+#' @param bg_layer,fg_layer,addon A ggplot2 layer or a list of ggproto objects
+#'   (e.g. scales, labels, etc.) to add to the background or foreground of the
+#'   primary map layer defined by `"geom"` and other parameters. If the geom
+#'   creates an opaque layer or layer is an opaque layer (e.g. a layer produced
+#'   by [layer_mapbox()]) that covers the full map extent, the bg_layer will not
+#'   be visible.
+#' @param save If `TRUE`, save file with [ggsave_ext] or [ggsave_social],
+#'   requires `basemap = TRUE` and filename is not `NULL` *or* `...` must
+#'   include a name parameter. Defaults to `FALSE`.
+#' @param env Environment for evaluation of [labs_ext()] if labs_ext_params is
+#'   supplied.
+#' @inheritParams set_basemap
+#' @inheritParams set_neatline
+#' @export
+make_layer_map <- function(bg_layer = NULL,
+                           layer = NULL,
+                           fg_layer = NULL,
+                           addon = NULL,
+                           basemap = TRUE,
+                           neatline = FALSE,
+                           labs_ext_params = list(...),
+                           save = FALSE,
+                           ggsave_params = list(dpi = 300, ...),
+                           ...,
+                           env = caller_env(),
+                           call = caller_env()) {
+  check_gg(layer, allow_null = TRUE)
+  check_gg(bg_layer, allow_null = TRUE)
+  check_gg(fg_layer, allow_null = TRUE)
+
+  if (!is_bare_list(addon)) {
+    addon <- list(addon)
+  }
+
+  layer_stack <-
+    c(
+      bg_layer,
+      layer,
+      fg_layer,
+      addon
+    )
+
+  layer_stack <- set_basemap(layer_stack, basemap = basemap, call = call)
+
+  layer_stack <- set_neatline(layer_stack, neatline)
+
+  if (!is_empty(labs_ext_params)) {
+    layer_stack <-
+      layer_stack +
+      eval_tidy_fn(
+        params = labs_ext_params,
+        fn = labs_ext,
+        env = env,
+        call = call
+      )
+  }
+
+  if (save) {
+    eval_tidy_fn(
+      layer_stack,
+      params = ggsave_params,
+      fn = ggsave_ext,
+      call = call
+    )
+  }
+
+  layer_stack
 }

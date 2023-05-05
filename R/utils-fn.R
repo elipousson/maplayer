@@ -6,7 +6,7 @@
 #' @noRd
 #' @importFrom rlang is_function is_formula
 is_fn <- function(x) {
-  rlang::is_function(x) | rlang::is_formula(x)
+  rlang::is_function(x) || rlang::is_formula(x, scoped = TRUE)
 }
 
 #' Make a function from a formula
@@ -21,21 +21,15 @@ is_fn <- function(x) {
 #' @noRd
 #' @importFrom rlang is_function is_formula as_function caller_env caller_arg
 make_fn <- function(fn, ..., arg = caller_arg(fn), call = caller_env()) {
+  check_required(fn, arg = arg, call = call)
+
   if (rlang::is_function(fn)) {
     return(fn)
   }
 
-  if (!rlang::is_formula(fn)) {
-    cli_abort(
-      c("{.arg {arg}} must be a formula or function.",
-        "i" = "You've supplied a {class(fn)} object."
-      ),
-      arg = arg,
-      call = call
-    )
-  }
+  check_formula(fn, arg = arg, call = call)
 
-  rlang::as_function(fn)
+  rlang::as_function(fn, arg = arg, call = call)
 }
 
 #' Use a function or formula on an object x
@@ -57,7 +51,8 @@ use_fn <- function(x = NULL, fn = NULL, ..., arg = caller_arg(fn), call = caller
 #' Evaluate an function with spliced parameters
 #'
 #' @param x Object to pass as first argument of function.
-#' @param param Parameters to splice as additional arguments of function.
+#' @param param Parameters to splice as additional arguments of function. Set to
+#'   `TRUE` to execute function on x with no parameters.
 #' @param pkg Package name passed to [is_pkg_installed]
 #' @noRd
 #' @importFrom rlang caller_arg caller_env is_missing eval_tidy quo is_logical
@@ -66,8 +61,9 @@ eval_tidy_fn <- function(x,
                          pkg = NULL,
                          fn = NULL,
                          arg = caller_arg(fn),
+                         env = caller_env(),
                          call = caller_env()) {
-  if (is.null(params) && !rlang::is_missing(x)) {
+  if (is_empty(params) && !rlang::is_missing(x)) {
     return(x)
   }
 
@@ -84,7 +80,7 @@ eval_tidy_fn <- function(x,
       fn_quo <- rlang::quo(fn(x, !!!params))
     }
 
-    rlang::eval_tidy(fn_quo)
+    rlang::eval_tidy(expr = fn_quo, env = env)
   } else if (rlang::is_logical(params) && params) {
     fn(x)
   }

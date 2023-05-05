@@ -4,7 +4,8 @@
 \alias{make_location_map}
 \alias{make_social_map}
 \alias{make_image_map}
-\title{Make a ggplot map using layer_location_data}
+\alias{make_layer_map}
+\title{Make a ggplot map using \code{layer_location_data()}}
 \usage{
 make_location_map(
   location = NULL,
@@ -26,9 +27,12 @@ make_location_map(
   fg_layer = NULL,
   addon = NULL,
   neatline = FALSE,
+  labs_ext_params = list(...),
   save = FALSE,
   ggsave_params = list(dpi = 300, ...),
-  ...
+  ...,
+  env = caller_env(),
+  call = caller_env()
 )
 
 make_social_map(
@@ -78,6 +82,21 @@ make_image_map(
   sort = "dist_xmin_ymax",
   desc = FALSE,
   ...
+)
+
+make_layer_map(
+  bg_layer = NULL,
+  layer = NULL,
+  fg_layer = NULL,
+  addon = NULL,
+  basemap = TRUE,
+  neatline = FALSE,
+  labs_ext_params = list(...),
+  save = FALSE,
+  ggsave_params = list(dpi = 300, ...),
+  ...,
+  env = caller_env(),
+  call = caller_env()
 )
 }
 \arguments{
@@ -172,6 +191,14 @@ include a name parameter. Defaults to \code{FALSE}.}
 
 \item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}}.}
 
+\item{env}{Environment for evaluation of \code{\link[=labs_ext]{labs_ext()}} if labs_ext_params is
+supplied.}
+
+\item{call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
+
 \item{image}{Image name passed to name parameter of \code{\link[papersize:get_social_size]{get_social_size()}}.}
 
 \item{platform}{Social media platform, "Instagram", "Facebook", or "Twitter",
@@ -221,4 +248,46 @@ Using \code{\link[=make_image_map]{make_image_map()}}:
 \code{\link[=make_image_map]{make_image_map()}} wraps \code{\link[sfext:read_sf_exif]{sfext::read_sf_exif()}} and \code{\link[=make_location_map]{make_location_map()}}.
 It is designed for making simple maps of photos in combination with reference
 tables.
+}
+\examples{
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+
+make_location_map(
+  location = nc
+)
+
+name <- "North Carolina"
+
+make_location_map(
+  location = nc,
+  labs_ext_params = list(
+    title = "Map of {name}"
+  )
+)
+
+make_location_map(
+  data = nc,
+  location = nc[2, ],
+  dist = 2,
+  unit = "mi",
+  crop = FALSE,
+  labs_ext_params = list(
+    title = "Map of {nc[2, ]$NAME} County"
+  )
+)
+
+make_location_map(
+  data = nc,
+  location = nc[2, ],
+  mapping = aes(fill = NAME),
+  fg_layer = geom_sf_text(data = nc[2, ], aes(label = NAME)),
+  addon = guides(fill = "none"),
+  dist = 2,
+  unit = "mi",
+  crop = FALSE,
+  neatline = TRUE,
+  labs_ext_params = list(
+    title = "Map of {nc[2, ]$NAME} and surrounding {name} counties"
+  )
+)
 }
