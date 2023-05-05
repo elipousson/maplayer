@@ -11,7 +11,7 @@ reference:
 - title: Map making for locations
   contents:
   - '`make_location_map`'
-  - '`make_basemap`'
+  - '`set_basemap`'
 - title: Additional layers for sf objects
   contents:
   - '`layer_arrow`'

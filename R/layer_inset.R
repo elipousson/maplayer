@@ -78,7 +78,7 @@ make_inset_map <-
       }
 
       inset <-
-        make_basemap(
+        set_basemap(
           layer_location_context(
             data = location,
             context = context,

@@ -177,7 +177,7 @@ set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
       rlang::is_logical(mask) && mask && !is.null(data) ~ "lgl_true",
       rlang::is_logical(mask) && !mask ~ "lgl_false",
       is_sf(mask, ext = TRUE) ~ "sf",
-      is_gg(mask) ~ "gg",
+      obj_is_gg(mask) ~ "gg",
       TRUE ~ NA_character_
     )
 
@@ -212,7 +212,7 @@ set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
     return(x + mask_layer)
   }
 
-  if (is_gg(x)) {
+  if (obj_is_gg(x)) {
     return(c(x, mask_layer))
   }
 }

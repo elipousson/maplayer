@@ -1,45 +1,3 @@
-#' Create a base map by adding the object
-#'
-#' Add a basemap to a ggplot2 layer.
-#'
-#' @param x A ggproto object or list of ggproto objects.
-#' @param basemap Either a logical vector or ggplot object.
-#'
-#'   If __logical__ and `TRUE`, add x to [ggplot2::ggplot()]. If `FALSE`, return x
-#'   as is.
-#'
-#'   If a __ggplot__, add x to basemap object.
-#'
-#'   If a __ggproto__ object (or list that contains a __ggproto__ object), add x
-#'   and basemap object to [ggplot2::ggplot()].
-#'
-#' @name make_basemap
-#' @export
-#' @importFrom rlang is_logical
-#' @importFrom ggplot2 ggplot is.ggplot
-#' @importFrom cliExtras cli_abort_ifnot
-make_basemap <- function(x, basemap = FALSE) {
-  if (rlang::is_logical(basemap)) {
-    if (isTRUE(basemap)) {
-      return(ggplot2::ggplot() + x)
-    }
-
-    return(x)
-  }
-
-  cliExtras::cli_abort_ifnot(
-    "{.arg basemap} must be a {.cls lgl} or
-   {.cls ggproto} object." = is_gg(basemap)
-  )
-
-  if (ggplot2::is.ggplot(basemap)) {
-    return(basemap + x)
-  }
-
-  ggplot2::ggplot() +
-    c(basemap, x)
-}
-
 #' Make a ggplot map using layer_location_data
 #'
 #' Location is used as the data parameter of layer_location_data so this
@@ -63,7 +21,7 @@ make_basemap <- function(x, basemap = FALSE) {
 #'   provided, all parameters passed to [layer_location_data()] (including data,
 #'   location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
 #'   this case, the function simply stacks the bg_layer, layer, and fg_layer
-#'   objects then applies the basemap and neatline (using the [make_basemap()]
+#'   objects then applies the basemap and neatline (using the [set_basemap()]
 #'   and [set_neatline()] helper functions.)
 #' @param bg_layer,fg_layer A ggplot2 layer or a list of ggproto objects (e.g.
 #'   scales, labels, etc.) to add to the background or foreground of the primary
@@ -71,7 +29,7 @@ make_basemap <- function(x, basemap = FALSE) {
 #'   opaque layer or layer is an opaque layer (e.g. a layer produced by
 #'   [layer_mapbox()]) that covers the full map extent, the bg_layer will not be
 #'   visible.
-#' @inheritParams make_basemap
+#' @inheritParams set_basemap
 #' @inheritParams set_neatline
 #' @param ... Additional parameters passed to [layer_location_data()].
 #'
@@ -102,6 +60,7 @@ make_location_map <- function(location = NULL,
                               bg_layer = NULL,
                               layer = NULL,
                               fg_layer = NULL,
+                              addon = NULL,
                               neatline = FALSE,
                               save = FALSE,
                               ggsave_params = list(dpi = 300, ...),
@@ -142,20 +101,20 @@ make_location_map <- function(location = NULL,
       ...
     )
 
-  stopifnot(
-    is.null(layer) || is_gg(layer) || is_list_of(layer, "gg"),
-    is.null(bg_layer) || is_gg(bg_layer) || is_list_of(bg_layer, "gg"),
-    is.null(fg_layer) || is_gg(fg_layer) || is_list_of(fg_layer, "gg")
-  )
+  check_gg(layer, allow_null = TRUE)
+  check_gg(bg_layer, allow_null = TRUE)
+  check_gg(fg_layer, allow_null = TRUE)
+  check_gg(addon, allow_null = TRUE)
 
   layer_stack <-
     c(
       bg_layer,
       layer,
-      fg_layer
+      fg_layer,
+      addon
     )
 
-  layer_stack <- make_basemap(layer_stack, basemap)
+  layer_stack <- set_basemap(layer_stack, basemap)
 
   layer_stack <- set_neatline(layer_stack, neatline)
 
@@ -223,7 +182,7 @@ make_social_map <- function(location,
       ...
     )
 
-  map_layer <- make_basemap(map_layer, basemap)
+  map_layer <- set_basemap(map_layer, basemap)
 
   if (save) {
     ggsave_params$width <- ggsave_params$width %||% image_size$width

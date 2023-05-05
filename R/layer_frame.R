@@ -35,7 +35,7 @@
 #' @param neatline If `TRUE`, return a list of layers that includes a
 #'   [layer_neatline]
 #' @inheritDotParams layer_location_data -geom -data -package -from_crs
-#' @inheritParams make_basemap
+#' @inheritParams set_basemap
 #' @example examples/layer_frame.R
 #' @name layer_frame
 #' @family layer
@@ -120,7 +120,7 @@ layer_frame <- function(data = NULL,
       expand = expand
     )
 
-  make_basemap(
+  set_basemap(
     frame_layer,
     basemap
   )

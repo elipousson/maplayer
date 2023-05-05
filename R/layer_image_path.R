@@ -16,7 +16,7 @@
 #' @inheritParams sfext::read_sf_exif
 #' @inheritParams ggpath::geom_from_path
 #' @inheritParams set_neatline
-#' @inheritParams make_basemap
+#' @inheritParams set_basemap
 #' @export
 #' @importFrom sf st_transform
 #' @importFrom sfext read_sf_exif
@@ -66,5 +66,5 @@ layer_image_path <- function(data = NULL,
   # }
 
   path_layer <- set_neatline(path_layer, neatline)
-  make_basemap(path_layer, basemap = basemap)
+  set_basemap(path_layer, basemap = basemap)
 }

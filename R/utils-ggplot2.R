@@ -1,10 +1,8 @@
-#' Does object inherit class "gg"?
+#' Does object inherit class "gg" or is it a last that inherits a gg class?
 #'
 #' @noRd
-is_gg <- function(x) {
-  inherits(x, "gg") | all(vapply(x, function(x) {
-    inherits(x, "gg")
-  }, FALSE))
+obj_is_gg <- function(x) {
+  is_gg(x) || is_gg_list(x)
 }
 
 
@@ -12,7 +10,7 @@ is_gg <- function(x) {
 #'
 #' @noRd
 is_neatline <- function(x) {
-  is_gg(x) && (ggplot2::is.Coord(x) | any(vapply(x, ggplot2::is.Coord, FALSE)))
+  obj_is_gg(x) && (ggplot2::is.Coord(x) || any(vapply(x, ggplot2::is.Coord, FALSE)))
 }
 
 

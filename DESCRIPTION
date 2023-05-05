@@ -23,7 +23,7 @@ Imports:
     glue,
     lifecycle,
     papersize (>= 0.1.0.9001),
-    rlang (>= 0.4.11),
+    rlang (>= 1.1.0),
     scales,
     sf,
     sfext (>= 0.1.0),

@@ -14,8 +14,8 @@ utils::globalVariables(
 )
 
 # @staticimports pkg:isstatic
-#   has_fileext is_all_null is_unit is_patchwork is_list_of str_extract_fileext
-#   str_remove_fileext
+#   has_fileext is_all_null is_unit is_patchwork is_gg is_list_all is_gg_list
+#   str_extract_fileext str_remove_fileext
 
 #' @keywords internal
 #' @importFrom rlang zap current_env

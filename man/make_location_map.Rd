@@ -24,6 +24,7 @@ make_location_map(
   bg_layer = NULL,
   layer = NULL,
   fg_layer = NULL,
+  addon = NULL,
   neatline = FALSE,
   save = FALSE,
   ggsave_params = list(dpi = 300, ...),
@@ -151,7 +152,7 @@ visible.}
 provided, all parameters passed to \code{\link[=layer_location_data]{layer_location_data()}} (including data,
 location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
 this case, the function simply stacks the bg_layer, layer, and fg_layer
-objects then applies the basemap and neatline (using the \code{\link[=make_basemap]{make_basemap()}}
+objects then applies the basemap and neatline (using the \code{\link[=set_basemap]{set_basemap()}}
 and \code{\link[=set_neatline]{set_neatline()}} helper functions.)}
 
 \item{neatline}{A logical object, \code{CoordSf} object, or a list containing a

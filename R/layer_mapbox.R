@@ -85,5 +85,5 @@ layer_mapbox <- function(data = NULL,
       label_axes = label_axes
     )
 
-  make_basemap(mapbox_layer, basemap)
+  set_basemap(mapbox_layer, basemap)
 }

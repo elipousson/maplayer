@@ -260,15 +260,11 @@ set_neatline <- function(x = NULL,
                          data = NULL,
                          crs = NULL,
                          ...) {
-  type <-
-    dplyr::case_when(
-      rlang::is_logical(neatline) && neatline ~ "lgl_true",
-      rlang::is_logical(neatline) && !neatline ~ "lgl_false",
-      is_neatline(neatline) ~ "coord_sf",
-      TRUE ~ NA_character_
-    )
+  if (is_null(x) || is_false(neatline)) {
+    return(x)
+  }
 
-  if (is.na(type)) {
+  if (!is_logical(neatline) && !is_neatline(neatline)) {
     cli::cli_abort(
       c("{.arg neatline} must be {.cls logical}, a {.cls {c('Coord', 'ggproto')}} object,
       or list of {.cls {c('Coord', 'ggproto')}} objects.",
@@ -277,29 +273,25 @@ set_neatline <- function(x = NULL,
     )
   }
 
-  neatline_layer <-
-    switch(type,
-      "lgl_true" = layer_neatline(
+  if (is_true(neatline)) {
+    neatline <-
+      layer_neatline(
         data = data,
         crs = crs,
         ...
-      ),
-      "lgl_false" = x,
-      "coord_sf" = neatline
-    )
-
-  if (is.null(x) || (type == "lgl_false")) {
-    return(neatline_layer)
+      )
   }
+
 
   if (ggplot2::is.ggplot(x)) {
-    return(x + neatline_layer)
+    return(x + neatline)
   }
 
-  if (is_gg(x)) {
+  if (obj_is_gg(x)) {
     if (!is.list(x)) {
       x <- list(x)
     }
-    return(c(x, neatline_layer))
+
+    return(c(x, neatline))
   }
 }

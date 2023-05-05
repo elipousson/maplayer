@@ -44,13 +44,13 @@ layer_location_context <- function(data = NULL,
     dplyr::case_when(
       is_fn(location) && is.null(data) ~ "fn_location",
       is_sf(data) | is_sf(location) ~ "sf",
-      is_gg(data) | is_gg(location) ~ "gg"
+      obj_is_gg(data) | obj_is_gg(location) ~ "gg"
     )
 
   context_type <-
     dplyr::case_when(
       is_sf(context) ~ "sf",
-      is_gg(context) ~ "gg"
+      obj_is_gg(context) ~ "gg"
     )
 
   if ((location_type == "fn_location") && (context_type == "sf")) {
@@ -115,5 +115,5 @@ layer_location_context <- function(data = NULL,
       crs = crs
     )
 
-  make_basemap(context_layer, basemap)
+  set_basemap(context_layer, basemap)
 }

@@ -64,7 +64,7 @@
 #' @param ... Additional parameters passed to selected geom or layer_fn
 #' @inheritParams getdata::get_location_data
 #' @inheritParams ggplot2::geom_sf
-#' @inheritParams make_basemap
+#' @inheritParams set_basemap
 #' @rdname layer_location_data
 #' @family layer
 #' @export
@@ -249,7 +249,7 @@ layer_location_data <- function(mapping = NULL,
 
   layer <- with_shadow(layer, shadow_params)
 
-  make_basemap(layer, basemap)
+  set_basemap(layer, basemap)
 }
 
 #' Modify function parameters
