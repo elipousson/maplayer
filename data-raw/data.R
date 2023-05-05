@@ -1,93 +1,96 @@
-library(httr)
-library(dplyr)
-library(stringr)
-
 get_repo_svg <- function(repo, branch = "main") {
-  req <- GET(
-    paste0("https://api.github.com/repos/", repo, "/git/trees/", branch, "?recursive=1")
+  req <- httr2::request("https://api.github.com")
+  req <- httr2::req_template(
+    req,
+    template = "repos/{repo}/git/trees/{branch}?recursive=1",
+    repo = repo,
+    branch = branch
   )
 
+  resp <- httr2::req_perform(req) |>
+    httr2::resp_body_json()
+
   data.frame(
-    "path" = unlist(lapply(content(req)$tree, function(x) x$path))
+    "path" = unlist(lapply(resp$tree, function(x) x$path))
   ) |>
-    filter(str_detect(path, "\\.svg$")) |>
-    transmute(
+    dplyr::filter(stringr::str_detect(path, "\\.svg$")) |>
+    dplyr::transmute(
       repo = repo,
-      name = str_extract(path, "(?<=/)[:graph:]+(?=.svg$)"),
+      name = stringr::str_extract(path, "(?<=/)[:graph:]+(?=.svg$)"),
       url = paste0("https://raw.githubusercontent.com/", repo, "/", branch, "/", path)
     )
 }
 
 maki <-
   get_repo_svg(repo = "mapbox/maki") |>
-  mutate(
+  dplyr::mutate(
     size = 15,
     style = ""
   )
 
 temaki <-
   get_repo_svg(repo = "rapideditor/temaki") |>
-  mutate(
+  dplyr::mutate(
     size = 40,
     style = ""
   )
 
 wu_icons <-
   get_repo_svg(repo = "manifestinteractive/weather-underground-icons", branch = "master") |>
-  mutate(
+  dplyr::mutate(
     size = 64,
-    style = str_extract(name, "(?<=icons/).+(?=/svg)"),
-    name = str_extract(name, "(?<=svg/).+")
+    style = stringr::str_extract(name, "(?<=icons/).+(?=/svg)"),
+    name = stringr::str_extract(name, "(?<=svg/).+")
   )
 
 calcite <-
   get_repo_svg(repo = "Esri/calcite-point-symbols", branch = "master") |>
-  mutate(
-    size = case_when(
-      str_detect(name, "13") ~ 13,
-      str_detect(name, "17") ~ 17,
-      str_detect(name, "21") ~ 21
+  dplyr::mutate(
+    size = dplyr::case_when(
+      stringr::str_detect(name, "13") ~ 13,
+      stringr::str_detect(name, "17") ~ 17,
+      stringr::str_detect(name, "21") ~ 21
     ),
     style = "",
-    name = str_remove(name, "-[:digit:]+$")
+    name = stringr::str_remove(name, "-[:digit:]+$")
   )
 
 lane_icons <-
   get_repo_svg(repo = "openstreetmap/lane-icons", branch = "master") |>
-  mutate(
+  dplyr::mutate(
     size = 40,
     style = ""
   )
 
 osm_map_icons <-
   get_repo_svg(repo = "openstreetmap/map-icons", branch = "master") |>
-  filter(str_detect(url, "/svg/")) |>
-  mutate(
+  dplyr::filter(stringr::str_detect(url, "/svg/")) |>
+  dplyr::mutate(
     size = 40,
     style = ""
   )
 
 nps_icons <-
   get_repo_svg(repo = "nationalparkservice/symbol-library", branch = "master") |>
-  mutate(
-    size = case_when(
-      str_detect(name, "14") ~ 14,
-      str_detect(name, "22") ~ 17,
-      str_detect(name, "30") ~ 30
+  dplyr::mutate(
+    size = dplyr::case_when(
+      stringr::str_detect(name, "14") ~ 14,
+      stringr::str_detect(name, "22") ~ 22,
+      stringr::str_detect(name, "30") ~ 30
     ),
-    style = case_when(
-      str_detect(url, "shielded.+") ~ "shielded-white",
-      str_detect(name, "standalone.+white") ~ "standalone-white",
-      str_detect(name, "standalone.+black") ~ "standalone-black"
+    style = dplyr::case_when(
+      stringr::str_detect(url, "shielded.+") ~ "shielded-white",
+      stringr::str_detect(name, "standalone.+white") ~ "standalone-white",
+      stringr::str_detect(name, "standalone.+black") ~ "standalone-black"
     ),
-    name = str_remove(name, "-white-[:digit:]+$"),
-    name = str_remove(name, "-black-[:digit:]+$"),
-    name = str_remove(name, "^shielded/"),
-    name = str_remove(name, "^standalone/")
+    name = stringr::str_remove(name, "-white-[:digit:]+$"),
+    name = stringr::str_remove(name, "-black-[:digit:]+$"),
+    name = stringr::str_remove(name, "^shielded/"),
+    name = stringr::str_remove(name, "^standalone/")
   )
 
 map_icons <-
-  bind_rows(
+  dplyr::bind_rows(
     maki,
     temaki,
     wu_icons,
@@ -96,12 +99,12 @@ map_icons <-
     calcite,
     nps_icons
   ) |>
-  relocate(
+  dplyr::relocate(
     repo,
-    .after = everything()
+    .after = dplyr::everything()
   ) |>
-  arrange(repo, name, style, desc(size))
+  dplyr::arrange(repo, name, style, dplyr::desc(size))
 
-map_icons <- dplyr::as_tibble(map_icons)
+map_icons <- tibble::as_tibble(map_icons)
 
 usethis::use_data(map_icons, overwrite = TRUE)
