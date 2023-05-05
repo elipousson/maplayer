@@ -20,17 +20,16 @@
 #' @importFrom cliExtras cli_abort_ifnot
 set_basemap <- function(x, basemap = FALSE, call = caller_env()) {
   if (rlang::is_logical(basemap)) {
-    if (isTRUE(basemap)) {
-      check_gg(x, call = call)
-
+    if (is_true(basemap)) {
+      # check_gg(x, call = call)
       return(ggplot2::ggplot() + x)
     }
 
     return(x)
   }
 
-  check_gg(x, call = call)
-  check_ggplot(basemap, call = call)
+  # check_gg(x, call = call)
+  # check_ggplot(basemap, call = call)
 
   if (ggplot2::is.ggplot(basemap)) {
     return(basemap + x)
