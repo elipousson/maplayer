@@ -34,7 +34,12 @@ layer_location_context <- function(data = NULL,
                                    fill = "gray70",
                                    color = "black",
                                    context = NULL,
-                                   context_params = list(fill = "white", color = "black", alpha = 1, ...),
+                                   context_params = list(
+                                     fill = "white",
+                                     color = "black",
+                                     alpha = 1,
+                                     ...
+                                     ),
                                    crs = getOption("maplayer.crs", default = 3857),
                                    mid_layer = NULL,
                                    neatline = TRUE,

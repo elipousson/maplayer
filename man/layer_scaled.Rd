@@ -47,7 +47,8 @@ without modification.}
 \item{orientation}{Orientation "portrait", "landscape", or "square", Default:
 'portrait'.}
 
-\item{clip}{If \code{TRUE}, create scaled layer even if the data is cut off; defaults to \code{FALSE}.}
+\item{clip}{If \code{TRUE}, create scaled layer even if the data is cut off;
+defaults to \code{FALSE}.}
 }
 \description{
 Uses \link{layer_neatline}, \link[sfext:standard_scales]{sfext::standard_scales}, and

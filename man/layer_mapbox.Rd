@@ -57,7 +57,8 @@ Default: "mapbox://styles/mapbox/satellite-streets-v11"}
 \item{username}{A Mapbox username (required if \code{style_url = NULL}).}
 
 \item{basemap}{If FALSE, create a standalone layer; if \code{TRUE}, the layer is
-precededed by \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} to allow use as a basemap, Default: \code{TRUE}}
+preceded by \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} to allow use as a basemap, Default:
+\code{TRUE}}
 
 \item{scale}{ratio to scale the output image; \code{scale = 1} will return the
 largest possible image. defaults to 0.5}
@@ -78,8 +79,8 @@ attribution elsewhere on the webpage or document.}
 \item{access_token}{A Mapbox access token; which can be set with
 \link[mapboxapi]{mb_access_token}.}
 
-\item{neatline}{If \code{TRUE}, add a neatline matching the provided data, Default:
-\code{TRUE}}
+\item{neatline}{If \code{TRUE}, add a neatline matching the provided data,
+Default: \code{TRUE}}
 
 \item{color}{Color of panel border, Default: 'black'}
 

@@ -17,7 +17,12 @@ is_neatline <- function(x) {
 #' Helper function to add geometry to mapping and "sf_coordinates" to stat
 #'
 #' @noRd
-geom_sf_coordinates <- function(mapping = aes(), data = NULL, geom = NULL, .envir = parent.frame(), call = .envir, ...) {
+geom_sf_coordinates <- function(mapping = aes(),
+                                data = NULL,
+                                geom = NULL,
+                                .envir = parent.frame(),
+                                call = .envir,
+                                ...) {
   mapping <- mapping %||% aes()
   geom(
     mapping = aes_sf_coords(mapping, data),

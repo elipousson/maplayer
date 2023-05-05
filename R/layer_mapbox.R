@@ -6,9 +6,10 @@
 #' @param style_url Map style url used to fill style_id and username parameters,
 #'   Default: "mapbox://styles/mapbox/satellite-streets-v11"
 #' @param basemap If FALSE, create a standalone layer; if `TRUE`, the layer is
-#'   precededed by [ggplot2::ggplot()] to allow use as a basemap, Default: `TRUE`
-#' @param neatline If `TRUE`, add a neatline matching the provided data, Default:
+#'   preceded by [ggplot2::ggplot()] to allow use as a basemap, Default:
 #'   `TRUE`
+#' @param neatline If `TRUE`, add a neatline matching the provided data,
+#'   Default: `TRUE`
 #' @inheritParams layer_neatline
 #' @param ... Additional parameter passed to [mapboxapi::layer_static_mapbox]
 #' @seealso

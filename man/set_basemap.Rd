@@ -7,20 +7,25 @@
 \usage{
 set_basemap(x, basemap = FALSE, call = caller_env())
 
-make_basemap(...)
+make_basemap(x, basemap = FALSE, call = caller_env())
 }
 \arguments{
 \item{x}{A ggproto object or list of ggproto objects.}
 
 \item{basemap}{Either a logical vector or ggplot object.
 
-If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return x
-as is.
+If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return
+x as is.
 
 If a \strong{ggplot}, add x to basemap object.
 
 If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
 and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
+
+\item{call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 }
 \description{
 Add a basemap to a ggplot2 layer.

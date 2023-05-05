@@ -99,7 +99,12 @@ layer_marked <- function(data,
                          radius = expand,
                          stat = "sf_coordinates",
                          drop_shadow = FALSE,
-                         shadow_params = list(x_offset = 5, y_offset = 5, sigma = 0.5, ...),
+                         shadow_params = list(
+                           x_offset = 5,
+                           y_offset = 5,
+                           sigma = 0.5,
+                           ...
+                           ),
                          ...) {
   rlang::check_installed("ggforce")
 

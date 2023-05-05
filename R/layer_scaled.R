@@ -6,7 +6,8 @@
 #' @inheritParams sfext::convert_dist_scale
 #' @inheritParams sfext::st_bbox_ext
 #' @inheritParams layer_neatline
-#' @param clip If `TRUE`, create scaled layer even if the data is cut off; defaults to `FALSE`.
+#' @param clip If `TRUE`, create scaled layer even if the data is cut off;
+#'   defaults to `FALSE`.
 #' @family layer
 #' @name layer_scaled
 #' @export
@@ -72,7 +73,8 @@ layer_scaled <-
       )
     }
 
-    scaled_dist <- max(c(scaled_paper$width_actual, scaled_paper$height_actual)) / 2
+    scaled_dist <-
+      max(c(scaled_paper$width_actual, scaled_paper$height_actual)) / 2
 
     scaled_bbox <-
       sfext::st_bbox_ext(
@@ -97,7 +99,9 @@ layer_scaled <-
 #' FIXME: Replace with new sf_bbox_fit (?)
 #' @noRd
 #' @importFrom sfext sf_bbox_ydist sf_bbox_xdist
-bbox_fit_check <- function(bbox, paper = NULL, cols = c("actual_width", "actual_height")) {
+bbox_fit_check <- function(bbox,
+                           paper = NULL,
+                           cols = c("actual_width", "actual_height")) {
   # Compare bbox xdist and ydist to actual dimensions
   # FIXME: move this into a helper function
 

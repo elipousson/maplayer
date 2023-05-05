@@ -2,8 +2,8 @@
 % Please edit documentation in R/layer_count.R
 \name{layer_count}
 \alias{layer_count}
-\title{Layer for counting occurrences of data in spatial relation a location or other
-sf object}
+\title{Layer for counting occurrences of data in spatial relation a location or
+other sf object}
 \usage{
 layer_count(
   data,

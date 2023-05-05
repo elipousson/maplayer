@@ -1,5 +1,5 @@
-#' Layer for counting occurrences of data in spatial relation a location or other
-#' sf object
+#' Layer for counting occurrences of data in spatial relation a location or
+#' other sf object
 #'
 #' Wraps [sfext::count_sf_ext()]. Specification of parameters for this function
 #' may be too complex and may be changed in the future.

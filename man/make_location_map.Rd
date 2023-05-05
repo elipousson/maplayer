@@ -133,20 +133,20 @@ sensitive.}
 
 \item{basemap}{Either a logical vector or ggplot object.
 
-If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return x
-as is.
+If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return
+x as is.
 
 If a \strong{ggplot}, add x to basemap object.
 
 If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
 and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{bg_layer, fg_layer}{A ggplot2 layer or a list of ggproto objects (e.g.
-scales, labels, etc.) to add to the background or foreground of the primary
-map layer defined by \code{"geom"} and other parameters. If the geom creates an
-opaque layer or layer is an opaque layer (e.g. a layer produced by
-\code{\link[=layer_mapbox]{layer_mapbox()}}) that covers the full map extent, the bg_layer will not be
-visible.}
+\item{bg_layer, fg_layer, addon}{A ggplot2 layer or a list of ggproto objects
+(e.g. scales, labels, etc.) to add to the background or foreground of the
+primary map layer defined by \code{"geom"} and other parameters. If the geom
+creates an opaque layer or layer is an opaque layer (e.g. a layer produced
+by \code{\link[=layer_mapbox]{layer_mapbox()}}) that covers the full map extent, the bg_layer will not
+be visible.}
 
 \item{layer}{A ggplot2 layer or a list of ggproto objects. If layer is
 provided, all parameters passed to \code{\link[=layer_location_data]{layer_location_data()}} (including data,

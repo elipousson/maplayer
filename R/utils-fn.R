@@ -61,7 +61,12 @@ use_fn <- function(x = NULL, fn = NULL, ..., arg = caller_arg(fn), call = caller
 #' @param pkg Package name passed to [is_pkg_installed]
 #' @noRd
 #' @importFrom rlang caller_arg caller_env is_missing eval_tidy quo is_logical
-eval_tidy_fn <- function(x, params = NULL, pkg = NULL, fn = NULL, arg = caller_arg(fn), call = caller_env()) {
+eval_tidy_fn <- function(x,
+                         params = NULL,
+                         pkg = NULL,
+                         fn = NULL,
+                         arg = caller_arg(fn),
+                         call = caller_env()) {
   if (is.null(params) && !rlang::is_missing(x)) {
     return(x)
   }

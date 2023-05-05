@@ -3,20 +3,21 @@
 #'
 #' [layer_inset()] is useful when you want to add an inset to a plot.
 #'
-#' [make_inset_map()] is useful for creating an inset map just using the location
-#' with fewer options for customization. In that case, the ... parameters are
-#' passed to [layer_location_context()] instead of [patchwork::inset_element()]
+#' [make_inset_map()] is useful for creating an inset map just using the
+#' location with fewer options for customization. In that case, the ...
+#' parameters are passed to [layer_location_context()] instead of
+#' [patchwork::inset_element()]
 #'
-#' [stamp_inset_img()] is useful for applying a logo to a map. The ... parameters
-#' are passed to [figpatch::fig()]
+#' [stamp_inset_img()] is useful for applying a logo to a map. The ...
+#' parameters are passed to [figpatch::fig()]
 #'
 #' Note, currently, plots created with [layer_inset()] do not work with
 #' [map_ggsave_ext()] using the `single_file = TRUE` parameter.
 #'
 #' @param inset plot or map created with [ggplot2()] passed to p argument of
 #'   [patchwork::inset_element()]. If both location and context are provided to
-#'   [make_inset_map()], inset is optional and any provided value is replaced with
-#'   a new layer created by [layer_location_context()].
+#'   [make_inset_map()], inset is optional and any provided value is replaced
+#'   with a new layer created by [layer_location_context()].
 #' @param plot,map plot or map created with [ggplot2()]
 #' @param path image path passed to [figpatch::fig()] for [stamp_inset_img()]
 #' @param img_margin margin around image for [stamp_inset_img()] created by

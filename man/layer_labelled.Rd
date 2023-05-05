@@ -61,7 +61,8 @@ to units matching GDAL units for x; defaults to "meter"}
 \item{drop_shadow}{If \code{TRUE}, use \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} to add a drop shadow
 to the label layer with shadow_params. Defaults to \code{FALSE}.}
 
-\item{shadow_params}{Parameters passed to \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} if \code{drop_shadow = TRUE}. Defaults to \code{list(x_offset = 5, y_offset = 5, sigma = 0.5)}.}
+\item{shadow_params}{Parameters passed to \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} if
+\code{drop_shadow = TRUE}. Defaults to \code{list(x_offset = 5, y_offset = 5, sigma = 0.5)}.}
 
 \item{...}{
   Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}
@@ -82,8 +83,8 @@ extdata and cached data).}
     \item{\code{crs}}{Coordinate reference system to return.}
     \item{\code{basemap}}{Either a logical vector or ggplot object.
 
-If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return x
-as is.
+If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return
+x as is.
 
 If a \strong{ggplot}, add x to basemap object.
 

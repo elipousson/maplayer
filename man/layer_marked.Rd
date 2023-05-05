@@ -62,7 +62,8 @@ plot area width.}
 \item{drop_shadow}{If \code{TRUE}, use \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} to add a drop shadow
 to the label layer with shadow_params. Defaults to \code{FALSE}.}
 
-\item{shadow_params}{Parameters passed to \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} if \code{drop_shadow = TRUE}. Defaults to \code{list(x_offset = 5, y_offset = 5, sigma = 0.5)}.}
+\item{shadow_params}{Parameters passed to \code{\link[ggfx:with_shadow]{ggfx::with_shadow()}} if
+\code{drop_shadow = TRUE}. Defaults to \code{list(x_offset = 5, y_offset = 5, sigma = 0.5)}.}
 
 \item{...}{Additional parameters passed to \code{\link[ggforce:geom_mark_rect]{ggforce::geom_mark_rect()}},
 \code{\link[ggforce:geom_mark_circle]{ggforce::geom_mark_circle()}}, \code{\link[ggforce:geom_mark_ellipse]{ggforce::geom_mark_ellipse()}}, or

@@ -46,8 +46,8 @@ stamp_inset_img(
 \arguments{
 \item{inset}{plot or map created with \code{\link[=ggplot2]{ggplot2()}} passed to p argument of
 \code{\link[patchwork:inset_element]{patchwork::inset_element()}}. If both location and context are provided to
-\code{\link[=make_inset_map]{make_inset_map()}}, inset is optional and any provided value is replaced with
-a new layer created by \code{\link[=layer_location_context]{layer_location_context()}}.}
+\code{\link[=make_inset_map]{make_inset_map()}}, inset is optional and any provided value is replaced
+with a new layer created by \code{\link[=layer_location_context]{layer_location_context()}}.}
 
 \item{position}{inset map position, Default: 'bottomright'. position,
 nudge_x, and nudge_y are used to set the left, bottom, top, and right
@@ -95,12 +95,13 @@ ggplot2 map with inset map added using patchwork
 \code{\link[=layer_inset]{layer_inset()}} is useful when you want to add an inset to a plot.
 }
 \details{
-\code{\link[=make_inset_map]{make_inset_map()}} is useful for creating an inset map just using the location
-with fewer options for customization. In that case, the ... parameters are
-passed to \code{\link[=layer_location_context]{layer_location_context()}} instead of \code{\link[patchwork:inset_element]{patchwork::inset_element()}}
+\code{\link[=make_inset_map]{make_inset_map()}} is useful for creating an inset map just using the
+location with fewer options for customization. In that case, the ...
+parameters are passed to \code{\link[=layer_location_context]{layer_location_context()}} instead of
+\code{\link[patchwork:inset_element]{patchwork::inset_element()}}
 
-\code{\link[=stamp_inset_img]{stamp_inset_img()}} is useful for applying a logo to a map. The ... parameters
-are passed to \code{\link[figpatch:fig]{figpatch::fig()}}
+\code{\link[=stamp_inset_img]{stamp_inset_img()}} is useful for applying a logo to a map. The ...
+parameters are passed to \code{\link[figpatch:fig]{figpatch::fig()}}
 
 Note, currently, plots created with \code{\link[=layer_inset]{layer_inset()}} do not work with
 \code{\link[=map_ggsave_ext]{map_ggsave_ext()}} using the \code{single_file = TRUE} parameter.

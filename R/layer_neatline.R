@@ -34,7 +34,8 @@
 #' @family layer
 #' @aliases set_map_limits
 #' @export
-#' @importFrom ggplot2 coord_sf scale_y_continuous scale_x_continuous theme element_rect element_blank
+#' @importFrom ggplot2 coord_sf scale_y_continuous scale_x_continuous theme
+#'   element_rect element_blank
 layer_neatline <- function(data = NULL,
                            dist = getOption("maplayer.dist"),
                            diag_ratio = getOption("maplayer.diag_ratio"),

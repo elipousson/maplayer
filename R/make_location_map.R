@@ -23,12 +23,12 @@
 #'   this case, the function simply stacks the bg_layer, layer, and fg_layer
 #'   objects then applies the basemap and neatline (using the [set_basemap()]
 #'   and [set_neatline()] helper functions.)
-#' @param bg_layer,fg_layer A ggplot2 layer or a list of ggproto objects (e.g.
-#'   scales, labels, etc.) to add to the background or foreground of the primary
-#'   map layer defined by `"geom"` and other parameters. If the geom creates an
-#'   opaque layer or layer is an opaque layer (e.g. a layer produced by
-#'   [layer_mapbox()]) that covers the full map extent, the bg_layer will not be
-#'   visible.
+#' @param bg_layer,fg_layer,addon A ggplot2 layer or a list of ggproto objects
+#'   (e.g. scales, labels, etc.) to add to the background or foreground of the
+#'   primary map layer defined by `"geom"` and other parameters. If the geom
+#'   creates an opaque layer or layer is an opaque layer (e.g. a layer produced
+#'   by [layer_mapbox()]) that covers the full map extent, the bg_layer will not
+#'   be visible.
 #' @inheritParams set_basemap
 #' @inheritParams set_neatline
 #' @param ... Additional parameters passed to [layer_location_data()].

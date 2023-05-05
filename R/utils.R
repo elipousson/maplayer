@@ -54,8 +54,13 @@ group_by_col <- function(data, col = NULL) {
 #' @param col Column name/value
 #' @noRd
 add_col <- function(data, col = NULL) {
-  if (!is.null(col) && !(col %in% names(data)) && any(length(col) %in% c(nrow(data), 1))) {
-    # FIXME: This is a non-standard pattern - I like it but it may or may not be appropriate and should be documented
+  if(is.null(col)) {
+    return(data)
+  }
+
+  if (!(col %in% names(data)) && any(length(col) %in% c(nrow(data), 1))) {
+    # FIXME: This is a non-standard pattern - I like it but it may or may not be
+    # appropriate and should be documented
     # TODO: Substitute dplyr::bind_cols() instead
     data[[col]] <- col
   }

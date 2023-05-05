@@ -48,8 +48,8 @@ additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 
 \item{basemap}{Either a logical vector or ggplot object.
 
-If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return x
-as is.
+If \strong{logical} and \code{TRUE}, add x to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}. If \code{FALSE}, return
+x as is.
 
 If a \strong{ggplot}, add x to basemap object.
 

@@ -24,8 +24,9 @@
 #' @param union If TRUE, group by label_col and union geometry, Default: `FALSE`
 #' @param drop_shadow If `TRUE`, use [ggfx::with_shadow()] to add a drop shadow
 #'   to the label layer with shadow_params. Defaults to `FALSE`.
-#' @param shadow_params Parameters passed to [ggfx::with_shadow()] if `drop_shadow
-#'   = TRUE`. Defaults to `list(x_offset = 5, y_offset = 5, sigma = 0.5)`.
+#' @param shadow_params Parameters passed to [ggfx::with_shadow()] if
+#'   `drop_shadow = TRUE`. Defaults to `list(x_offset = 5, y_offset = 5, sigma =
+#'   0.5)`.
 #' @inheritParams sfext::st_clip
 #' @inheritDotParams layer_location_data -layer_fn -from_crs
 #' @seealso
