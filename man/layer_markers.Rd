@@ -153,16 +153,15 @@ If make is \code{TRUE}, groupname_col, group_meta, crs, and fn is all passed on 
 \link{make_markers}.
 }
 \examples{
-nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
-nc <- sfext::st_transform_ext(nc, 3857)
+nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
+nc <- sf::st_transform(nc, 3857)
 
 basemap <-
   ggplot() +
   layer_location_data(
     data = nc,
     fill = NA
-  ) +
-  ggplot2::theme_void()
+  )
 
 basemap +
   layer_markers(
@@ -189,6 +188,6 @@ basemap +
     geom = "label",
     size = 3
     ) +
-  ggplot2::guides(fill = "none")
+  guides(fill = "none")
 
 }

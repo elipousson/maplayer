@@ -81,7 +81,7 @@ library(sf)
 You can create maps using a single named icon that matches one of the icons in `map_icons`.
 
 ```{r}
-nc <- st_read(system.file("shape/nc.shp", package = "sf"))
+nc <- read_sf(system.file("shape/nc.shp", package = "sf"))
 nc <- st_transform(nc, 3857)
 theme_set(theme_void())
 
@@ -102,7 +102,7 @@ nc_map +
   layer_neatline(
     data = nc,
     asp = "6:4",
-    color = "gray60", size = 2, linetype = "dashed"
+    color = "gray60", linewidth = 2, linetype = "dashed"
   )
 ```
 
@@ -128,7 +128,7 @@ nc_map +
   layer_labelled(
     data = nc[c(10, 20, 30, 40), ],
     geom = "sf_label",
-    label_col = "NAME"
+    mapping = aes(label = NAME)
   )
 ```
 

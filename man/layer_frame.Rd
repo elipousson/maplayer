@@ -158,7 +158,7 @@ to the frame simple feature object created by \code{\link[=make_frame]{make_fram
 original input data).
 }
 \examples{
-nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
+nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
 
 raleigh_msa <-
   getdata::get_location(

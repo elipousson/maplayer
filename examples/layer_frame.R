@@ -1,4 +1,4 @@
-nc <- sfext::read_sf_path(system.file("shape/nc.shp", package = "sf"))
+nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
 
 raleigh_msa <-
   getdata::get_location(

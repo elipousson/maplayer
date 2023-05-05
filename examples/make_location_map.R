@@ -1,4 +1,4 @@
-nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
 
 make_location_map(
   location = nc

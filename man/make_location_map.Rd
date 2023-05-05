@@ -250,7 +250,7 @@ It is designed for making simple maps of photos in combination with reference
 tables.
 }
 \examples{
-nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
 
 make_location_map(
   location = nc

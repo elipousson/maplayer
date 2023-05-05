@@ -23,7 +23,7 @@
 #'   [ggplot2::scale_fill_continuous()].
 #' @examples
 #'
-#' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+#' nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
 #' data <- sf::st_sample(nc, 75)
 #'
 #' ggplot() +
