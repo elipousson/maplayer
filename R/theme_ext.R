@@ -109,6 +109,10 @@ theme_text <- function(font_family = NULL,
       )
     )
 
+  if (is.null(method)) {
+    return(text_theme)
+  }
+
   if (geom_text) {
     ggplot2::update_geom_defaults(
       "label",
@@ -118,10 +122,6 @@ theme_text <- function(font_family = NULL,
       "text",
       list(family = font_family, color = color)
     )
-  }
-
-  if (is.null(method)) {
-    return(text_theme)
   }
 
   theme_method(text_theme, method = method)
