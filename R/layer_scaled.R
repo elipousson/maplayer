@@ -45,11 +45,7 @@ layer_scaled <-
 
     asp <- asp %||% scaled_paper$asp
 
-    if (!is_sf(data, ext = TRUE)) {
-      cli::cli_abort(
-        "{.arg data} must be a {.cls bbox}, {.cls sf}, or {.cls sfc} object."
-      )
-    }
+    sfext::check_sf(data, ext = TRUE)
 
     # Get adjusted bounding box for data
     bbox <-
