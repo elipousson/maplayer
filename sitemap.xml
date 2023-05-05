@@ -79,9 +79,6 @@
     <loc>https://elipousson.github.io/maplayer/reference/layer_scaled.html</loc>
   </url>
   <url>
-    <loc>https://elipousson.github.io/maplayer/reference/make_basemap.html</loc>
-  </url>
-  <url>
     <loc>https://elipousson.github.io/maplayer/reference/make_location_map.html</loc>
   </url>
   <url>
@@ -95,6 +92,9 @@
   </url>
   <url>
     <loc>https://elipousson.github.io/maplayer/reference/scale_group_data.html</loc>
+  </url>
+  <url>
+    <loc>https://elipousson.github.io/maplayer/reference/set_basemap.html</loc>
   </url>
   <url>
     <loc>https://elipousson.github.io/maplayer/reference/theme_ext.html</loc>

@@ -72,6 +72,7 @@ function is primarily appropriate for the layer_mapbox (<code>geom = "mapbox"</c
 <span>  bg_layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fg_layer <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  addon <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  neatline <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  save <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ggsave_params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dpi <span class="op">=</span> <span class="fl">300</span>, <span class="va">...</span><span class="op">)</span>,</span>
@@ -229,7 +230,7 @@ visible.</p></dd>
 provided, all parameters passed to <code><a href="layer_location_data.html">layer_location_data()</a></code> (including data,
 location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
 this case, the function simply stacks the bg_layer, layer, and fg_layer
-objects then applies the basemap and neatline (using the <code><a href="make_basemap.html">make_basemap()</a></code>
+objects then applies the basemap and neatline (using the <code><a href="set_basemap.html">set_basemap()</a></code>
 and <code><a href="layer_neatline.html">set_neatline()</a></code> helper functions.)</p></dd>
 
 
