@@ -283,13 +283,12 @@ set_neatline <- function(x = NULL,
       )
   }
 
-
   if (ggplot2::is.ggplot(x)) {
     return(x + neatline)
   }
 
   if (obj_is_gg(x)) {
-    if (!is.list(x)) {
+    if (!is_bare_list(x)) {
       x <- list(x)
     }
 
