@@ -1,5 +1,10 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# maplayer 0.1.0.9002 (2023-05-05)
+
+- Add lower-level `make_layer_map()` helper for `make_location_map()`.
+- Rename `make_basemap()` to `set_basemap()`
+
 # maplayer 0.1.0.9001 (2023-04-10)
 
 * Add `layer_arrow()`.
@@ -91,4 +96,3 @@
 - docs: update package title
 - feat: add as_basemap utility function
 - docs: finish set-up for pkgdown site + minor tweaks to function docs
-
