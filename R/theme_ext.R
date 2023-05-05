@@ -109,22 +109,23 @@ theme_text <- function(font_family = NULL,
       )
     )
 
-  if (!is.null(method)) {
-    theme_method(text_theme, method = method)
+  if (geom_text) {
+    ggplot2::update_geom_defaults(
+      "label",
+      list(family = font_family, color = color)
+    )
+    ggplot2::update_geom_defaults(
+      "text",
+      list(family = font_family, color = color)
+    )
+  }
 
-    if (geom_text) {
-      ggplot2::update_geom_defaults(
-        "label",
-        list(family = font_family, color = color)
-      )
-      ggplot2::update_geom_defaults(
-        "text",
-        list(family = font_family, color = color)
-      )
-    }
-  } else {
+  if (is.null(method)) {
     return(text_theme)
   }
+
+  theme_method(text_theme, method = method)
+
 }
 
 
