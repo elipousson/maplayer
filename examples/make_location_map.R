@@ -28,7 +28,7 @@ make_location_map(
   data = nc,
   location = nc[2, ],
   mapping = aes(fill = NAME),
-  fg_layer = geom_sf_text(data = nc[2, ], aes(label = NAME)),
+  fg_layer = ggplot2::geom_sf_text(data = nc[2, ], aes(label = NAME)),
   addon = guides(fill = "none"),
   dist = 2,
   unit = "mi",

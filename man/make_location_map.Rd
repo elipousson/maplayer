@@ -183,13 +183,17 @@ additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 \item If object from \code{\link[=layer_neatline]{layer_neatline()}}, add it as is.
 }}
 
+\item{labs_ext_params}{Optional parameters passed to \code{\link[=labs_ext]{labs_ext()}}.}
+
 \item{save}{If \code{TRUE}, save file with \link{ggsave_ext} or \link{ggsave_social},
 requires \code{basemap = TRUE} and filename is not \code{NULL} \emph{or} \code{...} must
 include a name parameter. Defaults to \code{FALSE}.}
 
 \item{ggsave_params}{List of parameters passed to \code{\link[papersize:ggsave_ext]{papersize::ggsave_ext()}}.}
 
-\item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}}.}
+\item{...}{Additional parameters passed to \code{\link[=layer_location_data]{layer_location_data()}} for
+\code{\link[=make_location_map]{make_location_map()}} or \code{\link[=make_social_map]{make_social_map()}} or to \code{\link[=layer_markers]{layer_markers()}} for
+\code{\link[=make_image_map]{make_image_map()}}.}
 
 \item{env}{Environment for evaluation of \code{\link[=labs_ext]{labs_ext()}} if labs_ext_params is
 supplied.}
@@ -280,7 +284,7 @@ make_location_map(
   data = nc,
   location = nc[2, ],
   mapping = aes(fill = NAME),
-  fg_layer = geom_sf_text(data = nc[2, ], aes(label = NAME)),
+  fg_layer = ggplot2::geom_sf_text(data = nc[2, ], aes(label = NAME)),
   addon = guides(fill = "none"),
   dist = 2,
   unit = "mi",

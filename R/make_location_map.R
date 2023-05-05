@@ -11,8 +11,11 @@
 #' @inheritParams papersize::get_paper
 #' @inheritParams sfext::st_bbox_ext
 #' @inheritParams layer_location_data
+#' @inheritParams set_neatline
 #' @inheritParams papersize::ggsave_ext
-#' @param ... Additional parameters passed to [layer_location_data()].
+#' @param ... Additional parameters passed to [layer_location_data()] for
+#'   [make_location_map()] or [make_social_map()] or to [layer_markers()] for
+#'   [make_image_map()].
 #' @example examples/make_location_map.R
 #' @details Using [make_image_map()]:
 #'
@@ -266,6 +269,7 @@ make_image_map <- function(image_path,
 
 #' @name make_layer_map
 #' @rdname make_location_map
+#' @param labs_ext_params Optional parameters passed to [labs_ext()].
 #' @param ggsave_params List of parameters passed to [papersize::ggsave_ext()].
 #' @inheritParams mapboxapi::layer_static_mapbox
 #' @param layer A ggplot2 layer or a list of ggproto objects. If layer is
