@@ -61,8 +61,9 @@ without modification.}
 be projected before plotting. If not specified, will use the CRS defined
 in the first sf layer of the plot.}
 
-\item{nudge}{Passed as to parameter \code{\link[sfext:st_nudge]{st_nudge()}} when not \code{NULL}. Numeric
-vector or sf object.}
+\item{nudge}{Passed as to parameter \code{\link[sfext:st_nudge]{st_nudge()}} when not \code{NULL}. A numeric
+vector, a \code{sf} object, or any other object that can be converted to a
+simple feature collection with \code{as_sfc()}..}
 
 \item{color}{Color of panel border, Default: 'black'}
 

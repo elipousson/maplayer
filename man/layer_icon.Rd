@@ -56,7 +56,10 @@ ignored.}
 \item{...}{
   Arguments passed on to \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg}}
   \describe{
-    \item{\code{defaults}}{named list of default values for new aesthetics
+    \item{\code{defaults}}{Advanced option.  A named list of default values for new aesthetics.
+       In general this is not necessary when using \code{css()} aesthetics, as a
+       default value will be determined based upon the CSS property e.g. \code{stroke}
+       property will have a default value of "black"
 
 Set `options(GGSVG_DEBUG = TRUE)` for some verbose debugging which will
 cause `{ggsvg}` to output (to the console) the final SVG for each and every element

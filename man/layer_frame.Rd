@@ -70,8 +70,8 @@ the input data is used as the frame.}
 
 \item{rotate}{numeric; degrees to rotate (-360 to 360), Default: 0}
 
-\item{inscribed}{If \code{TRUE}, make circle, square, or donut inscribed within x,
-if \code{FALSE}, make it circumscribed.}
+\item{inscribed}{If \code{TRUE}, the returned geometry is inscribed within x, if
+\code{FALSE} (default), the geometry is circumscribed.}
 
 \item{fill, color, linewidth, linetype}{Fixed aesthetics for frame, passed to
 \link{layer_location_data}.}
@@ -143,7 +143,7 @@ function is helpful for the background of an inset map intended for use with
 \code{\link[=layer_inset]{layer_inset()}}.
 }
 \details{
-The \code{\link[=make_frame]{make_frame()}} helper function calls \code{\link[sfext:st_misc]{sfext::st_circle()}} (if \code{style = "circle"}), \code{\link[sfext:st_misc]{sfext::st_square()}}  (if \code{style = "square"}),
+The \code{\link[=make_frame]{make_frame()}} helper function calls \code{\link[sfext:st_misc]{sfext::st_circle()}} (if \code{style = "circle"}), \code{\link[sfext:st_square]{sfext::st_square()}}  (if \code{style = "square"}),
 \code{\link[sfext:st_bbox_ext]{sfext::st_bbox_ext()}} (if \code{style = "rect"}), or \code{\link[sfext:st_buffer_ext]{sfext::st_buffer_ext()}} (if
 \code{style = "none"}).
 

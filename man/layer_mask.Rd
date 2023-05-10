@@ -73,10 +73,9 @@ limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
 \item{...}{Additional parameters to pass to \code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}}
 
-\item{x}{An object \code{sf}, \code{bbox}, \code{sfc}, \code{raster}, or \code{sp} object or a
-\code{data.frame} that can be converted to an \code{sf} object or a list of \code{sf},
-\code{bbox}, or \code{sfc} objects. \code{\link[sfext:st_bbox_asp]{st_bbox_asp()}} also supports vectors in the same
-format as a \code{bbox} object.}
+\item{x}{A \code{sf}, \code{sfc}, \code{bbox}, \code{sfg}, \code{Raster}, \code{Spatial}, \code{Extent},
+\code{numeric}, or \code{character} object (a place name passed to
+\code{\link[osmdata:getbb]{osmdata::getbb()}}). See \code{\link[sfext:as_bbox]{as_bbox()}} for more details.}
 }
 \value{
 \code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}} function.
