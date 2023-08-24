@@ -53,20 +53,18 @@ make_location_map <- function(location = NULL,
                               env = caller_env(),
                               call = caller_env()) {
   if (!is.null(paper)) {
-    paper <-
-      papersize::get_paper(
-        paper = paper,
-        orientation = orientation
-      )
+    paper <- papersize::get_paper(
+      paper = paper,
+      orientation = orientation
+    )
   } else if (!is.null(width) || !is.null(height)) {
-    paper <-
-      papersize::make_page_size(
-        width,
-        height,
-        units,
-        asp,
-        orientation
-      )
+    paper <- papersize::make_page_size(
+      width,
+      height,
+      units,
+      asp,
+      orientation
+    )
   }
 
   if (save) {
@@ -80,18 +78,17 @@ make_location_map <- function(location = NULL,
     location <- NULL
   }
 
-  layer <-
-    layer %||% layer_location_data(
-      data = data,
-      location = location,
-      dist = dist,
-      diag_ratio = diag_ratio,
-      unit = unit,
-      asp = asp %||% paper$asp,
-      crs = crs,
-      geom = geom,
-      ...
-    )
+  layer <- layer %||% layer_location_data(
+    data = data,
+    location = location,
+    dist = dist,
+    diag_ratio = diag_ratio,
+    unit = unit,
+    asp = asp %||% paper$asp,
+    crs = crs,
+    geom = geom,
+    ...
+  )
 
   make_layer_map(
     basemap = basemap,
@@ -128,23 +125,21 @@ make_social_map <- function(location,
                             save = FALSE,
                             ggsave_params = list(fileext = "jpeg", dpi = 72, ...),
                             ...) {
-  image_size <-
-    papersize::get_social_size(
-      name = image,
-      platform = platform,
-      format = format,
-      orientation = orientation
-    )
+  image_size <- papersize::get_social_size(
+    name = image,
+    platform = platform,
+    format = format,
+    orientation = orientation
+  )
 
-  bbox <-
-    st_bbox_ext(
-      x = location,
-      dist = dist,
-      diag_ratio = diag_ratio,
-      unit = unit,
-      asp = asp %||% image_size$asp,
-      crs = crs
-    )
+  bbox <- st_bbox_ext(
+    x = location,
+    dist = dist,
+    diag_ratio = diag_ratio,
+    unit = unit,
+    asp = asp %||% image_size$asp,
+    crs = crs
+  )
 
   map_layer <- make_layer_map(
     layer = layer_location_data(
@@ -215,8 +210,7 @@ make_image_map <- function(image_path,
       geometry = TRUE
     )
 
-  location <-
-    location %||%
+  location <- location %||%
     sfext::st_bbox_ext(
       sf::st_union(images),
       dist = dist,
@@ -226,22 +220,21 @@ make_image_map <- function(image_path,
       crs = crs
     )
 
-  marker_layer <-
-    layer_markers(
-      data = images,
-      geom = image_geom,
-      crs = crs,
-      groupname_col = groupname_col,
-      group_meta = group_meta,
-      number = number,
-      num_by_group = num_by_group,
-      num_style = num_style,
-      num_start = num_start,
-      suffix = suffix,
-      sort = sort,
-      desc = desc,
-      ...
-    )
+  marker_layer <- layer_markers(
+    data = images,
+    geom = image_geom,
+    crs = crs,
+    groupname_col = groupname_col,
+    group_meta = group_meta,
+    number = number,
+    num_by_group = num_by_group,
+    num_style = num_style,
+    num_start = num_start,
+    suffix = suffix,
+    sort = sort,
+    desc = desc,
+    ...
+  )
 
   if (is_bare_list(fg_layer)) {
     fg_layer <- c(
@@ -249,11 +242,10 @@ make_image_map <- function(image_path,
       fg_layer
     )
   } else {
-    fg_layer <-
-      list(
-        marker_layer,
-        fg_layer
-      )
+    fg_layer <- list(
+      marker_layer,
+      fg_layer
+    )
   }
 
   make_location_map(
@@ -304,29 +296,24 @@ make_layer_map <- function(bg_layer = NULL,
                            ...,
                            env = caller_env(),
                            call = caller_env()) {
-  check_gg(layer, allow_null = TRUE)
-  check_gg(bg_layer, allow_null = TRUE)
-  check_gg(fg_layer, allow_null = TRUE)
+  # FIXME: check_gg is too sensitive but there should still be some input check
+  # check_gg(layer, allow_null = TRUE)
+  # check_gg(bg_layer, allow_null = TRUE)
+  # check_gg(fg_layer, allow_null = TRUE)
 
-  if (!is_bare_list(addon)) {
-    addon <- list(addon)
+  layer_stack <- set_basemap(bg_layer, basemap = basemap, call = call)
+
+  layer_stack <- layer_stack + layer
+  layer_stack <- layer_stack + fg_layer
+
+  if (!is_null(addon)) {
+    layer_stack <- layer_stack + addon
   }
-
-  layer_stack <-
-    c(
-      bg_layer,
-      layer,
-      fg_layer,
-      addon
-    )
-
-  layer_stack <- set_basemap(layer_stack, basemap = basemap, call = call)
 
   layer_stack <- set_neatline(layer_stack, neatline)
 
   if (!is_empty(labs_ext_params)) {
-    layer_stack <-
-      layer_stack +
+    layer_stack <- layer_stack +
       eval_tidy_fn(
         params = labs_ext_params,
         fn = labs_ext,
