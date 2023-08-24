@@ -40,6 +40,7 @@ Suggests:
     ggpattern,
     ggrepel,
     ggsvg (>= 0.1.11),
+    ggtext,
     gridExtra,
     magick,
     mapboxapi,

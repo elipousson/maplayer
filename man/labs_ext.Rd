@@ -14,12 +14,15 @@ labs_ext(
   color = ggplot2::waiver(),
   size = ggplot2::waiver(),
   shape = ggplot2::waiver(),
+  alpha = ggplot2::waiver(),
+  linewidth = ggplot2::waiver(),
   location = NULL,
   name_col = NULL,
   source = NULL,
   .na = "NA",
   .null = NULL,
   .envir = parent.frame(),
+  use_md = FALSE,
   ...
 )
 }
@@ -37,8 +40,8 @@ top-left of the plot by default.}
 
 \item{alt}{Text used for the generation of alt-text for the plot.}
 
-\item{fill, color, size, shape}{Optional labels for mapped aesthetics. Default
-to \code{\link[ggplot2:waiver]{ggplot2::waiver()}}.}
+\item{fill, color, size, shape, alpha, linewidth}{Optional labels for mapped
+aesthetics. Defaults to \code{\link[ggplot2:waiver]{ggplot2::waiver()}}.}
 
 \item{location}{sf or bbox object or character string}
 
@@ -52,6 +55,9 @@ for bbox objects.}
 
 \item{.envir}{Environment passed to \code{\link[glue:glue]{glue::glue()}}; defaults to
 \code{\link[=parent.frame]{parent.frame()}}.}
+
+\item{use_md}{If \code{TRUE}, use the ggtext::element_markdown() element for the
+plot title, subtitle, and caption. Defaults to \code{FALSE}.}
 
 \item{...}{A list of new name-value pairs. The name should be an aesthetic.}
 }
