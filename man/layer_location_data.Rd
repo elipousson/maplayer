@@ -14,6 +14,7 @@ layer_location_data(
   unit = getOption("maplayer.unit", default = "meter"),
   asp = getOption("maplayer.asp"),
   package = getOption("maplayer.data_package"),
+  pkg = getOption("maplayer.data_package"),
   fileext = getOption("maplayer.data_fileext", "gpkg"),
   filetype = NULL,
   fn = NULL,
@@ -65,7 +66,7 @@ provided.}
 character (e.g. "1:3"). If numeric, \code{\link[sfext:get_asp]{get_asp()}} returns the same value
 without modification.}
 
-\item{package}{Name of the package to search for data.}
+\item{pkg, package}{Name of the package to search for data.}
 
 \item{fileext, filetype}{File extension or type to use if passing parameters
 to \code{\link[sfext:read_sf_ext]{sfext::read_sf_download()}} or \code{\link[sfext:read_sf_ext]{sfext::read_sf_pkg()}} (required for
