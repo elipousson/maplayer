@@ -24,6 +24,7 @@ layer_location(
   linewidth = 0.5,
   linetype = "dashed",
   fill = NA,
+  alpha = NULL,
   dist = NULL,
   diag_ratio = NULL,
   unit = NULL,
@@ -90,6 +91,8 @@ type of location.}
 \item{linetype}{Line type for location; defaults to "dashed".}
 
 \item{fill}{Fill for location; defaults to "NA".}
+
+\item{alpha}{mask alpha/transparency; defaults to 0.5}
 
 \item{dist}{buffer distance in units. Optional.}
 

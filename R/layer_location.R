@@ -23,97 +23,93 @@
 #' @export
 #' @importFrom ggplot2 aes
 #' @importFrom getdata get_location
-layer_location <-
-  function(mapping = ggplot2::aes(),
-           data = NULL,
-           type = NULL,
-           name = NULL,
-           id = NULL,
-           location = NULL,
-           name_col = "name",
-           id_col = "id",
-           index = NULL,
-           label = NULL,
-           label_geom = NULL,
-           label_col = name_col,
-           union = FALSE,
-           crs = getOption("maplayer.crs", default = 3857),
-           color = "gray40",
-           linewidth = 0.5,
-           linetype = "dashed",
-           fill = NA,
-           dist = NULL,
-           diag_ratio = NULL,
-           unit = NULL,
-           asp = NULL,
-           mask = FALSE,
-           neatline = FALSE,
-           smooth_params = NULL,
-           shadow_params = NULL,
-           ...) {
-    if (is.null(data) && (!is.null(type) | !is.null(index))) {
-      data <-
-        getdata::get_location(
-          type = type,
-          name = name,
-          id = id,
-          location = location,
-          label = label,
-          name_col = name_col,
-          id_col = id_col,
-          index = index,
-          union = union,
-          ...
-        )
-    }
-
-    location_layer <-
-      layer_location_data(
-        data = data,
-        color = color,
-        linewidth = linewidth,
-        linetype = linetype,
-        fill = fill
-      )
-
-    if (!is.null(label_geom)) {
-      # label_geom <- match.arg(label_geom, c("label", "text"))
-
-      label_layer <-
-        layer_labelled(
-          data = data,
-          color = "black",
-          geom = label_geom,
-          label_col = label_col
-        )
-
-      location_layer <-
-        c(
-          location_layer,
-          label_layer
-        )
-    }
-
-    location_layer <-
-      set_mask(
-        x = location_layer,
-        mask = mask,
-        data = data,
-        dist = dist,
-        diag_ratio = diag_ratio,
-        unit = unit,
-        asp = asp,
-        crs = crs
-      )
-
-    set_neatline(
-      x = location_layer,
-      neatline = neatline,
-      data = data,
-      dist = dist,
-      diag_ratio = diag_ratio,
-      unit = unit,
-      asp = asp,
-      crs = crs
+layer_location <- function(mapping = ggplot2::aes(),
+                           data = NULL,
+                           type = NULL,
+                           name = NULL,
+                           id = NULL,
+                           location = NULL,
+                           name_col = "name",
+                           id_col = "id",
+                           index = NULL,
+                           label = NULL,
+                           label_geom = NULL,
+                           label_col = name_col,
+                           union = FALSE,
+                           crs = getOption("maplayer.crs", default = 3857),
+                           color = "gray40",
+                           linewidth = 0.5,
+                           linetype = "dashed",
+                           fill = NA,
+                           alpha = NULL,
+                           dist = NULL,
+                           diag_ratio = NULL,
+                           unit = NULL,
+                           asp = NULL,
+                           mask = FALSE,
+                           neatline = FALSE,
+                           smooth_params = NULL,
+                           shadow_params = NULL,
+                           ...) {
+  if (is.null(data) && (!is.null(type) || !is.null(index))) {
+    data <- getdata::get_location(
+      type = type,
+      name = name,
+      id = id,
+      location = location,
+      label = label,
+      name_col = name_col,
+      id_col = id_col,
+      index = index,
+      union = union,
+      ...
     )
   }
+
+  location_layer <- layer_location_data(
+    data = data,
+    color = color,
+    linewidth = linewidth,
+    linetype = linetype,
+    fill = fill,
+    alpha = alpha
+  )
+
+  if (!is.null(label_geom)) {
+    # label_geom <- match.arg(label_geom, c("label", "text"))
+
+    label_layer <- layer_labelled(
+      data = data,
+      color = "black",
+      geom = label_geom,
+      label_col = label_col
+    )
+
+    location_layer <- c(
+      location_layer,
+      label_layer
+    )
+  }
+
+  location_layer <- set_mask(
+    x = location_layer,
+    mask = mask,
+    data = data,
+    dist = dist,
+    diag_ratio = diag_ratio,
+    unit = unit,
+    asp = asp,
+    crs = crs
+  )
+
+  set_neatline(
+    x = location_layer,
+    neatline = neatline,
+    data = data,
+    dist = dist,
+    diag_ratio = diag_ratio,
+    unit = unit,
+    asp = asp,
+    crs = crs
+  )
+}
