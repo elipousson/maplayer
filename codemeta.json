@@ -8,13 +8,13 @@
   "codeRepository": "https://github.com/elipousson/maplayer",
   "issueTracker": "https://github.com/elipousson/maplayer/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.0",
+  "version": "0.1.0.9003",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.2.0 Patched (2022-05-23 r82396)",
+  "runtimePlatform": "R version 4.3.0 (2023-04-21)",
   "author": [
     {
       "@type": "Person",
@@ -69,6 +69,13 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "filenamr",
+      "name": "filenamr",
+      "version": ">= 0.1.0.9002",
+      "sameAs": "https://github.com/elipousson/filenamr"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "geomtextpath",
       "name": "geomtextpath",
       "provider": {
@@ -78,6 +85,19 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=geomtextpath"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ggarchery",
+      "name": "ggarchery",
+      "version": ">= 0.4.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://github.com/mdhall272/ggarchery"
     },
     {
       "@type": "SoftwareApplication",
@@ -108,7 +128,13 @@
       "identifier": "ggpath",
       "name": "ggpath",
       "version": ">= 0.0.0.9000",
-      "sameAs": "https://github.com/mrcaseb/ggpath"
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggpath"
     },
     {
       "@type": "SoftwareApplication",
@@ -143,6 +169,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "ggtext",
+      "name": "ggtext",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=ggtext"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "gridExtra",
       "name": "gridExtra",
       "provider": {
@@ -152,6 +190,30 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=gridExtra"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "lwgeom",
+      "name": "lwgeom",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=lwgeom"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "magick",
+      "name": "magick",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=magick"
     },
     {
       "@type": "SoftwareApplication",
@@ -191,6 +253,30 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "qpdf",
+      "name": "qpdf",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=qpdf"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "roxygen2",
+      "name": "roxygen2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=roxygen2"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "rsvg",
       "name": "rsvg",
       "provider": {
@@ -200,18 +286,6 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rsvg"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "identifier": "scales",
-      "name": "scales",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=scales"
     },
     {
       "@type": "SoftwareApplication",
@@ -284,6 +358,13 @@
     },
     "3": {
       "@type": "SoftwareApplication",
+      "identifier": "cliExtras",
+      "name": "cliExtras",
+      "version": ">= 0.1.0",
+      "sameAs": "https://github.com/elipousson/cliExtras"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
       "provider": {
@@ -294,14 +375,14 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    "4": {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "getdata",
       "name": "getdata",
       "version": ">= 0.1.0",
       "sameAs": "https://github.com/elipousson/getdata"
     },
-    "5": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "ggplot2",
       "name": "ggplot2",
@@ -313,7 +394,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=ggplot2"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "glue",
       "name": "glue",
@@ -325,22 +406,30 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=glue"
     },
-    "7": {
+    "8": {
       "@type": "SoftwareApplication",
-      "identifier": "purrr",
-      "name": "purrr",
+      "identifier": "lifecycle",
+      "name": "lifecycle",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=purrr"
+      "sameAs": "https://CRAN.R-project.org/package=lifecycle"
     },
-    "8": {
+    "9": {
+      "@type": "SoftwareApplication",
+      "identifier": "papersize",
+      "name": "papersize",
+      "version": ">= 0.1.0.9001",
+      "sameAs": "https://github.com/elipousson/papersize"
+    },
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
+      "version": ">= 1.1.0",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
@@ -349,7 +438,19 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "9": {
+    "11": {
+      "@type": "SoftwareApplication",
+      "identifier": "scales",
+      "name": "scales",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=scales"
+    },
+    "12": {
       "@type": "SoftwareApplication",
       "identifier": "sf",
       "name": "sf",
@@ -361,28 +462,29 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=sf"
     },
-    "10": {
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "sfext",
       "name": "sfext",
       "version": ">= 0.1.0",
       "sameAs": "https://github.com/elipousson/sfext"
     },
-    "11": {
+    "14": {
       "@type": "SoftwareApplication",
-      "identifier": "stringr",
-      "name": "stringr",
+      "identifier": "vctrs",
+      "name": "vctrs",
       "provider": {
         "@id": "https://cran.r-project.org",
         "@type": "Organization",
         "name": "Comprehensive R Archive Network (CRAN)",
         "url": "https://cran.r-project.org"
       },
-      "sameAs": "https://CRAN.R-project.org/package=stringr"
+      "sameAs": "https://CRAN.R-project.org/package=vctrs"
     },
     "SystemRequirements": null
   },
-  "fileSize": "1884.255KB",
+  "fileSize": "802.785KB",
+  "releaseNotes": "https://github.com/elipousson/maplayer/blob/master/NEWS.md",
   "readme": "https://github.com/elipousson/maplayer/blob/main/README.md",
   "contIntegration": "https://app.codecov.io/gh/elipousson/maplayer?branch=main",
   "developmentStatus": ["https://lifecycle.r-lib.org/articles/stages.html#experimental", "https://www.repostatus.org/#active"],
