@@ -86,7 +86,7 @@ DETAILS
 \examples{
 nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
 
-plots <- map(
+plots <- lapply(
   dplyr::nest_by(nc, .by = NAME)[["data"]][1:4],
   function(x) {
     make_location_map(
