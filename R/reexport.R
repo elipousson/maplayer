@@ -10,6 +10,14 @@ ggplot2::aes
 #' @export
 ggplot2::geom_sf
 
+#' @importFrom ggplot2 geom_sf_text
+#' @export
+ggplot2::geom_sf_text
+
+#' @importFrom ggplot2 geom_sf_label
+#' @export
+ggplot2::geom_sf_label
+
 #' @importFrom ggplot2 last_plot
 #' @export
 ggplot2::last_plot
