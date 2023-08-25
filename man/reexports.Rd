@@ -6,6 +6,8 @@
 \alias{ggplot}
 \alias{aes}
 \alias{geom_sf}
+\alias{geom_sf_text}
+\alias{geom_sf_label}
 \alias{last_plot}
 \alias{margin}
 \alias{guides}
@@ -19,7 +21,7 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2:ggsf]{geom_sf}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{guides}}, \code{\link[ggplot2]{last_plot}}, \code{\link[ggplot2:element]{margin}}}
+  \item{ggplot2}{\code{\link[ggplot2]{aes}}, \code{\link[ggplot2:ggsf]{geom_sf}}, \code{\link[ggplot2:ggsf]{geom_sf_label}}, \code{\link[ggplot2:ggsf]{geom_sf_text}}, \code{\link[ggplot2]{ggplot}}, \code{\link[ggplot2]{guides}}, \code{\link[ggplot2]{last_plot}}, \code{\link[ggplot2:element]{margin}}}
 
   \item{papersize}{\code{\link[papersize]{ggsave_ext}}, \code{\link[papersize:ggsave_ext]{ggsave_social}}, \code{\link[papersize:ggsave_ext]{map_ggsave_ext}}}
 }}

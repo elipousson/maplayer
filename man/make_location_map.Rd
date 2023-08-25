@@ -275,16 +275,18 @@ make_location_map(
   dist = 2,
   unit = "mi",
   crop = FALSE,
+  addon = theme_minimal(),
   labs_ext_params = list(
     title = "Map of {nc[2, ]$NAME} County"
   )
 )
 
 make_location_map(
+  basemap = ggplot(data = nc[2,]),
+  fg_layer = geom_sf_text(aes(label = NAME)),
   data = nc,
   location = nc[2, ],
   mapping = aes(fill = NAME),
-  fg_layer = ggplot2::geom_sf_text(data = nc[2, ], aes(label = NAME)),
   addon = guides(fill = "none"),
   dist = 2,
   unit = "mi",
