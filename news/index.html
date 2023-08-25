@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">maplayer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9003</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,20 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="maplayer-development-version">maplayer (development version)<a class="anchor" aria-label="anchor" href="#maplayer-development-version"></a></h2>
+<div class="section level3">
+<h3 id="id_0109003-development-version">0.1.0.9003 (2023-08-25)<a class="anchor" aria-label="anchor" href="#id_0109003-development-version"></a></h3>
+<ul><li>Add <code><a href="../reference/make_mapbox_map.html">make_mapbox_map()</a></code> function and fix outstanding issues <code><a href="../reference/make_location_map.html">make_layer_map()</a></code> helper.</li>
+<li>Add <a href="https://wilkelab.org/ggtext/" class="external-link">ggtext</a> to Suggests (supporting new <code>use_md</code> parameter for <code><a href="../reference/labs_ext.html">labs_ext()</a></code>)</li>
+<li>Add <a href="https://github.com/r-spatial/lwgeom/" class="external-link">lwgeom</a> to Suggests (avoiding error that popped up for <code><a href="../reference/layer_count.html">layer_count()</a></code>)</li>
+<li>Add <code>alpha</code> as a fixed aesthetic parameter for <code><a href="../reference/layer_location.html">layer_location()</a></code>
+</li>
+<li>Add <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_text</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">ggplot2::geom_sf_label</a></code> to re-exports</li>
+<li>Update <code>map_icons</code> with <a href="https://github.com/rapideditor/temaki/releases/tag/v5.4.0" class="external-link">temaki v5.4.0</a>
+</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0.9002" id="maplayer-0109002-2023-05-05">maplayer 0.1.0.9002 (2023-05-05)<a class="anchor" aria-label="anchor" href="#maplayer-0109002-2023-05-05"></a></h2>
 <ul><li>Add lower-level <code><a href="../reference/make_location_map.html">make_layer_map()</a></code> helper for <code><a href="../reference/make_location_map.html">make_location_map()</a></code>.</li>
 <li>Rename <code><a href="../reference/set_basemap.html">make_basemap()</a></code> to <code><a href="../reference/set_basemap.html">set_basemap()</a></code>
@@ -63,84 +77,7 @@
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0.9000" id="maplayer-0109000-2022-10-13">maplayer 0.1.0.9000 (2022-10-13)<a class="anchor" aria-label="anchor" href="#maplayer-0109000-2022-10-13"></a></h2>
-<ul><li>feat: add working layer_count wrapping count_sf_ext</li>
-<li>refactor: add aes_label to layer_labelled</li>
-<li>feat: add support for functions to geom for layer_labelled</li>
-<li>feat: add location_lims param to layer_repel</li>
-<li>fix: pass label_col param from layer_repel to geom_sf_label_repel and geom_sf_text_repel</li>
-<li>refactor: add guides and margin to ggplot2 reexports</li>
-<li>feat: add magick-image support to ggsave_ext</li>
-<li>fix: correct minor issue w/ passing filetype as filename in ggsave_ext</li>
-<li>refactor: update DESCRIPTION + NAMESPACE</li>
-<li>refactor; import functions from rlang</li>
-<li>refactor: incorporate geom_sf_coordinates in layer_icon + correct package dependency checks</li>
-<li>feat: remove color parameter from layer_icon (was not working)</li>
-<li>refactor: geom_sf_coordinates sets mapping to aes() if mapping is NULL</li>
-<li>feat: add layer_repel wrapping ggrepel functions</li>
-<li>refactor: add geom_sf_coordinates helper (expect to add this helper to other functions as well)</li>
-<li>feat: add by_feature arg to layer_frame</li>
-<li>refactor: remove check_sf from make_frame (st_buffer_ext and st_bbox_ext should error on bad inputs)</li>
-<li>feat: get layer_icon working w/ inherited data (may still break if sf_column is not named “geometry”)</li>
-<li>refactor: reorganize function to work w/ join_map_icons and get_map_icon helper functions</li>
-<li>refactor: add set_mask and set_neatline</li>
-<li>fix: correct handling of NULL data (require type or index to also be not NULL)</li>
-<li>refactor: remove with_smooth + with_shadow</li>
-<li>refactor: add is_fn to checks</li>
-<li>refactor: restructure logic w/ case_when + switch</li>
-<li>refactor: use set_neatline</li>
-<li>docs: rewrite documentation to reflect updates</li>
-<li>feat: add shadow_params</li>
-<li>refactor: switch to use use_fn utility</li>
-<li>refactor: reorder parameters</li>
-<li>docs: add definition for location</li>
-<li>feat: add set_neatline function to support neatline arg</li>
-<li>refactor: modify layer_neatline to (possibly) support data = NULL</li>
-<li>fix: address issue w/ line around panel when bgcolor is “white”</li>
-<li>refactor: add ggsave_params arg to reduce total args (uses new eval_tidy_fn utility for execution)</li>
-<li>refactor: make page parameter optional</li>
-<li>feat: add make_basemap function</li>
-<li>feat: add eval_tidy_fn utility function (supports with_smooth and with_shadow)</li>
-<li>refactor: split make_fn off from use_fn</li>
-<li>feat: add is_fn to check for formulas and functions</li>
-<li>refactor: clean up imports</li>
-<li>fix: correct parameter name in theme_margin from plot_width to block_width</li>
-<li>refactor: set default plot = NULL for stamp_inset_img</li>
-<li>refactor: use make_basemap</li>
-<li>refactor: rename context_aes to context_params</li>
-<li>feat: allow formula/function location values to subset context data</li>
-<li>feat: allow layer_location_data to inherit data (won’t work for all geoms)</li>
-<li>refactor: create with_fn utility to apply smooth_params and shadow_params</li>
-<li>fix: correct check for sf context object</li>
-<li>feat: add basemap parameter using renamed make_basemap utility function</li>
-<li>refactor: pass expand parameter directly to ggplot2::coord_sf which effectively reverses the function (new default TRUE is equivalent to old default of FALSE)</li>
-<li>feat: add stamp_inset_img function</li>
-<li>refactor: add make_inset_element helper function (replacing layer_inset as the function calling patchwork)</li>
-<li>feat: add smooth_params + shadow_params functions to layer_location_data (replace smooth param for layer_location)</li>
-<li>feat: migrate make_markers from sfext to maplayer</li>
-<li>test: add test for layer_markers</li>
-<li>refactor: rename geom_fn to more general layer_fn</li>
-<li>style: adjust white space w/ styler</li>
-<li>feat: add styles to layer_frame</li>
-<li>docs: rename layer_show_location to layer_location</li>
-<li>refactor: switch default crs to 3857 and simplify return</li>
-<li>feat: add stat parameter to layer_marked</li>
-<li>docs: remove reference to overedge from the example</li>
-<li>docs: update layer_location_data + improve examples</li>
-<li>fix: correct handling of default geom parameter for layer_markers and layer_numbers</li>
-<li>feat: add a few more options for geom parameter (e.g. “sf_text” as well as “text”)</li>
-<li>refactor: remove … parameter from use_fn helper function</li>
-<li>refactor: set default crs to 3857</li>
-<li>refactor: add location parameter for consistency w/ other location functions</li>
-<li>refactor: don’t add theme_void to neatline_layer</li>
-<li>refactor: improve handling of geom_fn parameter</li>
-<li>fix: remove url and path parameters from get_location_data call in layer_location_data</li>
-<li>refactor: add .. params to use_fn</li>
-<li>refactor: improve is_geom_pkg_installed</li>
-<li>refactor: add is_geom_pkg_installed helper and add map_icons to .onLoad</li>
-<li>fix: add walkerke/mapboxapi to Remotes</li>
-<li>docs: update package title</li>
-<li>feat: add as_basemap utility function</li>
-<li>docs: finish set-up for pkgdown site + minor tweaks to function docs</li>
+<ul><li>First version for package!</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
