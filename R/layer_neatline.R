@@ -1,3 +1,20 @@
+#' @noRd
+combine_gg_list <- function(x, y = NULL) {
+  if (is_bare_list(x) && ggplot2::is.ggplot(x[[1]])) {
+    x <- reduce(x, function(x, gg) {x + gg})
+  }
+
+  if (is.null(y) || is_empty(y)) {
+    return(x)
+  }
+
+  if (ggplot2::is.ggplot(x)) {
+    return(x + y)
+  }
+
+  c(x, y)
+}
+
 #' Set map limits to a bounding box with a buffer and set aspect ratio
 #'
 #' Set limits for a map to the bounding box of a feature using
@@ -275,23 +292,12 @@ set_neatline <- function(x = NULL,
   }
 
   if (is_true(neatline)) {
-    neatline <-
-      layer_neatline(
+    neatline <- layer_neatline(
         data = data,
         crs = crs,
         ...
       )
   }
 
-  if (ggplot2::is.ggplot(x)) {
-    return(x + neatline)
-  }
-
-  if (obj_is_gg(x)) {
-    if (!is_bare_list(x)) {
-      x <- list(x)
-    }
-
-    return(c(x, neatline))
-  }
+  combine_gg_list(x, neatline)
 }

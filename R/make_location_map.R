@@ -303,12 +303,11 @@ make_layer_map <- function(bg_layer = NULL,
 
   layer_stack <- set_basemap(bg_layer, basemap = basemap, call = call)
 
-  layer_stack <- layer_stack + layer
-  layer_stack <- layer_stack + fg_layer
+  layer_stack <- combine_gg_list(layer_stack, layer)
 
-  if (!is_null(addon)) {
-    layer_stack <- layer_stack + addon
-  }
+  layer_stack <- combine_gg_list(layer_stack, fg_layer)
+
+  layer_stack <- combine_gg_list(layer_stack, addon)
 
   layer_stack <- set_neatline(layer_stack, neatline)
 

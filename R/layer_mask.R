@@ -33,27 +33,26 @@ layer_mask <- function(data = NULL,
                        neatline = FALSE,
                        expand = TRUE,
                        ...) {
-  mask_layer <-
-    ggplot2::layer_sf(
-      geom = ggplot2::GeomSf,
-      stat = "sf",
-      data = make_mask_data(
-        data,
-        dist = dist,
-        diag_ratio = diag_ratio,
-        unit = unit,
-        asp = asp,
-        crs = crs,
-        mask = mask
-      ),
-      position = "identity",
-      params = list(
-        fill = fill,
-        color = color,
-        alpha = alpha,
-        ...
-      )
+  mask_layer <- ggplot2::layer_sf(
+    geom = ggplot2::GeomSf,
+    stat = "sf",
+    data = make_mask_data(
+      data,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp,
+      crs = crs,
+      mask = mask
+    ),
+    position = "identity",
+    params = list(
+      fill = fill,
+      color = color,
+      alpha = alpha,
+      ...
     )
+  )
 
   if (!neatline) {
     return(mask_layer)
@@ -145,8 +144,7 @@ make_mask_data <- function(data = NULL,
   }
 
   # Get adjusted bbox if mask is not provided
-  mask <-
-    mask %||%
+  mask <- mask %||%
     st_bbox_ext(
       x = data,
       dist = dist,
@@ -157,11 +155,11 @@ make_mask_data <- function(data = NULL,
       class = "sf"
     )
 
-  if (!all(is.na(data))) {
-    sfext::st_erase(x = mask, y = data)
-  } else {
-    mask
+  if (all(is.na(data))) {
+    return(mask)
   }
+
+  sfext::st_erase(x = mask, y = data)
 }
 
 #' @name set_mask
@@ -172,14 +170,13 @@ make_mask_data <- function(data = NULL,
 #' @importFrom cli cli_abort
 #' @importFrom ggplot2 is.ggplot
 set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
-  type <-
-    dplyr::case_when(
-      rlang::is_logical(mask) && mask && !is.null(data) ~ "lgl_true",
-      rlang::is_logical(mask) && !mask ~ "lgl_false",
-      is_sf(mask, ext = TRUE) ~ "sf",
-      obj_is_gg(mask) ~ "gg",
-      TRUE ~ NA_character_
-    )
+  type <- dplyr::case_when(
+    rlang::is_logical(mask) && mask && !is.null(data) ~ "lgl_true",
+    rlang::is_logical(mask) && !mask ~ "lgl_false",
+    is_sf(mask, ext = TRUE) ~ "sf",
+    obj_is_gg(mask) ~ "gg",
+    TRUE ~ NA_character_
+  )
 
   cliExtras::cli_abort_ifnot(
     c("{.arg mask} must be sf, logical, or ggproto object.",
@@ -188,31 +185,24 @@ set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
     condition = !is.na(type)
   )
 
-  mask_layer <-
-    switch(type,
-      "lgl_false" = x,
-      "lgl_true" = layer_mask(
-        data = data,
-        crs = crs,
-        ...
-      ),
-      "sf" = layer_mask(
-        data = mask,
-        crs = crs,
-        ...
-      ),
-      "gg" = mask
-    )
+  mask_layer <- switch(type,
+    "lgl_false" = x,
+    "lgl_true" = layer_mask(
+      data = data,
+      crs = crs,
+      ...
+    ),
+    "sf" = layer_mask(
+      data = mask,
+      crs = crs,
+      ...
+    ),
+    "gg" = mask
+  )
 
   if (is.null(x) || (type == "lgl_false")) {
     return(mask_layer)
   }
 
-  if (ggplot2::is.ggplot(x)) {
-    return(x + mask_layer)
-  }
-
-  if (obj_is_gg(x)) {
-    return(c(x, mask_layer))
-  }
+  combine_gg_list(x, mask_layer)
 }
