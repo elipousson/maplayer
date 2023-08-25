@@ -24,7 +24,7 @@ layer_location(
   linewidth = 0.5,
   linetype = "dashed",
   fill = NA,
-  alpha = NULL,
+  alpha = 1,
   dist = NULL,
   diag_ratio = NULL,
   unit = NULL,
