@@ -27,7 +27,12 @@ make_mapbox_map(
   expand = TRUE,
   hide_grid = TRUE,
   label_axes = "----",
-  crs = 3857,
+  width = NULL,
+  height = NULL,
+  units = NULL,
+  orientation = NULL,
+  crs = NULL,
+  location = NULL,
   ...
 )
 }
