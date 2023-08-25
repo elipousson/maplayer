@@ -42,6 +42,7 @@ Suggests:
     ggsvg (>= 0.1.11),
     ggtext,
     gridExtra,
+    lwgeom,
     magick,
     mapboxapi,
     paletteer,

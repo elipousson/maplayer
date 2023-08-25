@@ -63,8 +63,9 @@ layer_count <- function(data,
                           breaks = scales::breaks_pretty(n = 4)
                         ),
                         ...) {
-  count_data <-
-    suppressWarnings(
+  check_installed("lwgeom")
+
+  count_data <- suppressWarnings(
       sfext::count_sf_ext(
         data = data,
         x = location,
@@ -97,11 +98,10 @@ layer_count <- function(data,
     }
   }
 
-  grid_params$mapping <-
-    grid_params$mapping %||% aes(fill = .data[["n"]])
+  grid_params$mapping <- grid_params$mapping %||%
+    aes(fill = .data[["n"]])
 
-  layer_stack <-
-    c(
+  layer_stack <- c(
       layer_stack,
       list(
         eval_tidy_fn(
@@ -120,8 +120,7 @@ layer_count <- function(data,
     return(layer_stack)
   }
 
-  label_params$mapping <-
-    aes_label(
+  label_params$mapping <- aes_label(
       mapping = label_params$mapping %||% aes(),
       data = count_data,
       label_col = "n"
