@@ -22,14 +22,14 @@
 #' Symbol Library is created by the National Park Service so is assumed to be a
 #' [Public Domain work in the U.S.](http://www.usa.gov/publicdomain/label/1.0/).
 #'
-#' This index was last updated on May 5, 2023 and may not include any icons
+#' This index was last updated on August 25, 2023 and may not include any icons
 #' that have been added since that date.
 #'
 #' @details
 #' The name column is not unique so a px or source may be required when using
 #' [layer_icon()].
 #'
-#' @format A tibble with 4,893 rows and 5 variables:
+#' @format A tibble with 5,015 rows and 5 variables:
 #' \describe{
 #'   \item{`name`}{Icon name}
 #'   \item{`url`}{Icon URL on GitHub repo}
