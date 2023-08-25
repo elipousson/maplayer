@@ -64,12 +64,15 @@ subtitle, and caption. In progress.</p>
 <span>  color <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  size <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  shape <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  linewidth <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  location <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  name_col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  source <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  .na <span class="op">=</span> <span class="st">"NA"</span>,</span>
 <span>  .null <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  .envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  use_md <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -99,9 +102,9 @@ top-left of the plot by default.</p></dd>
 <dd><p>Text used for the generation of alt-text for the plot.</p></dd>
 
 
-<dt>fill, color, size, shape</dt>
-<dd><p>Optional labels for mapped aesthetics. Default
-to <code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">ggplot2::waiver()</a></code>.</p></dd>
+<dt>fill, color, size, shape, alpha, linewidth</dt>
+<dd><p>Optional labels for mapped
+aesthetics. Defaults to <code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">ggplot2::waiver()</a></code>.</p></dd>
 
 
 <dt>location</dt>
@@ -125,6 +128,11 @@ for bbox objects.</p></dd>
 <dt>.envir</dt>
 <dd><p>Environment passed to <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code>; defaults to
 <code><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">parent.frame()</a></code>.</p></dd>
+
+
+<dt>use_md</dt>
+<dd><p>If <code>TRUE</code>, use the ggtext::element_markdown() element for the
+plot title, subtitle, and caption. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt>...</dt>

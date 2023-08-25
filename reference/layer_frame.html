@@ -144,8 +144,8 @@ the input data is used as the frame.</p></dd>
 
 
 <dt>inscribed</dt>
-<dd><p>If <code>TRUE</code>, make circle, square, or donut inscribed within x,
-if <code>FALSE</code>, make it circumscribed.</p></dd>
+<dd><p>If <code>TRUE</code>, the returned geometry is inscribed within x, if
+<code>FALSE</code> (default), the geometry is circumscribed.</p></dd>
 
 
 <dt>fill, color, linewidth, linetype</dt>
@@ -246,7 +246,7 @@ meters.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The <code>make_frame()</code> helper function calls <code><a href="https://elipousson.github.io/sfext/reference/st_misc.html" class="external-link">sfext::st_circle()</a></code> (if <code>style = "circle"</code>), <code><a href="https://elipousson.github.io/sfext/reference/st_misc.html" class="external-link">sfext::st_square()</a></code>  (if <code>style = "square"</code>),
+    <p>The <code>make_frame()</code> helper function calls <code><a href="https://elipousson.github.io/sfext/reference/st_misc.html" class="external-link">sfext::st_circle()</a></code> (if <code>style = "circle"</code>), <code><a href="https://elipousson.github.io/sfext/reference/st_square.html" class="external-link">sfext::st_square()</a></code>  (if <code>style = "square"</code>),
 <code><a href="https://elipousson.github.io/sfext/reference/st_bbox_ext.html" class="external-link">sfext::st_bbox_ext()</a></code> (if <code>style = "rect"</code>), or <code><a href="https://elipousson.github.io/sfext/reference/st_buffer_ext.html" class="external-link">sfext::st_buffer_ext()</a></code> (if
 <code>style = "none"</code>).</p>
 <p>If neatline is <code>TRUE</code>, <code>layer_frame()</code> returns a list of two geoms, the

@@ -183,14 +183,19 @@ it will use <code>nn</code>. If there's a column called <code>n</code> and <code
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">read_sf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_sample.html" class="external-link">st_sample</a></span><span class="op">(</span><span class="va">nc</span>, <span class="fl">75</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in st_segmentize.sfc(st_as_sfc(bb), units::set_units(1, "degree",     mode = "standard")):</span> package lwgeom required, please install it first</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">layer_count</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, location <span class="op">=</span> <span class="va">nc</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="layer_count-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in sfext::count_sf_ext(data = data, x = location, y = y, join = join,     largest = largest, replace_na = replace_na, lims = lims,     .id = .id, ...):</span> `x` can't be converted to a <span style="color: #0000BB;">&lt;sf&gt;</span> object.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `UseMethod()`:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> no applicable method for 'st_as_sf' applied to an object of class "function"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">layer_count</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span>, y <span class="op">=</span> <span class="va">nc</span>, .id <span class="op">=</span> <span class="st">"FIPS"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="layer_count-2.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in sfext::count_sf_ext(data = data, x = location, y = y, join = join,     largest = largest, replace_na = replace_na, lims = lims,     .id = .id, ...):</span> `x` can't be converted to a <span style="color: #0000BB;">&lt;sf&gt;</span> object.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `UseMethod()`:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> no applicable method for 'st_as_sf' applied to an object of class "function"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

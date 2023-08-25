@@ -79,7 +79,13 @@
     <loc>https://elipousson.github.io/maplayer/reference/layer_scaled.html</loc>
   </url>
   <url>
+    <loc>https://elipousson.github.io/maplayer/reference/make_atlas.html</loc>
+  </url>
+  <url>
     <loc>https://elipousson.github.io/maplayer/reference/make_location_map.html</loc>
+  </url>
+  <url>
+    <loc>https://elipousson.github.io/maplayer/reference/make_mapbox_map.html</loc>
   </url>
   <url>
     <loc>https://elipousson.github.io/maplayer/reference/map_icons.html</loc>

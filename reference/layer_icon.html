@@ -120,7 +120,10 @@ ignored.</p></dd>
 
 <dt>...</dt>
 <dd><p>Arguments passed on to <code><a href="https://rdrr.io/pkg/ggsvg/man/geom_point_svg.html" class="external-link">ggsvg::geom_point_svg</a></code></p><dl><dt><code>defaults</code></dt>
-<dd><p>named list of default values for new aesthetics</p>
+<dd><p>Advanced option.  A named list of default values for new aesthetics.
+       In general this is not necessary when using <code>css()</code> aesthetics, as a
+       default value will be determined based upon the CSS property e.g. <code>stroke</code>
+       property will have a default value of "black"</p>
 <p>Set `options(GGSVG_DEBUG = TRUE)` for some verbose debugging which will
 cause `ggsvg` to output (to the console) the final SVG for each and every element
 in the plot.</p></dd>
@@ -147,7 +150,6 @@ in the plot.</p></dd>
 <span class="r-in"><span><span class="co"># icon can be set by name matching a name from map_icons</span></span></span>
 <span class="r-in"><span><span class="va">basemap</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">layer_icon</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span>, icon <span class="op">=</span> <span class="st">"point-start"</span>, size <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_point_on_surface may not give correct results for longitude/latitude data</span>
 <span class="r-plt img"><img src="layer_icon-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># layer_icon can also use a column from the sf object</span></span></span>
@@ -155,10 +157,6 @@ in the plot.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">basemap</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">layer_icon</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span>, iconname_col <span class="op">=</span> <span class="st">"icon"</span>, size <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_point_on_surface may not give correct results for longitude/latitude data</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_point_on_surface may not give correct results for longitude/latitude data</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_point_on_surface may not give correct results for longitude/latitude data</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>st_point_on_surface may not give correct results for longitude/latitude data</span>
 <span class="r-plt img"><img src="layer_icon-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
