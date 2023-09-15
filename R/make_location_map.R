@@ -309,8 +309,6 @@ make_layer_map <- function(bg_layer = NULL,
 
   layer_stack <- combine_gg_list(layer_stack, addon)
 
-  layer_stack <- set_neatline(layer_stack, neatline)
-
   if (!is_empty(labs_ext_params)) {
     layer_stack <- layer_stack +
       eval_tidy_fn(
@@ -320,6 +318,8 @@ make_layer_map <- function(bg_layer = NULL,
         call = call
       )
   }
+
+  layer_stack <- set_neatline(layer_stack, neatline)
 
   if (save) {
     eval_tidy_fn(
