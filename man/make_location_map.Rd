@@ -89,7 +89,7 @@ make_layer_map(
   layer = NULL,
   fg_layer = NULL,
   addon = NULL,
-  basemap = TRUE,
+  basemap = NULL,
   neatline = FALSE,
   labs_ext_params = list(...),
   save = FALSE,
@@ -275,7 +275,7 @@ make_location_map(
   dist = 2,
   unit = "mi",
   crop = FALSE,
-  addon = theme_minimal(),
+  addon = ggplot2::theme_minimal(),
   labs_ext_params = list(
     title = "Map of {nc[2, ]$NAME} County"
   )

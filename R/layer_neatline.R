@@ -278,7 +278,7 @@ set_neatline <- function(x = NULL,
                          data = NULL,
                          crs = NULL,
                          ...) {
-  if (is_null(x) || is_false(neatline)) {
+  if (is_null(x) || is_false(neatline) || is_null(neatline)) {
     return(x)
   }
 

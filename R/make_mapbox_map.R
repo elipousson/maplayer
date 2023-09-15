@@ -1,17 +1,17 @@
 #' Make a map using layer_mapbox
 #'
 #' Wraps [make_layer_map()] and passes layer created with [layer_mapbox()] to
-#' bg_layer and the neatline parameters to [layer_neatline()] (using the same
-#' data as the mapbox background layer). The neatline parameters are only used
-#' if neatline is NULL.
+#' basemap and the neatline parameters to [layer_neatline()] (using the same
+#' data as the Mapbox background layer). The neatline parameters are only used
+#' if neatline is `NULL`.
 #'
 #' @inheritParams layer_mapbox
+#' @param location If `location` is provided and `data` is `NULL`, `location` is
+#'   used in place of `data`.
 #' @inheritParams layer_neatline
-#' @param crs Must be in web mercator projection.
-#' @inheritDotParams make_layer_map -bg_layer
-#' @keywords internal
+#' @inheritParams papersize::make_page_size
+#' @inheritDotParams make_layer_map
 #' @export
-#' @importFrom sfext is_wgs84
 make_mapbox_map <- function(data = NULL,
                             dist = NULL,
                             diag_ratio = NULL,
@@ -38,22 +38,13 @@ make_mapbox_map <- function(data = NULL,
                             height = NULL,
                             units = NULL,
                             orientation = NULL,
-                            crs = NULL,
                             location = NULL,
                             ...) {
-  if (!is.null(crs) && sfext::is_wgs84(crs)) {
-    cli_warn(
-      c("{.arg crs} must be a Web Mercator projection ('EPSG:3857').",
-        "i" = "All other {.arg crs} values are ignored."
-      )
-    )
-  }
-
   if (!is.null(location) && is.null(data)) {
     data <- location
   }
 
-  page <- list()
+  page <- list(asp = asp)
 
   if (!is.null(units)) {
     page <- papersize::make_page_size(
@@ -65,9 +56,9 @@ make_mapbox_map <- function(data = NULL,
   }
 
   make_layer_map(
-    location = location,
-    basemap = FALSE,
-    bg_layer = layer_mapbox(
+    basemap = layer_mapbox(
+      basemap = TRUE,
+      neatline = FALSE,
       data = data,
       dist = dist,
       diag_ratio = diag_ratio,
@@ -76,9 +67,7 @@ make_mapbox_map <- function(data = NULL,
       style_url = style_url,
       style_id = style_id,
       username = username,
-      basemap = TRUE,
       scale = scale,
-      neatline = FALSE,
       scaling_factor = scaling_factor,
       attribution = attribution,
       logo = logo,

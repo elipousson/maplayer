@@ -31,7 +31,6 @@ make_mapbox_map(
   height = NULL,
   units = NULL,
   orientation = NULL,
-  crs = NULL,
   location = NULL,
   ...
 )
@@ -106,7 +105,19 @@ limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 \item{label_axes}{A description of which axes to label passed to
 \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes labels.}
 
-\item{crs}{Must be in web mercator projection.}
+\item{width, height}{Page width and height. Both are required, if asp is
+\code{NULL}. Default to \code{NULL}.}
+
+\item{units}{Units for width and height. Required unless units is included in
+dims. Passed to \code{\link[papersize:as_unit_type]{as_unit_type()}} to validate.}
+
+\item{orientation}{Page orientation, Default: \code{NULL}. Supported options are
+"portrait", "landscape", or "square". If width and height suggest a
+portrait orientation when orientation = "landscape", the dimensions are
+reversed so the page dimensions match the provided orientation.}
+
+\item{location}{If \code{location} is provided and \code{data} is \code{NULL}, \code{location} is
+used in place of \code{data}.}
 
 \item{...}{
   Arguments passed on to \code{\link[=make_layer_map]{make_layer_map}}
@@ -119,6 +130,12 @@ location, dist, diag_ratio, unit, asp, crs, and geom) will be ignored. In
 this case, the function simply stacks the bg_layer, layer, and fg_layer
 objects then applies the basemap and neatline (using the \code{\link[=set_basemap]{set_basemap()}}
 and \code{\link[=set_neatline]{set_neatline()}} helper functions.)}
+    \item{\code{bg_layer,fg_layer,addon}}{A ggplot2 layer or a list of ggproto objects
+(e.g. scales, labels, etc.) to add to the background or foreground of the
+primary map layer defined by \code{"geom"} and other parameters. If the geom
+creates an opaque layer or layer is an opaque layer (e.g. a layer produced
+by \code{\link[=layer_mapbox]{layer_mapbox()}}) that covers the full map extent, the bg_layer will not
+be visible.}
     \item{\code{save}}{If \code{TRUE}, save file with \link{ggsave_ext} or \link{ggsave_social},
 requires \code{basemap = TRUE} and filename is not \code{NULL} \emph{or} \code{...} must
 include a name parameter. Defaults to \code{FALSE}.}
@@ -132,8 +149,7 @@ mentioned in error messages as the source of the error. See the
 }
 \description{
 Wraps \code{\link[=make_layer_map]{make_layer_map()}} and passes layer created with \code{\link[=layer_mapbox]{layer_mapbox()}} to
-bg_layer and the neatline parameters to \code{\link[=layer_neatline]{layer_neatline()}} (using the same
-data as the mapbox background layer). The neatline parameters are only used
-if neatline is NULL.
+basemap and the neatline parameters to \code{\link[=layer_neatline]{layer_neatline()}} (using the same
+data as the Mapbox background layer). The neatline parameters are only used
+if neatline is \code{NULL}.
 }
-\keyword{internal}

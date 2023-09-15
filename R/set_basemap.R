@@ -19,24 +19,18 @@
 #' @importFrom ggplot2 ggplot is.ggplot
 #' @importFrom cliExtras cli_abort_ifnot
 set_basemap <- function(x, basemap = FALSE, call = caller_env()) {
-  if (rlang::is_logical(basemap)) {
-    if (is_true(basemap)) {
-      # check_gg(x, call = call)
-      return(ggplot2::ggplot() + x)
-    }
-
+  if (is_false(basemap) || is_null(basemap)) {
     return(x)
   }
 
+  if (is_true(basemap)) {
+    # check_gg(x, call = call)
+    return(ggplot2::ggplot() + x)
+  }
   # check_gg(x, call = call)
   # check_ggplot(basemap, call = call)
 
-  if (ggplot2::is.ggplot(basemap)) {
-    return(basemap + x)
-  }
-
-  ggplot2::ggplot() +
-    c(basemap, x)
+  combine_gg_list(basemap, x)
 }
 
 #' @name make_basemap
