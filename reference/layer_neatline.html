@@ -87,6 +87,9 @@ aspect ratio.</p>
 <span>  panel.background <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  plot.background <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  plot.margin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  default_plot_margin <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">margin</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  xlim <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ylim <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -184,6 +187,25 @@ unless color is NA or "none". panel.background and plot.background are used
 as is or <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">ggplot2::element_blank()</a></code> if bg color is NA or "none".
 plot.margin is set to <code>ggplot2::margin(1, 1, 1, 1)</code> if <code>NULL</code> or
 <code>ggplot2::margin(0, 0, 0, 0)</code> if expand is <code>FALSE</code>.</p></dd>
+
+
+<dt>default_plot_margin</dt>
+<dd><p>Defaults to <code>ggplot2::margin(1, 1, 1, 1)</code>. Ignored
+if <code>expand = FALSE</code></p></dd>
+
+
+<dt>xlim, ylim</dt>
+<dd><p>Limits for the x and y axes. These limits are specified
+in the units of the default CRS. By default, this means projected coordinates
+(<code>default_crs = NULL</code>). How limit specifications translate into the exact
+region shown on the plot can be confusing when non-linear or rotated coordinate
+systems are used as the default crs. First, different methods can be preferable
+under different conditions. See parameter <code>lims_method</code> for details. Second,
+specifying limits along only one direction can affect the automatically generated
+limits along the other direction. Therefore, it is best to always specify limits
+for both x and y. Third, specifying limits via position scales or <code><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim()</a></code>/<code><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim()</a></code>
+is strongly discouraged, as it can result in data points being dropped from the plot even
+though they would be visible in the final plot region.</p></dd>
 
 
 <dt>...</dt>
