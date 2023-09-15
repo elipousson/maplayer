@@ -73,7 +73,6 @@ make_mapbox_map <- function(data = NULL,
       logo = logo,
       access_token = access_token
     ),
-    crs = 3857,
     neatline = neatline %||%
       layer_neatline(
         data = data,

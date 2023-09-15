@@ -276,9 +276,8 @@ make_image_map <- function(image_path,
 #'   creates an opaque layer or layer is an opaque layer (e.g. a layer produced
 #'   by [layer_mapbox()]) that covers the full map extent, the bg_layer will not
 #'   be visible.
-#' @param save If `TRUE`, save file with [ggsave_ext] or [ggsave_social],
-#'   requires `basemap = TRUE` and filename is not `NULL` *or* `...` must
-#'   include a name parameter. Defaults to `FALSE`.
+#' @param save If `TRUE`, save file with [ggsave_ext] using `ggsave_params`.
+#'   Defaults to `FALSE`.
 #' @param env Environment for evaluation of [labs_ext()] if labs_ext_params is
 #'   supplied.
 #' @inheritParams set_basemap
@@ -289,11 +288,10 @@ make_layer_map <- function(bg_layer = NULL,
                            fg_layer = NULL,
                            addon = NULL,
                            basemap = NULL,
-                           neatline = FALSE,
+                           neatline = NULL,
                            labs_ext_params = list(...),
                            save = FALSE,
                            ggsave_params = list(dpi = 300, ...),
-                           ...,
                            env = caller_env(),
                            call = caller_env()) {
   # FIXME: check_gg is too sensitive but there should still be some input check

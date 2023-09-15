@@ -45,8 +45,7 @@ layer_mapbox <- function(data = NULL,
   # Set appropriate CRS for Mapbox
   crs_mapbox <- 3857
 
-  bbox <-
-    st_bbox_ext(
+  bbox <- st_bbox_ext(
       x = data,
       dist = dist,
       diag_ratio = diag_ratio,
@@ -56,8 +55,7 @@ layer_mapbox <- function(data = NULL,
     )
 
   # Get Mapbox map
-  mapbox_layer <-
-    mapboxapi::layer_static_mapbox(
+  mapbox_layer <- mapboxapi::layer_static_mapbox(
       location = bbox,
       buffer_dist = 0,
       style_url = style_url,
@@ -71,20 +69,25 @@ layer_mapbox <- function(data = NULL,
       ...
     )
 
-  mapbox_layer <-
-    set_neatline(
-      mapbox_layer,
-      neatline = neatline,
-      data = bbox,
-      crs = crs_mapbox,
-      color = color,
-      bgcolor = bgcolor,
-      linewidth = linewidth,
-      linetype = linetype,
-      expand = expand,
-      hide_grid = hide_grid,
-      label_axes = label_axes
-    )
+  if (!is_false(basemap)) {
+    mapbox_layer <- set_basemap(mapbox_layer, basemap)
+  }
 
-  set_basemap(mapbox_layer, basemap)
+  if (is_false(neatline)) {
+    return(mapbox_layer)
+  }
+
+  set_neatline(
+    mapbox_layer,
+    neatline = neatline,
+    data = bbox,
+    crs = crs_mapbox,
+    color = color,
+    bgcolor = bgcolor,
+    linewidth = linewidth,
+    linetype = linetype,
+    expand = expand,
+    hide_grid = hide_grid,
+    label_axes = label_axes
+  )
 }
