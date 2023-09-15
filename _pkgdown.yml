@@ -10,7 +10,7 @@ reference:
   - '`layer_location_context`'
 - title: Map making for locations
   contents:
-  - '`make_location_map`'
+  - starts_with("make_")
   - '`set_basemap`'
 - title: Additional layers for sf objects
   contents:
