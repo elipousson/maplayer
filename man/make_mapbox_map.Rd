@@ -136,9 +136,8 @@ primary map layer defined by \code{"geom"} and other parameters. If the geom
 creates an opaque layer or layer is an opaque layer (e.g. a layer produced
 by \code{\link[=layer_mapbox]{layer_mapbox()}}) that covers the full map extent, the bg_layer will not
 be visible.}
-    \item{\code{save}}{If \code{TRUE}, save file with \link{ggsave_ext} or \link{ggsave_social},
-requires \code{basemap = TRUE} and filename is not \code{NULL} \emph{or} \code{...} must
-include a name parameter. Defaults to \code{FALSE}.}
+    \item{\code{save}}{If \code{TRUE}, save file with \link{ggsave_ext} using \code{ggsave_params}.
+Defaults to \code{FALSE}.}
     \item{\code{env}}{Environment for evaluation of \code{\link[=labs_ext]{labs_ext()}} if labs_ext_params is
 supplied.}
     \item{\code{call}}{The execution environment of a currently

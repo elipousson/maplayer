@@ -90,11 +90,10 @@ make_layer_map(
   fg_layer = NULL,
   addon = NULL,
   basemap = NULL,
-  neatline = FALSE,
-  labs_ext_params = list(...),
+  neatline = NULL,
+  labs_ext_params = NULL,
   save = FALSE,
   ggsave_params = list(dpi = 300, ...),
-  ...,
   env = caller_env(),
   call = caller_env()
 )
@@ -185,9 +184,8 @@ additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 
 \item{labs_ext_params}{Optional parameters passed to \code{\link[=labs_ext]{labs_ext()}}.}
 
-\item{save}{If \code{TRUE}, save file with \link{ggsave_ext} or \link{ggsave_social},
-requires \code{basemap = TRUE} and filename is not \code{NULL} \emph{or} \code{...} must
-include a name parameter. Defaults to \code{FALSE}.}
+\item{save}{If \code{TRUE}, save file with \link{ggsave_ext} using \code{ggsave_params}.
+Defaults to \code{FALSE}.}
 
 \item{ggsave_params}{List of parameters passed to \code{\link[papersize:ggsave_ext]{papersize::ggsave_ext()}}.}
 
