@@ -1,3 +1,20 @@
+# ---
+# repo: elipousson/maplayer
+# file: standalone-eval_tidy_fn.R
+# last-updated: 2023-09-15
+# license: https://creativecommons.org/publicdomain/zero/1.0/
+# imports: [rlang]
+# ---
+#
+# This script also requires the types-check from the rlang package.
+#
+# ## Changelog
+#
+# 2023-09-15:
+# * Existing helper functions converted to helper standalone script.
+#
+# nocov start
+
 #' Is this object a function or a formula?
 #'
 #' If x is a function or a formula, return `TRUE`.
@@ -38,14 +55,14 @@ make_fn <- function(fn, ..., arg = caller_arg(fn), call = caller_env()) {
 #' @inheritParams make_fn
 #' @param ... Additional arguments to pass to function.
 #' @noRd
-use_fn <- function(x = NULL, fn = NULL, ..., arg = caller_arg(fn), call = caller_env()) {
-  if (is.null(fn)) {
+use_fn <- function(x = NULL, .f = NULL, ..., arg = caller_arg(fn), call = caller_env()) {
+  if (is.null(.f)) {
     return(x)
   }
 
-  fn <- make_fn(fn, arg = arg, call = call)
+  .f <- make_fn(.f, arg = arg, call = call)
 
-  fn(x, ...)
+  .f(x, ...)
 }
 
 #' Evaluate an function with spliced parameters
@@ -53,13 +70,14 @@ use_fn <- function(x = NULL, fn = NULL, ..., arg = caller_arg(fn), call = caller
 #' @param x Object to pass as first argument of function.
 #' @param param Parameters to splice as additional arguments of function. Set to
 #'   `TRUE` to execute function on x with no parameters.
-#' @param pkg Package name passed to [is_pkg_installed]
+#' @param pkg Package name passed to [rlang::check_installed()]
 #' @noRd
 #' @importFrom rlang caller_arg caller_env is_missing eval_tidy quo is_logical
 eval_tidy_fn <- function(x,
                          params = NULL,
                          pkg = NULL,
                          fn = NULL,
+                         .f = NULL,
                          arg = caller_arg(fn),
                          env = caller_env(),
                          call = caller_env()) {
@@ -67,21 +85,25 @@ eval_tidy_fn <- function(x,
     return(x)
   }
 
+  .f <- .f %||% fn
+
   if (!is.null(pkg)) {
     rlang::check_installed(pkg)
   }
 
-  fn <- make_fn(fn, arg = arg, call = call)
+  .f <- make_fn(.f, arg = arg, call = call)
 
   if (is.list(params)) {
     if (rlang::is_missing(x)) {
-      fn_quo <- rlang::quo(fn(!!!params))
+      expr <- rlang::quo(.f(!!!params))
     } else {
-      fn_quo <- rlang::quo(fn(x, !!!params))
+      expr <- rlang::quo(.f(x, !!!params))
     }
 
-    rlang::eval_tidy(expr = fn_quo, env = env)
+    rlang::eval_tidy(expr = expr, env = env)
   } else if (rlang::is_logical(params) && params) {
-    fn(x)
+    .f(x)
   }
 }
+
+# nocov end
