@@ -112,7 +112,7 @@ layer_marked <- function(data,
   data <- sfext::as_sf(data)
 
   if (!is.null(fn)) {
-    data <- use_fn(data, fn)
+    data <- use_fn(data, .f = fn)
   }
 
   # Get default values for geom

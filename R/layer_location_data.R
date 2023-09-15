@@ -167,8 +167,7 @@ layer_location_data <- function(mapping = NULL,
   ggpattern_geoms <- c("pattern", "sf_pattern")
 
   # Match geoms
-  geom <-
-    rlang::arg_match(
+  geom <- rlang::arg_match(
       geom,
       c("sf", maplayer_geoms, text_geoms, ggpattern_geoms)
     )
@@ -215,7 +214,7 @@ layer_location_data <- function(mapping = NULL,
   init_params <- params
 
   params <-
-    modify_fn_fmls(
+    modify_fn_params(
       params = params,
       fn = geom,
       mapping = mapping,
@@ -253,29 +252,4 @@ layer_location_data <- function(mapping = NULL,
   layer <- with_shadow(layer, shadow_params)
 
   set_basemap(layer, basemap)
-}
-
-#' Modify function parameters
-#'
-#' @noRd
-#' @importFrom rlang fn_fmls is_missing
-#' @importFrom utils modifyList
-modify_fn_fmls <- function(params,
-                           fn,
-                           keep_missing = FALSE,
-                           keep.null = FALSE,
-                           ...) {
-  fmls <- rlang::fn_fmls(fn)
-
-  if (!keep_missing) {
-    fmls <- discard(fmls, rlang::is_missing)
-  }
-
-  params <- c(list2(...), params)
-
-  utils::modifyList(
-    fmls,
-    params,
-    keep.null = keep.null
-  )
 }

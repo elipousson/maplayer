@@ -1,20 +1,3 @@
-#' @noRd
-combine_gg_list <- function(x, y = NULL) {
-  if (is_bare_list(x) && ggplot2::is.ggplot(x[[1]])) {
-    x <- reduce(x, function(x, gg) {x + gg})
-  }
-
-  if (is.null(y) || is_empty(y)) {
-    return(x)
-  }
-
-  if (ggplot2::is.ggplot(x)) {
-    return(x + y)
-  }
-
-  c(x, y)
-}
-
 #' Set map limits to a bounding box with a buffer and set aspect ratio
 #'
 #' Set limits for a map to the bounding box of a feature using
@@ -44,6 +27,8 @@ combine_gg_list <- function(x, y = NULL) {
 #' @param ... Additional parameters passed to [ggplot2::coord_sf()].
 #' @inheritParams ggplot2::coord_sf
 #' @inheritParams sfext::st_bbox_ext
+#' @param default_plot_margin Defaults to `ggplot2::margin(1, 1, 1, 1)`. Ignored
+#'   if `expand = FALSE`
 #' @return List of [ggplot2::coord_sf] and [ggplot2::theme] calls.
 #' @example examples/layer_neatline.R
 #' @seealso
@@ -79,8 +64,11 @@ layer_neatline <- function(data = NULL,
                            panel.background = NULL,
                            plot.background = NULL,
                            plot.margin = NULL,
+                           default_plot_margin = ggplot2::margin(1, 1, 1, 1),
+                           xlim = NULL,
+                           ylim = NULL,
                            ...) {
-  xy_lims <- set_xy_lims(data, dist, diag_ratio, unit, asp, crs, nudge)
+  xy_lims <- set_xy_lims(data, dist, diag_ratio, unit, asp, crs, nudge, xlim, ylim)
 
   list(
     # Set limits with adjustments using coord_sf
@@ -132,13 +120,13 @@ set_xy_lims <- function(data = NULL,
                         unit = getOption("maplayer.unit", default = "meter"),
                         asp = getOption("maplayer.asp"),
                         crs = getOption("maplayer.crs"),
-                        nudge = getOption("maplayer.nudge")) {
-  xlim <- NULL
-  ylim <- NULL
+                        nudge = getOption("maplayer.nudge"),
+                        xlim = NULL,
+                        ylim = NULL) {
+
 
   if (!is.null(data)) {
-    bbox <-
-      sfext::st_bbox_ext(
+    bbox <- sfext::st_bbox_ext(
         x = data,
         dist = dist,
         diag_ratio = diag_ratio,
@@ -148,8 +136,8 @@ set_xy_lims <- function(data = NULL,
         nudge = nudge
       )
 
-    xlim <- c(bbox[["xmin"]], bbox[["xmax"]])
-    ylim <- c(bbox[["ymin"]], bbox[["ymax"]])
+    xlim <- xlim %||% c(bbox[["xmin"]], bbox[["xmax"]])
+    ylim <- ylim %||% c(bbox[["ymin"]], bbox[["ymax"]])
   }
 
   list(
@@ -227,15 +215,15 @@ theme_background <- function(color = "black",
                              plot.background = NULL,
                              plot.margin = NULL,
                              panel.border = NULL,
-                             panel.background = NULL) {
+                             panel.background = NULL,
+                             default_plot_margin = ggplot2::margin(1, 1, 1, 1)) {
   panel.border <- panel.border %||% ggplot2::element_blank()
   panel.background <- panel.background %||% ggplot2::element_blank()
   plot.background <- plot.background %||% ggplot2::element_blank()
-  plot.margin <- plot.margin %||% ggplot2::margin(1, 1, 1, 1)
+  plot.margin <- plot.margin %||% default_plot_margin
 
   if (!is.na(color) && (color != "none")) {
-    panel.border <-
-      ggplot2::element_rect(
+    panel.border <- ggplot2::element_rect(
         color = color, linewidth = linewidth,
         linetype = linetype, fill = NA
       )

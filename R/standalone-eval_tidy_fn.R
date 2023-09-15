@@ -6,7 +6,8 @@
 # imports: [rlang]
 # ---
 #
-# This script also requires the types-check from the rlang package.
+# This script also requires the type checking and the purrr equivalent from the
+# rlang package.
 #
 # ## Changelog
 #
@@ -60,7 +61,7 @@ use_fn <- function(x = NULL, .f = NULL, ..., arg = caller_arg(fn), call = caller
     return(x)
   }
 
-  .f <- make_fn(.f, arg = arg, call = call)
+  .f <- make_fn(fn = .f, arg = arg, call = call)
 
   .f(x, ...)
 }
@@ -104,6 +105,31 @@ eval_tidy_fn <- function(x,
   } else if (rlang::is_logical(params) && params) {
     .f(x)
   }
+}
+
+#' Modify function parameters
+#'
+#' @noRd
+#' @importFrom rlang fn_fmls is_missing
+#' @importFrom utils modifyList
+modify_fn_params <- function(params,
+                             fn,
+                             keep_missing = FALSE,
+                             keep.null = FALSE,
+                             ...) {
+  fmls <- rlang::fn_fmls(fn)
+
+  if (!keep_missing) {
+    fmls <- discard(fmls, rlang::is_missing)
+  }
+
+  params <- c(list2(...), params)
+
+  utils::modifyList(
+    fmls,
+    params,
+    keep.null = keep.null
+  )
 }
 
 # nocov end
