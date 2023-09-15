@@ -291,7 +291,7 @@ make_layer_map <- function(bg_layer = NULL,
                            neatline = NULL,
                            labs_ext_params = NULL,
                            save = FALSE,
-                           ggsave_params = list(dpi = 300, ...),
+                           ggsave_params = list(width = 5, height = 4, unit = "in", dpi = 300),
                            env = caller_env(),
                            call = caller_env()) {
   # FIXME: check_gg is too sensitive but there should still be some input check
