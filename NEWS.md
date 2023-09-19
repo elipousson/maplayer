@@ -1,5 +1,7 @@
 # maplayer (development version)
 
+- Improve `labs_ext()` handling of blank values, drop `use_md` feature, and add new `source_note` argument.
+
 ## 0.1.0.9003 (2023-08-25)
 
 - Add `make_mapbox_map()` function and fix outstanding issues `make_layer_map()` helper.

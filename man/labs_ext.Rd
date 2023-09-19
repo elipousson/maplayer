@@ -5,28 +5,37 @@
 \title{Add labels to a ggplot2 plot or map}
 \usage{
 labs_ext(
+  ...,
   title = ggplot2::waiver(),
   subtitle = ggplot2::waiver(),
   caption = ggplot2::waiver(),
   tag = ggplot2::waiver(),
   alt = ggplot2::waiver(),
-  fill = ggplot2::waiver(),
-  color = ggplot2::waiver(),
-  size = ggplot2::waiver(),
-  shape = ggplot2::waiver(),
-  alpha = ggplot2::waiver(),
-  linewidth = ggplot2::waiver(),
-  location = NULL,
-  name_col = NULL,
-  source = NULL,
-  .na = "NA",
-  .null = NULL,
+  alt_insight = ggplot2::waiver(),
+  source_note = NULL,
+  source_sep = ". ",
+  source_before = "Source: ",
+  source_end = ".",
+  .sep = "",
   .envir = parent.frame(),
-  use_md = FALSE,
-  ...
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = identity_transformer,
+  .trim = TRUE
 )
 }
 \arguments{
+\item{...}{
+  Arguments passed on to \code{\link[ggplot2:labs]{ggplot2::labs}}
+  \describe{
+    \item{\code{alt,alt_insight}}{Text used for the generation of alt-text for the plot.
+See \link[ggplot2]{get_alt_text} for examples.}
+  }}
+
 \item{title}{The text for the title.}
 
 \item{subtitle}{The text for the subtitle for the plot which will be
@@ -38,30 +47,54 @@ bottom-right of the plot by default.}
 \item{tag}{The text for the tag label which will be displayed at the
 top-left of the plot by default.}
 
-\item{alt}{Text used for the generation of alt-text for the plot.}
+\item{alt, alt_insight}{Text used for the generation of alt-text for the plot.
+See \link[ggplot2]{get_alt_text} for examples.}
 
-\item{fill, color, size, shape, alpha, linewidth}{Optional labels for mapped
-aesthetics. Defaults to \code{\link[ggplot2:waiver]{ggplot2::waiver()}}.}
+\item{source_note}{Data source(s) to append to caption or use as caption (if
+no caption is supplied). Also supports glue string interpolation.}
 
-\item{location}{sf or bbox object or character string}
+\item{source_sep, source_before, source_end}{Strings used to separate caption
+(if supplied) and source note, add before the source note, and add after
+the source note.}
 
-\item{name_col}{Column name holding name or identifier for distinct places
-within the simple feature collection provided to location. Not supported
-for bbox objects.}
+\item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to separate elements.}
 
-\item{source}{Data source(s). Not yet used or supported by function.}
+\item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If \code{.x} is an environment, the expressions are
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
 
-\item{.na, .null}{Additional parameters passed to \code{\link[glue:glue]{glue::glue()}}}
+\item{.open}{[\code{character(1)}: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
+full delimiter escapes it.}
 
-\item{.envir}{Environment passed to \code{\link[glue:glue]{glue::glue()}}; defaults to
-\code{\link[=parent.frame]{parent.frame()}}.}
+\item{.close}{[\code{character(1)}: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
+full delimiter escapes it.}
 
-\item{use_md}{If \code{TRUE}, use the ggtext::element_markdown() element for the
-plot title, subtitle, and caption. Defaults to \code{FALSE}.}
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace \code{NA} values
+with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
+cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
 
-\item{...}{A list of new name-value pairs. The name should be an aesthetic.}
+\item{.null}{[\code{character(1)}: \sQuote{character()}]\cr Value to replace
+NULL values with. If \code{character()} whole output is \code{character()}. If
+\code{NULL} all NULL values are dropped (as in \code{paste0()}). Otherwise the
+value is replaced by the value of \code{.null}.}
+
+\item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
+character.}
+
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr Whether to treat single or
+double quotes, backticks, and comments as regular characters (vs. as
+syntactic elements), when parsing the expression string. Setting \code{.literal = TRUE} probably only makes sense in combination with a custom
+\code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
+(especially, its name) as experimental.}
+
+\item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
+\code{data} used to transform the output of each block before, during, or after
+evaluation. For example transformers see \code{vignette("transformers")}.}
+
+\item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
+template with \code{\link[glue:trim]{trim()}} or not.}
 }
 \description{
 A helper function that converts strings to glue strings for the title,
-subtitle, and caption. In progress.
+subtitle, and caption.
 }

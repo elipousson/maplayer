@@ -1,70 +1,145 @@
+#' @noRd
+is_waiver <- function(x) {
+  identical(x, ggplot2::waiver())
+}
+
+#' @noRd
+combine_source_note <- function(caption = ggplot2::waiver(),
+                                source_note = NULL,
+                                source_sep = ". ",
+                                before = "Source: ",
+                                after = ".",
+                                .sep = "",
+                                .envir = parent.frame(),
+                                .open = "{",
+                                .close = "}",
+                                .na = "NA",
+                                .null = character(),
+                                .comment = "#",
+                                .literal = FALSE,
+                                .transformer = identity_transformer,
+                                .trim = TRUE) {
+  if (is.null(source_note)) {
+    return(caption)
+  }
+
+  if (is.null(caption) || is_waiver(caption)) {
+    caption <- paste0(before, source_note, after)
+    source_note <- NULL
+  } else {
+    source_note <- paste0(source_sep, before, source_note, after)
+  }
+
+  glue(
+    caption,
+    source_note,
+    .sep = .sep,
+    .envir = .envir,
+    .open = .open,
+    .close = .close,
+    .na = .na,
+    .null = .null,
+    .comment = .comment,
+    .literal = .literal,
+    .transformer = .transformer,
+    .trim = .trim
+  )
+}
+
 #' Add labels to a ggplot2 plot or map
 #'
 #' A helper function that converts strings to glue strings for the title,
-#' subtitle, and caption. In progress.
+#' subtitle, and caption.
 #'
 #' @inheritParams ggplot2::labs
-#' @param location sf or bbox object or character string
-#' @param name_col Column name holding name or identifier for distinct places
-#'   within the simple feature collection provided to location. Not supported
-#'   for bbox objects.
-#' @param fill,color,size,shape,alpha,linewidth Optional labels for mapped
-#'   aesthetics. Defaults to [ggplot2::waiver()].
-#' @param source Data source(s). Not yet used or supported by function.
-#' @param alt Text used for the generation of alt-text for the plot.
-#' @param .na,.null Additional parameters passed to [glue::glue()]
-#' @param .envir Environment passed to [glue::glue()]; defaults to
-#'   [parent.frame()].
-#' @param use_md If `TRUE`, use the ggtext::element_markdown() element for the
-#'   plot title, subtitle, and caption. Defaults to `FALSE`.
+#' @inheritDotParams ggplot2::labs
+#' @param source_note Data source(s) to append to caption or use as caption (if
+#'   no caption is supplied). Also supports glue string interpolation.
+#' @param source_sep,source_before,source_end Strings used to separate caption
+#'   (if supplied) and source note, add before the source note, and add after
+#'   the source note.
+#' @inheritParams glue::glue
 #' @export
 #' @importFrom ggplot2 labs waiver
-labs_ext <- function(title = ggplot2::waiver(),
+labs_ext <- function(...,
+                     title = ggplot2::waiver(),
                      subtitle = ggplot2::waiver(),
                      caption = ggplot2::waiver(),
                      tag = ggplot2::waiver(),
                      alt = ggplot2::waiver(),
-                     fill = ggplot2::waiver(),
-                     color = ggplot2::waiver(),
-                     size = ggplot2::waiver(),
-                     shape = ggplot2::waiver(),
-                     alpha = ggplot2::waiver(),
-                     linewidth = ggplot2::waiver(),
-                     location = NULL,
-                     name_col = NULL, # Check param name
-                     source = NULL,
-                     .na = "NA",
-                     .null = NULL,
+                     alt_insight = ggplot2::waiver(),
+                     source_note = NULL,
+                     source_sep = ". ",
+                     source_before = "Source: ",
+                     source_end = ".",
+                     .sep = "",
                      .envir = parent.frame(),
-                     use_md = FALSE,
-                     ...) {
-  labs <- ggplot2::labs(
-    title = glue(title, .na = .na, .null = .null, .envir = .envir),
-    subtitle = glue(subtitle, .na = .na, .null = .null, .envir = .envir),
-    caption = glue(caption, .na = .na, .null = .null, .envir = .envir),
-    tag = glue(tag, .na = .na, .null = .null, .envir = .envir),
-    alt = glue(alt, .na = .na, .null = .null, .envir = .envir),
-    fill = glue(fill, .na = .na, .null = .null, .envir = .envir),
-    color = glue(color, .na = .na, .null = .null, .envir = .envir),
-    size = glue(size, .na = .na, .null = .null, .envir = .envir),
-    shape = glue(shape, .na = .na, .null = .null, .envir = .envir),
-    alpha = glue(alpha, .na = .na, .null = .null, .envir = .envir),
-    linewidth = glue(linewidth, .na = .na, .null = .null, .envir = .envir),
-    ...
-  )
-
-  if (!use_md) {
-    return(labs)
+                     .open = "{",
+                     .close = "}",
+                     .na = "NA",
+                     .null = character(),
+                     .comment = "#",
+                     .literal = FALSE,
+                     .transformer = identity_transformer,
+                     .trim = TRUE) {
+  if (!is.null(source_note)) {
+    caption <- combine_source_note(
+      caption,
+      source_note,
+      source_sep = source_sep,
+      before = source_before,
+      end = source_end,
+      .sep = .sep,
+      .envir = .envir,
+      .open = .open,
+      .close = .close,
+      .na = .na,
+      .null = .null,
+      .comment = .comment,
+      .literal = .literal,
+      .transformer = .transformer,
+      .trim = .trim
+    )
   }
 
-  check_installed("ggtext")
-
-  list(
-    labs,
-    ggplot2::theme(
-      plot.title = ggtext::element_markdown(),
-      plot.subtitle = ggtext::element_markdown(),
-      plot.caption = ggtext::element_markdown()
-    )
+  labs_params <- rlang::list2(
+    ...,
+    title = title,
+    subtitle = subtitle,
+    caption = caption,
+    tag = tag,
+    alt = alt,
+    alt_insight = alt_insight
   )
+
+  labs_params <- labs_params[
+    vapply(
+      labs_params,
+      function(x) {
+        !is_waiver(x) & !is_null(x)
+      },
+      TRUE
+    )
+  ]
+
+  labs_params <- lapply(
+    labs_params,
+    function(x) {
+      glue(
+        x,
+        .sep = .sep,
+        .envir = .envir,
+        .open = .open,
+        .close = .close,
+        .na = .na,
+        .null = .null,
+        .comment = .comment,
+        .literal = .literal,
+        .transformer = .transformer,
+        .trim = .trim
+      )
+    }
+  )
+
+  rlang::exec(ggplot2::labs, !!!labs_params)
 }
