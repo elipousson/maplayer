@@ -3,6 +3,8 @@
 \name{layer_neatline}
 \alias{layer_neatline}
 \alias{set_map_limits}
+\alias{theme_grid}
+\alias{theme_sf_axis}
 \alias{set_neatline}
 \title{Set map limits to a bounding box with a buffer and set aspect ratio}
 \usage{
@@ -36,6 +38,26 @@ layer_neatline(
   default_plot_margin = ggplot2::margin(1, 1, 1, 1),
   xlim = NULL,
   ylim = NULL,
+  ...
+)
+
+theme_grid(
+  hide_grid = TRUE,
+  grid = FALSE,
+  panel.grid = NULL,
+  panel.grid.major = NULL,
+  panel.grid.minor = NULL
+)
+
+theme_sf_axis(
+  label_axes = "----",
+  axis.title = NULL,
+  axis.text = NULL,
+  axis.text.x = NULL,
+  axis.text.y = NULL,
+  axis.ticks = NULL,
+  axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
+  axis.line = NULL,
   ...
 )
 

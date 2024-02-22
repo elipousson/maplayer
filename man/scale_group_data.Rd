@@ -116,6 +116,6 @@ that are passed to \link[ggplot2:scale_manual]{ggplot2::scale_fill_manual} and
 \link[ggplot2:scale_manual]{ggplot2::scale_color_manual}.
 }
 \seealso{
-\code{\link[scales:viridis_pal]{scales::viridis_pal()}}
+\code{\link[scales:pal_viridis]{scales::viridis_pal()}}
 \code{\link[paletteer:paletteer_d]{paletteer::paletteer_d()}}
 }

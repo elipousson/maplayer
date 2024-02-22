@@ -88,7 +88,7 @@ layer_neatline <- function(data = NULL,
       panel.grid.major = panel.grid.major,
       panel.grid.minor = panel.grid.minor
     ),
-    theme_sf_axes(
+    theme_sf_axis(
       label_axes,
       axis.title = axis.title,
       axis.text = axis.text,
@@ -146,15 +146,19 @@ set_xy_lims <- function(data = NULL,
   )
 }
 
-#' Set ggplot2 panel grid theme elements
+#' [theme_grid()] can hide (or set) panel grid theme elements based on the
+#' `hide_grid` or `grid` parameters
 #'
+#' @rdname layer_neatline
+#' @name theme_grid
+#' @export
 #' @importFrom ggplot2 theme element_blank
-#' @noRd
 theme_grid <- function(hide_grid = TRUE,
+                       grid = FALSE,
                        panel.grid = NULL,
                        panel.grid.major = NULL,
                        panel.grid.minor = NULL) {
-  if (hide_grid) {
+  if (hide_grid || !grid) {
     return(
       ggplot2::theme(
         panel.grid = ggplot2::element_blank(),
@@ -171,21 +175,28 @@ theme_grid <- function(hide_grid = TRUE,
   )
 }
 
-#' Set ggplot2 axis theme elements based on label_axes parameter
+#' [theme_sf_axis()] can hide (or set) axis theme elements based on the
+#' `label_axes` parameter
 #'
-#' @noRd
+#' @name theme_sf_axis
+#' @rdname layer_neatline
+#' @export
 #' @importFrom ggplot2 theme element_blank unit
-theme_sf_axes <- function(label_axes = "----",
+theme_sf_axis <- function(label_axes = "----",
                           axis.title = NULL,
                           axis.text = NULL,
+                          axis.text.x = NULL,
+                          axis.text.y = NULL,
                           axis.ticks = NULL,
                           axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
-                          axis.line = NULL) {
+                          axis.line = NULL,
+                          ...) {
   if (label_axes == "----") {
     return(
       ggplot2::theme(
         axis.title = ggplot2::element_blank(),
-        axis.text = ggplot2::element_blank(),
+        axis.text.x = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_blank(),
         axis.ticks = ggplot2::element_blank(),
         axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
         axis.line = ggplot2::element_blank()
@@ -196,9 +207,12 @@ theme_sf_axes <- function(label_axes = "----",
   ggplot2::theme(
     axis.title = axis.title,
     axis.text = axis.text,
+    axis.text.x = axis.text.x,
+    axis.text.y = axis.text.y,
     axis.ticks = axis.ticks,
     axis.ticks.length = axis.ticks.length,
-    axis.line = axis.line
+    axis.line = axis.line,
+    ...
   )
 }
 
