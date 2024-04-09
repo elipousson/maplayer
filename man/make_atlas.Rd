@@ -54,7 +54,8 @@ date/time prefix; defaults to \code{NULL}.}
     \item{\code{postfix}}{File name postfix; defaults to \code{NULL}.}
     \item{\code{device}}{Device to use. Can either be a device function
 (e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
-"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
+"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
+\code{NULL} (default), the device is guessed based on the \code{filename} extension.}
     \item{\code{fileext}}{File type or extension. Optional if filename or path include a
 file extension.}
     \item{\code{filetype}}{File type (used if fileext is \code{NULL}).}
