@@ -88,14 +88,6 @@ layer_neatline <- function(data = NULL,
       panel.grid.major = panel.grid.major,
       panel.grid.minor = panel.grid.minor
     ),
-    theme_sf_axis(
-      label_axes,
-      axis.title = axis.title,
-      axis.text = axis.text,
-      axis.ticks = axis.ticks,
-      axis.ticks.length = axis.ticks.length,
-      axis.line = axis.line
-    ),
     theme_background(
       color,
       linewidth,
@@ -106,6 +98,14 @@ layer_neatline <- function(data = NULL,
       panel.background = panel.background,
       plot.background = plot.background,
       plot.margin = plot.margin
+    ),
+    theme_sf_axis(
+      label_axes,
+      axis.title = axis.title,
+      axis.text = axis.text,
+      axis.ticks = axis.ticks,
+      axis.ticks.length = axis.ticks.length,
+      axis.line = axis.line
     )
   )
 }
@@ -195,6 +195,7 @@ theme_sf_axis <- function(label_axes = "----",
     return(
       ggplot2::theme(
         axis.title = ggplot2::element_blank(),
+        axis.text = ggplot2::element_blank(),
         axis.text.x = ggplot2::element_blank(),
         axis.text.y = ggplot2::element_blank(),
         axis.ticks = ggplot2::element_blank(),
