@@ -5,7 +5,7 @@
 \alias{map_icons}
 \title{Map icons}
 \format{
-A tibble with 5,033 rows and 5 variables:
+A tibble with 5,036 rows and 5 variables:
 \describe{
 \item{\code{name}}{Icon name}
 \item{\code{url}}{Icon URL on GitHub repo}
@@ -40,7 +40,7 @@ The Calcite icons are \href{https://github.com/Esri/calcite-point-symbols#licens
 Symbol Library is created by the National Park Service so is assumed to be a
 \href{http://www.usa.gov/publicdomain/label/1.0/}{Public Domain work in the U.S.}.
 
-This index was last updated on 2024-02-21 and may not include any icons
+This index was last updated on 2024-04-08 and may not include any icons
 that have been added since that date.
 }
 \details{
