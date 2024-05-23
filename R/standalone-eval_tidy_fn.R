@@ -1,15 +1,15 @@
 # ---
 # repo: elipousson/maplayer
 # file: standalone-eval_tidy_fn.R
-# last-updated: 2023-09-15
+# last-updated: 2024-05-23
 # license: https://creativecommons.org/publicdomain/zero/1.0/
 # imports: [rlang]
 # ---
 #
-# This script also requires the type checking and the purrr equivalent from the
-# rlang package.
-#
 # ## Changelog
+#
+# 2024-05-23:
+# * Add missing name spacing for rlang functions and remove dependencies for external scripts.
 #
 # 2023-09-15:
 # * Existing helper functions converted to helper standalone script.
@@ -38,14 +38,15 @@ is_fn <- function(x) {
 #' @inheritParams cli::cli_abort
 #' @noRd
 #' @importFrom rlang is_function is_formula as_function caller_env caller_arg
-make_fn <- function(fn, ..., arg = caller_arg(fn), call = caller_env()) {
-  check_required(fn, arg = arg, call = call)
+make_fn <- function(fn,
+                    ...,
+                    arg = rlang::caller_arg(fn),
+                    call = rlang::caller_env()) {
+  rlang::check_required(fn, arg = arg, call = call)
 
   if (rlang::is_function(fn)) {
     return(fn)
   }
-
-  check_formula(fn, arg = arg, call = call)
 
   rlang::as_function(fn, arg = arg, call = call)
 }
@@ -56,7 +57,11 @@ make_fn <- function(fn, ..., arg = caller_arg(fn), call = caller_env()) {
 #' @inheritParams make_fn
 #' @param ... Additional arguments to pass to function.
 #' @noRd
-use_fn <- function(x = NULL, .f = NULL, ..., arg = caller_arg(fn), call = caller_env()) {
+use_fn <- function(x = NULL,
+                   .f = NULL,
+                   ...,
+                   arg = rlang::caller_arg(fn),
+                   call = rlang::caller_env()) {
   if (is.null(.f)) {
     return(x)
   }
@@ -72,6 +77,7 @@ use_fn <- function(x = NULL, .f = NULL, ..., arg = caller_arg(fn), call = caller
 #' @param param Parameters to splice as additional arguments of function. Set to
 #'   `TRUE` to execute function on x with no parameters.
 #' @param pkg Package name passed to [rlang::check_installed()]
+#' @inheritParams rlang::check_installed
 #' @noRd
 #' @importFrom rlang caller_arg caller_env is_missing eval_tidy quo is_logical
 eval_tidy_fn <- function(x,
@@ -79,17 +85,18 @@ eval_tidy_fn <- function(x,
                          pkg = NULL,
                          fn = NULL,
                          .f = NULL,
-                         arg = caller_arg(fn),
-                         env = caller_env(),
-                         call = caller_env()) {
-  if (is_empty(params) && !rlang::is_missing(x)) {
+                         reason = NULL,
+                         arg = rlang::caller_arg(fn),
+                         env = rlang::caller_env(),
+                         call = rlang::caller_env()) {
+  if (rlang::is_empty(params) && !rlang::is_missing(x)) {
     return(x)
   }
 
   .f <- .f %||% fn
 
   if (!is.null(pkg)) {
-    rlang::check_installed(pkg)
+    rlang::check_installed(pkg, reason = reason, call = call)
   }
 
   .f <- make_fn(.f, arg = arg, call = call)
@@ -120,10 +127,11 @@ modify_fn_params <- function(params,
   fmls <- rlang::fn_fmls(fn)
 
   if (!keep_missing) {
-    fmls <- discard(fmls, rlang::is_missing)
+    missing_fmls <- vapply(fmls, rlang::is_missing, logical(1))
+    fmls <- fmls[!missing_fmls]
   }
 
-  params <- c(list2(...), params)
+  params <- c(rlang::list2(...), params)
 
   utils::modifyList(
     fmls,
