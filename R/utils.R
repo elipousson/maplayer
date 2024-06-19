@@ -54,7 +54,7 @@ group_by_col <- function(data, col = NULL) {
 #' @param col Column name/value
 #' @noRd
 add_col <- function(data, col = NULL) {
-  if(is.null(col)) {
+  if (is.null(col)) {
     return(data)
   }
 

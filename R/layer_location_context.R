@@ -39,7 +39,7 @@ layer_location_context <- function(data = NULL,
                                      color = "black",
                                      alpha = 1,
                                      ...
-                                     ),
+                                   ),
                                    crs = getOption("maplayer.crs", default = 3857),
                                    mid_layer = NULL,
                                    neatline = TRUE,

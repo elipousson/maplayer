@@ -123,18 +123,16 @@ set_xy_lims <- function(data = NULL,
                         nudge = getOption("maplayer.nudge"),
                         xlim = NULL,
                         ylim = NULL) {
-
-
   if (!is.null(data)) {
     bbox <- sfext::st_bbox_ext(
-        x = data,
-        dist = dist,
-        diag_ratio = diag_ratio,
-        unit = unit,
-        asp = asp,
-        crs = crs,
-        nudge = nudge
-      )
+      x = data,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp,
+      crs = crs,
+      nudge = nudge
+    )
 
     xlim <- xlim %||% c(bbox[["xmin"]], bbox[["xmax"]])
     ylim <- ylim %||% c(bbox[["ymin"]], bbox[["ymax"]])
@@ -239,9 +237,9 @@ theme_background <- function(color = "black",
 
   if (!is.na(color) && (color != "none")) {
     panel.border <- ggplot2::element_rect(
-        color = color, linewidth = linewidth,
-        linetype = linetype, fill = NA
-      )
+      color = color, linewidth = linewidth,
+      linetype = linetype, fill = NA
+    )
   }
 
   if (!is.na(bgcolor) && bgcolor != "none") {
@@ -296,10 +294,10 @@ set_neatline <- function(x = NULL,
 
   if (is_true(neatline)) {
     neatline <- layer_neatline(
-        data = data,
-        crs = crs,
-        ...
-      )
+      data = data,
+      crs = crs,
+      ...
+    )
   }
 
   combine_gg_list(x, neatline)

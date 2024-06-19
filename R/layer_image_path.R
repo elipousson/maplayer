@@ -40,7 +40,7 @@ layer_image_path <- function(data = NULL,
   if (!rlang::has_name(data, path_col)) {
     cli_abort(
       "{.arg path_col} {.val {path_col}} can't be found in {.arg data}."
-      )
+    )
   }
 
   path_layer <-

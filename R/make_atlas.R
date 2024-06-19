@@ -35,12 +35,12 @@ make_atlas <- function(plots,
   cli::cli_progress_step("Creating sheet map plots")
 
   sheets <- papersize::page_layout(
-      plots = plots,
-      page = page,
-      dims = dims,
-      ncol = ncol,
-      nrow = nrow
-    )
+    plots = plots,
+    page = page,
+    dims = dims,
+    ncol = ncol,
+    nrow = nrow
+  )
 
   if (!save) {
     return(sheets)

@@ -125,7 +125,6 @@ theme_text <- function(font_family = NULL,
   }
 
   theme_method(text_theme, method = method)
-
 }
 
 

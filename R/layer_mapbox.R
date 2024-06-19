@@ -46,28 +46,28 @@ layer_mapbox <- function(data = NULL,
   crs_mapbox <- 3857
 
   bbox <- st_bbox_ext(
-      x = data,
-      dist = dist,
-      diag_ratio = diag_ratio,
-      unit = unit,
-      asp = asp,
-      crs = crs_mapbox
-    )
+    x = data,
+    dist = dist,
+    diag_ratio = diag_ratio,
+    unit = unit,
+    asp = asp,
+    crs = crs_mapbox
+  )
 
   # Get Mapbox map
   mapbox_layer <- mapboxapi::layer_static_mapbox(
-      location = bbox,
-      buffer_dist = 0,
-      style_url = style_url,
-      style_id = style_id,
-      username = username,
-      scale = scale,
-      scaling_factor = scaling_factor,
-      attribution = attribution,
-      logo = logo,
-      access_token = access_token,
-      ...
-    )
+    location = bbox,
+    buffer_dist = 0,
+    style_url = style_url,
+    style_id = style_id,
+    username = username,
+    scale = scale,
+    scaling_factor = scaling_factor,
+    attribution = attribution,
+    logo = logo,
+    access_token = access_token,
+    ...
+  )
 
   if (!is_false(basemap)) {
     mapbox_layer <- set_basemap(mapbox_layer, basemap)

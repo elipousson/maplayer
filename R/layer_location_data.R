@@ -168,9 +168,9 @@ layer_location_data <- function(mapping = NULL,
 
   # Match geoms
   geom <- rlang::arg_match(
-      geom,
-      c("sf", maplayer_geoms, text_geoms, ggpattern_geoms)
-    )
+    geom,
+    c("sf", maplayer_geoms, text_geoms, ggpattern_geoms)
+  )
 
   check_geom_installed(geom)
 

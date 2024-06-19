@@ -104,7 +104,7 @@ layer_marked <- function(data,
                            y_offset = 5,
                            sigma = 0.5,
                            ...
-                           ),
+                         ),
                          ...) {
   rlang::check_installed("ggforce")
 

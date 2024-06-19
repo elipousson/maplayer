@@ -66,18 +66,18 @@ layer_count <- function(data,
   check_installed("lwgeom")
 
   count_data <- suppressWarnings(
-      sfext::count_sf_ext(
-        data = data,
-        x = location,
-        y = y,
-        join = join,
-        largest = largest,
-        replace_na = replace_na,
-        lims = lims,
-        .id = .id,
-        ...
-      )
+    sfext::count_sf_ext(
+      data = data,
+      x = location,
+      y = y,
+      join = join,
+      largest = largest,
+      replace_na = replace_na,
+      lims = lims,
+      .id = .id,
+      ...
     )
+  )
 
   layer_stack <- list(NULL)
 
@@ -102,29 +102,29 @@ layer_count <- function(data,
     aes(fill = .data[["n"]])
 
   layer_stack <- c(
-      layer_stack,
-      list(
-        eval_tidy_fn(
-          x = count_data,
-          params = grid_params,
-          fn = layer_location_data
-        ),
-        eval_tidy_fn(
-          fn = scale_fn,
-          params = scale_params
-        )
+    layer_stack,
+    list(
+      eval_tidy_fn(
+        x = count_data,
+        params = grid_params,
+        fn = layer_location_data
+      ),
+      eval_tidy_fn(
+        fn = scale_fn,
+        params = scale_params
       )
     )
+  )
 
   if (!show_label) {
     return(layer_stack)
   }
 
   label_params$mapping <- aes_label(
-      mapping = label_params$mapping %||% aes(),
-      data = count_data,
-      label_col = "n"
-    )
+    mapping = label_params$mapping %||% aes(),
+    data = count_data,
+    label_col = "n"
+  )
 
   c(
     layer_stack,
