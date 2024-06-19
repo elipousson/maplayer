@@ -35,7 +35,7 @@ labs_ext <- function(...,
                      .transformer = identity_transformer,
                      .trim = TRUE) {
   gg_labs(
-    ..,
+    ...,
     title = title,
     subtitle = subtitle,
     caption = caption,
