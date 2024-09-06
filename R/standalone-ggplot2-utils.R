@@ -1,12 +1,16 @@
 # ---
 # repo: elipousson/maplayer
 # file: standalone-ggplot2-utils.R
-# last-updated: 2024-05-21
+# last-updated: 2024-09-06
 # license: https://creativecommons.org/publicdomain/zero/1.0/
 # dependencies: standalone-eval_tidy_fn.R
 # imports: [rlang, ggplot2, glue]
 # ---
 # ## Changelog
+#
+# 2024-09-06:
+# - Add missing prefix for `glue::identity_transformer()`
+# - Fix issue with `gg_labs()` handling of `source_note`
 #
 # 2024-05-21:
 # - Add {glue} to imports and `standalone-eval_tidy_fn.R` to dependencies.
@@ -137,7 +141,7 @@ gg_labs <- function(...,
                     .null = character(),
                     .comment = "#",
                     .literal = FALSE,
-                    .transformer = identity_transformer,
+                    .transformer = glue::identity_transformer,
                     .trim = TRUE) {
   if (!is.null(source_note)) {
     caption <- gg_caption(
@@ -145,7 +149,7 @@ gg_labs <- function(...,
       source_note,
       source_sep = source_sep,
       before = source_before,
-      end = source_end,
+      after = source_end,
       collapse = collapse,
       .sep = .sep,
       .envir = .envir,
@@ -222,17 +226,19 @@ gg_caption <- function(caption = ggplot2::waiver(),
                        .null = character(),
                        .comment = "#",
                        .literal = FALSE,
-                       .transformer = identity_transformer,
+                       .transformer = glue::identity_transformer,
                        .trim = TRUE) {
-  if (is.null(source_note)) {
-    return(caption)
-  }
+  missing_caption <- is.null(caption) || .is_waiver(caption)
 
-  if (is.null(caption) || .is_waiver(caption)) {
-    caption <- paste0(before, source_note, after)
-    source_note <- NULL
-  } else {
-    source_note <- paste0(source_sep, before, source_note, after)
+  if (!is.null(source_note)) {
+    if (missing_caption) {
+      caption <- paste0(before, source_note, after)
+      source_note <- NULL
+    } else {
+      source_note <- paste0(source_sep, before, source_note, after)
+    }
+  } else if (missing_caption) {
+    return(invisible(NULL))
   }
 
   if (length(caption) > 1) {
