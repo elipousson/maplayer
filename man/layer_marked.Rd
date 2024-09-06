@@ -30,7 +30,7 @@ layer_marked(
 
 \item{fn}{Function to apply to data before passing to geom, typically a
 predicate or filter to define area for annotation. A filter can also be
-passed to any of the {ggforce} functions using the filter aesthetic.
+passed to any of the \{ggforce\} functions using the filter aesthetic.
 Default: NULL}
 
 \item{mapping}{Aesthetic mapping to pass to geom, Default: \code{NULL}}

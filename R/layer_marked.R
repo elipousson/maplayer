@@ -35,7 +35,7 @@
 #'   [sfext::as_sf]
 #' @param fn Function to apply to data before passing to geom, typically a
 #'   predicate or filter to define area for annotation. A filter can also be
-#'   passed to any of the {ggforce} functions using the filter aesthetic.
+#'   passed to any of the \{ggforce\} functions using the filter aesthetic.
 #'   Default: NULL
 #' @param mapping Aesthetic mapping to pass to geom, Default: `NULL`
 #' @param center If `FALSE`, use [sfext::st_cast_ext] MULTIPOLYGON and
