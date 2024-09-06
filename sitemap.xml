@@ -1,108 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://elipousson.github.io/maplayer/404.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/index.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/labs_ext.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_arrow.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_count.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_frame.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_grouped.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_icon.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_image_path.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_inset.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_labelled.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_location.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_location_context.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_location_data.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_mapbox.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_marked.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_markers.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_mask.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_neatline.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_repel.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/layer_scaled.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/make_atlas.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/make_location_map.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/make_mapbox_map.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/map_icons.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/maplayer-package.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/scale_group_data.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/set_basemap.html</loc>
-  </url>
-  <url>
-    <loc>https://elipousson.github.io/maplayer/reference/theme_ext.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://elipousson.github.io/maplayer/404.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/LICENSE-text.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/LICENSE.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/authors.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/index.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/news/index.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/index.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/labs_ext.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_arrow.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_count.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_frame.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_grouped.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_icon.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_image_path.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_inset.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_labelled.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_location.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_location_context.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_location_data.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_mapbox.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_marked.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_markers.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_mask.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_neatline.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_repel.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/layer_scaled.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/make_atlas.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/make_location_map.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/make_mapbox_map.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/map_icons.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/maplayer-package.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/reexports.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/scale_group_data.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/set_basemap.html</loc></url>
+<url><loc>https://elipousson.github.io/maplayer/reference/theme_ext.html</loc></url>
 </urlset>
+
