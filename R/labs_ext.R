@@ -32,7 +32,7 @@ labs_ext <- function(...,
                      .null = character(),
                      .comment = "#",
                      .literal = FALSE,
-                     .transformer = identity_transformer,
+                     .transformer = glue::identity_transformer,
                      .trim = TRUE) {
   gg_labs(
     ...,
