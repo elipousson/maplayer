@@ -3,6 +3,7 @@
 - Improve `labs_ext()` handling of blank values, drop `use_md` feature, and add new `source_note` argument.
 - Rename `theme_sf_axes()` to `theme_sf_axis()` and fix handling of axis.text.x and axis.text.y theme elements. (2024-02-21)
 - Update `map_icons` with [temaki v5.7.0](https://github.com/rapideditor/temaki/releases/tag/v5.7.0) (2024-02-21)
+- Update `map_icons` with [temaki v5.9.0](https://github.com/rapideditor/temaki/releases/tag/v5.9.0) (2024-09-06)
 
 ## 0.1.0.9003 (2023-08-25)
 
