@@ -28,7 +28,8 @@ theme_margin(
   footer = 0,
   fill = NA,
   color = NA,
-  size = 0,
+  linewidth = 0,
+  size = NULL,
   method = NULL,
   ...
 )

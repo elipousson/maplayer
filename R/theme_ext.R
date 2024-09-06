@@ -145,10 +145,12 @@ theme_margin <- function(margin = "standard",
                          footer = 0,
                          fill = NA,
                          color = NA,
-                         size = 0,
+                         linewidth = 0,
+                         size = NULL,
                          method = NULL,
                          ...) {
   theme <- ggplot2::theme_get()
+  linewidth <- linewidth %||% size
 
   margin_theme <-
     modifyList(
@@ -158,7 +160,7 @@ theme_margin <- function(margin = "standard",
         plot.background = ggplot2::element_rect(
           fill = fill,
           color = color,
-          size = grid::unit(size, units = unit)
+          linewidth = grid::unit(linewidth, units = unit)
         ),
         plot.margin = sfext::get_margin(
           margin = margin,
