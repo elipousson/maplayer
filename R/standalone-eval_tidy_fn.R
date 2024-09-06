@@ -1,12 +1,15 @@
 # ---
 # repo: elipousson/maplayer
 # file: standalone-eval_tidy_fn.R
-# last-updated: 2024-05-23
+# last-updated: 2024-09-06
 # license: https://creativecommons.org/publicdomain/zero/1.0/
 # imports: [rlang]
 # ---
 #
 # ## Changelog
+#
+# 2024-09-06:
+# * Correct typo in `make_fn()` default for `arg`
 #
 # 2024-05-23:
 # * Add missing name spacing for rlang functions and remove dependencies for external scripts.
@@ -60,7 +63,7 @@ make_fn <- function(fn,
 use_fn <- function(x = NULL,
                    .f = NULL,
                    ...,
-                   arg = rlang::caller_arg(fn),
+                   arg = rlang::caller_arg(.f),
                    call = rlang::caller_env()) {
   if (is.null(.f)) {
     return(x)
