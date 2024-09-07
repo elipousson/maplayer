@@ -130,8 +130,9 @@ theme_text <- function(font_family = NULL,
 
 #' @rdname theme_ext
 #' @name theme_margin
-#' @param size Passed to size of ggplot2::element_rect() to define the
-#'   plot.background theme element.
+#' @param linewidth,size Passed to linewidth of [ggplot2::element_rect()] to
+#'   define the plot.background theme element. linewidth is ignored if size is
+#'   provided.
 #' @export
 #' @importFrom ggplot2 theme element_rect
 #' @importFrom grid unit
@@ -150,7 +151,7 @@ theme_margin <- function(margin = "standard",
                          method = NULL,
                          ...) {
   theme <- ggplot2::theme_get()
-  linewidth <- linewidth %||% size
+  linewidth <- size %||% linewidth
 
   margin_theme <-
     modifyList(
