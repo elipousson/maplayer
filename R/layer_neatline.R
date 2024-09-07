@@ -26,6 +26,7 @@
 #'   `ggplot2::margin(0, 0, 0, 0)` if expand is `FALSE`.
 #' @param ... Additional parameters passed to [ggplot2::coord_sf()].
 #' @inheritParams ggplot2::coord_sf
+#' @inheritParams ggplot2::theme
 #' @inheritParams sfext::st_bbox_ext
 #' @param default_plot_margin Defaults to `ggplot2::margin(1, 1, 1, 1)`. Ignored
 #'   if `expand = FALSE`
@@ -148,6 +149,8 @@ set_xy_lims <- function(data = NULL,
 #' `hide_grid` or `grid` parameters
 #'
 #' @rdname layer_neatline
+#' @param  grid If `grid` is `TRUE` and `hide_grid` is `FALSE`, grid will be
+#'   included in the theme. Otherwise, suppress the grid.
 #' @name theme_grid
 #' @export
 #' @importFrom ggplot2 theme element_blank
@@ -178,6 +181,7 @@ theme_grid <- function(hide_grid = TRUE,
 #'
 #' @name theme_sf_axis
 #' @rdname layer_neatline
+#' @param axis.text.x,axis.text.y Passed to [ggplot2::theme()]
 #' @export
 #' @importFrom ggplot2 theme element_blank unit
 theme_sf_axis <- function(label_axes = "----",

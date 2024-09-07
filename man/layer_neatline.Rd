@@ -138,6 +138,11 @@ though they would be visible in the final plot region.}
 
 \item{...}{Additional parameters passed to \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.}
 
+\item{grid}{If \code{grid} is \code{TRUE} and \code{hide_grid} is \code{FALSE}, grid will be
+included in the theme. Otherwise, suppress the grid.}
+
+\item{axis.text.x, axis.text.y}{Passed to \code{\link[ggplot2:theme]{ggplot2::theme()}}}
+
 \item{x}{For \code{\link[=set_neatline]{set_neatline()}}, a \code{ggplot} class object, \code{ggproto} class
 object or list of \code{ggproto} objects to combine with neatline layer.}
 
