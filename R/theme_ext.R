@@ -51,13 +51,15 @@ NULL
 #' @export
 #' @importFrom ggplot2 theme element_text theme_set theme_update theme_replace
 #'   update_geom_defaults
-theme_text <- function(font_family = NULL,
-                       color = "black",
-                       geom_text = TRUE,
-                       hjust = NULL,
-                       vjust = NULL,
-                       method = NULL,
-                       ...) {
+theme_text <- function(
+  font_family = NULL,
+  color = "black",
+  geom_text = TRUE,
+  hjust = NULL,
+  vjust = NULL,
+  method = NULL,
+  ...
+) {
   if (is.null(font_family)) {
     font_family <- ggplot2::theme_get()$text$family
   }
@@ -74,36 +76,52 @@ theme_text <- function(font_family = NULL,
       theme,
       ggplot2::theme(
         plot.title = ggplot2::element_text(
-          family = font_family, color = color,
-          hjust = hjust, vjust = vjust
+          family = font_family,
+          color = color,
+          hjust = hjust,
+          vjust = vjust
         ),
         plot.subtitle = ggplot2::element_text(
-          family = font_family, color = color,
-          hjust = hjust, vjust = vjust
+          family = font_family,
+          color = color,
+          hjust = hjust,
+          vjust = vjust
         ),
         plot.caption = ggplot2::element_text(
-          family = font_family, color = color,
-          hjust = hjust, vjust = vjust
+          family = font_family,
+          color = color,
+          hjust = hjust,
+          vjust = vjust
         ),
         strip.text = ggplot2::element_text(
-          family = font_family, color = color,
-          hjust = hjust, vjust = vjust
+          family = font_family,
+          color = color,
+          hjust = hjust,
+          vjust = vjust
         ),
         axis.text = ggplot2::element_text(
-          family = font_family, color = color,
-          hjust = hjust, vjust = vjust
+          family = font_family,
+          color = color,
+          hjust = hjust,
+          vjust = vjust
         ),
         axis.title = ggplot2::element_text(
-          family = font_family, color = color,
-          hjust = hjust, vjust = vjust
+          family = font_family,
+          color = color,
+          hjust = hjust,
+          vjust = vjust
         ),
         legend.text = ggplot2::element_text(
-          family = font_family, color = color,
-          hjust = hjust, vjust = vjust
+          family = font_family,
+          color = color,
+          hjust = hjust,
+          vjust = vjust
         ),
         legend.title = ggplot2::element_text(
-          family = font_family, color = color,
-          hjust = hjust, vjust = vjust
+          family = font_family,
+          color = color,
+          hjust = hjust,
+          vjust = vjust
         ),
         ...
       )
@@ -136,20 +154,22 @@ theme_text <- function(font_family = NULL,
 #' @export
 #' @importFrom ggplot2 theme element_rect
 #' @importFrom grid unit
-theme_margin <- function(margin = "standard",
-                         paper = NULL,
-                         orientation = NULL,
-                         dist = NULL,
-                         unit = "in",
-                         block_width = NULL,
-                         header = 0,
-                         footer = 0,
-                         fill = NA,
-                         color = NA,
-                         linewidth = 0,
-                         size = NULL,
-                         method = NULL,
-                         ...) {
+theme_margin <- function(
+  margin = "standard",
+  paper = NULL,
+  orientation = NULL,
+  dist = NULL,
+  unit = "in",
+  block_width = NULL,
+  header = 0,
+  footer = 0,
+  fill = NA,
+  color = NA,
+  linewidth = 0,
+  size = NULL,
+  method = NULL,
+  ...
+) {
   theme <- ggplot2::theme_get()
   linewidth <- size %||% linewidth
 
@@ -193,16 +213,18 @@ theme_margin <- function(margin = "standard",
 #' @importFrom ggplot2 element_blank element_rect theme
 #' @importFrom grid unit
 #' @importFrom sfext get_margin
-theme_legend <- function(position = NULL,
-                         justification = NULL,
-                         margin = 8,
-                         unit = "pt",
-                         inset = TRUE,
-                         nudge_inset = 0.05,
-                         bgcolor = "white",
-                         title = list(face = "bold", align = 0),
-                         method = NULL,
-                         ...) {
+theme_legend <- function(
+  position = NULL,
+  justification = NULL,
+  margin = 8,
+  unit = "pt",
+  inset = TRUE,
+  nudge_inset = 0.05,
+  bgcolor = "white",
+  title = list(face = "bold", align = 0),
+  method = NULL,
+  ...
+) {
   if ("none" %in% position) {
     legend_theme <- ggplot2::theme(legend.position = "none")
   } else {
@@ -267,15 +289,27 @@ theme_legend <- function(position = NULL,
 #' @noRd
 #' @importFrom grid unit
 #' @importFrom rlang has_length
-make_legend_position <- function(justification = NULL,
-                                 position = NULL,
-                                 inset = FALSE,
-                                 nudge_inset = 0.05) {
+make_legend_position <- function(
+  justification = NULL,
+  position = NULL,
+  inset = FALSE,
+  nudge_inset = 0.05
+) {
   if (is.null(position) || !is.numeric(position)) {
-    position <- match.arg(position, c(
-      "left", "right", "bottom", "top",
-      "topleft", "bottomleft", "topright", "bottomright", "none"
-    ))
+    position <- match.arg(
+      position,
+      c(
+        "left",
+        "right",
+        "bottom",
+        "top",
+        "topleft",
+        "bottomleft",
+        "topright",
+        "bottomright",
+        "none"
+      )
+    )
   }
 
   if (inset) {
@@ -308,30 +342,37 @@ make_legend_position <- function(justification = NULL,
     position <- c(x_position, y_position)
     justification <- c(x_justification, y_justification)
     box_justification <-
-      switch(x_justification,
-        "left" = "right",
-        "right" = "left"
-      )
+      switch(x_justification, "left" = "right", "right" = "left")
   } else {
     justification <-
       match.arg(
         justification,
         c(
-          "right", "left", "bottom", "top", "center",
-          "topleft", "bottomleft", "topright", "bottomright"
+          "right",
+          "left",
+          "bottom",
+          "top",
+          "center",
+          "topleft",
+          "bottomleft",
+          "topright",
+          "bottomright"
         ),
         several.ok = TRUE
       )
 
     justification <-
-      switch(justification,
+      switch(
+        justification,
         "topright" = c("right", "top"),
         "topleft" = c("left", "top"),
         "bottomright" = c("right", "bottom"),
         "bottomleft" = c("left", "bottom")
       )
 
-    if ((grepl("top", justification[[1]]) || grepl("bottom", justification[[1]]))) {
+    if (
+      (grepl("top", justification[[1]]) || grepl("bottom", justification[[1]]))
+    ) {
       justification <- rev(justification)
     }
 
@@ -390,13 +431,14 @@ make_legend_title <- function(title = NULL) {
 
 
 #' @noRd
-#' @importFrom ggplot2 theme_set theme_update theme_replace
+#' @importFrom ggplot2 set_theme update_theme replace_theme
 theme_method <- function(x, method = NULL) {
   method <- match.arg(method, c("set", "update", "replace"))
 
-  switch(method,
-    "set" = ggplot2::theme_set(x),
-    "update" = ggplot2::theme_update(x),
-    "replace" = ggplot2::theme_replace(x)
+  switch(
+    method,
+    "set" = ggplot2::set_theme(x),
+    "update" = ggplot2::update_theme(x),
+    "replace" = ggplot2::replace_theme(x)
   )
 }
