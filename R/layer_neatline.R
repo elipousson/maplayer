@@ -299,7 +299,6 @@ theme_background <- function(
 #' @export
 #' @importFrom dplyr case_when
 #' @importFrom rlang is_logical
-#' @importFrom ggplot2 is.ggplot
 set_neatline <- function(
   x = NULL,
   neatline = TRUE,

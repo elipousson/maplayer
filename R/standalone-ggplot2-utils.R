@@ -4,9 +4,13 @@
 # last-updated: 2024-09-06
 # license: https://creativecommons.org/publicdomain/zero/1.0/
 # dependencies: standalone-eval_tidy_fn.R
-# imports: [rlang, ggplot2, glue]
+# imports: [rlang, ggplot2 (>= 4.0.0), glue]
 # ---
 # ## Changelog
+#
+# 2025-09-25:
+# - Update to require ggplot2 (>= 4.0.0) after replacing deprecated `is.ggplot()` with `is_ggplot()`
+# - Style with Air
 #
 # 2024-09-06:
 # - Add missing prefix for `glue::identity_transformer()`
@@ -25,7 +29,7 @@
 #' Combine ggplot list and vectors
 #' @noRd
 combine_gg_list <- function(x, y = NULL) {
-  if (is_bare_list(x) && ggplot2::is.ggplot(x[[1]])) {
+  if (is_bare_list(x) && ggplot2::is_ggplot(x[[1]])) {
     x <- reduce(x, function(x, gg) {
       x + gg
     })
@@ -35,7 +39,7 @@ combine_gg_list <- function(x, y = NULL) {
     return(x)
   }
 
-  if (ggplot2::is.ggplot(x)) {
+  if (ggplot2::is_ggplot(x)) {
     return(x + y)
   }
 
@@ -80,7 +84,7 @@ gg_plot_layers <- function(
   save_fn = ggplot2::ggsave,
   call = caller_env()
 ) {
-  if (!ggplot2::is.ggplot(plot)) {
+  if (!ggplot2::is_ggplot(plot)) {
     plot <- plot_gg_list(plot = plot, ...)
   }
 

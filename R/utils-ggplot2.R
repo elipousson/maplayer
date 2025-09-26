@@ -15,7 +15,7 @@ is_any_gg <- function(x) {
 #' @noRd
 is_neatline <- function(x) {
   obj_is_gg(x) &&
-    (ggplot2::is.Coord(x) || any(vapply(x, ggplot2::is.Coord, FALSE)))
+    (ggplot2::is_coord(x) || any(vapply(x, ggplot2::is_coord, FALSE)))
 }
 
 

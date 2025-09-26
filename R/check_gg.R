@@ -51,11 +51,11 @@ check_ggplot <- function(
   call = caller_env()
 ) {
   if (!missing(x)) {
-    if (is.ggplot(x)) {
+    if (is_ggplot(x)) {
       return(invisible(NULL))
     }
 
-    if (allow_list && is.ggplot(x[[1]])) {
+    if (allow_list && is_ggplot(x[[1]])) {
       return(invisible(NULL))
     }
 

@@ -174,7 +174,6 @@ make_mask_data <- function(
 #' @importFrom dplyr case_when
 #' @importFrom rlang is_logical
 #' @importFrom cli cli_abort
-#' @importFrom ggplot2 is.ggplot
 set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
   type <- dplyr::case_when(
     rlang::is_logical(mask) && mask && !is.null(data) ~ "lgl_true",
