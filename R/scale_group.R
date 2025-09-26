@@ -17,16 +17,18 @@
 #' @export
 #' @importFrom ggplot2 scale_fill_manual scale_color_manual
 scale_group_data <-
-  function(...,
-           data,
-           col = NULL,
-           palette = NULL,
-           n = NULL,
-           direction = 1,
-           na.value = "grey50",
-           drop = FALSE,
-           limits = NULL,
-           aesthetics = "fill") {
+  function(
+    ...,
+    data,
+    col = NULL,
+    palette = NULL,
+    n = NULL,
+    direction = 1,
+    na.value = "grey50",
+    drop = FALSE,
+    limits = NULL,
+    aesthetics = "fill"
+  ) {
     aesthetics <- match.arg(aesthetics, c("fill", "color"), several.ok = TRUE)
 
     group_pal <-
@@ -66,12 +68,14 @@ scale_group_data <-
 #' @export
 #' @importFrom dplyr n_groups filter mutate bind_cols group_keys
 #' @importFrom scales viridis_pal
-group_data_pal <- function(data,
-                           palette = NULL,
-                           col = NULL,
-                           n = NULL,
-                           direction = 1,
-                           pkg = NULL) {
+group_data_pal <- function(
+  data,
+  palette = NULL,
+  col = NULL,
+  n = NULL,
+  direction = 1,
+  pkg = NULL
+) {
   rlang::check_installed("paletteer")
   rlang::check_installed("tibble")
 
@@ -107,7 +111,11 @@ group_data_pal <- function(data,
       )
 
     palette <- match.arg(palette, pal_opts$pkg_pal)
-    palette <- paletteer::paletteer_d(palette = palette, n = n, direction = direction)
+    palette <- paletteer::paletteer_d(
+      palette = palette,
+      n = n,
+      direction = direction
+    )
   }
 
   group_palette <-
@@ -120,7 +128,6 @@ group_data_pal <- function(data,
 
   return(group_palette)
 }
-
 
 
 #' @name get_group_data_pal_scale

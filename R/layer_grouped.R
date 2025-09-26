@@ -17,24 +17,32 @@
 #' @export
 #' @importFrom dplyr group_by group_nest
 #' @importFrom ggplot2 ggplot
-layer_grouped <- function(data,
-                          mapping = NULL,
-                          groupname_col = "group",
-                          label_col = "name",
-                          geom = "sf",
-                          basemap = FALSE,
-                          palette = NULL,
-                          aesthetics = "fill",
-                          ...) {
+layer_grouped <- function(
+  data,
+  mapping = NULL,
+  groupname_col = "group",
+  label_col = "name",
+  geom = "sf",
+  basemap = FALSE,
+  palette = NULL,
+  aesthetics = "fill",
+  ...
+) {
   geom_type <- sfext::is_geom_type(x = data)
 
   data <- group_by_col(data = data, col = groupname_col)
   nested <- dplyr::group_nest(data, keep = TRUE)
 
-  if ((geom_type$POINTS || geom_type$LINESTRINGS) && !("color" %in% aesthetics)) {
-    cli_warn("This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'color' aesthetic mapping.")
+  if (
+    (geom_type$POINTS || geom_type$LINESTRINGS) && !("color" %in% aesthetics)
+  ) {
+    cli_warn(
+      "This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'color' aesthetic mapping."
+    )
   } else if (geom_type$POLYGONS && !("fill" %in% aesthetics)) {
-    cli_warn("This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'fill' aesthetic mapping.")
+    cli_warn(
+      "This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'fill' aesthetic mapping."
+    )
   }
 
   if (("color" %in% aesthetics) && !("color" %in% names(mapping))) {

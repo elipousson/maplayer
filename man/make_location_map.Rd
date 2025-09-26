@@ -280,7 +280,7 @@ make_location_map(
 )
 
 make_location_map(
-  basemap = ggplot(data = nc[2,]),
+  basemap = ggplot(data = nc[2, ]),
   fg_layer = geom_sf_text(aes(label = NAME)),
   data = nc,
   location = nc[2, ],

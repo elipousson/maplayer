@@ -1,12 +1,14 @@
 #' Check gg objects or a list of gg class objects
 #'
 #' @noRd
-check_gg <- function(x,
-                     ...,
-                     allow_list = TRUE,
-                     allow_null = FALSE,
-                     arg = caller_arg(x),
-                     call = caller_env()) {
+check_gg <- function(
+  x,
+  ...,
+  allow_list = TRUE,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (!missing(x)) {
     if (is_gg(x)) {
       return(invisible(NULL))
@@ -40,12 +42,14 @@ check_gg <- function(x,
 
 
 #' @noRd
-check_ggplot <- function(x,
-                         ...,
-                         allow_list = TRUE,
-                         allow_null = FALSE,
-                         arg = caller_arg(x),
-                         call = caller_env()) {
+check_ggplot <- function(
+  x,
+  ...,
+  allow_list = TRUE,
+  allow_null = FALSE,
+  arg = caller_arg(x),
+  call = caller_env()
+) {
   if (!missing(x)) {
     if (is.ggplot(x)) {
       return(invisible(NULL))

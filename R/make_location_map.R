@@ -27,31 +27,33 @@
 #' @export
 #' @importFrom papersize get_paper make_page_size
 #' @importFrom rlang check_required
-make_location_map <- function(location = NULL,
-                              dist = NULL,
-                              diag_ratio = NULL,
-                              unit = NULL,
-                              asp = NULL,
-                              data = NULL,
-                              crs = NULL,
-                              paper = NULL,
-                              width = NULL,
-                              height = NULL,
-                              units = "in",
-                              orientation = NULL,
-                              geom = "sf",
-                              basemap = TRUE,
-                              bg_layer = NULL,
-                              layer = NULL,
-                              fg_layer = NULL,
-                              addon = NULL,
-                              neatline = FALSE,
-                              labs_ext_params = list(...),
-                              save = FALSE,
-                              ggsave_params = list(dpi = 300, ...),
-                              ...,
-                              env = caller_env(),
-                              call = caller_env()) {
+make_location_map <- function(
+  location = NULL,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = NULL,
+  asp = NULL,
+  data = NULL,
+  crs = NULL,
+  paper = NULL,
+  width = NULL,
+  height = NULL,
+  units = "in",
+  orientation = NULL,
+  geom = "sf",
+  basemap = TRUE,
+  bg_layer = NULL,
+  layer = NULL,
+  fg_layer = NULL,
+  addon = NULL,
+  neatline = FALSE,
+  labs_ext_params = list(...),
+  save = FALSE,
+  ggsave_params = list(dpi = 300, ...),
+  ...,
+  env = caller_env(),
+  call = caller_env()
+) {
   if (!is.null(paper)) {
     paper <- papersize::get_paper(
       paper = paper,
@@ -78,17 +80,18 @@ make_location_map <- function(location = NULL,
     location <- NULL
   }
 
-  layer <- layer %||% layer_location_data(
-    data = data,
-    location = location,
-    dist = dist,
-    diag_ratio = diag_ratio,
-    unit = unit,
-    asp = asp %||% paper$asp,
-    crs = crs,
-    geom = geom,
-    ...
-  )
+  layer <- layer %||%
+    layer_location_data(
+      data = data,
+      location = location,
+      dist = dist,
+      diag_ratio = diag_ratio,
+      unit = unit,
+      asp = asp %||% paper$asp,
+      crs = crs,
+      geom = geom,
+      ...
+    )
 
   make_layer_map(
     basemap = basemap,
@@ -110,21 +113,23 @@ make_location_map <- function(location = NULL,
 #' @inheritParams papersize::get_social_size
 #' @export
 #' @importFrom papersize get_social_size
-make_social_map <- function(location,
-                            dist = NULL,
-                            diag_ratio = NULL,
-                            unit = NULL,
-                            asp = NULL,
-                            crs = 3857,
-                            image = NULL,
-                            platform = NULL,
-                            format = NULL,
-                            orientation = NULL,
-                            basemap = TRUE,
-                            geom = "mapbox",
-                            save = FALSE,
-                            ggsave_params = list(fileext = "jpeg", dpi = 72, ...),
-                            ...) {
+make_social_map <- function(
+  location,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = NULL,
+  asp = NULL,
+  crs = 3857,
+  image = NULL,
+  platform = NULL,
+  format = NULL,
+  orientation = NULL,
+  basemap = TRUE,
+  geom = "mapbox",
+  save = FALSE,
+  ggsave_params = list(fileext = "jpeg", dpi = 72, ...),
+  ...
+) {
   image_size <- papersize::get_social_size(
     name = image,
     platform = platform,
@@ -175,34 +180,36 @@ make_social_map <- function(location,
 #' @export
 #' @importFrom sfext st_bbox_ext
 #' @importFrom sf st_union
-make_image_map <- function(image_path,
-                           location = NULL,
-                           dist = NULL,
-                           diag_ratio = NULL,
-                           unit = NULL,
-                           asp = NULL,
-                           data = NULL,
-                           crs = 3857,
-                           paper = "Letter",
-                           orientation = NULL,
-                           geom = "mapbox",
-                           style_url = NULL,
-                           basemap = TRUE,
-                           bg_layer = NULL,
-                           fg_layer = NULL,
-                           save = FALSE,
-                           ggsave_params = list(dpi = 300, ...),
-                           image_geom = "label",
-                           groupname_col = NULL,
-                           group_meta = NULL,
-                           number = FALSE,
-                           num_by_group = FALSE,
-                           num_style = NULL,
-                           num_start = 1,
-                           suffix = NULL,
-                           sort = "dist_xmin_ymax",
-                           desc = FALSE,
-                           ...) {
+make_image_map <- function(
+  image_path,
+  location = NULL,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = NULL,
+  asp = NULL,
+  data = NULL,
+  crs = 3857,
+  paper = "Letter",
+  orientation = NULL,
+  geom = "mapbox",
+  style_url = NULL,
+  basemap = TRUE,
+  bg_layer = NULL,
+  fg_layer = NULL,
+  save = FALSE,
+  ggsave_params = list(dpi = 300, ...),
+  image_geom = "label",
+  groupname_col = NULL,
+  group_meta = NULL,
+  number = FALSE,
+  num_by_group = FALSE,
+  num_style = NULL,
+  num_start = 1,
+  suffix = NULL,
+  sort = "dist_xmin_ymax",
+  desc = FALSE,
+  ...
+) {
   rlang::check_installed("filenamr")
   images <-
     filenamr::read_exif(
@@ -283,17 +290,19 @@ make_image_map <- function(image_path,
 #' @inheritParams set_basemap
 #' @inheritParams set_neatline
 #' @export
-make_layer_map <- function(bg_layer = NULL,
-                           layer = NULL,
-                           fg_layer = NULL,
-                           addon = NULL,
-                           basemap = NULL,
-                           neatline = NULL,
-                           labs_ext_params = NULL,
-                           save = FALSE,
-                           ggsave_params = list(width = 5, height = 4, unit = "in", dpi = 300),
-                           env = caller_env(),
-                           call = caller_env()) {
+make_layer_map <- function(
+  bg_layer = NULL,
+  layer = NULL,
+  fg_layer = NULL,
+  addon = NULL,
+  basemap = NULL,
+  neatline = NULL,
+  labs_ext_params = NULL,
+  save = FALSE,
+  ggsave_params = list(width = 5, height = 4, unit = "in", dpi = 300),
+  env = caller_env(),
+  call = caller_env()
+) {
   # FIXME: check_gg is too sensitive but there should still be some input check
   # check_gg(layer, allow_null = TRUE)
   # check_gg(bg_layer, allow_null = TRUE)

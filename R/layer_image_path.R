@@ -22,15 +22,17 @@
 #' @importFrom sfext read_sf_exif
 #' @importFrom rlang has_name
 #' @importFrom ggplot2 after_stat
-layer_image_path <- function(data = NULL,
-                             path = NULL,
-                             path_col = "path",
-                             width = 0.1,
-                             crs = getOption("maplayer.crs", 3857),
-                             segment_params = NULL,
-                             neatline = FALSE,
-                             basemap = FALSE,
-                             ...) {
+layer_image_path <- function(
+  data = NULL,
+  path = NULL,
+  path_col = "path",
+  width = 0.1,
+  crs = getOption("maplayer.crs", 3857),
+  segment_params = NULL,
+  neatline = FALSE,
+  basemap = FALSE,
+  ...
+) {
   if (!is.null(path)) {
     data <- sf::st_transform(sfext::read_sf_exif(path), crs = crs)
   }

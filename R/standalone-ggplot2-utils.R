@@ -44,12 +44,14 @@ combine_gg_list <- function(x, y = NULL) {
 
 #' Add a [ggplot2::ggplot()] object to a ggplot2 layer.
 #' @noRd
-plot_gg_list <- function(x = NULL,
-                         plot = FALSE,
-                         data = NULL,
-                         mapping = ggplot2::aes(),
-                         ...,
-                         call = caller_env()) {
+plot_gg_list <- function(
+  x = NULL,
+  plot = FALSE,
+  data = NULL,
+  mapping = ggplot2::aes(),
+  ...,
+  call = caller_env()
+) {
   if (is_false(plot) || is_null(plot)) {
     return(x)
   }
@@ -65,17 +67,19 @@ plot_gg_list <- function(x = NULL,
 #' Make ggplot2 plot from layers
 #' @keywords internal ggplot2
 #' @noRd
-gg_plot_layers <- function(plot,
-                           ...,
-                           .bg_layer = NULL,
-                           .layer = NULL,
-                           .fg_layer = NULL,
-                           labs_params = NULL,
-                           labs_fn = gg_labs,
-                           save = FALSE,
-                           save_params = NULL,
-                           save_fn = ggplot2::ggsave,
-                           call = caller_env()) {
+gg_plot_layers <- function(
+  plot,
+  ...,
+  .bg_layer = NULL,
+  .layer = NULL,
+  .fg_layer = NULL,
+  labs_params = NULL,
+  labs_fn = gg_labs,
+  save = FALSE,
+  save_params = NULL,
+  save_fn = ggplot2::ggsave,
+  call = caller_env()
+) {
   if (!ggplot2::is.ggplot(plot)) {
     plot <- plot_gg_list(plot = plot, ...)
   }
@@ -121,28 +125,30 @@ gg_plot_layers <- function(plot,
 #'   the source note.
 #' @inheritParams glue::glue
 #' @noRd
-gg_labs <- function(...,
-                    title = ggplot2::waiver(),
-                    subtitle = ggplot2::waiver(),
-                    caption = ggplot2::waiver(),
-                    tag = ggplot2::waiver(),
-                    alt = ggplot2::waiver(),
-                    alt_insight = ggplot2::waiver(),
-                    source_note = NULL,
-                    source_sep = ". ",
-                    source_before = "Source: ",
-                    source_end = ".",
-                    collapse = " ",
-                    .sep = "",
-                    .envir = parent.frame(),
-                    .open = "{",
-                    .close = "}",
-                    .na = "NA",
-                    .null = character(),
-                    .comment = "#",
-                    .literal = FALSE,
-                    .transformer = glue::identity_transformer,
-                    .trim = TRUE) {
+gg_labs <- function(
+  ...,
+  title = ggplot2::waiver(),
+  subtitle = ggplot2::waiver(),
+  caption = ggplot2::waiver(),
+  tag = ggplot2::waiver(),
+  alt = ggplot2::waiver(),
+  alt_insight = ggplot2::waiver(),
+  source_note = NULL,
+  source_sep = ". ",
+  source_before = "Source: ",
+  source_end = ".",
+  collapse = " ",
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = glue::identity_transformer,
+  .trim = TRUE
+) {
   if (!is.null(source_note)) {
     caption <- gg_caption(
       caption,
@@ -212,22 +218,24 @@ gg_labs <- function(...,
 }
 
 #' @noRd
-gg_caption <- function(caption = ggplot2::waiver(),
-                       source_note = NULL,
-                       source_sep = ". ",
-                       before = "Source: ",
-                       after = ".",
-                       collapse = " ",
-                       .sep = "",
-                       .envir = parent.frame(),
-                       .open = "{",
-                       .close = "}",
-                       .na = "NA",
-                       .null = character(),
-                       .comment = "#",
-                       .literal = FALSE,
-                       .transformer = glue::identity_transformer,
-                       .trim = TRUE) {
+gg_caption <- function(
+  caption = ggplot2::waiver(),
+  source_note = NULL,
+  source_sep = ". ",
+  before = "Source: ",
+  after = ".",
+  collapse = " ",
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = glue::identity_transformer,
+  .trim = TRUE
+) {
   missing_caption <- is.null(caption) || .is_waiver(caption)
 
   if (!is.null(source_note)) {

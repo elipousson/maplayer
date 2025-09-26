@@ -31,14 +31,16 @@
 #' @importFrom rlang check_installed has_name
 #' @importFrom sfext get_sf_col
 #' @importFrom ggplot2 aes
-layer_icon <- function(data = NULL,
-                       iconname_col = "icon",
-                       icon = NULL,
-                       px = NULL,
-                       source = NULL,
-                       svg = NULL,
-                       crs = getOption("maplayer.crs", default = 3857),
-                       ...) {
+layer_icon <- function(
+  data = NULL,
+  iconname_col = "icon",
+  icon = NULL,
+  px = NULL,
+  source = NULL,
+  svg = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
+  ...
+) {
   rlang::check_installed("rsvg")
   check_dev_installed("ggsvg", "coolbutuseless/ggsvg")
 
@@ -106,7 +108,13 @@ geom_sf_icon <- layer_icon
 #' @noRd
 #' @importFrom dplyr bind_cols
 #' @importFrom cliExtras cli_abort_if
-get_map_icon <- function(icon = NULL, px = NULL, source = NULL, single = TRUE, read = TRUE) {
+get_map_icon <- function(
+  icon = NULL,
+  px = NULL,
+  source = NULL,
+  single = TRUE,
+  read = TRUE
+) {
   icon_name <- icon
   icon <- map_icons
 
@@ -123,7 +131,8 @@ get_map_icon <- function(icon = NULL, px = NULL, source = NULL, single = TRUE, r
   }
 
   cli_abort_if(
-    c("{.arg icon} matches {nrow(icon)} icon, not 1.",
+    c(
+      "{.arg icon} matches {nrow(icon)} icon, not 1.",
       "i" = "Provide the {.arg px} and/or {.arg source} to select a single icon."
     ),
     condition = (nrow(icon) > 1) && single
@@ -152,13 +161,15 @@ get_map_icon <- function(icon = NULL, px = NULL, source = NULL, single = TRUE, r
 #' @importFrom sfext check_sf st_transform_ext
 #' @importFrom rlang has_name
 #' @importFrom dplyr bind_cols left_join
-join_map_icons <- function(data = NULL,
-                           iconname_col = "icon",
-                           source = NULL,
-                           px = NULL,
-                           crs = NULL,
-                           fun.geometry = function(x) sf::st_centroid(sf::st_zm(x)),
-                           call = parent.frame()) {
+join_map_icons <- function(
+  data = NULL,
+  iconname_col = "icon",
+  source = NULL,
+  px = NULL,
+  crs = NULL,
+  fun.geometry = function(x) sf::st_centroid(sf::st_zm(x)),
+  call = parent.frame()
+) {
   if (is.null(data)) {
     return(
       function(x) {

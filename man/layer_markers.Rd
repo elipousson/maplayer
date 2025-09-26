@@ -188,7 +188,6 @@ basemap +
     num_style = "Roman",
     geom = "label",
     size = 3
-    ) +
+  ) +
   guides(fill = "none")
-
 }

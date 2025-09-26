@@ -20,19 +20,21 @@
 #' @export
 #' @importFrom sf st_transform st_difference st_union
 #' @importFrom sfext as_sf st_transform_ext st_erase
-layer_mask <- function(data = NULL,
-                       dist = NULL,
-                       diag_ratio = NULL,
-                       unit = NULL,
-                       asp = NULL,
-                       crs = getOption("maplayer.crs", default = 3857),
-                       fill = "white",
-                       color = NA,
-                       alpha = 0.5,
-                       mask = NULL,
-                       neatline = FALSE,
-                       expand = TRUE,
-                       ...) {
+layer_mask <- function(
+  data = NULL,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = NULL,
+  asp = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
+  fill = "white",
+  color = NA,
+  alpha = 0.5,
+  mask = NULL,
+  neatline = FALSE,
+  expand = TRUE,
+  ...
+) {
   mask_layer <- ggplot2::layer_sf(
     geom = ggplot2::GeomSf,
     stat = "sf",
@@ -72,15 +74,17 @@ layer_mask <- function(data = NULL,
 }
 
 #' @noRd
-set_mask_neatline <- function(mask_layer,
-                              data = NULL,
-                              dist = NULL,
-                              diag_ratio = NULL,
-                              unit = NULL,
-                              asp = NULL,
-                              crs = getOption("maplayer.crs", default = 3857),
-                              mask = NULL,
-                              expand = TRUE) {
+set_mask_neatline <- function(
+  mask_layer,
+  data = NULL,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = NULL,
+  asp = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
+  mask = NULL,
+  expand = TRUE
+) {
   if (all(vapply(c(dist, diag_ratio, asp), is.null, TRUE)) && !is.null(mask)) {
     set_neatline(
       mask_layer,
@@ -111,13 +115,15 @@ set_mask_neatline <- function(mask_layer,
 #' @noRd
 #' @importFrom sfext check_sf st_erase
 #' @importFrom cliExtras cli_warn_ifnot
-make_mask_data <- function(data = NULL,
-                           dist = NULL,
-                           diag_ratio = NULL,
-                           unit = NULL,
-                           asp = NULL,
-                           crs = getOption("maplayer.crs", default = 3857),
-                           mask = NULL) {
+make_mask_data <- function(
+  data = NULL,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = NULL,
+  asp = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
+  mask = NULL
+) {
   if (is.null(data)) {
     return(
       function(x) {
@@ -179,13 +185,15 @@ set_mask <- function(x = NULL, mask = TRUE, data = NULL, crs = NULL, ...) {
   )
 
   cliExtras::cli_abort_ifnot(
-    c("{.arg mask} must be sf, logical, or ggproto object.",
+    c(
+      "{.arg mask} must be sf, logical, or ggproto object.",
       "i" = "The class of the provided {.arg mask} is {class(mask)}."
     ),
     condition = !is.na(type)
   )
 
-  mask_layer <- switch(type,
+  mask_layer <- switch(
+    type,
     "lgl_false" = x,
     "lgl_true" = layer_mask(
       data = data,

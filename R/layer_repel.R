@@ -17,14 +17,16 @@
 #' @importFrom cliExtras cli_abort_ifnot
 #' @importFrom rlang is_character arg_match
 #' @importFrom sfext as_bbox sf_bbox_point
-layer_repel <- function(mapping = aes(),
-                        data = NULL,
-                        label_col = "name",
-                        geom = c("text", "label"),
-                        location_lims = NULL,
-                        xlim = c(NA, NA),
-                        ylim = c(NA, NA),
-                        ...) {
+layer_repel <- function(
+  mapping = aes(),
+  data = NULL,
+  label_col = "name",
+  geom = c("text", "label"),
+  location_lims = NULL,
+  xlim = c(NA, NA),
+  ylim = c(NA, NA),
+  ...
+) {
   check_name(label_col)
 
   if (!is.null(location_lims) && all(is.na(c(ylim, xlim)))) {
@@ -39,7 +41,8 @@ layer_repel <- function(mapping = aes(),
 
   geom <- rlang::arg_match(geom)
 
-  switch(geom,
+  switch(
+    geom,
     "text" = geom_sf_text_repel(
       mapping = mapping,
       data = data,
@@ -61,10 +64,12 @@ layer_repel <- function(mapping = aes(),
 
 #' @name geom_sf_label_repel
 #' @rdname layer_repel
-geom_sf_label_repel <- function(mapping = aes(),
-                                data = NULL,
-                                label_col = "name",
-                                ...) {
+geom_sf_label_repel <- function(
+  mapping = aes(),
+  data = NULL,
+  label_col = "name",
+  ...
+) {
   rlang::check_installed("ggrepel")
 
   geom_sf_coordinates(
@@ -77,10 +82,12 @@ geom_sf_label_repel <- function(mapping = aes(),
 
 #' @name geom_sf_text_repel
 #' @rdname layer_repel
-geom_sf_text_repel <- function(mapping = aes(),
-                               data = NULL,
-                               label_col = "name",
-                               ...) {
+geom_sf_text_repel <- function(
+  mapping = aes(),
+  data = NULL,
+  label_col = "name",
+  ...
+) {
   rlang::check_installed("ggrepel")
 
   geom_sf_coordinates(

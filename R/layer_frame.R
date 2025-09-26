@@ -40,25 +40,27 @@
 #' @name layer_frame
 #' @family layer
 #' @export
-layer_frame <- function(data = NULL,
-                        dist = NULL,
-                        diag_ratio = NULL,
-                        unit = "meter",
-                        asp = NULL,
-                        style = "circle",
-                        scale = 1,
-                        rotate = 0,
-                        inscribed = FALSE,
-                        color = "black",
-                        linewidth = 0.5,
-                        linetype = "solid",
-                        fill = "white",
-                        neatline = TRUE,
-                        expand = TRUE,
-                        basemap = FALSE,
-                        union = TRUE,
-                        by_feature = FALSE,
-                        ...) {
+layer_frame <- function(
+  data = NULL,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = "meter",
+  asp = NULL,
+  style = "circle",
+  scale = 1,
+  rotate = 0,
+  inscribed = FALSE,
+  color = "black",
+  linewidth = 0.5,
+  linetype = "solid",
+  fill = "white",
+  neatline = TRUE,
+  expand = TRUE,
+  basemap = FALSE,
+  union = TRUE,
+  by_feature = FALSE,
+  ...
+) {
   if (is.null(data)) {
     frame <- function(x) {
       make_frame(
@@ -137,18 +139,20 @@ layer_frame <- function(data = NULL,
 #' @importFrom sf st_union
 #' @importFrom sfext check_sf as_sf st_buffer_ext st_circle st_square
 #' @importFrom rlang arg_match
-make_frame <- function(x,
-                       dist = NULL,
-                       diag_ratio = NULL,
-                       unit = "meter",
-                       asp = NULL,
-                       style = "circle",
-                       scale = 1,
-                       rotate = 0,
-                       inscribed = FALSE,
-                       dTolerance = 0,
-                       union = TRUE,
-                       by_feature = FALSE) {
+make_frame <- function(
+  x,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = "meter",
+  asp = NULL,
+  style = "circle",
+  scale = 1,
+  rotate = 0,
+  inscribed = FALSE,
+  dTolerance = 0,
+  union = TRUE,
+  by_feature = FALSE
+) {
   style <-
     rlang::arg_match(style, c("circle", "square", "rect", "buffer", "none"))
 
@@ -186,16 +190,21 @@ make_frame <- function(x,
       )
   }
 
-  switch(style,
+  switch(
+    style,
     "circle" = sfext::st_circle(
       x,
-      scale = scale, inscribed = inscribed,
-      by_feature = by_feature, dTolerance = dTolerance
+      scale = scale,
+      inscribed = inscribed,
+      by_feature = by_feature,
+      dTolerance = dTolerance
     ),
     "square" = sfext::st_square(
       x,
-      scale = scale, rotate = rotate,
-      by_feature = by_feature, inscribed = inscribed
+      scale = scale,
+      rotate = rotate,
+      by_feature = by_feature,
+      inscribed = inscribed
     ),
     "rect" = st_bbox_ext(x, asp = asp, class = "sf"),
     "buffer" = x

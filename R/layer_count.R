@@ -37,32 +37,34 @@
 #' @importFrom ggplot2 scale_fill_continuous
 #' @importFrom scales breaks_pretty
 #' @importFrom sfext count_sf_ext
-layer_count <- function(data,
-                        location = NULL,
-                        y = NULL,
-                        join = sf::st_intersects,
-                        largest = TRUE,
-                        replace_na = FALSE,
-                        lims = NULL,
-                        .id = "id",
-                        grid_params = list(
-                          alpha = 1,
-                          color = NA
-                        ),
-                        show_data = FALSE,
-                        data_params = list(
-                          mapping = aes(),
-                          alpha = 0.75,
-                          size = 1
-                        ),
-                        show_label = FALSE,
-                        label_params = NULL,
-                        scale_fn = ggplot2::scale_fill_continuous,
-                        scale_params = list(
-                          type = "viridis",
-                          breaks = scales::breaks_pretty(n = 4)
-                        ),
-                        ...) {
+layer_count <- function(
+  data,
+  location = NULL,
+  y = NULL,
+  join = sf::st_intersects,
+  largest = TRUE,
+  replace_na = FALSE,
+  lims = NULL,
+  .id = "id",
+  grid_params = list(
+    alpha = 1,
+    color = NA
+  ),
+  show_data = FALSE,
+  data_params = list(
+    mapping = aes(),
+    alpha = 0.75,
+    size = 1
+  ),
+  show_label = FALSE,
+  label_params = NULL,
+  scale_fn = ggplot2::scale_fill_continuous,
+  scale_params = list(
+    type = "viridis",
+    breaks = scales::breaks_pretty(n = 4)
+  ),
+  ...
+) {
   check_installed("lwgeom")
 
   count_data <- suppressWarnings(

@@ -18,22 +18,24 @@
 #' @name layer_markers
 #' @md
 #' @export
-layer_markers <- function(data,
-                          mapping = NULL,
-                          geom = "sf",
-                          make = FALSE,
-                          groupname_col = NULL,
-                          group_meta = NULL,
-                          crs = getOption("maplayer.crs", default = 3857),
-                          number = FALSE,
-                          num_by_group = FALSE,
-                          num_style = NULL,
-                          num_start = 1,
-                          suffix = NULL,
-                          sort = "dist_xmin_ymax",
-                          desc = FALSE,
-                          fn = NULL,
-                          ...) {
+layer_markers <- function(
+  data,
+  mapping = NULL,
+  geom = "sf",
+  make = FALSE,
+  groupname_col = NULL,
+  group_meta = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
+  number = FALSE,
+  num_by_group = FALSE,
+  num_style = NULL,
+  num_start = 1,
+  suffix = NULL,
+  sort = "dist_xmin_ymax",
+  desc = FALSE,
+  fn = NULL,
+  ...
+) {
   if (make) {
     data <-
       make_markers(
@@ -106,27 +108,29 @@ layer_markers <- function(data,
 #' @importFrom ggplot2 aes unit
 #' @importFrom utils modifyList
 #' @importFrom dplyr arrange mutate row_number
-layer_numbers <- function(data,
-                          mapping = NULL,
-                          geom = "label",
-                          make = FALSE,
-                          groupname_col = NULL,
-                          style = "roundrect",
-                          size = 5,
-                          sort = "dist_xmin_ymax",
-                          num_by_group = FALSE,
-                          num_style = NULL,
-                          num_start = 1,
-                          suffix = NULL,
-                          desc = FALSE,
-                          fn = NULL,
-                          crs = getOption("maplayer.crs", default = 3857),
-                          label.size = 0.0,
-                          label.padding = ggplot2::unit(size / 10, "lines"),
-                          label.r = label.padding * 1.5,
-                          hjust = 0.5,
-                          vjust = 0.5,
-                          ...) {
+layer_numbers <- function(
+  data,
+  mapping = NULL,
+  geom = "label",
+  make = FALSE,
+  groupname_col = NULL,
+  style = "roundrect",
+  size = 5,
+  sort = "dist_xmin_ymax",
+  num_by_group = FALSE,
+  num_style = NULL,
+  num_start = 1,
+  suffix = NULL,
+  desc = FALSE,
+  fn = NULL,
+  crs = getOption("maplayer.crs", default = 3857),
+  label.size = 0.0,
+  label.padding = ggplot2::unit(size / 10, "lines"),
+  label.r = label.padding * 1.5,
+  hjust = 0.5,
+  vjust = 0.5,
+  ...
+) {
   if ("roundrect" %in% style) {
     label.size <- 0.0
     label.padding <- ggplot2::unit(size / 10, "lines")
@@ -180,17 +184,19 @@ layer_numbers <- function(data,
 #' @importFrom getdata get_location_data
 #' @importFrom sfext df_to_sf is_geom_type
 #' @importFrom dplyr left_join filter group_by
-make_markers <- function(data,
-                         groupname_col = NULL,
-                         group_meta = NULL,
-                         join = sf::st_intersects,
-                         geo = FALSE,
-                         coords = c("lon", "lat"),
-                         address = "address",
-                         point = TRUE,
-                         crs = NULL,
-                         fn = NULL,
-                         ...) {
+make_markers <- function(
+  data,
+  groupname_col = NULL,
+  group_meta = NULL,
+  join = sf::st_intersects,
+  geo = FALSE,
+  coords = c("lon", "lat"),
+  address = "address",
+  point = TRUE,
+  crs = NULL,
+  fn = NULL,
+  ...
+) {
   if (!geo) {
     data <- getdata::get_location_data(
       data = data,
@@ -219,7 +225,9 @@ make_markers <- function(data,
   }
 
   # Convert to POINT if any other geometry
-  if (!all(sfext::is_geom_type(data, type = c("POINT", "MULTIPOINT"))) && point) {
+  if (
+    !all(sfext::is_geom_type(data, type = c("POINT", "MULTIPOINT"))) && point
+  ) {
     data <- suppressWarnings(sf::st_centroid(data))
   }
 

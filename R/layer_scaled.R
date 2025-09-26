@@ -14,16 +14,18 @@
 #' @importFrom sfext convert_dist_scale sf_bbox_ydist sf_bbox_xdist
 #' @importFrom sf st_centroid
 layer_scaled <-
-  function(data = NULL,
-           dist = NULL,
-           diag_ratio = NULL,
-           unit = NULL,
-           asp = NULL,
-           crs = getOption("maplayer.crs", default = 3857),
-           scale = NULL,
-           paper = NULL,
-           orientation = NULL,
-           clip = FALSE) {
+  function(
+    data = NULL,
+    dist = NULL,
+    diag_ratio = NULL,
+    unit = NULL,
+    asp = NULL,
+    crs = getOption("maplayer.crs", default = 3857),
+    scale = NULL,
+    paper = NULL,
+    orientation = NULL,
+    clip = FALSE
+  ) {
     # Get paper with actual width, height, and units
     scaled_paper <-
       sfext::convert_dist_scale(
@@ -37,7 +39,8 @@ layer_scaled <-
     if (nrow(scaled_paper) > 1) {
       cli::cli_warn(c(
         "{.arg paper}, {.arg orientation}, and {.arg scale} parameters
-        returned multiple options.", "Using first returned option."
+        returned multiple options.",
+        "Using first returned option."
       ))
 
       scaled_paper <- scaled_paper[1, ]
@@ -95,9 +98,11 @@ layer_scaled <-
 #' FIXME: Replace with new sf_bbox_fit (?)
 #' @noRd
 #' @importFrom sfext sf_bbox_ydist sf_bbox_xdist
-bbox_fit_check <- function(bbox,
-                           paper = NULL,
-                           cols = c("actual_width", "actual_height")) {
+bbox_fit_check <- function(
+  bbox,
+  paper = NULL,
+  cols = c("actual_width", "actual_height")
+) {
   # Compare bbox xdist and ydist to actual dimensions
   # FIXME: move this into a helper function
 

@@ -8,8 +8,19 @@
 
 utils::globalVariables(
   c(
-    "df", "geometry", "angle", "lon", "lat", "name", "repo",
-    "x1", "x2", "y1", "y2", "x", "y"
+    "df",
+    "geometry",
+    "angle",
+    "lon",
+    "lat",
+    "name",
+    "repo",
+    "x1",
+    "x2",
+    "y1",
+    "y2",
+    "x",
+    "y"
   )
 )
 
@@ -20,9 +31,11 @@ utils::globalVariables(
 #' @keywords internal
 #' @importFrom rlang zap current_env
 #' @importFrom vctrs vec_cbind
-list_cbind <- function(x,
-                       name_repair = c("unique", "universal", "check_unique"),
-                       size = NULL) {
+list_cbind <- function(
+  x,
+  name_repair = c("unique", "universal", "check_unique"),
+  size = NULL
+) {
   vctrs::vec_cbind(
     !!!x,
     .name_repair = name_repair,
@@ -75,23 +88,33 @@ add_col <- function(data, col = NULL) {
 #' @importFrom dplyr rename
 #' @importFrom rlang has_name
 #' @importFrom cliExtras cli_yesno
-has_same_name_col <- function(x, col = NULL, prefix = "orig", ask = FALSE, quiet = FALSE) {
+has_same_name_col <- function(
+  x,
+  col = NULL,
+  prefix = "orig",
+  ask = FALSE,
+  quiet = FALSE
+) {
   if (rlang::has_name(x, col)) {
     new_col <- paste0(prefix, "_", col)
 
     if (ask && !quiet) {
-      if (!cliExtras::cli_yesno(
-        "The provided data includes an existing column named '{col}'.
+      if (
+        !cliExtras::cli_yesno(
+          "The provided data includes an existing column named '{col}'.
       Do you want to proceed and rename this column to {new_col}?"
-      )) {
+        )
+      ) {
         cli_abort("Please rename your column to use this function.")
       }
     }
 
     if (!quiet) {
       cli_inform(
-        c("v" = "The existing column '{col}' to '{new_col}' to avoid
-          overwriting any existing values.")
+        c(
+          "v" = "The existing column '{col}' to '{new_col}' to avoid
+          overwriting any existing values."
+        )
       )
     }
 

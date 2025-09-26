@@ -8,9 +8,17 @@ ggplot2::ggplot() +
     aes(fill = AREA)
   )
 
-data <- getdata::get_location(type = system.file("shape/nc.shp", package = "sf"), crs = 3857)
+data <- getdata::get_location(
+  type = system.file("shape/nc.shp", package = "sf"),
+  crs = 3857
+)
 
-location <- getdata::get_location(type = nc, name = "Ashe", name_col = "NAME", crs = 3857)
+location <- getdata::get_location(
+  type = nc,
+  name = "Ashe",
+  name_col = "NAME",
+  crs = 3857
+)
 
 # Using the geom parameter to select a geom
 ggplot2::ggplot() +
@@ -45,6 +53,11 @@ ggplot2::ggplot() +
   layer_location_data(
     data = data,
     location = location,
-    layer_fn = ~ ggplot2::geom_sf_text(data = .x, aes(label = NAME), size = 8, color = "red"),
+    layer_fn = ~ ggplot2::geom_sf_text(
+      data = .x,
+      aes(label = NAME),
+      size = 8,
+      color = "red"
+    ),
     crop = FALSE
   )

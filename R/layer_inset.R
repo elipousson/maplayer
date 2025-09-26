@@ -33,14 +33,16 @@
 #' @return ggplot2 map with inset map added using patchwork
 #' @rdname layer_inset
 #' @export
-layer_inset <- function(map = NULL,
-                        inset = NULL,
-                        position = "bottomright",
-                        scale = 1,
-                        nudge_x = 0,
-                        nudge_y = 0,
-                        align_to = "full",
-                        ...) {
+layer_inset <- function(
+  map = NULL,
+  inset = NULL,
+  position = "bottomright",
+  scale = 1,
+  nudge_x = 0,
+  nudge_y = 0,
+  align_to = "full",
+  ...
+) {
   make_inset_element(
     inset = inset,
     plot = map,
@@ -62,20 +64,24 @@ layer_inset <- function(map = NULL,
 #' @inheritParams layer_location_context
 #' @export
 make_inset_map <-
-  function(map = NULL,
-           inset = NULL,
-           location = NULL,
-           context = NULL,
-           position = "bottomright",
-           scale = 1,
-           nudge_x = 0,
-           nudge_y = 0,
-           align_to = "full",
-           ...) {
+  function(
+    map = NULL,
+    inset = NULL,
+    location = NULL,
+    context = NULL,
+    position = "bottomright",
+    scale = 1,
+    nudge_x = 0,
+    nudge_y = 0,
+    align_to = "full",
+    ...
+  ) {
     if (!is.null(location) && !is.null(context)) {
       if (!is.null(inset)) {
-        cli::cli_warn("Replacing the provided inset layer with a new layer
-                      from {.fn layer_location_context}")
+        cli::cli_warn(
+          "Replacing the provided inset layer with a new layer
+                      from {.fn layer_location_context}"
+        )
       }
 
       inset <-
@@ -105,15 +111,17 @@ make_inset_map <-
 #' @export
 #' @importFrom ggplot2 margin
 stamp_inset_img <-
-  function(path,
-           plot = NULL,
-           img_margin = ggplot2::margin(0, 0, 0, 0),
-           position = "bottomright",
-           scale = 1,
-           nudge_x = 0,
-           nudge_y = 0,
-           align_to = "full",
-           ...) {
+  function(
+    path,
+    plot = NULL,
+    img_margin = ggplot2::margin(0, 0, 0, 0),
+    position = "bottomright",
+    scale = 1,
+    nudge_x = 0,
+    nudge_y = 0,
+    align_to = "full",
+    ...
+  ) {
     rlang::check_installed("figpatch")
 
     inset <- figpatch::fig(path = path, b_margin = img_margin, ...)
@@ -130,14 +138,16 @@ stamp_inset_img <-
   }
 
 #' @noRd
-make_inset_element <- function(inset,
-                               plot = NULL,
-                               position = "bottomright",
-                               scale = 1,
-                               nudge_x = 0,
-                               nudge_y = 0,
-                               align_to = "full",
-                               ...) {
+make_inset_element <- function(
+  inset,
+  plot = NULL,
+  position = "bottomright",
+  scale = 1,
+  nudge_x = 0,
+  nudge_y = 0,
+  align_to = "full",
+  ...
+) {
   rlang::check_installed("patchwork")
 
   inset_position <-
@@ -171,10 +181,12 @@ make_inset_element <- function(inset,
 #' patchwork::inset_element
 #'
 #' @noRd
-get_inset_position <- function(position = NULL,
-                               nudge_x = 0,
-                               nudge_y = 0,
-                               scale = 1) {
+get_inset_position <- function(
+  position = NULL,
+  nudge_x = 0,
+  nudge_y = 0,
+  scale = 1
+) {
   # FIXME: This is an incomplete implementation of a scale factor for an inset map
   # top, bottom, left, and right probably should all be based on scale as well
   top <- 0.5

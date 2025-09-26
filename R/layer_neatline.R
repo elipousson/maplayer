@@ -39,37 +39,49 @@
 #' @export
 #' @importFrom ggplot2 coord_sf scale_y_continuous scale_x_continuous theme
 #'   element_rect element_blank
-layer_neatline <- function(data = NULL,
-                           dist = getOption("maplayer.dist"),
-                           diag_ratio = getOption("maplayer.diag_ratio"),
-                           unit = getOption("maplayer.unit", default = "meter"),
-                           asp = getOption("maplayer.asp"),
-                           crs = getOption("maplayer.crs"),
-                           nudge = getOption("maplayer.nudge"),
-                           color = "black",
-                           linewidth = 0.5,
-                           linetype = "solid",
-                           bgcolor = "white",
-                           expand = TRUE,
-                           hide_grid = TRUE,
-                           label_axes = "----",
-                           axis.title = NULL,
-                           axis.text = NULL,
-                           axis.ticks = NULL,
-                           axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
-                           axis.line = NULL,
-                           panel.grid = NULL,
-                           panel.grid.major = NULL,
-                           panel.grid.minor = NULL,
-                           panel.border = NULL,
-                           panel.background = NULL,
-                           plot.background = NULL,
-                           plot.margin = NULL,
-                           default_plot_margin = ggplot2::margin(1, 1, 1, 1),
-                           xlim = NULL,
-                           ylim = NULL,
-                           ...) {
-  xy_lims <- set_xy_lims(data, dist, diag_ratio, unit, asp, crs, nudge, xlim, ylim)
+layer_neatline <- function(
+  data = NULL,
+  dist = getOption("maplayer.dist"),
+  diag_ratio = getOption("maplayer.diag_ratio"),
+  unit = getOption("maplayer.unit", default = "meter"),
+  asp = getOption("maplayer.asp"),
+  crs = getOption("maplayer.crs"),
+  nudge = getOption("maplayer.nudge"),
+  color = "black",
+  linewidth = 0.5,
+  linetype = "solid",
+  bgcolor = "white",
+  expand = TRUE,
+  hide_grid = TRUE,
+  label_axes = "----",
+  axis.title = NULL,
+  axis.text = NULL,
+  axis.ticks = NULL,
+  axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
+  axis.line = NULL,
+  panel.grid = NULL,
+  panel.grid.major = NULL,
+  panel.grid.minor = NULL,
+  panel.border = NULL,
+  panel.background = NULL,
+  plot.background = NULL,
+  plot.margin = NULL,
+  default_plot_margin = ggplot2::margin(1, 1, 1, 1),
+  xlim = NULL,
+  ylim = NULL,
+  ...
+) {
+  xy_lims <- set_xy_lims(
+    data,
+    dist,
+    diag_ratio,
+    unit,
+    asp,
+    crs,
+    nudge,
+    xlim,
+    ylim
+  )
 
   list(
     # Set limits with adjustments using coord_sf
@@ -115,15 +127,17 @@ layer_neatline <- function(data = NULL,
 #'
 #' @noRd
 #' @importFrom sfext st_bbox_ext
-set_xy_lims <- function(data = NULL,
-                        dist = getOption("maplayer.dist"),
-                        diag_ratio = getOption("maplayer.diag_ratio"),
-                        unit = getOption("maplayer.unit", default = "meter"),
-                        asp = getOption("maplayer.asp"),
-                        crs = getOption("maplayer.crs"),
-                        nudge = getOption("maplayer.nudge"),
-                        xlim = NULL,
-                        ylim = NULL) {
+set_xy_lims <- function(
+  data = NULL,
+  dist = getOption("maplayer.dist"),
+  diag_ratio = getOption("maplayer.diag_ratio"),
+  unit = getOption("maplayer.unit", default = "meter"),
+  asp = getOption("maplayer.asp"),
+  crs = getOption("maplayer.crs"),
+  nudge = getOption("maplayer.nudge"),
+  xlim = NULL,
+  ylim = NULL
+) {
   if (!is.null(data)) {
     bbox <- sfext::st_bbox_ext(
       x = data,
@@ -154,11 +168,13 @@ set_xy_lims <- function(data = NULL,
 #' @name theme_grid
 #' @export
 #' @importFrom ggplot2 theme element_blank
-theme_grid <- function(hide_grid = TRUE,
-                       grid = FALSE,
-                       panel.grid = NULL,
-                       panel.grid.major = NULL,
-                       panel.grid.minor = NULL) {
+theme_grid <- function(
+  hide_grid = TRUE,
+  grid = FALSE,
+  panel.grid = NULL,
+  panel.grid.major = NULL,
+  panel.grid.minor = NULL
+) {
   if (hide_grid || !grid) {
     return(
       ggplot2::theme(
@@ -184,15 +200,17 @@ theme_grid <- function(hide_grid = TRUE,
 #' @param axis.text.x,axis.text.y Passed to [ggplot2::theme()]
 #' @export
 #' @importFrom ggplot2 theme element_blank unit
-theme_sf_axis <- function(label_axes = "----",
-                          axis.title = NULL,
-                          axis.text = NULL,
-                          axis.text.x = NULL,
-                          axis.text.y = NULL,
-                          axis.ticks = NULL,
-                          axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
-                          axis.line = NULL,
-                          ...) {
+theme_sf_axis <- function(
+  label_axes = "----",
+  axis.title = NULL,
+  axis.text = NULL,
+  axis.text.x = NULL,
+  axis.text.y = NULL,
+  axis.ticks = NULL,
+  axis.ticks.length = ggplot2::unit(x = 0, units = "mm"),
+  axis.line = NULL,
+  ...
+) {
   if (label_axes == "----") {
     return(
       ggplot2::theme(
@@ -224,16 +242,18 @@ theme_sf_axis <- function(label_axes = "----",
 #'
 #' @noRd
 #' @importFrom ggplot2 theme element_blank element_rect
-theme_background <- function(color = "black",
-                             linewidth = 0.5,
-                             linetype = "solid",
-                             bgcolor = "white",
-                             expand = TRUE,
-                             plot.background = NULL,
-                             plot.margin = NULL,
-                             panel.border = NULL,
-                             panel.background = NULL,
-                             default_plot_margin = ggplot2::margin(1, 1, 1, 1)) {
+theme_background <- function(
+  color = "black",
+  linewidth = 0.5,
+  linetype = "solid",
+  bgcolor = "white",
+  expand = TRUE,
+  plot.background = NULL,
+  plot.margin = NULL,
+  panel.border = NULL,
+  panel.background = NULL,
+  default_plot_margin = ggplot2::margin(1, 1, 1, 1)
+) {
   panel.border <- panel.border %||% ggplot2::element_blank()
   panel.background <- panel.background %||% ggplot2::element_blank()
   plot.background <- plot.background %||% ggplot2::element_blank()
@@ -241,8 +261,10 @@ theme_background <- function(color = "black",
 
   if (!is.na(color) && (color != "none")) {
     panel.border <- ggplot2::element_rect(
-      color = color, linewidth = linewidth,
-      linetype = linetype, fill = NA
+      color = color,
+      linewidth = linewidth,
+      linetype = linetype,
+      fill = NA
     )
   }
 
@@ -278,18 +300,21 @@ theme_background <- function(color = "black",
 #' @importFrom dplyr case_when
 #' @importFrom rlang is_logical
 #' @importFrom ggplot2 is.ggplot
-set_neatline <- function(x = NULL,
-                         neatline = TRUE,
-                         data = NULL,
-                         crs = NULL,
-                         ...) {
+set_neatline <- function(
+  x = NULL,
+  neatline = TRUE,
+  data = NULL,
+  crs = NULL,
+  ...
+) {
   if (is_null(x) || is_false(neatline) || is_null(neatline)) {
     return(x)
   }
 
   if (!is_logical(neatline) && !is_neatline(neatline)) {
     cli::cli_abort(
-      c("{.arg neatline} must be {.cls logical}, a {.cls {c('Coord', 'ggproto')}} object,
+      c(
+        "{.arg neatline} must be {.cls logical}, a {.cls {c('Coord', 'ggproto')}} object,
       or list of {.cls {c('Coord', 'ggproto')}} objects.",
         "i" = "The class of the provided {.arg neatline} is {class(neatline)}."
       )

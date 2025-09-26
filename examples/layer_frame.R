@@ -4,9 +4,9 @@ raleigh_msa <-
   getdata::get_location(
     type = nc,
     name_col = "NAME",
-    name =  c("Franklin", "Johnston", "Wake"),
+    name = c("Franklin", "Johnston", "Wake"),
     crs = 3857
-    )
+  )
 
 ggplot() +
   layer_frame(

@@ -1,4 +1,7 @@
-nc <- getdata::get_location(type = system.file("shape/nc.shp", package = "sf"), crs = 3857)
+nc <- getdata::get_location(
+  type = system.file("shape/nc.shp", package = "sf"),
+  crs = 3857
+)
 
 basemap <-
   ggplot2::ggplot() +
