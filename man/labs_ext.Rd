@@ -32,8 +32,14 @@ labs_ext(
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:labs]{ggplot2::labs}}
   \describe{
+    \item{\code{dictionary}}{A named character vector to serve as dictionary.
+Automatically derived labels, such as those based on variables will
+be matched with \code{names(dictionary)} and replaced by the matching
+entry in \code{dictionary}.}
     \item{\code{alt,alt_insight}}{Text used for the generation of alt-text for the plot.
-See \link[ggplot2]{get_alt_text} for examples.}
+See \link[ggplot2]{get_alt_text} for examples. \code{alt} can also be a function that
+takes the plot as input and returns text as output. \code{alt} also accepts
+rlang \link[rlang:as_function]{lambda} function notation.}
   }}
 
 \item{title}{The text for the title.}
@@ -48,7 +54,9 @@ bottom-right of the plot by default.}
 top-left of the plot by default.}
 
 \item{alt, alt_insight}{Text used for the generation of alt-text for the plot.
-See \link[ggplot2]{get_alt_text} for examples.}
+See \link[ggplot2]{get_alt_text} for examples. \code{alt} can also be a function that
+takes the plot as input and returns text as output. \code{alt} also accepts
+rlang \link[rlang:as_function]{lambda} function notation.}
 
 \item{source_note}{Data source(s) to append to caption or use as caption (if
 no caption is supplied). Also supports glue string interpolation.}
@@ -87,7 +95,7 @@ syntactic elements), when parsing the expression string. Setting \code{.literal 
 \code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
 (especially, its name) as experimental.}
 
-\item{.transformer}{[\verb{function]}\cr A function taking two arguments, \code{text}
+\item{.transformer}{[\code{function}]\cr A function taking two arguments, \code{text}
 and \code{envir}, where \code{text} is the unparsed string inside the glue block and
 \code{envir} is the execution environment. A \code{.transformer} lets you modify a
 glue block before, during, or after evaluation, allowing you to create your

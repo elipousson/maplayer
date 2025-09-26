@@ -123,7 +123,8 @@ grouped; Default: \code{NULL}}
 
 \item{size}{Marker size, Default: 5}
 
-\item{label.size}{Size of label border, in mm.}
+\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Replaced by the
+\code{linewidth} aesthetic. Size of label border, in mm.}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 

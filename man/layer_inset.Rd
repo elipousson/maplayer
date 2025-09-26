@@ -63,7 +63,7 @@ Either \code{'panel'} (default), \code{'plot'}, or \code{'full'}.}
 \item{...}{
   Arguments passed on to \code{\link[patchwork:inset_element]{patchwork::inset_element}}
   \describe{
-    \item{\code{p}}{A grob, ggplot, patchwork, formula, raster, or nativeRaster object
+    \item{\code{p}}{A grob, ggplot, patchwork, formula, raster, nativeRaster, or gt object
 to add as an inset}
     \item{\code{left,bottom,right,top}}{numerics or units giving the location of the
 outer bounds. If given as numerics they will be converted to \code{npc} units.}

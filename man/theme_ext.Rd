@@ -125,7 +125,7 @@ NULL or method = "set" is recommended.
 \itemize{
 \item \code{\link[ggplot2:theme]{ggplot2::theme()}}
 \item \code{\link[ggplot2:element]{ggplot2::margin()}}
-\item \code{\link[ggplot2:theme_get]{ggplot2::theme_get()}}
+\item \code{\link[ggplot2:get_theme]{ggplot2::theme_get()}}
 \item \code{\link[ggplot2:update_defaults]{ggplot2::update_geom_defaults()}}
 }
 }

@@ -18,9 +18,9 @@ ggplot2::geom_sf_text
 #' @export
 ggplot2::geom_sf_label
 
-#' @importFrom ggplot2 last_plot
+#' @importFrom ggplot2 get_last_plot
 #' @export
-ggplot2::last_plot
+ggplot2::get_last_plot
 
 #' @importFrom ggplot2 margin
 #' @export
