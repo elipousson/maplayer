@@ -29,22 +29,24 @@
 #' @aliases layer_show_context
 #' @export
 #' @importFrom dplyr case_when
-layer_location_context <- function(data = NULL,
-                                   location = NULL,
-                                   fill = "gray70",
-                                   color = "black",
-                                   context = NULL,
-                                   context_params = list(
-                                     fill = "white",
-                                     color = "black",
-                                     alpha = 1,
-                                     ...
-                                   ),
-                                   crs = getOption("maplayer.crs", default = 3857),
-                                   mid_layer = NULL,
-                                   neatline = TRUE,
-                                   basemap = FALSE,
-                                   ...) {
+layer_location_context <- function(
+  data = NULL,
+  location = NULL,
+  fill = "gray70",
+  color = "black",
+  context = NULL,
+  context_params = list(
+    fill = "white",
+    color = "black",
+    alpha = 1,
+    ...
+  ),
+  crs = getOption("maplayer.crs", default = 3857),
+  mid_layer = NULL,
+  neatline = TRUE,
+  basemap = FALSE,
+  ...
+) {
   location_type <-
     dplyr::case_when(
       is_fn(location) && is.null(data) ~ "fn_location",
@@ -71,7 +73,8 @@ layer_location_context <- function(data = NULL,
   }
 
   location_layer <-
-    switch(location_type,
+    switch(
+      location_type,
       "sf" = layer_location_data(
         data = data %||% location,
         fill = fill,
@@ -87,7 +90,8 @@ layer_location_context <- function(data = NULL,
   }
 
   context_layer <-
-    switch(context_type,
+    switch(
+      context_type,
       "sf" = eval_tidy_fn(
         context,
         fn = layer_location_data,

@@ -6,7 +6,7 @@ nc_map <- ggplot(data = nc) +
   layer_location_data(
     location = nc[1, ],
     mapping = aes(fill = NAME)
-    )
+  )
 
 nc_map +
   theme_legend(

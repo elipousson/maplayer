@@ -44,7 +44,7 @@ stamp_inset_img(
 )
 }
 \arguments{
-\item{inset}{plot or map created with \code{\link[=ggplot2]{ggplot2()}} passed to p argument of
+\item{inset}{plot or map created with \code{\link[ggplot2:ggplot2]{ggplot2()}} passed to p argument of
 \code{\link[patchwork:inset_element]{patchwork::inset_element()}}. If both location and context are provided to
 \code{\link[=make_inset_map]{make_inset_map()}}, inset is optional and any provided value is replaced
 with a new layer created by \code{\link[=layer_location_context]{layer_location_context()}}.}
@@ -63,7 +63,7 @@ Either \code{'panel'} (default), \code{'plot'}, or \code{'full'}.}
 \item{...}{
   Arguments passed on to \code{\link[patchwork:inset_element]{patchwork::inset_element}}
   \describe{
-    \item{\code{p}}{A grob, ggplot, patchwork, formula, raster, or nativeRaster object
+    \item{\code{p}}{A grob, ggplot, patchwork, formula, raster, nativeRaster, or gt object
 to add as an inset}
     \item{\code{left,bottom,right,top}}{numerics or units giving the location of the
 outer bounds. If given as numerics they will be converted to \code{npc} units.}
@@ -83,10 +83,10 @@ the context.}
 
 \item{path}{image path passed to \code{\link[figpatch:fig]{figpatch::fig()}} for \code{\link[=stamp_inset_img]{stamp_inset_img()}}}
 
-\item{plot, map}{plot or map created with \code{\link[=ggplot2]{ggplot2()}}}
+\item{plot, map}{plot or map created with \code{\link[ggplot2:ggplot2]{ggplot2()}}}
 
 \item{img_margin}{margin around image for \code{\link[=stamp_inset_img]{stamp_inset_img()}} created by
-\code{\link[ggplot2:element]{ggplot2::margin()}}. Defaults to no margin.}
+\code{\link[ggplot2:margin]{ggplot2::margin()}}. Defaults to no margin.}
 }
 \value{
 ggplot2 map with inset map added using patchwork

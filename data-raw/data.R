@@ -17,7 +17,14 @@ get_repo_svg <- function(repo, branch = "main") {
     dplyr::transmute(
       repo = repo,
       name = stringr::str_extract(path, "(?<=/)[:graph:]+(?=.svg$)"),
-      url = paste0("https://raw.githubusercontent.com/", repo, "/", branch, "/", path)
+      url = paste0(
+        "https://raw.githubusercontent.com/",
+        repo,
+        "/",
+        branch,
+        "/",
+        path
+      )
     )
 }
 
@@ -36,7 +43,10 @@ temaki <-
   )
 
 wu_icons <-
-  get_repo_svg(repo = "manifestinteractive/weather-underground-icons", branch = "master") |>
+  get_repo_svg(
+    repo = "manifestinteractive/weather-underground-icons",
+    branch = "master"
+  ) |>
   dplyr::mutate(
     size = 64,
     style = stringr::str_extract(name, "(?<=icons/).+(?=/svg)"),
@@ -71,7 +81,10 @@ osm_map_icons <-
   )
 
 nps_icons <-
-  get_repo_svg(repo = "nationalparkservice/symbol-library", branch = "master") |>
+  get_repo_svg(
+    repo = "nationalparkservice/symbol-library",
+    branch = "master"
+  ) |>
   dplyr::mutate(
     size = dplyr::case_when(
       stringr::str_detect(name, "14") ~ 14,

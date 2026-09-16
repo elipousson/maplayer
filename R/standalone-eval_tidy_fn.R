@@ -41,10 +41,12 @@ is_fn <- function(x) {
 #' @inheritParams cli::cli_abort
 #' @noRd
 #' @importFrom rlang is_function is_formula as_function caller_env caller_arg
-make_fn <- function(fn,
-                    ...,
-                    arg = rlang::caller_arg(fn),
-                    call = rlang::caller_env()) {
+make_fn <- function(
+  fn,
+  ...,
+  arg = rlang::caller_arg(fn),
+  call = rlang::caller_env()
+) {
   rlang::check_required(fn, arg = arg, call = call)
 
   if (rlang::is_function(fn)) {
@@ -60,11 +62,13 @@ make_fn <- function(fn,
 #' @inheritParams make_fn
 #' @param ... Additional arguments to pass to function.
 #' @noRd
-use_fn <- function(x = NULL,
-                   .f = NULL,
-                   ...,
-                   arg = rlang::caller_arg(.f),
-                   call = rlang::caller_env()) {
+use_fn <- function(
+  x = NULL,
+  .f = NULL,
+  ...,
+  arg = rlang::caller_arg(.f),
+  call = rlang::caller_env()
+) {
   if (is.null(.f)) {
     return(x)
   }
@@ -83,15 +87,17 @@ use_fn <- function(x = NULL,
 #' @inheritParams rlang::check_installed
 #' @noRd
 #' @importFrom rlang caller_arg caller_env is_missing eval_tidy quo is_logical
-eval_tidy_fn <- function(x,
-                         params = NULL,
-                         pkg = NULL,
-                         fn = NULL,
-                         .f = NULL,
-                         reason = NULL,
-                         arg = rlang::caller_arg(fn),
-                         env = rlang::caller_env(),
-                         call = rlang::caller_env()) {
+eval_tidy_fn <- function(
+  x,
+  params = NULL,
+  pkg = NULL,
+  fn = NULL,
+  .f = NULL,
+  reason = NULL,
+  arg = rlang::caller_arg(fn),
+  env = rlang::caller_env(),
+  call = rlang::caller_env()
+) {
   if (rlang::is_empty(params) && !rlang::is_missing(x)) {
     return(x)
   }
@@ -122,11 +128,13 @@ eval_tidy_fn <- function(x,
 #' @noRd
 #' @importFrom rlang fn_fmls is_missing
 #' @importFrom utils modifyList
-modify_fn_params <- function(params,
-                             fn,
-                             keep_missing = FALSE,
-                             keep.null = FALSE,
-                             ...) {
+modify_fn_params <- function(
+  params,
+  fn,
+  keep_missing = FALSE,
+  keep.null = FALSE,
+  ...
+) {
   fmls <- rlang::fn_fmls(fn)
 
   if (!keep_missing) {

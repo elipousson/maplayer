@@ -19,7 +19,7 @@ Imports:
     cliExtras (>= 0.1.0),
     dplyr,
     getdata (>= 0.1.0),
-    ggplot2,
+    ggplot2 (>= 4.0.0),
     glue,
     lifecycle,
     papersize (>= 0.1.0.9001),
@@ -30,6 +30,7 @@ Imports:
     vctrs
 Suggests: 
     covr,
+    exiftoolr,
     figpatch,
     filenamr (>= 0.1.0.9002),
     geomtextpath,
@@ -53,7 +54,8 @@ Suggests:
     smoothr,
     testthat (>= 3.0.0),
     tibble,
-    vdiffr
+    vdiffr,
+    withr
 Remotes: 
     coolbutuseless/ggsvg,
     elipousson/cliExtras,
@@ -67,4 +69,4 @@ Config/testthat/parallel: true
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+Config/roxygen2/version: 8.1.0

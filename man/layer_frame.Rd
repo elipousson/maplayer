@@ -81,7 +81,11 @@ the input data is used as the frame.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
-limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.
+Giving a logical vector will separately control the expansion for the four
+directions (top, left, bottom and right). The \code{expand} argument will be
+recycled to length 4 if necessary. Alternatively, can be a named logical
+vector to control a single direction, e.g. \code{expand = c(bottom = FALSE)}.}
 
 \item{basemap}{Either a logical vector or ggplot object.
 
@@ -93,14 +97,14 @@ If a \strong{ggplot}, add x to basemap object.
 If a \strong{ggproto} object (or list that contains a \strong{ggproto} object), add x
 and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 
-\item{union}{If \code{TRUE}, pass data to \code{\link[sf:geos_combine]{sf::st_union()}} before buffering and
+\item{union}{If \code{TRUE}, pass data to \code{\link[sf:st_union]{sf::st_union()}} before buffering and
 creating frame; defaults to \code{TRUE}.}
 
 \item{by_feature}{If \code{TRUE}, create a frame around each feature. If \code{FALSE}
 (default), union the provided features before creating a frame.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}
+  Arguments passed on to \code{\link{layer_location_data}}
   \describe{
     \item{\code{layer_fn}}{ggplot2 geom or custom function using lambda syntax. Use for
 passing custom mapping functions to layer_location_data beyond the
@@ -143,7 +147,7 @@ function is helpful for the background of an inset map intended for use with
 \code{\link[=layer_inset]{layer_inset()}}.
 }
 \details{
-The \code{\link[=make_frame]{make_frame()}} helper function calls \code{\link[sfext:st_misc]{sfext::st_circle()}} (if \code{style = "circle"}), \code{\link[sfext:st_square]{sfext::st_square()}}  (if \code{style = "square"}),
+The \code{\link[=make_frame]{make_frame()}} helper function calls \code{\link[sfext:st_circle]{sfext::st_circle()}} (if \code{style = "circle"}), \code{\link[sfext:st_square]{sfext::st_square()}}  (if \code{style = "square"}),
 \code{\link[sfext:st_bbox_ext]{sfext::st_bbox_ext()}} (if \code{style = "rect"}), or \code{\link[sfext:st_buffer_ext]{sfext::st_buffer_ext()}} (if
 \code{style = "none"}).
 
@@ -164,9 +168,9 @@ raleigh_msa <-
   getdata::get_location(
     type = nc,
     name_col = "NAME",
-    name =  c("Franklin", "Johnston", "Wake"),
+    name = c("Franklin", "Johnston", "Wake"),
     crs = 3857
-    )
+  )
 
 ggplot() +
   layer_frame(
@@ -185,9 +189,9 @@ ggplot() +
   )
 }
 \seealso{
-Other layer: 
-\code{\link{layer_location_data}()},
-\code{\link{layer_neatline}()},
-\code{\link{layer_scaled}()}
+Other layer:
+\code{\link[=layer_location_data]{layer_location_data()}},
+\code{\link[=layer_neatline]{layer_neatline()}},
+\code{\link[=layer_scaled]{layer_scaled()}}
 }
 \concept{layer}

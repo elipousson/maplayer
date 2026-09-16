@@ -21,15 +21,17 @@
 #' @export
 #' @importFrom papersize get_page_size page_layout map_ggsave_ext
 #' @importFrom cli cli_progress_step
-make_atlas <- function(plots,
-                       dims = NULL,
-                       ncol = NULL,
-                       nrow = NULL,
-                       page = "letter",
-                       orientation = "portrait",
-                       save = FALSE,
-                       filename = NULL,
-                       ...) {
+make_atlas <- function(
+  plots,
+  dims = NULL,
+  ncol = NULL,
+  nrow = NULL,
+  page = "letter",
+  orientation = "portrait",
+  save = FALSE,
+  filename = NULL,
+  ...
+) {
   page <- papersize::get_page_size(page, orientation = orientation)
 
   cli::cli_progress_step("Creating sheet map plots")

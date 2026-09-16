@@ -9,5 +9,5 @@
     label = "North Carolina",
     device = "pdf",
     paper = "letter"
-    )
+  )
 }

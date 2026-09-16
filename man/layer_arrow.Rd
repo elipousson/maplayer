@@ -33,8 +33,8 @@ is used to provide crs.}
 paramter.}
 }
 \description{
-A wrapper for \link[ggplot2:geom_segment]{ggplot2::geom_segment}, \code{\link[ggplot2:geom_segment]{ggplot2::geom_curve()}},
-\code{\link[ggarchery:geom_arrowsegment]{ggarchery::geom_arrowsegment()}}, \code{\link[ggforce:geom_diagonal]{ggforce::geom_diagonal0()}},
+A wrapper for \link[ggplot2:geom_segment]{ggplot2::geom_segment}, \code{\link[ggplot2:geom_curve]{ggplot2::geom_curve()}},
+\code{\link[ggarchery:geom_arrowsegment]{ggarchery::geom_arrowsegment()}}, \code{\link[ggforce:geom_diagonal0]{ggforce::geom_diagonal0()}},
 \code{\link[ggforce:geom_link]{ggforce::geom_link()}} that makes it easier to specify the start and end of
 the segment using any object supported by the \code{\link[sfext:as_xy]{sfext::as_xy()}} function.
 }

@@ -71,29 +71,31 @@
 #' @importFrom ggplot2 geom_sf geom_sf_text geom_sf_label
 #' @importFrom utils modifyList
 #' @importFrom rlang is_function is_formula arg_match has_name exec
-layer_location_data <- function(mapping = NULL,
-                                data = NULL,
-                                geom = "sf",
-                                location = NULL,
-                                dist = getOption("maplayer.dist"),
-                                diag_ratio = getOption("maplayer.diag_ratio"),
-                                unit = getOption("maplayer.unit", default = "meter"),
-                                asp = getOption("maplayer.asp"),
-                                package = getOption("maplayer.data_package"),
-                                pkg = getOption("maplayer.data_package"),
-                                fileext = getOption("maplayer.data_fileext", "gpkg"),
-                                filetype = NULL,
-                                fn = NULL,
-                                layer_fn = NULL,
-                                crop = TRUE,
-                                trim = FALSE,
-                                from_crs = getOption("maplayer.from_crs", 4326),
-                                crs = getOption("maplayer.crs", 3857),
-                                label_col = "name",
-                                smooth_params = NULL,
-                                shadow_params = NULL,
-                                basemap = FALSE,
-                                ...) {
+layer_location_data <- function(
+  mapping = NULL,
+  data = NULL,
+  geom = "sf",
+  location = NULL,
+  dist = getOption("maplayer.dist"),
+  diag_ratio = getOption("maplayer.diag_ratio"),
+  unit = getOption("maplayer.unit", default = "meter"),
+  asp = getOption("maplayer.asp"),
+  package = getOption("maplayer.data_package"),
+  pkg = getOption("maplayer.data_package"),
+  fileext = getOption("maplayer.data_fileext", "gpkg"),
+  filetype = NULL,
+  fn = NULL,
+  layer_fn = NULL,
+  crop = TRUE,
+  trim = FALSE,
+  from_crs = getOption("maplayer.from_crs", 4326),
+  crs = getOption("maplayer.crs", 3857),
+  label_col = "name",
+  smooth_params = NULL,
+  shadow_params = NULL,
+  basemap = FALSE,
+  ...
+) {
   fileext <- fileext %||% filetype
 
   if (!is_fn(data)) {
@@ -152,8 +154,14 @@ layer_location_data <- function(mapping = NULL,
   # The geom parameter is set to the default value
   maplayer_geoms_take_geom <- c("markers", "numbers", "numbered")
   maplayer_geoms <- c(
-    "icon", "mapbox", "mark", "marked", "location",
-    "context", "location_context", maplayer_geoms_take_geom
+    "icon",
+    "mapbox",
+    "mark",
+    "marked",
+    "location",
+    "context",
+    "location_context",
+    maplayer_geoms_take_geom
   )
 
   # These text geom functions require a name aesthetic parameter and/or a
@@ -187,7 +195,8 @@ layer_location_data <- function(mapping = NULL,
   geom_chr <- geom
 
   geom <-
-    switch(geom_chr,
+    switch(
+      geom_chr,
       "sf" = ggplot2::geom_sf,
       "text" = ggplot2::geom_sf_text,
       "sf_text" = ggplot2::geom_sf_text,
@@ -225,7 +234,8 @@ layer_location_data <- function(mapping = NULL,
   # Reset geom to default for layer_markers or layer_numbers
   if (geom_chr %in% maplayer_geoms_take_geom) {
     params$geom <-
-      switch(geom_chr,
+      switch(
+        geom_chr,
         "markers" = "sf",
         "numbers" = "label",
         "numbered" = "label"
@@ -242,8 +252,10 @@ layer_location_data <- function(mapping = NULL,
   }
 
   # Reset default for ggrepel functions
-  if (!rlang::has_name(init_params, c("direction")) &&
-    (geom_chr %in% ggrepel_geoms)) {
+  if (
+    !rlang::has_name(init_params, c("direction")) &&
+      (geom_chr %in% ggrepel_geoms)
+  ) {
     params$direction <- "both"
   }
 

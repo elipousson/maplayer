@@ -4,15 +4,17 @@ export(aes)
 export(geom_sf)
 export(geom_sf_icon)
 export(geom_sf_label)
+export(geom_sf_label_ext)
 export(geom_sf_text)
+export(geom_sf_text_ext)
 export(get_group_data_pal_scale)
+export(get_last_plot)
 export(ggplot)
 export(ggsave_ext)
 export(ggsave_social)
 export(group_data_pal)
 export(guides)
 export(labs_ext)
-export(last_plot)
 export(layer_arrow)
 export(layer_count)
 export(layer_frame)
@@ -55,124 +57,146 @@ export(theme_margin)
 export(theme_sf_axis)
 export(theme_text)
 import(rlang)
-importFrom(cli,cli_abort)
-importFrom(cli,cli_inform)
-importFrom(cli,cli_progress_step)
-importFrom(cli,cli_warn)
-importFrom(cliExtras,cli_abort_if)
-importFrom(cliExtras,cli_abort_ifnot)
-importFrom(cliExtras,cli_warn_ifnot)
-importFrom(cliExtras,cli_yesno)
-importFrom(dplyr,arrange)
-importFrom(dplyr,bind_cols)
-importFrom(dplyr,case_when)
-importFrom(dplyr,filter)
-importFrom(dplyr,group_by)
-importFrom(dplyr,group_keys)
-importFrom(dplyr,group_nest)
-importFrom(dplyr,left_join)
-importFrom(dplyr,mutate)
-importFrom(dplyr,n_groups)
-importFrom(dplyr,rename)
-importFrom(dplyr,row_number)
-importFrom(dplyr,summarise)
-importFrom(getdata,get_location)
-importFrom(getdata,get_location_data)
-importFrom(ggplot2,aes)
-importFrom(ggplot2,after_stat)
-importFrom(ggplot2,arrow)
-importFrom(ggplot2,coord_sf)
-importFrom(ggplot2,element_blank)
-importFrom(ggplot2,element_rect)
-importFrom(ggplot2,element_text)
-importFrom(ggplot2,geom_curve)
-importFrom(ggplot2,geom_sf)
-importFrom(ggplot2,geom_sf_label)
-importFrom(ggplot2,geom_sf_text)
-importFrom(ggplot2,ggplot)
-importFrom(ggplot2,guide_legend)
-importFrom(ggplot2,guides)
-importFrom(ggplot2,is.ggplot)
-importFrom(ggplot2,labs)
-importFrom(ggplot2,last_plot)
-importFrom(ggplot2,margin)
-importFrom(ggplot2,scale_color_manual)
-importFrom(ggplot2,scale_fill_continuous)
-importFrom(ggplot2,scale_fill_manual)
-importFrom(ggplot2,scale_x_continuous)
-importFrom(ggplot2,scale_y_continuous)
-importFrom(ggplot2,theme)
-importFrom(ggplot2,theme_replace)
-importFrom(ggplot2,theme_set)
-importFrom(ggplot2,theme_update)
-importFrom(ggplot2,unit)
-importFrom(ggplot2,update_geom_defaults)
-importFrom(ggplot2,waiver)
-importFrom(glue,glue)
-importFrom(glue,glue_collapse)
+importFrom(cli,
+  cli_abort,
+  cli_inform,
+  cli_progress_step,
+  cli_warn
+)
+importFrom(cliExtras,
+  cli_abort_if,
+  cli_abort_ifnot,
+  cli_warn_ifnot,
+  cli_yesno
+)
+importFrom(dplyr,
+  arrange,
+  bind_cols,
+  case_when,
+  filter,
+  group_by,
+  group_keys,
+  group_nest,
+  left_join,
+  mutate,
+  n_groups,
+  rename,
+  row_number,
+  summarise
+)
+importFrom(getdata,
+  get_location,
+  get_location_data
+)
+importFrom(ggplot2,
+  aes,
+  after_stat,
+  arrow,
+  coord_sf,
+  element_blank,
+  element_rect,
+  element_text,
+  geom_curve,
+  geom_sf,
+  geom_sf_label,
+  geom_sf_text,
+  get_last_plot,
+  ggplot,
+  guide_legend,
+  guides,
+  is_ggplot,
+  labs,
+  margin,
+  scale_color_manual,
+  scale_fill_continuous,
+  scale_fill_manual,
+  scale_x_continuous,
+  scale_y_continuous,
+  theme,
+  theme_replace,
+  theme_set,
+  theme_update,
+  unit,
+  update_geom_defaults,
+  waiver
+)
+importFrom(glue,
+  glue,
+  glue_collapse
+)
 importFrom(grid,unit)
 importFrom(lifecycle,deprecated)
-importFrom(papersize,get_page_size)
-importFrom(papersize,get_paper)
-importFrom(papersize,get_social_size)
-importFrom(papersize,ggsave_ext)
-importFrom(papersize,ggsave_social)
-importFrom(papersize,make_page_size)
-importFrom(papersize,map_ggsave_ext)
-importFrom(papersize,page_layout)
-importFrom(rlang,arg_match)
-importFrom(rlang,as_function)
-importFrom(rlang,caller_arg)
-importFrom(rlang,caller_env)
-importFrom(rlang,check_installed)
-importFrom(rlang,check_required)
-importFrom(rlang,current_env)
-importFrom(rlang,eval_tidy)
-importFrom(rlang,exec)
-importFrom(rlang,fn_fmls)
-importFrom(rlang,has_length)
-importFrom(rlang,has_name)
-importFrom(rlang,is_character)
-importFrom(rlang,is_formula)
-importFrom(rlang,is_function)
-importFrom(rlang,is_installed)
-importFrom(rlang,is_logical)
-importFrom(rlang,is_missing)
-importFrom(rlang,quo)
-importFrom(rlang,zap)
-importFrom(scales,breaks_pretty)
-importFrom(scales,viridis_pal)
-importFrom(sf,st_centroid)
-importFrom(sf,st_difference)
-importFrom(sf,st_geometry)
-importFrom(sf,st_intersects)
-importFrom(sf,st_join)
-importFrom(sf,st_transform)
-importFrom(sf,st_union)
-importFrom(sf,st_zm)
-importFrom(sfext,as_bbox)
-importFrom(sfext,as_sf)
-importFrom(sfext,as_xy)
-importFrom(sfext,check_sf)
-importFrom(sfext,convert_dist_scale)
-importFrom(sfext,count_sf_ext)
-importFrom(sfext,df_to_sf)
-importFrom(sfext,get_margin)
-importFrom(sfext,get_sf_col)
-importFrom(sfext,is_geom_type)
-importFrom(sfext,is_sf)
-importFrom(sfext,read_sf_exif)
-importFrom(sfext,sf_bbox_point)
-importFrom(sfext,sf_bbox_xdist)
-importFrom(sfext,sf_bbox_ydist)
-importFrom(sfext,st_bbox_ext)
-importFrom(sfext,st_buffer_ext)
-importFrom(sfext,st_cast_ext)
-importFrom(sfext,st_center)
-importFrom(sfext,st_circle)
-importFrom(sfext,st_clip)
-importFrom(sfext,st_erase)
-importFrom(sfext,st_square)
-importFrom(sfext,st_transform_ext)
+importFrom(papersize,
+  get_page_size,
+  get_paper,
+  get_social_size,
+  ggsave_ext,
+  ggsave_social,
+  make_page_size,
+  map_ggsave_ext,
+  page_layout
+)
+importFrom(rlang,
+  arg_match,
+  as_function,
+  caller_arg,
+  caller_env,
+  check_installed,
+  check_required,
+  current_env,
+  eval_tidy,
+  exec,
+  fn_fmls,
+  has_length,
+  has_name,
+  is_character,
+  is_formula,
+  is_function,
+  is_installed,
+  is_logical,
+  is_missing,
+  quo,
+  zap
+)
+importFrom(scales,
+  breaks_pretty,
+  viridis_pal
+)
+importFrom(sf,
+  st_centroid,
+  st_difference,
+  st_geometry,
+  st_intersects,
+  st_join,
+  st_transform,
+  st_union,
+  st_zm
+)
+importFrom(sfext,
+  as_bbox,
+  as_sf,
+  as_xy,
+  check_sf,
+  convert_dist_scale,
+  count_sf_ext,
+  df_to_sf,
+  get_margin,
+  get_sf_col,
+  is_geom_type,
+  is_sf,
+  read_sf_exif,
+  sf_bbox_point,
+  sf_bbox_xdist,
+  sf_bbox_ydist,
+  st_bbox_ext,
+  st_buffer_ext,
+  st_cast_ext,
+  st_center,
+  st_circle,
+  st_clip,
+  st_erase,
+  st_square,
+  st_transform_ext
+)
 importFrom(utils,modifyList)
 importFrom(vctrs,vec_cbind)

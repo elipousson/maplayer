@@ -85,27 +85,29 @@
 #' @importFrom ggplot2 unit
 #' @importFrom sfext as_sf st_center st_cast_ext
 #' @importFrom sf st_geometry
-layer_marked <- function(data,
-                         fn = NULL,
-                         mapping = NULL,
-                         label_col = NULL,
-                         desc_col = NULL,
-                         geom = NULL,
-                         center = FALSE,
-                         font_family = NULL,
-                         font_face = c("bold", "plain"),
-                         font_color = NULL,
-                         expand = ggplot2::unit(5, "mm"),
-                         radius = expand,
-                         stat = "sf_coordinates",
-                         drop_shadow = FALSE,
-                         shadow_params = list(
-                           x_offset = 5,
-                           y_offset = 5,
-                           sigma = 0.5,
-                           ...
-                         ),
-                         ...) {
+layer_marked <- function(
+  data,
+  fn = NULL,
+  mapping = NULL,
+  label_col = NULL,
+  desc_col = NULL,
+  geom = NULL,
+  center = FALSE,
+  font_family = NULL,
+  font_face = c("bold", "plain"),
+  font_color = NULL,
+  expand = ggplot2::unit(5, "mm"),
+  radius = expand,
+  stat = "sf_coordinates",
+  drop_shadow = FALSE,
+  shadow_params = list(
+    x_offset = 5,
+    y_offset = 5,
+    sigma = 0.5,
+    ...
+  ),
+  ...
+) {
   rlang::check_installed("ggforce")
 
   # FIXME: This should be consistent across the different layer functions
@@ -164,10 +166,12 @@ layer_marked <- function(data,
   geom <- match.arg(geom, c("rect", "circle", "ellipse", "hull"))
 
   mark_layer <-
-    switch(geom,
+    switch(
+      geom,
       # Annotate areas with rectangles
       "rect" = ggforce::geom_mark_rect(
-        data = data, mapping = mapping,
+        data = data,
+        mapping = mapping,
         label.family = font_family,
         label.fontface = font_face,
         label.colour = font_color,
@@ -176,7 +180,8 @@ layer_marked <- function(data,
       ),
       # Annotate areas with circles
       "circle" = ggforce::geom_mark_circle(
-        data = data, mapping = mapping,
+        data = data,
+        mapping = mapping,
         label.family = font_family,
         label.fontface = font_face,
         label.colour = font_color,
@@ -187,7 +192,8 @@ layer_marked <- function(data,
       ),
       # Annotate areas with ellipses
       "ellipse" = ggforce::geom_mark_ellipse(
-        data = data, mapping = mapping,
+        data = data,
+        mapping = mapping,
         label.family = font_family,
         label.fontface = font_face,
         label.colour = font_color,
@@ -198,7 +204,8 @@ layer_marked <- function(data,
       ),
       # Annotate areas with hulls
       "hull" = ggforce::geom_mark_hull(
-        data = data, mapping = mapping,
+        data = data,
+        mapping = mapping,
         label.family = font_family,
         label.fontface = font_face,
         label.colour = font_color,

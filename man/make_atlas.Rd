@@ -36,12 +36,12 @@ page width and height.}
 "portrait", "landscape", or "square".}
 
 \item{save}{If \code{TRUE}, save atlas plots to files using
-\code{\link[papersize:ggsave_ext]{papersize::map_ggsave_ext()}} Default: FALSE}
+\code{\link[papersize:map_ggsave_ext]{papersize::map_ggsave_ext()}} Default: FALSE}
 
 \item{filename}{File name to create on disk.}
 
 \item{...}{
-  Arguments passed on to \code{\link[papersize:ggsave_ext]{papersize::map_ggsave_ext}}
+  Arguments passed on to \code{\link[papersize:map_ggsave_ext]{papersize::map_ggsave_ext}}
   \describe{
     \item{\code{name}}{Plot name, used to create filename (if filename is \code{NULL}) using
 \code{\link[filenamr:make_filename]{filenamr::make_filename()}}}
@@ -52,6 +52,9 @@ label is ignored if name is NULL or if name includes a file extension.}
     \item{\code{prefix}}{File name prefix. "date" adds a date prefix, "time" adds a
 date/time prefix; defaults to \code{NULL}.}
     \item{\code{postfix}}{File name postfix; defaults to \code{NULL}.}
+    \item{\code{increment}}{If \code{TRUE}, increment digits in string by 1. If numeric,
+increment digits in string by value. If \code{NULL}, 0, or if no digits are
+present in string, return string as is.}
     \item{\code{device}}{Device to use. Can either be a device function
 (e.g. \link{png}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only). If
@@ -62,9 +65,44 @@ file extension.}
     \item{\code{path}}{Path of the directory to save plot to: \code{path} and \code{filename}
 are combined to create the fully qualified file name. Defaults to the
 working directory.}
+    \item{\code{paper}}{Paper matching name from \code{paper_sizes} (e.g. "letter"). Not case
+sensitive.}
+    \item{\code{width,height}}{Plot size in units expressed by the \code{units} argument.
+If not supplied, uses the size of the current graphics device.}
+    \item{\code{asp}}{Numeric aspect ratio used to determine width or height if only one
+of the two arguments is provided; defaults to \code{NULL}.}
+    \item{\code{units}}{One of the following units in which the \code{width} and \code{height}
+arguments are expressed: \code{"in"}, \code{"cm"}, \code{"mm"} or \code{"px"}.}
+    \item{\code{scale}}{Multiplicative scaling factor.}
+    \item{\code{dpi}}{Plot resolution. Also accepts a string input: "retina" (320),
+"print" (300), or "screen" (72). Only applies when converting pixel units,
+as is typical for raster output types.}
+    \item{\code{bgcolor}}{Background color to optionally override \code{plot.background}
+theme element.}
+    \item{\code{exif}}{If \code{TRUE}, the EXIF metadata for the exported file is updated
+with the exifr package; defaults to \code{FALSE}.}
+    \item{\code{title}}{Title to add to file metadata with exiftoolr, Default: \code{NULL}.}
+    \item{\code{author}}{Author to add to file metadata to the "Author" and
+"XMP-dc:creator" tags. Default: \code{NULL}.}
+    \item{\code{keywords}}{Keyword(s) added to file metadata to "IPTC:Keywords" and
+"XMP-dc:Subject" tags. Defaults to \code{NULL}.}
+    \item{\code{args}}{Alternate arguments passed to \code{\link[exiftoolr:exif_call]{exiftoolr::exif_call()}}. Other tag
+parameters are appended to args if they are not \code{NULL}.}
     \item{\code{overwrite}}{If \code{TRUE} (default), overwrite any existing file with the
 same name or ask to overwrite if \code{ask = TRUE}. Passed to
 \code{\link[filenamr:check_file_overwrite]{filenamr::check_file_overwrite()}}.}
+    \item{\code{ask}}{If \code{TRUE}, ask before overwriting file with the same name.
+Defaults to \code{FALSE}. Passed to \code{\link[filenamr:check_file_overwrite]{filenamr::check_file_overwrite()}}.}
+    \item{\code{preview}}{If \code{TRUE}, open saved file in default system application.
+Based on ggpreview from tjmisc package.}
+    \item{\code{limitsize}}{When \code{TRUE} (the default), \code{ggsave()} will not
+save images larger than 50x50 inches, to prevent the common error of
+specifying dimensions in pixels.}
+    \item{\code{quiet}}{If \code{TRUE} (default), suppress function messages.}
+    \item{\code{image}}{Image name passed to name parameter of \code{\link[papersize:get_social_size]{get_social_size()}}.}
+    \item{\code{platform}}{Social media platform, "Instagram", "Facebook", or "Twitter",
+Default: \code{NULL}}
+    \item{\code{format}}{Image format, "post", "story", or "cover", Default: \code{NULL}}
     \item{\code{single_file,onefile}}{If \code{TRUE}, use \code{\link[gridExtra:arrangeGrob]{gridExtra::arrangeGrob()}} to create an
 arrangelist class object that \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}} can save as a single
 multi-page file. Note: this does not work with plots modified with
@@ -77,7 +115,7 @@ OUTPUT_DESCRIPTION
 }
 \description{
 \code{\link[=make_atlas]{make_atlas()}} is a wrapper for \code{\link[papersize:page_layout]{papersize::page_layout()}} and
-\code{\link[papersize:ggsave_ext]{papersize::map_ggsave_ext()}} with the intent for taking a list of maps into
+\code{\link[papersize:map_ggsave_ext]{papersize::map_ggsave_ext()}} with the intent for taking a list of maps into
 a set of patchwork plots and optionally save plots to file. The function is
 similar to \code{\link[papersize:make_contact_sheets]{papersize::make_contact_sheets()}}.
 }

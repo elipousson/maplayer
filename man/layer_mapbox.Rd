@@ -85,7 +85,7 @@ Default: \code{TRUE}}
 \item{color}{Color of panel border, Default: 'black'}
 
 \item{bgcolor}{Fill color of panel background; defaults to "white". If
-"none", panel background is set to \code{\link[ggplot2:element]{ggplot2::element_blank()}}}
+"none", panel background is set to \code{\link[ggplot2:element_blank]{ggplot2::element_blank()}}}
 
 \item{linewidth}{Line width of panel border, Default: 0.5}
 
@@ -93,12 +93,16 @@ Default: \code{TRUE}}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
-limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.
+Giving a logical vector will separately control the expansion for the four
+directions (top, left, bottom and right). The \code{expand} argument will be
+recycled to length 4 if necessary. Alternatively, can be a named logical
+vector to control a single direction, e.g. \code{expand = c(bottom = FALSE)}.}
 
 \item{hide_grid}{If \code{TRUE}, hide grid lines. Default: \code{TRUE}}
 
 \item{label_axes}{A description of which axes to label passed to
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes labels.}
+\code{\link[ggplot2:coord_sf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes labels.}
 
 \item{...}{Additional parameter passed to \link[mapboxapi:layer_static_mapbox]{mapboxapi::layer_static_mapbox}}
 }

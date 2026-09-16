@@ -79,7 +79,6 @@ test_that("set_neatline works", {
     "ggplot"
   )
 
-
   # vdiffr::expect_doppelganger(
   #   title = "set_neatline",
   #   fig = set_neatline(nc_map, data = nc[1, ])

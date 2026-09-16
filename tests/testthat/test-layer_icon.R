@@ -1,4 +1,5 @@
 test_that("layer_icon works", {
+  skip_if_not_installed("ggsvg")
   nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
   nc <- sf::st_transform(nc, crs = 3857)
 

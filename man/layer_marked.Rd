@@ -43,12 +43,12 @@ Default: NULL}
 "ellipse", or "hull"), Default: \code{NULL}}
 
 \item{center}{If \code{FALSE}, use \link[sfext:st_cast_ext]{sfext::st_cast_ext} MULTIPOLYGON and
-POLYGON data to POINT; If \code{TRUE}, use \link[sfext:st_misc]{sfext::st_center} use centroid as
+POLYGON data to POINT; If \code{TRUE}, use \link[sfext:st_center]{sfext::st_center} use centroid as
 the feature geometry. Defaults to FALSE.}
 
 \item{font_family, font_face, font_color}{Parameters passed to label.family,
 label.fontface, and label.colour. If \code{NULL}, values are set to match
-\link[ggplot2:geom_text]{ggplot2::geom_label} defaults. Defaults to \code{NULL}.}
+\link[ggplot2:geom_label]{ggplot2::geom_label} defaults. Defaults to \code{NULL}.}
 
 \item{expand}{A numeric or unit vector of length one, specifying the
 expansion amount. Negative values will result in contraction instead. If the

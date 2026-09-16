@@ -15,9 +15,6 @@
 #'
 #' @inheritParams rlang::args_error_context
 #' @export
-#' @importFrom rlang is_logical
-#' @importFrom ggplot2 ggplot is.ggplot
-#' @importFrom cliExtras cli_abort_ifnot
 set_basemap <- function(x, basemap = FALSE, call = caller_env()) {
   plot_gg_list(x, plot = basemap, call = call)
 }

@@ -14,19 +14,22 @@ is_any_gg <- function(x) {
 #'
 #' @noRd
 is_neatline <- function(x) {
-  obj_is_gg(x) && (ggplot2::is.Coord(x) || any(vapply(x, ggplot2::is.Coord, FALSE)))
+  obj_is_gg(x) &&
+    (ggplot2::is_coord(x) || any(vapply(x, ggplot2::is_coord, FALSE)))
 }
 
 
 #' Helper function to add geometry to mapping and "sf_coordinates" to stat
 #'
 #' @noRd
-geom_sf_coordinates <- function(mapping = aes(),
-                                data = NULL,
-                                geom = NULL,
-                                .envir = parent.frame(),
-                                call = .envir,
-                                ...) {
+geom_sf_coordinates <- function(
+  mapping = aes(),
+  data = NULL,
+  geom = NULL,
+  .envir = parent.frame(),
+  call = .envir,
+  ...
+) {
   mapping <- mapping %||% aes()
   geom(
     mapping = aes_sf_coords(mapping, data),
@@ -63,6 +66,8 @@ aes_sf_coords <- function(mapping = aes(), data = NULL, sf_col = "geometry") {
 #' @importFrom rlang has_name
 #' @importFrom utils modifyList
 aes_label <- function(mapping = aes(), data = NULL, label_col = "name") {
+  mapping <- mapping %||% ggplot2::aes()
+
   if (rlang::has_name(mapping, "label")) {
     return(mapping)
   }

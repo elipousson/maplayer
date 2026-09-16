@@ -29,7 +29,7 @@ geom_sf_icon(
 }
 \arguments{
 \item{data}{A \code{sf} object. Any objects with polygon geometry are converted to
-points using \code{\link[sf:geos_unary]{sf::st_centroid()}}.}
+points using \code{\link[sf:st_centroid]{sf::st_centroid()}}.}
 
 \item{iconname_col}{The column name in the input data to use as the icon
 name. If the name matches multiple icons, the first match from \code{map_icons}
@@ -62,7 +62,7 @@ ignored.}
        property will have a default value of "black"
 
 Set `options(GGSVG_DEBUG = TRUE)` for some verbose debugging which will
-cause `{ggsvg}` to output (to the console) the final SVG for each and every element
+cause ggsvg to output (to the console) the final SVG for each and every element
 in the plot.}
   }}
 }
@@ -71,7 +71,10 @@ Use the \code{\link[ggsvg:geom_point_svg]{ggsvg::geom_point_svg()}} function to 
 from the input simple feature object to set the icon location.
 }
 \examples{
-nc <- getdata::get_location(type = system.file("shape/nc.shp", package = "sf"), crs = 3857)
+nc <- getdata::get_location(
+  type = system.file("shape/nc.shp", package = "sf"),
+  crs = 3857
+)
 
 basemap <-
   ggplot2::ggplot() +

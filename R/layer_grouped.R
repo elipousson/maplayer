@@ -17,24 +17,33 @@
 #' @export
 #' @importFrom dplyr group_by group_nest
 #' @importFrom ggplot2 ggplot
-layer_grouped <- function(data,
-                          mapping = NULL,
-                          groupname_col = "group",
-                          label_col = "name",
-                          geom = "sf",
-                          basemap = FALSE,
-                          palette = NULL,
-                          aesthetics = "fill",
-                          ...) {
+layer_grouped <- function(
+  data,
+  mapping = NULL,
+  groupname_col = "group",
+  label_col = "name",
+  geom = "sf",
+  basemap = FALSE,
+  palette = NULL,
+  aesthetics = "fill",
+  ...
+) {
   geom_type <- sfext::is_geom_type(x = data)
 
   data <- group_by_col(data = data, col = groupname_col)
   nested <- dplyr::group_nest(data, keep = TRUE)
 
-  if ((geom_type$POINTS || geom_type$LINESTRINGS) && !("color" %in% aesthetics)) {
-    cli_warn("This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'color' aesthetic mapping.")
-  } else if (geom_type$POLYGONS && !("fill" %in% aesthetics)) {
-    cli_warn("This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'fill' aesthetic mapping.")
+  if (
+    (any(geom_type$POINTS) || any(geom_type$LINESTRINGS)) &&
+      !("color" %in% aesthetics)
+  ) {
+    cli_warn(
+      "This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'color' aesthetic mapping."
+    )
+  } else if (any(geom_type$POLYGONS) && !("fill" %in% aesthetics)) {
+    cli_warn(
+      "This data has {.val {geom_type$TYPES}} geometry which is typically used with a 'fill' aesthetic mapping."
+    )
   }
 
   if (("color" %in% aesthetics) && !("color" %in% names(mapping))) {
@@ -50,13 +59,16 @@ layer_grouped <- function(data,
   group_layers <-
     map(
       nested$data,
-      ~ layer_location_data(
-        data = .x,
-        mapping = mapping,
-        geom = geom,
-        label_col = label_col,
-        !!!layer_params
-      )
+      function(x) {
+        rlang::exec(
+          layer_location_data,
+          data = x,
+          mapping = mapping,
+          geom = geom,
+          label_col = label_col,
+          !!!layer_params
+        )
+      }
     )
 
   if (basemap) {
@@ -72,7 +84,7 @@ layer_grouped <- function(data,
     group_scale <-
       scale_group_data(
         data = dplyr::bind_rows(nested$data),
-        groupname_col = groupname_col,
+        col = groupname_col,
         palette = palette,
         aesthetics = aesthetics
       )

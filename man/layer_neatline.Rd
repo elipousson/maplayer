@@ -97,16 +97,20 @@ simple feature collection with \code{as_sfc()}..}
 \item{linetype}{Line type of panel border, Default: 'solid'}
 
 \item{bgcolor}{Fill color of panel background; defaults to "white". If
-"none", panel background is set to \code{\link[ggplot2:element]{ggplot2::element_blank()}}}
+"none", panel background is set to \code{\link[ggplot2:element_blank]{ggplot2::element_blank()}}}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
-limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.
+Giving a logical vector will separately control the expansion for the four
+directions (top, left, bottom and right). The \code{expand} argument will be
+recycled to length 4 if necessary. Alternatively, can be a named logical
+vector to control a single direction, e.g. \code{expand = c(bottom = FALSE)}.}
 
 \item{hide_grid}{If \code{TRUE}, hide grid lines. Default: \code{TRUE}}
 
 \item{label_axes}{A description of which axes to label passed to
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes labels.}
+\code{\link[ggplot2:coord_sf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes labels.}
 
 \item{axis.title, axis.text, axis.ticks, axis.ticks.length, axis.line}{Theme
 elements passed as is if label_axes is anything other than "----".}
@@ -136,7 +140,7 @@ for both x and y. Third, specifying limits via position scales or \code{xlim()}/
 is strongly discouraged, as it can result in data points being dropped from the plot even
 though they would be visible in the final plot region.}
 
-\item{...}{Additional parameters passed to \code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}.}
+\item{...}{Additional parameters passed to \code{\link[ggplot2:coord_sf]{ggplot2::coord_sf()}}.}
 
 \item{grid}{If \code{grid} is \code{TRUE} and \code{hide_grid} is \code{FALSE}, grid will be
 included in the theme. Otherwise, suppress the grid.}
@@ -156,11 +160,11 @@ additional parameters passed to ... If logical and \code{FALSE}, return x as is.
 }}
 }
 \value{
-List of \link[ggplot2:ggsf]{ggplot2::coord_sf} and \link[ggplot2:theme]{ggplot2::theme} calls.
+List of \link[ggplot2:coord_sf]{ggplot2::coord_sf} and \link[ggplot2:theme]{ggplot2::theme} calls.
 }
 \description{
 Set limits for a map to the bounding box of a feature using
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}. Optionally, adjust the x size by applying a buffer
+\code{\link[ggplot2:coord_sf]{ggplot2::coord_sf()}}. Optionally, adjust the x size by applying a buffer
 and/or adjust the aspect ratio of the limiting bounding box to match a set
 aspect ratio.
 }
@@ -171,18 +175,24 @@ nc <- sf::read_sf(system.file("shape/nc.shp", package = "sf"))
 
 ggplot() +
   layer_location_data(data = nc) +
-  layer_neatline(data = nc[1, ], asp = 1, color = "red", linewidth = 1, linetype = "dashed")
+  layer_neatline(
+    data = nc[1, ],
+    asp = 1,
+    color = "red",
+    linewidth = 1,
+    linetype = "dashed"
+  )
 
 ggplot() +
   layer_location_data(data = nc) +
   layer_neatline(data = nc[1, ], dist = 20, unit = "mi", color = "none")
 }
 \seealso{
-\code{\link[ggplot2:ggsf]{ggplot2::CoordSf()}}
+\code{\link[ggplot2:CoordSf]{ggplot2::CoordSf()}}
 
-Other layer: 
-\code{\link{layer_frame}()},
-\code{\link{layer_location_data}()},
-\code{\link{layer_scaled}()}
+Other layer:
+\code{\link[=layer_frame]{layer_frame()}},
+\code{\link[=layer_location_data]{layer_location_data()}},
+\code{\link[=layer_scaled]{layer_scaled()}}
 }
 \concept{layer}

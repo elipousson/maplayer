@@ -39,20 +39,22 @@
 #' @importFrom sf st_union
 #' @importFrom rlang as_function arg_match
 #' @importFrom ggplot2 guides guide_legend aes
-layer_labelled <- function(data,
-                           location = NULL,
-                           geom = "text",
-                           fn = NULL,
-                           label_col = NULL,
-                           mapping = NULL,
-                           union = FALSE,
-                           clip = NULL,
-                           dist = NULL,
-                           diag_ratio = NULL,
-                           unit = NULL,
-                           drop_shadow = FALSE,
-                           shadow_params = NULL,
-                           ...) {
+layer_labelled <- function(
+  data,
+  location = NULL,
+  geom = "text",
+  fn = NULL,
+  label_col = NULL,
+  mapping = NULL,
+  union = FALSE,
+  clip = NULL,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = NULL,
+  drop_shadow = FALSE,
+  shadow_params = NULL,
+  ...
+) {
   if (!is_sf(data) && is.data.frame(data)) {
     # FIXME: If data is a dataframe, there should be a way of passing from_crs,
     # coords_col or other relevant parameter for conversion. Otherwise this only
@@ -118,7 +120,6 @@ layer_labelled <- function(data,
   if (drop_shadow) {
     label_layer <- with_shadow(label_layer, shadow_params)
   }
-
 
   list(
     label_layer,

@@ -17,29 +17,31 @@
 #' @rdname layer_mapbox
 #' @md
 #' @export
-layer_mapbox <- function(data = NULL,
-                         dist = NULL,
-                         diag_ratio = NULL,
-                         unit = "meter",
-                         asp = NULL,
-                         style_url = "mapbox://styles/mapbox/satellite-streets-v11",
-                         style_id = NULL,
-                         username = NULL,
-                         basemap = FALSE,
-                         scale = 0.75,
-                         scaling_factor = "1x",
-                         attribution = TRUE,
-                         logo = TRUE,
-                         access_token = NULL,
-                         neatline = TRUE,
-                         color = "black",
-                         bgcolor = "white",
-                         linewidth = 0.5,
-                         linetype = "solid",
-                         expand = TRUE,
-                         hide_grid = TRUE,
-                         label_axes = "----",
-                         ...) {
+layer_mapbox <- function(
+  data = NULL,
+  dist = NULL,
+  diag_ratio = NULL,
+  unit = "meter",
+  asp = NULL,
+  style_url = "mapbox://styles/mapbox/satellite-streets-v11",
+  style_id = NULL,
+  username = NULL,
+  basemap = FALSE,
+  scale = 0.75,
+  scaling_factor = "1x",
+  attribution = TRUE,
+  logo = TRUE,
+  access_token = NULL,
+  neatline = TRUE,
+  color = "black",
+  bgcolor = "white",
+  linewidth = 0.5,
+  linetype = "solid",
+  expand = TRUE,
+  hide_grid = TRUE,
+  label_axes = "----",
+  ...
+) {
   check_dev_installed("mapboxapi", repo = "walkerke/mapboxapi")
 
   # Set appropriate CRS for Mapbox

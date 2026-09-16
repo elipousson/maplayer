@@ -25,13 +25,15 @@
 #' @importFrom sfext as_xy
 #' @importFrom dplyr bind_cols
 #' @importFrom utils modifyList
-layer_arrow <- function(mapping = NULL,
-                        data = NULL,
-                        crs = NULL,
-                        from,
-                        to,
-                        geom = "segment",
-                        ...) {
+layer_arrow <- function(
+  mapping = NULL,
+  data = NULL,
+  crs = NULL,
+  from,
+  to,
+  geom = "segment",
+  ...
+) {
   if (!is_fn(geom)) {
     geom <-
       rlang::arg_match(
@@ -42,7 +44,8 @@ layer_arrow <- function(mapping = NULL,
     check_geom_installed(geom)
 
     geom <-
-      switch(geom,
+      switch(
+        geom,
         "segment" = ggplot2::geom_segment,
         "curve" = ggplot2::geom_curve,
         "arrowsegment" = ggarchery::geom_arrowsegment,
@@ -62,8 +65,10 @@ layer_arrow <- function(mapping = NULL,
   mapping <-
     utils::modifyList(
       aes(
-        x = .data[["x"]], y = .data[["y"]],
-        xend = .data[["xend"]], yend = .data[["yend"]]
+        x = .data[["x"]],
+        y = .data[["y"]],
+        xend = .data[["xend"]],
+        yend = .data[["yend"]]
       ),
       mapping %||% aes()
     )

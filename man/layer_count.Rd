@@ -65,7 +65,7 @@ function.}
 fill based on count.}
 
 \item{scale_fn, scale_params}{Scale function and parameters. Defaults to
-\code{\link[ggplot2:scale_colour_continuous]{ggplot2::scale_fill_continuous()}}.}
+\code{\link[ggplot2:scale_fill_continuous]{ggplot2::scale_fill_continuous()}}.}
 
 \item{...}{
   Arguments passed on to \code{\link[sfext:count_sf_ext]{sfext::count_sf_ext}}
