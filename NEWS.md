@@ -18,7 +18,7 @@
 - Fix `make_social_map()` erroring for non-Mapbox `geom` values because a `bbox` object was passed directly to `layer_location_data()` instead of being converted to `sf` first.
 - Add test coverage for `layer_image_path()`, `layer_mapbox()` (access-token error path), `make_atlas()`, `make_location_map()`, `make_layer_map()`, `make_social_map()`, `make_mapbox_map()` (access-token error path), `make_inset_map()`, and `stamp_inset_img()`, now that all `Suggests` packages are installed; overall test coverage is now ~76%.
 - Add `exiftoolr` to Suggests and fix `make_image_map()`, which errored due to `filenamr::read_exif()` no longer supporting a `geometry` argument (now converted to `sf` with `sfext::df_to_sf()`) and due to passing a raw `bbox` object as `location` to `make_location_map()` instead of converting it to `sf` first. Add test coverage for `make_image_map()`; overall test coverage is now ~78%.
-- Add test coverage for `save = TRUE` in `make_layer_map()`/`make_location_map()`/`make_social_map()`, now that the underlying `papersize::ggsave_ext()`/`ggsave_social()` file-path handling has been fixed upstream. `make_atlas(..., save = TRUE)` (which uses `papersize::map_ggsave_ext()` instead) still errors and remains untested pending a further upstream fix.
+- Add test coverage for `save = TRUE` in `make_layer_map()`/`make_location_map()`/`make_social_map()`/`make_atlas()`, now that the underlying `papersize::ggsave_ext()`/`ggsave_social()`/`map_ggsave_ext()` file-path handling has been fixed upstream; `make_atlas.R` reaches 100% test coverage.
 
 ## 0.1.0.9003 (2023-08-25)
 
