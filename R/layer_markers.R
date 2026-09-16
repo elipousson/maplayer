@@ -102,6 +102,7 @@ layer_markers <- function(
 #'   groupname_col.
 #' @inheritParams sfext::number_features
 #' @inheritParams ggplot2::geom_sf_label
+#' @param linewidth Width of the label border, Default: 0.0
 #' @param hjust,vjust Horizontal and vertical justification.
 #' @param ... Additional parameters passed to [layer_location_data()]
 #' @export
@@ -124,7 +125,7 @@ layer_numbers <- function(
   desc = FALSE,
   fn = NULL,
   crs = getOption("maplayer.crs", default = 3857),
-  label.size = 0.0,
+  linewidth = 0.0,
   label.padding = ggplot2::unit(size / 10, "lines"),
   label.r = label.padding * 1.5,
   hjust = 0.5,
@@ -132,7 +133,7 @@ layer_numbers <- function(
   ...
 ) {
   if ("roundrect" %in% style) {
-    label.size <- 0.0
+    linewidth <- 0.0
     label.padding <- ggplot2::unit(size / 10, "lines")
     label.r <- label.padding * 1.5
     hjust <- 0.5
@@ -149,7 +150,7 @@ layer_numbers <- function(
     suffix = suffix,
     num_by_group = num_by_group,
     size = size,
-    label.size = label.size,
+    linewidth = linewidth,
     label.padding = label.padding,
     label.r = label.r,
     hjust = hjust,

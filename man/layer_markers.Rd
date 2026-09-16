@@ -41,7 +41,7 @@ layer_numbers(
   desc = FALSE,
   fn = NULL,
   crs = getOption("maplayer.crs", default = 3857),
-  label.size = 0,
+  linewidth = 0,
   label.padding = ggplot2::unit(size/10, "lines"),
   label.r = label.padding * 1.5,
   hjust = 0.5,
@@ -123,8 +123,7 @@ grouped; Default: \code{NULL}}
 
 \item{size}{Marker size, Default: 5}
 
-\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Replaced by the
-\code{linewidth} aesthetic. Size of label border, in mm.}
+\item{linewidth}{Width of the label border, Default: 0.0}
 
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 

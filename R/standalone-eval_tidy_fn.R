@@ -137,6 +137,16 @@ modify_fn_params <- function(
 ) {
   fmls <- rlang::fn_fmls(fn)
 
+  # Formals whose default is the `lifecycle::deprecated()` sentinel must not
+  # be forwarded unevaluated - doing so trips the target function's own
+  # deprecation warning even when the caller never touched the argument.
+  deprecated_fmls <- vapply(
+    fmls,
+    function(x) is.call(x) && identical(x[[1]], quote(deprecated)),
+    logical(1)
+  )
+  fmls <- fmls[!deprecated_fmls]
+
   if (!keep_missing) {
     missing_fmls <- vapply(fmls, rlang::is_missing, logical(1))
     fmls <- fmls[!missing_fmls]
