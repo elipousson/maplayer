@@ -1,0 +1,370 @@
+# maplayer
+
+The goal of maplayer is to provide a consistent set of functions for
+creating map layers using simple feature
+([{sf}](https://r-spatial.github.io/sf/)) data, the
+[{ggplot2}](https://ggplot2.tidyverse.org/) package, and a variety of
+ggplot2 extension packages.
+
+## Basic functions
+
+The main layers that work with both a data and location sf object are:
+
+- [`layer_location_data()`](https://elipousson.github.io/maplayer/reference/layer_location_data.md)
+- [`layer_location()`](https://elipousson.github.io/maplayer/reference/layer_location.md)
+- [`layer_location_context()`](https://elipousson.github.io/maplayer/reference/layer_location_context.md)
+
+There are several layers that can work with a single sf object as the
+input data:
+
+- [`layer_markers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md)
+- [`layer_numbers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md)
+- [`layer_frame()`](https://elipousson.github.io/maplayer/reference/layer_frame.md)
+- [`layer_scaled()`](https://elipousson.github.io/maplayer/reference/layer_scaled.md)
+- [`layer_mask()`](https://elipousson.github.io/maplayer/reference/layer_mask.md)
+- [`layer_neatline()`](https://elipousson.github.io/maplayer/reference/layer_neatline.md)
+
+Finally, there are layers that require additional packages (listed in
+Suggests):
+
+- [`layer_labelled()`](https://elipousson.github.io/maplayer/reference/layer_labelled.md)
+  optionally uses [{ggrepel}](https://ggrepel.slowkow.com/) or
+  [{geomtextpath}](https://allancameron.github.io/geomtextpath/)
+- [`layer_mapbox()`](https://elipousson.github.io/maplayer/reference/layer_mapbox.md)
+  uses [{mapboxapi}](https://walker-data.com/mapboxapi/) (requires an
+  API key)
+- [`layer_marked()`](https://elipousson.github.io/maplayer/reference/layer_marked.md)
+  uses [{ggforce}](https://ggforce.data-imaginist.com/)
+- [`layer_icon()`](https://elipousson.github.io/maplayer/reference/layer_icon.md)
+  uses [{ggsvg}](https://coolbutuseless.github.io/package/ggsvg/)
+- [`layer_inset()`](https://elipousson.github.io/maplayer/reference/layer_inset.md)
+  uses [{patchwork}](https://patchwork.data-imaginist.com/) or
+  optionally [{figpatch}](https://bradyajohnston.github.io/figpatch/)
+  (for
+  [`stamp_inset_img()`](https://elipousson.github.io/maplayer/reference/layer_inset.md))
+
+The package also allows the optional use of packages designed for
+transforming spatial data or modifying ggplot2 maps. These include:
+
+- [{smoothr}](https://strimas.com/smoothr/) (required to use the
+  smooth_params argument)
+- [{ggfx}](https://ggfx.data-imaginist.com/) (required to use the
+  shadow_params argument)
+
+Many of the functions in {maplayer} were originally developed for the
+[{overedge}](chttps://elipousson.github.io/overedge/) package or before
+that for the
+[{mapbaltimore}](https://elipousson.github.io/mapbaltimore/) package.
+The {overedge} package has been split up into three smaller packages
+including {maplayer},
+[{getdata}](https://elipousson.github.io/getdata/), and
+[{sfext}](https://elipousson.github.io/sfext/).
+
+## Installation
+
+You can install the development version of maplayer like so:
+
+``` r
+
+pak::pkg_install("elipousson/maplayer")
+```
+
+## Example
+
+``` r
+
+library(maplayer)
+library(ggplot2)
+library(sf)
+#> Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE
+```
+
+### Add icons to a map
+
+[`layer_icon()`](https://elipousson.github.io/maplayer/reference/layer_icon.md)
+wraps
+[`ggsvg::geom_point_svg()`](https://rdrr.io/pkg/ggsvg/man/geom_point_svg.html)
+to provide an convenient way to make icon maps.
+
+You can create maps using a single named icon that matches one of the
+icons in `map_icons`.
+
+``` r
+
+nc <- read_sf(system.file("shape/nc.shp", package = "sf"))
+nc <- st_transform(nc, 3857)
+theme_set(theme_void())
+
+nc_map <-
+  ggplot() +
+  geom_sf(data = nc)
+
+nc_map +
+  layer_icon(data = nc, icon = "point-start", size = 8)
+```
+
+![](reference/figures/README-unnamed-chunk-2-1.png)
+
+### Add a neatline to a map
+
+[`layer_neatline()`](https://elipousson.github.io/maplayer/reference/layer_neatline.md)
+hides major grid lines and axis label by default. The function is useful
+to draw a neatline around a map at a set aspect ratio.
+
+``` r
+
+nc_map +
+  layer_neatline(
+    data = nc,
+    asp = "6:4",
+    color = "gray60", linewidth = 2, linetype = "dashed"
+  )
+```
+
+![](reference/figures/README-unnamed-chunk-3-1.png)
+
+[`layer_neatline()`](https://elipousson.github.io/maplayer/reference/layer_neatline.md)
+can also be used to focus on a specific area of a map with the option to
+apply a buffer as a distance or ratio of the diagonal distance for the
+input data. The `label_axes` and `hide_grid` parameters will not
+override a set ggplot theme.
+
+``` r
+
+nc_map +
+  layer_neatline(
+    data = nc[1, ],
+    diag_ratio = 0.5,
+    asp = 1,
+    color = "black",
+    label_axes = "--EN",
+    hide_grid = FALSE,
+    expand = FALSE
+  )
+```
+
+![](reference/figures/README-unnamed-chunk-4-1.png)
+
+### Add labels or numbers to a map
+
+``` r
+
+nc_map +
+  layer_labelled(
+    data = nc[c(10, 20, 30, 40), ],
+    geom = "sf_label",
+    mapping = aes(label = NAME)
+  )
+```
+
+![](reference/figures/README-unnamed-chunk-5-1.png)
+
+``` r
+
+nc_map +
+  layer_numbers(
+    data = nc[c(10, 20, 30, 40), ],
+    aes(fill = NAME),
+    num_style = "Alph",
+    size = 3.5
+  ) +
+  guides(fill = "none")
+```
+
+![](reference/figures/README-unnamed-chunk-6-1.png)
+
+### Create a frame around a feature
+
+``` r
+
+circle_nc <-
+  ggplot(data = nc) +
+  # layer_frame requires a data arg if neatline = TRUE
+  layer_frame(data = nc, style = "circle") +
+  # layer_location_data can inherit data
+  layer_location_data()
+
+circle_nc
+```
+
+![](reference/figures/README-unnamed-chunk-7-1.png)
+
+### Create an inset map
+
+``` r
+
+nc_context <-
+  layer_frame(
+    data = nc,
+    linetype = "twodash",
+    neatline = FALSE,
+    basemap = TRUE
+  ) +
+  layer_location_context(
+    location = nc[25, ],
+    context = nc,
+    context_params = list(fill = "white", color = "gray80", alpha = 1),
+    neatline = FALSE
+  )
+
+nc_context +
+  layer_neatline(
+    data = nc[25, ],
+    dist = 15,
+    unit = "mi",
+    asp = 1
+  ) +
+  layer_inset(
+    inset = nc_context,
+    scale = 1.5
+  )
+```
+
+![](reference/figures/README-unnamed-chunk-8-1.png)
+
+# Package index
+
+## Location layers for ggplot2 maps
+
+- [`layer_location_data()`](https://elipousson.github.io/maplayer/reference/layer_location_data.md)
+  : Layer location data into a ggplot2 map
+- [`layer_labelled()`](https://elipousson.github.io/maplayer/reference/layer_labelled.md)
+  : Label simple feature objects in a location
+- [`layer_location()`](https://elipousson.github.io/maplayer/reference/layer_location.md)
+  : Layer a location border into a ggplot2 map
+- [`layer_location_context()`](https://elipousson.github.io/maplayer/reference/layer_location_context.md)
+  : Create a layer showing a location and related context
+
+## Map making for locations
+
+- [`layer_frame()`](https://elipousson.github.io/maplayer/reference/layer_frame.md)
+  [`make_frame()`](https://elipousson.github.io/maplayer/reference/layer_frame.md)
+  : Create a frame layer around a simple feature object
+
+- [`layer_inset()`](https://elipousson.github.io/maplayer/reference/layer_inset.md)
+  [`make_inset_map()`](https://elipousson.github.io/maplayer/reference/layer_inset.md)
+  [`stamp_inset_img()`](https://elipousson.github.io/maplayer/reference/layer_inset.md)
+  : Use patchwork to create a map with an inset context map or figpatch
+  to stamp an inset image
+
+- [`layer_markers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md)
+  [`layer_numbers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md)
+  [`make_markers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md)
+  : Create a ggplot2 layer with map markers or numbered markers
+
+- [`make_location_map()`](https://elipousson.github.io/maplayer/reference/make_location_map.md)
+  [`make_social_map()`](https://elipousson.github.io/maplayer/reference/make_location_map.md)
+  [`make_image_map()`](https://elipousson.github.io/maplayer/reference/make_location_map.md)
+  [`make_layer_map()`](https://elipousson.github.io/maplayer/reference/make_location_map.md)
+  :
+
+  Make a ggplot map using
+  [`layer_location_data()`](https://elipousson.github.io/maplayer/reference/layer_location_data.md)
+
+- [`make_mapbox_map()`](https://elipousson.github.io/maplayer/reference/make_mapbox_map.md)
+  : Make a map using layer_mapbox
+
+- [`set_basemap()`](https://elipousson.github.io/maplayer/reference/set_basemap.md)
+  [`make_basemap()`](https://elipousson.github.io/maplayer/reference/set_basemap.md)
+  : Create a base map by adding the object
+
+## Additional layers for sf objects
+
+- [`layer_arrow()`](https://elipousson.github.io/maplayer/reference/layer_arrow.md)
+  : Create a layer with an arrow or segment from and to specified
+  locations
+- [`layer_count()`](https://elipousson.github.io/maplayer/reference/layer_count.md)
+  : Layer for counting occurrences of data in spatial relation a
+  location or other sf object
+- [`layer_frame()`](https://elipousson.github.io/maplayer/reference/layer_frame.md)
+  [`make_frame()`](https://elipousson.github.io/maplayer/reference/layer_frame.md)
+  : Create a frame layer around a simple feature object
+- [`layer_grouped()`](https://elipousson.github.io/maplayer/reference/layer_grouped.md)
+  : Make group layers
+- [`layer_icon()`](https://elipousson.github.io/maplayer/reference/layer_icon.md)
+  [`geom_sf_icon()`](https://elipousson.github.io/maplayer/reference/layer_icon.md)
+  : Use ggsvg to add a layer with icons at feature locations
+- [`layer_image_path()`](https://elipousson.github.io/maplayer/reference/layer_image_path.md)
+  : Use ggpath to create a layer with images at locations
+- [`layer_mapbox()`](https://elipousson.github.io/maplayer/reference/layer_mapbox.md)
+  : Use mapboxapi to make a Mapbox static map layer
+- [`layer_marked()`](https://elipousson.github.io/maplayer/reference/layer_marked.md)
+  : Use ggforce to create an annotation layer using simple feature data
+- [`layer_markers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md)
+  [`layer_numbers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md)
+  [`make_markers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md)
+  : Create a ggplot2 layer with map markers or numbered markers
+- [`layer_mask()`](https://elipousson.github.io/maplayer/reference/layer_mask.md)
+  [`set_mask()`](https://elipousson.github.io/maplayer/reference/layer_mask.md)
+  : Create a mask layer based on a simple feature object
+- [`layer_neatline()`](https://elipousson.github.io/maplayer/reference/layer_neatline.md)
+  [`theme_grid()`](https://elipousson.github.io/maplayer/reference/layer_neatline.md)
+  [`theme_sf_axis()`](https://elipousson.github.io/maplayer/reference/layer_neatline.md)
+  [`set_neatline()`](https://elipousson.github.io/maplayer/reference/layer_neatline.md)
+  : Set map limits to a bounding box with a buffer and set aspect ratio
+- [`layer_repel()`](https://elipousson.github.io/maplayer/reference/layer_repel.md)
+  [`geom_sf_label_repel()`](https://elipousson.github.io/maplayer/reference/layer_repel.md)
+  [`geom_sf_text_repel()`](https://elipousson.github.io/maplayer/reference/layer_repel.md)
+  : Use ggrepel to create text annotations based on simple features
+- [`layer_scaled()`](https://elipousson.github.io/maplayer/reference/layer_scaled.md)
+  : Create a ggplot2 layer scaled to a paper and orientation for a
+  location
+
+## Additional layers for combining maps with patchwork
+
+- [`layer_inset()`](https://elipousson.github.io/maplayer/reference/layer_inset.md)
+  [`make_inset_map()`](https://elipousson.github.io/maplayer/reference/layer_inset.md)
+  [`stamp_inset_img()`](https://elipousson.github.io/maplayer/reference/layer_inset.md)
+  : Use patchwork to create a map with an inset context map or figpatch
+  to stamp an inset image
+
+## Add scales, labels, and theme elements to ggplot2 maps
+
+- [`labs_ext()`](https://elipousson.github.io/maplayer/reference/labs_ext.md)
+  : Add labels to a ggplot2 plot or map
+- [`scale_group_data()`](https://elipousson.github.io/maplayer/reference/scale_group_data.md)
+  [`group_data_pal()`](https://elipousson.github.io/maplayer/reference/scale_group_data.md)
+  [`get_group_data_pal_scale()`](https://elipousson.github.io/maplayer/reference/scale_group_data.md)
+  : Create discrete fill and color scales for grouped data
+- [`theme_text()`](https://elipousson.github.io/maplayer/reference/theme_ext.md)
+  [`theme_margin()`](https://elipousson.github.io/maplayer/reference/theme_ext.md)
+  [`theme_legend()`](https://elipousson.github.io/maplayer/reference/theme_ext.md)
+  : Modify the text, margins, or legend for a ggplot theme
+
+## Save one or more plot or map to a file
+
+- [`reexports`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`ggplot`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`aes`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`geom_sf`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`geom_sf_text`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`geom_sf_label`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`get_last_plot`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`margin`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`guides`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`ggsave_ext`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`map_ggsave_ext`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`ggsave_social`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  : Objects exported from other packages
+
+## Reference data for layer functions
+
+- [`map_icons`](https://elipousson.github.io/maplayer/reference/map_icons.md)
+  : Map icons
+
+## Reexports from ggplot2
+
+- [`reexports`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`ggplot`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`aes`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`geom_sf`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`geom_sf_text`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`geom_sf_label`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`get_last_plot`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`margin`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`guides`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`ggsave_ext`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`map_ggsave_ext`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  [`ggsave_social`](https://elipousson.github.io/maplayer/reference/reexports.md)
+  : Objects exported from other packages
+
