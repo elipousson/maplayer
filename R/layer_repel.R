@@ -27,7 +27,7 @@ layer_repel <- function(
   ylim = c(NA, NA),
   ...
 ) {
-  check_name(label_col)
+  check_string(label_col, allow_empty = FALSE)
 
   if (!is.null(location_lims) && all(is.na(c(ylim, xlim)))) {
     bbox <- sfext::as_bbox(location_lims)
