@@ -41,7 +41,7 @@ layer_numbers(
   desc = FALSE,
   fn = NULL,
   crs = getOption("maplayer.crs", default = 3857),
-  label.size = 0,
+  linewidth = 0,
   label.padding = ggplot2::unit(size/10, "lines"),
   label.r = label.padding * 1.5,
   hjust = 0.5,
@@ -170,10 +170,9 @@ make_markers(
 
   Marker size, Default: 5
 
-- label.size:
+- linewidth:
 
-  **\[deprecated\]** Replaced by the `linewidth` aesthetic. Size of
-  label border, in mm.
+  Width of the label border, Default: 0.0
 
 - label.padding:
 
@@ -260,8 +259,4 @@ basemap +
     size = 3
   ) +
   guides(fill = "none")
-#> Warning: The `label.size` argument of `geom_label()` is deprecated as of ggplot2 3.5.0.
-#> ℹ Please use the `linewidth` argument instead.
-#> ℹ The deprecated feature was likely used in the maplayer package.
-#>   Please report the issue at <https://github.com/elipousson/maplayer/issues>.
 ```

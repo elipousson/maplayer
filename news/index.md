@@ -135,6 +135,24 @@
   [`papersize::ggsave_ext()`](https://elipousson.github.io/papersize/reference/ggsave_ext.html)/[`ggsave_social()`](https://elipousson.github.io/papersize/reference/ggsave_ext.html)/[`map_ggsave_ext()`](https://elipousson.github.io/papersize/reference/ggsave_ext.html)
   file-path handling has been fixed upstream; `make_atlas.R` reaches
   100% test coverage.
+- Replace the deprecated `label.size` argument of
+  [`geom_label()`](https://ggplot2.tidyverse.org/reference/geom_text.html)/[`geom_sf_label()`](https://ggplot2.tidyverse.org/reference/ggsf.html)
+  with `linewidth` in
+  [`layer_numbers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md).
+  Also fix the internal `modify_fn_params()` helper (used by
+  [`layer_location_data()`](https://elipousson.github.io/maplayer/reference/layer_location_data.md)
+  to build every geom call) to drop any target-function formal whose
+  default is the
+  [`lifecycle::deprecated()`](https://lifecycle.r-lib.org/reference/deprecated.html)
+  sentinel instead of forwarding it unevaluated, which had been silently
+  re-triggering the `label.size` deprecation warning on every
+  `"label"`/`"sf_label"` geom call, including via
+  [`layer_numbers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md),
+  [`layer_markers()`](https://elipousson.github.io/maplayer/reference/layer_markers.md),
+  [`layer_labelled()`](https://elipousson.github.io/maplayer/reference/layer_labelled.md),
+  and
+  [`make_image_map()`](https://elipousson.github.io/maplayer/reference/make_location_map.md),
+  even when `label.size` was never referenced.
 
 ### 0.1.0.9003 (2023-08-25)
 
