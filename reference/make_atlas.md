@@ -279,7 +279,7 @@ make_atlas(
   save = FALSE
 )
 #> ℹ Creating sheet map plots
-#> ✔ Creating sheet map plots [20ms]
+#> ✔ Creating sheet map plots [17ms]
 #> 
 #> $`1`
 
