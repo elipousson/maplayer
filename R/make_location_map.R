@@ -56,7 +56,7 @@ make_location_map <- function(
 ) {
   if (!is.null(paper)) {
     paper <- papersize::get_paper(
-      paper = paper,
+      name = paper,
       orientation = orientation
     )
   } else if (!is.null(width) || !is.null(height)) {
@@ -148,7 +148,7 @@ make_social_map <- function(
 
   map_layer <- make_layer_map(
     layer = layer_location_data(
-      data = bbox,
+      data = sfext::as_sf(bbox),
       geom = geom,
       ...
     ),
@@ -178,7 +178,7 @@ make_social_map <- function(
 #'   mark the location of images (based on EXIF metadata).
 #' @inheritParams layer_markers
 #' @export
-#' @importFrom sfext st_bbox_ext
+#' @importFrom sfext st_bbox_ext df_to_sf
 #' @importFrom sf st_union
 make_image_map <- function(
   image_path,
@@ -210,21 +210,22 @@ make_image_map <- function(
   desc = FALSE,
   ...
 ) {
-  rlang::check_installed("filenamr")
+  rlang::check_installed(c("filenamr", "exiftoolr"))
   images <-
-    filenamr::read_exif(
-      path = image_path,
-      geometry = TRUE
+    sfext::df_to_sf(
+      filenamr::read_exif(path = image_path)
     )
 
   location <- location %||%
-    sfext::st_bbox_ext(
-      sf::st_union(images),
-      dist = dist,
-      diag_ratio = diag_ratio,
-      unit = unit,
-      asp = asp,
-      crs = crs
+    sfext::as_sf(
+      sfext::st_bbox_ext(
+        sf::st_union(images),
+        dist = dist,
+        diag_ratio = diag_ratio,
+        unit = unit,
+        asp = asp,
+        crs = crs
+      )
     )
 
   marker_layer <- layer_markers(

@@ -45,9 +45,9 @@ bbox, conversion to a sf object will still always be attempted with
 \code{\link[sfext:as_sf]{sfext::as_sf()}}.}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
-'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
-"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
-"sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
+'sf'. Options include "sf" (\code{\link[ggplot2:geom_sf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
+"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:geom_sf_text]{ggplot2::geom_sf_text()}}), and
+"sf_label" (\code{\link[ggplot2:geom_sf_label]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
 \item{location}{sf object. If multiple areas are provided, they are unioned
 into a single sf object using \code{\link[sf:geos_combine]{sf::st_union()}}}
@@ -114,7 +114,7 @@ and basemap object to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}}.}
 }
 \description{
 Helper function to make a ggplot2 layer from data returned by
-\code{\link[=get_location_data]{get_location_data()}}. For text geoms, the required aesthetic mapping is
+\code{\link[getdata:get_location_data]{get_location_data()}}. For text geoms, the required aesthetic mapping is
 set based on the name_col but values passed to mapping take precedence.
 }
 \section{Using the geom parameter}{
@@ -126,9 +126,9 @@ different package.
 
 Options for the geom parameter from ggplot2:
 \itemize{
-\item "sf" (\link[ggplot2:ggsf]{ggplot2::geom_sf} - default)
-\item "sf_text" or "text (\link[ggplot2:ggsf]{ggplot2::geom_sf_text})
-\item "sf_label" or "label (\link[ggplot2:ggsf]{ggplot2::geom_sf_label})
+\item "sf" (\link[ggplot2:geom_sf]{ggplot2::geom_sf} - default)
+\item "sf_text" or "text (\link[ggplot2:geom_sf_text]{ggplot2::geom_sf_text})
+\item "sf_label" or "label (\link[ggplot2:geom_sf_label]{ggplot2::geom_sf_label})
 }
 
 Options for the geom parameter included in this package include:
@@ -145,10 +145,10 @@ Options for the geom parameter included in this package include:
 Options for the geom parameter from other suggested packages include:
 \itemize{
 \item "textsf" (\link[geomtextpath:geom_textsf]{geomtextpath::geom_textsf})
-\item "labelsf" (\link[geomtextpath:geom_textsf]{geomtextpath::geom_labelsf})
+\item "labelsf" (\link[geomtextpath:geom_labelsf]{geomtextpath::geom_labelsf})
 \item "text_repel" (\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel})
-\item "label_repel" (\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel})
-\item "sf_pattern" or "pattern" (\link[ggpattern:geom-docs]{ggpattern::geom_sf_pattern})
+\item "label_repel" (\link[ggrepel:geom_label_repel]{ggrepel::geom_label_repel})
+\item "sf_pattern" or "pattern" (\link[ggpattern:geom_sf_pattern]{ggpattern::geom_sf_pattern})
 }
 
 \code{stat = "sf_coordinates"} is automatically added to the parameters for both
@@ -164,9 +164,9 @@ layer_fn can be a purrr-style lamba function (converted with
 }
 
 \seealso{
-Other layer: 
-\code{\link{layer_frame}()},
-\code{\link{layer_neatline}()},
-\code{\link{layer_scaled}()}
+Other layer:
+\code{\link[=layer_frame]{layer_frame()}},
+\code{\link[=layer_neatline]{layer_neatline()}},
+\code{\link[=layer_scaled]{layer_scaled()}}
 }
 \concept{layer}

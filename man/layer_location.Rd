@@ -140,5 +140,5 @@ Helper function to make a ggplot2 layer from data returned by
 \code{get_location}
 }
 \seealso{
-\code{\link[ggplot2:ggsf]{ggplot2::CoordSf()}}
+\code{\link[ggplot2:CoordSf]{ggplot2::CoordSf()}}
 }

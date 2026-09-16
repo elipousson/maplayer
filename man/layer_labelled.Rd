@@ -65,7 +65,7 @@ to the label layer with shadow_params. Defaults to \code{FALSE}.}
 \code{drop_shadow = TRUE}. Defaults to \code{list(x_offset = 5, y_offset = 5, sigma = 0.5)}.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=layer_location_data]{layer_location_data}}
+  Arguments passed on to \code{\link{layer_location_data}}
   \describe{
     \item{\code{smooth_params}}{Optional. Logical or a list of parameters passed to
 \code{\link[smoothr:smooth]{smoothr::smooth()}}. If \code{TRUE}, apply \code{\link[smoothr:smooth]{smoothr::smooth()}} to location data

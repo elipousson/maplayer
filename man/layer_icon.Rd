@@ -29,7 +29,7 @@ geom_sf_icon(
 }
 \arguments{
 \item{data}{A \code{sf} object. Any objects with polygon geometry are converted to
-points using \code{\link[sf:geos_unary]{sf::st_centroid()}}.}
+points using \code{\link[sf:st_centroid]{sf::st_centroid()}}.}
 
 \item{iconname_col}{The column name in the input data to use as the icon
 name. If the name matches multiple icons, the first match from \code{map_icons}

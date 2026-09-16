@@ -55,9 +55,9 @@ Uses \link{layer_neatline}, \link[sfext:standard_scales]{sfext::standard_scales}
 \link[sfext:convert_dist_scale]{sfext::convert_dist_scale}.
 }
 \seealso{
-Other layer: 
-\code{\link{layer_frame}()},
-\code{\link{layer_location_data}()},
-\code{\link{layer_neatline}()}
+Other layer:
+\code{\link[=layer_frame]{layer_frame()}},
+\code{\link[=layer_location_data]{layer_location_data()}},
+\code{\link[=layer_neatline]{layer_neatline()}}
 }
 \concept{layer}

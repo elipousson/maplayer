@@ -49,8 +49,7 @@ NULL
 #' @rdname theme_ext
 #' @name theme_text
 #' @export
-#' @importFrom ggplot2 theme element_text theme_set theme_update theme_replace
-#'   update_geom_defaults
+#' @importFrom ggplot2 theme element_text update_geom_defaults
 theme_text <- function(
   font_family = NULL,
   color = "black",
@@ -431,14 +430,14 @@ make_legend_title <- function(title = NULL) {
 
 
 #' @noRd
-#' @importFrom ggplot2 set_theme update_theme replace_theme
+#' @importFrom ggplot2 theme_set theme_update theme_replace
 theme_method <- function(x, method = NULL) {
   method <- match.arg(method, c("set", "update", "replace"))
 
   switch(
     method,
-    "set" = ggplot2::set_theme(x),
-    "update" = ggplot2::update_theme(x),
-    "replace" = ggplot2::replace_theme(x)
+    "set" = ggplot2::theme_set(x),
+    "update" = ggplot2::theme_update(x),
+    "replace" = ggplot2::theme_replace(x)
   )
 }

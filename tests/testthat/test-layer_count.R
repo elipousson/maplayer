@@ -1,4 +1,5 @@
 test_that("layer_count works", {
+  skip_if_not_installed("lwgeom")
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
   data <- sf::st_sample(nc, 75)
 

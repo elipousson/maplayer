@@ -40,6 +40,9 @@ entry in \code{dictionary}.}
 See \link[ggplot2]{get_alt_text} for examples. \code{alt} can also be a function that
 takes the plot as input and returns text as output. \code{alt} also accepts
 rlang \link[rlang:as_function]{lambda} function notation.}
+    \item{\code{label}}{The title of the respective axis (for \code{xlab()} or \code{ylab()}) or
+of the plot (for \code{ggtitle()}).}
+    \item{\code{plot}}{A ggplot object}
   }}
 
 \item{title}{The text for the title.}

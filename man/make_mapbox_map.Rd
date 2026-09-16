@@ -90,7 +90,7 @@ Default: \code{TRUE}}
 \item{color}{Color of panel border, Default: 'black'}
 
 \item{bgcolor}{Fill color of panel background; defaults to "white". If
-"none", panel background is set to \code{\link[ggplot2:element]{ggplot2::element_blank()}}}
+"none", panel background is set to \code{\link[ggplot2:element_blank]{ggplot2::element_blank()}}}
 
 \item{linewidth}{Line width of panel border, Default: 0.5}
 
@@ -107,13 +107,13 @@ vector to control a single direction, e.g. \code{expand = c(bottom = FALSE)}.}
 \item{hide_grid}{If \code{TRUE}, hide grid lines. Default: \code{TRUE}}
 
 \item{label_axes}{A description of which axes to label passed to
-\code{\link[ggplot2:ggsf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes labels.}
+\code{\link[ggplot2:coord_sf]{ggplot2::coord_sf()}}; defaults to '----' which hides all axes labels.}
 
 \item{width, height}{Page width and height. Both are required, if asp is
 \code{NULL}. Default to \code{NULL}.}
 
 \item{units}{Units for width and height. Required unless units is included in
-dims. Passed to \code{\link[papersize:as_unit_type]{as_unit_type()}} to validate.}
+dims or \code{require_units = FALSE}. Passed to \code{\link[papersize:as_unit_type]{as_unit_type()}} to validate.}
 
 \item{orientation}{Page orientation, Default: \code{NULL}. Supported options are
 "portrait", "landscape", or "square". If width and height suggest a
@@ -124,8 +124,11 @@ reversed so the page dimensions match the provided orientation.}
 used in place of \code{data}.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=make_layer_map]{make_layer_map}}
+  Arguments passed on to \code{\link{make_layer_map}}
   \describe{
+    \item{\code{image_path}}{path to location of images for \code{\link[=make_image_map]{make_image_map()}}}
+    \item{\code{image_geom}}{For \code{\link[=make_image_map]{make_image_map()}}, geom to use with layer_markers to
+mark the location of images (based on EXIF metadata).}
     \item{\code{labs_ext_params}}{Optional parameters passed to \code{\link[=labs_ext]{labs_ext()}}.}
     \item{\code{ggsave_params}}{List of parameters passed to \code{\link[papersize:ggsave_ext]{papersize::ggsave_ext()}}.}
     \item{\code{layer}}{A ggplot2 layer or a list of ggproto objects. If layer is
@@ -144,6 +147,34 @@ be visible.}
 Defaults to \code{FALSE}.}
     \item{\code{env}}{Environment for evaluation of \code{\link[=labs_ext]{labs_ext()}} if labs_ext_params is
 supplied.}
+    \item{\code{crs}}{Coordinate reference system of bounding box to return; defaults to
+\code{NULL} which maintains the crs of the input object.}
+    \item{\code{geom}}{A character string indicating which ggplot2 geom to use, Default:
+'sf'. Options include "sf" (\code{\link[ggplot2:geom_sf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
+"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:geom_sf_text]{ggplot2::geom_sf_text()}}), and
+"sf_label" (\code{\link[ggplot2:geom_sf_label]{ggplot2::geom_sf_label()}}). See details for a full list.}
+    \item{\code{paper}}{Paper matching name from \code{paper_sizes} (e.g. "letter"). Not case
+sensitive.}
+    \item{\code{image}}{Image name passed to name parameter of \code{\link[papersize:get_social_size]{get_social_size()}}.}
+    \item{\code{platform}}{Social media platform, "Instagram", "Facebook", or "Twitter",
+Default: \code{NULL}}
+    \item{\code{format}}{Image format, "post", "story", or "cover", Default: \code{NULL}}
+    \item{\code{number}}{If \code{TRUE}, number markers using \code{\link[=layer_markers]{layer_markers()}} (not
+currently supported)}
+    \item{\code{num_by_group}}{If \code{TRUE}, numbers are added by group based on
+groupname_col.}
+    \item{\code{groupname_col}}{Group column name, used to join group metadata if
+group_meta is a non-spatial data frame; Default: \code{NULL}}
+    \item{\code{group_meta}}{Group metadata as a data frame or sf object that intersect
+with markers (using join function); Default: \code{NULL}}
+    \item{\code{sort}}{Sort column name, Default: "dist_xmin_ymax".}
+    \item{\code{desc}}{If \code{TRUE}, sort descending; default \code{FALSE}.}
+    \item{\code{num_style}}{Style of enumeration, either "arabic", "alph", "Alph",
+"roman", "Roman".}
+    \item{\code{num_start}}{Starting number; defaults to 1.}
+    \item{\code{suffix}}{Character to appended to "number" column. (e.g. "." for "1." or
+":" for "1:"). Can also be a character vector with the same length as the
+number column.}
     \item{\code{call}}{The execution environment of a currently
 running function, e.g. \code{caller_env()}. The function will be
 mentioned in error messages as the source of the error. See the

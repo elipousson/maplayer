@@ -66,6 +66,8 @@ aes_sf_coords <- function(mapping = aes(), data = NULL, sf_col = "geometry") {
 #' @importFrom rlang has_name
 #' @importFrom utils modifyList
 aes_label <- function(mapping = aes(), data = NULL, label_col = "name") {
+  mapping <- mapping %||% ggplot2::aes()
+
   if (rlang::has_name(mapping, "label")) {
     return(mapping)
   }

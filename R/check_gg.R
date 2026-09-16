@@ -42,6 +42,7 @@ check_gg <- function(
 
 
 #' @noRd
+#' @importFrom ggplot2 is_ggplot
 check_ggplot <- function(
   x,
   ...,

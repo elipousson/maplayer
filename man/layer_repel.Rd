@@ -35,7 +35,7 @@ defined at the top level of the plot.}
 label is provided to mapping; required otherwise.}
 
 \item{geom}{Character vector with geom to use, "text" for
-\code{\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel()}} or "label" for \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel()}}.}
+\code{\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel()}} or "label" for \code{\link[ggrepel:geom_label_repel]{ggrepel::geom_label_repel()}}.}
 
 \item{location_lims}{A \code{sf}, \code{sfc}, or \code{bbox} object to use in setting xlim
 and ylim values if no xlim and ylim value area provided. Using this
@@ -46,7 +46,7 @@ to these limits. By default, text labels are constrained to the entire plot
 area.}
 
 \item{...}{
-  Arguments passed on to \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel}}
+  Arguments passed on to \code{\link[ggrepel:geom_label_repel]{ggrepel::geom_label_repel}}
   \describe{
     \item{\code{position}}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -103,7 +103,7 @@ the default plot specification, e.g. \code{\link[ggplot2]{borders}}.}
   }}
 }
 \description{
-Use \link[ggrepel:geom_text_repel]{ggrepel::geom_label_repel} or \link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel} with
+Use \link[ggrepel:geom_label_repel]{ggrepel::geom_label_repel} or \link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel} with
 \code{\link[ggplot2:stat_sf_coordinates]{ggplot2::stat_sf_coordinates()}} to create a layer of textual annotations
 repelled from simple feature locations.
 }

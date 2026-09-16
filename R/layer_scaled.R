@@ -61,10 +61,6 @@ layer_scaled <-
         crs = crs
       )
 
-    if (!sfext::is_dist_units(dist)) {
-      dist <- sfext::as_dist_units(dist = dist, to = data)
-    }
-
     if (!clip && !bbox_fit_check(bbox, scaled_paper)) {
       cli_abort(
         "This data covers a larger area than can be displayed at this scale
@@ -73,14 +69,14 @@ layer_scaled <-
     }
 
     scaled_dist <-
-      max(c(scaled_paper$width_actual, scaled_paper$height_actual)) / 2
+      max(c(scaled_paper$actual_width, scaled_paper$actual_height)) / 2
 
     scaled_bbox <-
       sfext::st_bbox_ext(
         x = sf::st_centroid(data),
         dist = scaled_dist,
         asp = scaled_paper$asp,
-        unit = scaled_paper$unit_actual,
+        unit = papersize::get_dist_units(scaled_paper$actual_width),
         crs = crs
       )
 

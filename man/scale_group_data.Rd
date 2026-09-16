@@ -123,10 +123,10 @@ palette with \code{\link[paletteer:paletteer_d]{paletteer::paletteer_d()}}}
 }
 \description{
 Designed for use with layer_group_data. group_data_pal generates palettes
-that are passed to \link[ggplot2:scale_manual]{ggplot2::scale_fill_manual} and
-\link[ggplot2:scale_manual]{ggplot2::scale_color_manual}.
+that are passed to \link[ggplot2:scale_fill_manual]{ggplot2::scale_fill_manual} and
+\link[ggplot2:scale_color_manual]{ggplot2::scale_color_manual}.
 }
 \seealso{
-\code{\link[scales:pal_viridis]{scales::viridis_pal()}}
+\code{\link[scales:viridis_pal]{scales::viridis_pal()}}
 \code{\link[paletteer:paletteer_d]{paletteer::paletteer_d()}}
 }

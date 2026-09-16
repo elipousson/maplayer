@@ -51,13 +51,7 @@ scale_group_data <-
           aesthetics = aesthetics
         )
 
-      discrete_scale <-
-        ggplot2::scale_fill_discrete(
-          limits = names(group_pal),
-          type = manual_scale
-        )
-
-      return(discrete_scale)
+      return(manual_scale)
     }
   }
 

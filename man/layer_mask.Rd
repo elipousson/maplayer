@@ -75,14 +75,14 @@ directions (top, left, bottom and right). The \code{expand} argument will be
 recycled to length 4 if necessary. Alternatively, can be a named logical
 vector to control a single direction, e.g. \code{expand = c(bottom = FALSE)}.}
 
-\item{...}{Additional parameters to pass to \code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}}
+\item{...}{Additional parameters to pass to \code{\link[ggplot2:geom_sf]{ggplot2::geom_sf()}}}
 
 \item{x}{A \code{sf}, \code{sfc}, \code{bbox}, \code{sfg}, \code{Raster}, \code{Spatial}, \code{Extent},
 \code{numeric}, or \code{character} object (a place name passed to
 \code{\link[osmdata:getbb]{osmdata::getbb()}}). See \code{\link[sfext:as_bbox]{as_bbox()}} for more details.}
 }
 \value{
-\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}} function.
+\code{\link[ggplot2:geom_sf]{ggplot2::geom_sf()}} function.
 }
 \description{
 Returns a mask for an area or areas as a simple feature object. \code{neatline = TRUE} only works for this layer if data is passed directly; not inherited.

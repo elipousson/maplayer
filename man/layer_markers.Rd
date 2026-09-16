@@ -78,9 +78,9 @@ at the top level of the plot. You must supply \code{mapping} if there is no plot
 mapping.}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
-'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
-"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
-"sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
+'sf'. Options include "sf" (\code{\link[ggplot2:geom_sf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
+"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:geom_sf_text]{ggplot2::geom_sf_text()}}), and
+"sf_label" (\code{\link[ggplot2:geom_sf_label]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
 \item{make}{If \code{TRUE}, pass data to \link{make_markers}.}
 
@@ -114,7 +114,7 @@ number column.}
 \item{fn}{Function to apply to data before results; gives warning if data is
 grouped; Default: \code{NULL}}
 
-\item{...}{Additional parameters passed to \code{\link[=get_location_data]{get_location_data()}} when using
+\item{...}{Additional parameters passed to \code{\link[getdata:get_location_data]{get_location_data()}} when using
 \code{make = TRUE} to pass data to \link{make_markers}}
 
 \item{style}{Marker style; defaults to \code{NULL} for \code{\link[=layer_markers]{layer_markers()}} (supports
@@ -133,7 +133,7 @@ grouped; Default: \code{NULL}}
 \item{hjust, vjust}{Horizontal and vertical justification.}
 
 \item{join}{Spatial relation function to combine data with group_meta, passed
-to \code{\link[sf:st_join]{sf::st_join()}}. Defaults to \code{\link[sf:geos_binary_pred]{sf::st_intersects()}}.}
+to \code{\link[sf:st_join]{sf::st_join()}}. Defaults to \code{\link[sf:st_intersects]{sf::st_intersects()}}.}
 
 \item{geo}{If \code{FALSE}, pass data to \code{\link[getdata:get_location_data]{getdata::get_location_data()}} with \code{geo = TRUE} parameter.}
 
@@ -144,7 +144,7 @@ geometry is 'centroid' or 'point') Default: c("lon", "lat").}
 \link[tidygeocoder:geo]{tidygeocoder::geo}}
 
 \item{point}{If \code{TRUE} and data does not have POINT or MULTIPOINT geometry,
-convert to POINT data using \code{\link[sf:geos_unary]{sf::st_centroid()}}.}
+convert to POINT data using \code{\link[sf:st_centroid]{sf::st_centroid()}}.}
 }
 \value{
 ggplot2 layers

@@ -145,9 +145,9 @@ sensitive.}
 "portrait", "landscape", or "square".}
 
 \item{geom}{A character string indicating which ggplot2 geom to use, Default:
-'sf'. Options include "sf" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
-"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_text()}}), and
-"sf_label" (\code{\link[ggplot2:ggsf]{ggplot2::geom_sf_label()}}). See details for a full list.}
+'sf'. Options include "sf" (\code{\link[ggplot2:geom_sf]{ggplot2::geom_sf()}}), "icon" (\code{\link[=layer_icon]{layer_icon()}}),
+"markers" (\code{\link[=layer_markers]{layer_markers()}}), "sf_text" (\code{\link[ggplot2:geom_sf_text]{ggplot2::geom_sf_text()}}), and
+"sf_label" (\code{\link[ggplot2:geom_sf_label]{ggplot2::geom_sf_label()}}). See details for a full list.}
 
 \item{basemap}{Either a logical vector or ggplot object.
 

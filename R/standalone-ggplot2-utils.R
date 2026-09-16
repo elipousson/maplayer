@@ -259,7 +259,7 @@ gg_caption <- function(
 
   glue::glue(
     caption,
-    source_note,
+    source_note %||% "",
     .sep = .sep,
     .envir = .envir,
     .open = .open,

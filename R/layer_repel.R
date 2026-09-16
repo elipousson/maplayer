@@ -93,7 +93,7 @@ geom_sf_text_repel <- function(
   geom_sf_coordinates(
     mapping = aes_label(mapping, data, label_col),
     data = data,
-    geom = ggrepel::geom_label_repel,
+    geom = ggrepel::geom_text_repel,
     ...
   )
 }
