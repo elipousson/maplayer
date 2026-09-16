@@ -54,7 +54,8 @@ Suggests:
     smoothr,
     testthat (>= 3.0.0),
     tibble,
-    vdiffr
+    vdiffr,
+    withr
 Remotes: 
     coolbutuseless/ggsvg,
     elipousson/cliExtras,
